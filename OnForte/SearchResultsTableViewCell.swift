@@ -6,6 +6,7 @@
 //  Copyright © 2016 Noah Grumman. All rights reserved.
 //
 
+/*
 import UIKit
 
 class SearchResultsTableViewCell: UITableViewCell {
@@ -17,6 +18,17 @@ class SearchResultsTableViewCell: UITableViewCell {
     @IBOutlet var descriptionLabelView: UIView!
     var titleLabel: UILabel?
     var descriptionLabel: UILabel?
+
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        initializeAlbumImage()
+        initializeTitleLabel()
+        initializeContactName()
+        initializeCheckBox()
+        initializeConstraints()
+    }
+
+
     
     override func awakeFromNib() {
         // initialization
@@ -86,3 +98,4 @@ class SearchResultsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 }
+*/

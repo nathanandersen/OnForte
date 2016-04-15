@@ -99,8 +99,11 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
         tableView = UITableView()
         tableView.rowHeight = 85.0
         tableView.keyboardDismissMode = .OnDrag
-        let nib = UINib(nibName: "SearchResultsTableViewCell", bundle: nil)
-        tableView.registerNib(nib, forCellReuseIdentifier: "SearchResultsTableViewCell")
+
+        tableView.registerClass(SongViewCell.self, forCellReuseIdentifier: "SongViewCell")
+
+//        let nib = UINib(nibName: "SearchResultsTableViewCell", bundle: nil)
+//        tableView.registerNib(nib, forCellReuseIdentifier: "SearchResultsTableViewCell")
 
         self.view.addSubview(tableView)
     }

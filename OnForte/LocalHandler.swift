@@ -52,11 +52,12 @@ class LocalHandler: NSObject, SearchHandler {
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCellWithIdentifier("SearchResultsTableViewCell")! as! SearchResultsTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell") as! SongViewCell
+//        let cell = tableView.dequeueReusableCellWithIdentifier("SearchResultsTableViewCell")! as! SearchResultsTableViewCell
         cell.loadItem(results[indexPath.row])
 
 
-        cell.albumImage.image = UIImage(named: "itunes_gray")
+/*        cell.albumImage.image = UIImage(named: "itunes_gray")
 
         print(results[indexPath.row].artworkURL)
 
@@ -106,7 +107,7 @@ class LocalHandler: NSObject, SearchHandler {
         }
 
         print(results[indexPath.row].title! + " " + results[indexPath.row].description!)
-
+*/
         return cell;
     }
 

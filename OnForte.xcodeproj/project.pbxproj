@@ -60,6 +60,7 @@
 		240AB05E1CC095300061EB54 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB05A1CC095300061EB54 /* ContactTableViewCell.swift */; };
 		240AB05F1CC095300061EB54 /* PlaylistHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB05B1CC095300061EB54 /* PlaylistHistoryTableViewCell.swift */; };
 		240AB0611CC0955B0061EB54 /* frontpage_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 240AB0601CC0955B0061EB54 /* frontpage_gif.gif */; };
+		240AB0641CC0989A0061EB54 /* SongViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0631CC0989A0061EB54 /* SongViewCell.swift */; };
 		3330D23D6124A74940E85D23 /* Pods_OnForte.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F30BD231CB5DCD1F61B26BA /* Pods_OnForte.framework */; };
 /* End PBXBuildFile section */
 
@@ -141,6 +142,7 @@
 		240AB05A1CC095300061EB54 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		240AB05B1CC095300061EB54 /* PlaylistHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		240AB0601CC0955B0061EB54 /* frontpage_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = frontpage_gif.gif; sourceTree = "<group>"; };
+		240AB0631CC0989A0061EB54 /* SongViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongViewCell.swift; sourceTree = "<group>"; };
 		3463E503218EC6DD66A191F2 /* Pods-OnForte.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnForte.release.xcconfig"; path = "Pods/Target Support Files/Pods-OnForte/Pods-OnForte.release.xcconfig"; sourceTree = "<group>"; };
 		3783E112FD670A5078156D43 /* Pods-OnForte.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnForte.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OnForte/Pods-OnForte.debug.xcconfig"; sourceTree = "<group>"; };
 		7F30BD231CB5DCD1F61B26BA /* Pods_OnForte.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OnForte.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -200,14 +202,12 @@
 		240AAFC81CC08DA10061EB54 /* OnForte */ = {
 			isa = PBXGroup;
 			children = (
+				240AB0621CC097190061EB54 /* Storyboards */,
 				240AB03F1CC094B50061EB54 /* SMSegmentView */,
 				240AB0011CC091A30061EB54 /* Model */,
 				240AAFFE1CC091720061EB54 /* ViewControllers */,
 				240AAFFD1CC091650061EB54 /* Views */,
 				240AAFC91CC08DA10061EB54 /* AppDelegate.swift */,
-				240AB0361CC094770061EB54 /* Main.storyboard */,
-				240AB0381CC094830061EB54 /* LaunchScreen.storyboard */,
-				240AB03A1CC094870061EB54 /* Onboarding.storyboard */,
 				240AB0601CC0955B0061EB54 /* frontpage_gif.gif */,
 				240AAFD01CC08DA10061EB54 /* Assets.xcassets */,
 				240AAFD21CC08DA10061EB54 /* LaunchScreen.storyboard */,
@@ -250,6 +250,7 @@
 				240AB0591CC095300061EB54 /* SearchResultsTableViewCell.xib */,
 				240AB05A1CC095300061EB54 /* ContactTableViewCell.swift */,
 				240AB05B1CC095300061EB54 /* PlaylistHistoryTableViewCell.swift */,
+				240AB0631CC0989A0061EB54 /* SongViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -334,6 +335,16 @@
 				240AB0441CC094C10061EB54 /* SMSegment.swift */,
 			);
 			name = SMSegmentView;
+			sourceTree = "<group>";
+		};
+		240AB0621CC097190061EB54 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				240AB0361CC094770061EB54 /* Main.storyboard */,
+				240AB0381CC094830061EB54 /* LaunchScreen.storyboard */,
+				240AB03A1CC094870061EB54 /* Onboarding.storyboard */,
+			);
+			name = Storyboards;
 			sourceTree = "<group>";
 		};
 		5DFA7C47CA548928823401F7 /* Frameworks */ = {
@@ -545,6 +556,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				240AB0641CC0989A0061EB54 /* SongViewCell.swift in Sources */,
 				240AB00C1CC0929F0061EB54 /* SongDocument.swift in Sources */,
 				240AB05E1CC095300061EB54 /* ContactTableViewCell.swift in Sources */,
 				240AAFCA1CC08DA10061EB54 /* AppDelegate.swift in Sources */,

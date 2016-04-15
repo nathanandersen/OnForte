@@ -61,10 +61,12 @@ class SoundCloudHandler: NSObject, SearchHandler {
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCellWithIdentifier("SearchResultsTableViewCell")! as! SearchResultsTableViewCell
+//        let cell = tableView.dequeueReusableCellWithIdentifier("SearchResultsTableViewCell")! as! SearchResultsTableViewCell
+
+        let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell") as! SongViewCell
         cell.loadItem(results[indexPath.row])
 
-        artworkHandler.lookupForCell(results[indexPath.row].artworkURL!, imageView: cell.albumImage, cell: cell)
+//        artworkHandler.lookupForCell(results[indexPath.row].artworkURL!, imageView: cell.albumImage, cell: cell)
 
         return cell;
     }

@@ -85,11 +85,11 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
 
     func songWasAdded() {
         dispatch_async(dispatch_get_main_queue(), {
+            print("meh")
             activityIndicator.showComplete("Song added")
-            self.tableView.reloadData()
+            self.updateTable()
         })
     }
-
 
     func addNotificationsToGlobalCenter() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.updateTable), name:"load", object: nil)
@@ -97,6 +97,8 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.enableRefreshControl), name: "enableRefreshControl", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.disableRefreshControl), name: "disableRefreshControl", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.exitPlaylist), name: "leavePlaylist", object: nil)
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.songWasAdded), name: "songWasAdded", object: nil)
 //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.hideListOfPlayedSongs), name: "hidePlayedList", object: nil)
     }
 
@@ -340,12 +342,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         nowPlayingView.playlistVC = self
         nowPlayingView.updateTrackDisplay()
         self.view.addSubview(nowPlayingView)
-
-        //        let pullDown = UISwipeGestureRecognizer(target: self, action: #selector(PlaylistViewController.showListOfPlayedSongs))
-        //        pullDown.direction = .Down
-        //        self.view.addGestureRecognizer(pullDown)
-
-        //        nowPlayingView.addGestureRecognizer(pullDown)
     }
 
 

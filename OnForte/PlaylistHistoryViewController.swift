@@ -45,7 +45,8 @@ class PlaylistHistoryViewController: UIViewController, UITableViewDelegate, UITa
         tableView.dataSource = self
         tableView.delegate = self
         tableView.allowsSelection = false
-        tableView.registerClass(PlaylistHistoryTableViewCell.self, forCellReuseIdentifier: "PlaylistHistoryTableViewCell")
+        tableView.registerClass(SongViewCell.self, forCellReuseIdentifier: "SongViewCell")
+//        tableView.registerClass(PlaylistHistoryTableViewCell.self, forCellReuseIdentifier: "PlaylistHistoryTableViewCell")
         tableView.rowHeight = 85.0
         tableView.tableHeaderView = nil;
         tableView.tableFooterView = UIView(frame: CGRectZero)
@@ -86,8 +87,8 @@ class PlaylistHistoryViewController: UIViewController, UITableViewDelegate, UITa
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
-        let cell = tableView.dequeueReusableCellWithIdentifier("PlaylistHistoryTableViewCell")! as! PlaylistHistoryTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell")! as! SongViewCell
+//        let cell = tableView.dequeueReusableCellWithIdentifier("PlaylistHistoryTableViewCell")! as! PlaylistHistoryTableViewCell
         cell.selectionStyle = .None
         let songId = playedSongs.keys[indexPath.row]
         print(songId)

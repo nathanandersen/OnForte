@@ -57,9 +57,9 @@
                 </variation>
             </tableViewCellContentView>
             <connections>
-                <outlet property="albumImage" destination="KYj-FA-5RM" id="aZm-kt-r7Z"/>
-                <outlet property="descriptionLabelView" destination="fX9-YB-Kiq" id="pR4-G2-gfd"/>
-                <outlet property="titleLabelView" destination="09Q-0I-9Nb" id="SVA-mP-it2"/>
+                <outlet property="albumImage" destination="KYj-FA-5RM" id="Kih-8O-vRQ"/>
+                <outlet property="descriptionLabelView" destination="fX9-YB-Kiq" id="1g4-EH-6OE"/>
+                <outlet property="titleLabelView" destination="09Q-0I-9Nb" id="eJN-RT-Wtf"/>
             </connections>
             <point key="canvasLocation" x="220" y="315"/>
         </tableViewCell>
