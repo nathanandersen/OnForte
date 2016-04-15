@@ -10,8 +10,8 @@ import Foundation
 
 class PlaylistControlView: UIView {
 
-//    var nowPlayingSmallView: UIView!
-//    var nowPlayingExpandedView: UIView!
+    var nowPlayingSmallView: UIView!
+    var nowPlayingExpandedView: UIView!
 
     var topMenuBar: UIView!
     var bottomMenuBar: UIView!
@@ -45,17 +45,22 @@ class PlaylistControlView: UIView {
     }
 
     func collapseNowPlayingView() {
+        middleContentView.subviews.forEach( {$0.removeFromSuperview()} )
         middleContentHeight = 0
         self.updateConstraints()
     }
 
     func showSmallNowPlayingView() {
+        middleContentView.subviews.forEach( {$0.removeFromSuperview()} )
+        middleContentView.addSubview(nowPlayingSmallView)
+        // ^ consider how i want to actualy do this?
         middleContentHeight = 85
         self.updateConstraints()
 
     }
 
     func showLargeNowPlayingView() {
+        middleContentView.subviews.forEach( {$0.removeFromSuperview()} )
         middleContentHeight = 150
         self.updateConstraints()
 
