@@ -83,6 +83,12 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
 //        timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: #selector(PlaylistController.updateTable), userInfo: nil, repeats: true)
     }
 
+    func songWasRemoved() {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.updateTable()
+        })
+    }
+
     func songWasAdded() {
         dispatch_async(dispatch_get_main_queue(), {
             print("meh")
@@ -99,6 +105,8 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.exitPlaylist), name: "leavePlaylist", object: nil)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.songWasAdded), name: "songWasAdded", object: nil)
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.songWasRemoved), name: "songWasRemoved", object: nil)
 //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.hideListOfPlayedSongs), name: "hidePlayedList", object: nil)
     }
 
