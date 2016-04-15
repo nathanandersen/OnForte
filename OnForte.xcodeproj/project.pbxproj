@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		240AAFCA1CC08DA10061EB54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AAFC91CC08DA10061EB54 /* AppDelegate.swift */; };
-		240AAFCC1CC08DA10061EB54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AAFCB1CC08DA10061EB54 /* ViewController.swift */; };
 		240AAFCF1CC08DA10061EB54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240AAFCD1CC08DA10061EB54 /* Main.storyboard */; };
 		240AAFD11CC08DA10061EB54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 240AAFD01CC08DA10061EB54 /* Assets.xcassets */; };
 		240AAFD41CC08DA10061EB54 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240AAFD21CC08DA10061EB54 /* LaunchScreen.storyboard */; };
 		240AAFDF1CC08DA10061EB54 /* OnForteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AAFDE1CC08DA10061EB54 /* OnForteTests.swift */; };
 		240AAFEA1CC08DA20061EB54 /* OnForteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AAFE91CC08DA20061EB54 /* OnForteUITests.swift */; };
+		240AAFF81CC08F980061EB54 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 240AAFF71CC08F980061EB54 /* Spotify.framework */; };
+		240AAFFA1CC08FC80061EB54 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 240AAFF91CC08FC80061EB54 /* AVFoundation.framework */; };
+		240AAFFC1CC08FD10061EB54 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 240AAFFB1CC08FD10061EB54 /* SystemConfiguration.framework */; };
+		3330D23D6124A74940E85D23 /* Pods_OnForte.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F30BD231CB5DCD1F61B26BA /* Pods_OnForte.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +39,6 @@
 /* Begin PBXFileReference section */
 		240AAFC61CC08DA10061EB54 /* OnForte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnForte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		240AAFC91CC08DA10061EB54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		240AAFCB1CC08DA10061EB54 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		240AAFCE1CC08DA10061EB54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		240AAFD01CC08DA10061EB54 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		240AAFD31CC08DA10061EB54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +49,12 @@
 		240AAFE51CC08DA20061EB54 /* OnForteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnForteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		240AAFE91CC08DA20061EB54 /* OnForteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnForteUITests.swift; sourceTree = "<group>"; };
 		240AAFEB1CC08DA20061EB54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		240AAFF71CC08F980061EB54 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
+		240AAFF91CC08FC80061EB54 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		240AAFFB1CC08FD10061EB54 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		3463E503218EC6DD66A191F2 /* Pods-OnForte.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnForte.release.xcconfig"; path = "Pods/Target Support Files/Pods-OnForte/Pods-OnForte.release.xcconfig"; sourceTree = "<group>"; };
+		3783E112FD670A5078156D43 /* Pods-OnForte.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnForte.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OnForte/Pods-OnForte.debug.xcconfig"; sourceTree = "<group>"; };
+		7F30BD231CB5DCD1F61B26BA /* Pods_OnForte.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OnForte.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +62,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				240AAFFC1CC08FD10061EB54 /* SystemConfiguration.framework in Frameworks */,
+				240AAFFA1CC08FC80061EB54 /* AVFoundation.framework in Frameworks */,
+				3330D23D6124A74940E85D23 /* Pods_OnForte.framework in Frameworks */,
+				240AAFF81CC08F980061EB54 /* Spotify.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +93,8 @@
 				240AAFDD1CC08DA10061EB54 /* OnForteTests */,
 				240AAFE81CC08DA20061EB54 /* OnForteUITests */,
 				240AAFC71CC08DA10061EB54 /* Products */,
+				78D7B174CC2B9FEDD890E316 /* Pods */,
+				5DFA7C47CA548928823401F7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,7 +112,6 @@
 			isa = PBXGroup;
 			children = (
 				240AAFC91CC08DA10061EB54 /* AppDelegate.swift */,
-				240AAFCB1CC08DA10061EB54 /* ViewController.swift */,
 				240AAFCD1CC08DA10061EB54 /* Main.storyboard */,
 				240AAFD01CC08DA10061EB54 /* Assets.xcassets */,
 				240AAFD21CC08DA10061EB54 /* LaunchScreen.storyboard */,
@@ -125,6 +138,26 @@
 			path = OnForteUITests;
 			sourceTree = "<group>";
 		};
+		5DFA7C47CA548928823401F7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				240AAFFB1CC08FD10061EB54 /* SystemConfiguration.framework */,
+				240AAFF91CC08FC80061EB54 /* AVFoundation.framework */,
+				240AAFF71CC08F980061EB54 /* Spotify.framework */,
+				7F30BD231CB5DCD1F61B26BA /* Pods_OnForte.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		78D7B174CC2B9FEDD890E316 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3783E112FD670A5078156D43 /* Pods-OnForte.debug.xcconfig */,
+				3463E503218EC6DD66A191F2 /* Pods-OnForte.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +165,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 240AAFEE1CC08DA20061EB54 /* Build configuration list for PBXNativeTarget "OnForte" */;
 			buildPhases = (
+				BB05BB823EA820BED1B8FC40 /* Check Pods Manifest.lock */,
 				240AAFC21CC08DA10061EB54 /* Sources */,
 				240AAFC31CC08DA10061EB54 /* Frameworks */,
 				240AAFC41CC08DA10061EB54 /* Resources */,
+				6FCB717C18677376EBFB5A7A /* Embed Pods Frameworks */,
+				4B4C511E9AA87F2450AE91FD /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -251,12 +287,59 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4B4C511E9AA87F2450AE91FD /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OnForte/Pods-OnForte-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6FCB717C18677376EBFB5A7A /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OnForte/Pods-OnForte-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB05BB823EA820BED1B8FC40 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		240AAFC21CC08DA10061EB54 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				240AAFCC1CC08DA10061EB54 /* ViewController.swift in Sources */,
 				240AAFCA1CC08DA10061EB54 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,10 +482,51 @@
 		};
 		240AAFEF1CC08DA20061EB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3783E112FD670A5078156D43 /* Pods-OnForte.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = OnForte/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"AlamofireImage\"",
+					"-framework",
+					"\"BFPaperButton\"",
+					"-framework",
+					"\"CryptoSwift\"",
+					"-framework",
+					"\"MMDrawerController\"",
+					"-framework",
+					"\"NVActivityIndicatorView\"",
+					"-framework",
+					"\"OnePasswordExtension\"",
+					"-framework",
+					"\"RSPlayPauseButton\"",
+					"-framework",
+					"\"SWTableViewCell\"",
+					"-framework",
+					"\"Soundcloud\"",
+					"-framework",
+					"\"SwiftDDP\"",
+					"-framework",
+					"\"SwiftWebSocket\"",
+					"-framework",
+					"\"SwiftyJSON\"",
+					"-framework",
+					"\"UICKeyChainStore\"",
+					"-framework",
+					"\"UIColor_BFPaperColors\"",
+					"-framework",
+					"\"XCGLogger\"",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Forte-Labs.OnForte";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -410,10 +534,51 @@
 		};
 		240AAFF01CC08DA20061EB54 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3463E503218EC6DD66A191F2 /* Pods-OnForte.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = OnForte/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"AlamofireImage\"",
+					"-framework",
+					"\"BFPaperButton\"",
+					"-framework",
+					"\"CryptoSwift\"",
+					"-framework",
+					"\"MMDrawerController\"",
+					"-framework",
+					"\"NVActivityIndicatorView\"",
+					"-framework",
+					"\"OnePasswordExtension\"",
+					"-framework",
+					"\"RSPlayPauseButton\"",
+					"-framework",
+					"\"SWTableViewCell\"",
+					"-framework",
+					"\"Soundcloud\"",
+					"-framework",
+					"\"SwiftDDP\"",
+					"-framework",
+					"\"SwiftWebSocket\"",
+					"-framework",
+					"\"SwiftyJSON\"",
+					"-framework",
+					"\"UICKeyChainStore\"",
+					"-framework",
+					"\"UIColor_BFPaperColors\"",
+					"-framework",
+					"\"XCGLogger\"",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Forte-Labs.OnForte";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -484,6 +649,7 @@
 				240AAFF01CC08DA20061EB54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		240AAFF11CC08DA20061EB54 /* Build configuration list for PBXNativeTarget "OnForteTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +658,7 @@
 				240AAFF31CC08DA20061EB54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		240AAFF41CC08DA20061EB54 /* Build configuration list for PBXNativeTarget "OnForteUITests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +667,7 @@
 				240AAFF61CC08DA20061EB54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

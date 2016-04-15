@@ -1,0 +1,76 @@
+PODS:
+  - 1PasswordExtension (1.8)
+  - Alamofire (3.3.1)
+  - AlamofireImage (2.4.0):
+    - Alamofire (~> 3.3)
+  - BFPaperButton (2.0.27):
+    - UIColor+BFPaperColors
+  - CryptoSwift (0.3.1)
+  - MMDrawerController (0.5.7):
+    - MMDrawerController/Core (= 0.5.7)
+    - MMDrawerController/MMDrawerBarButtonItem (= 0.5.7)
+    - MMDrawerController/MMDrawerVisualStates (= 0.5.7)
+    - MMDrawerController/Subclass (= 0.5.7)
+  - MMDrawerController/Core (0.5.7)
+  - MMDrawerController/MMDrawerBarButtonItem (0.5.7):
+    - MMDrawerController/Core
+  - MMDrawerController/MMDrawerVisualStates (0.5.7):
+    - MMDrawerController/Core
+  - MMDrawerController/Subclass (0.5.7):
+    - MMDrawerController/Core
+  - NVActivityIndicatorView (2.5)
+  - RSPlayPauseButton (1.0.1)
+  - Soundcloud (0.8.0):
+    - 1PasswordExtension (~> 1.5)
+    - UICKeyChainStore (~> 2.0.6)
+  - SwiftDDP (0.2.2.1):
+    - CryptoSwift (~> 0.3)
+    - SwiftWebSocket (~> 2.6.0)
+    - XCGLogger
+  - SwiftWebSocket (2.6.0)
+  - SwiftyJSON (2.3.2)
+  - SWTableViewCell (0.3.7)
+  - UICKeyChainStore (2.0.7)
+  - UIColor+BFPaperColors (1.7.2)
+  - XCGLogger (3.3)
+
+DEPENDENCIES:
+  - Alamofire (~> 3.0)
+  - AlamofireImage (~> 2.0)
+  - BFPaperButton (~> 2.0)
+  - MMDrawerController (~> 0.5.7)
+  - NVActivityIndicatorView (~> 2.3)
+  - RSPlayPauseButton (~> 1.0)
+  - Soundcloud
+  - SwiftDDP (~> 0.2.1)
+  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
+  - SWTableViewCell (~> 0.3.7)
+
+EXTERNAL SOURCES:
+  SwiftyJSON:
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+CHECKOUT OPTIONS:
+  SwiftyJSON:
+    :commit: 2a5b70f06001316d4fb54501edc70b4084705da0
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+SPEC CHECKSUMS:
+  1PasswordExtension: 627d5aecf210c7636968faf5a4c3546c9531385b
+  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
+  AlamofireImage: 87408b652e0f5ae5fe364035f15aea8b9b24c77e
+  BFPaperButton: 3938d9b1a430dcdbe7f3eb1d17f4d92c67828097
+  CryptoSwift: baf01e3fb3226c0155cd54c266be882b13d45d5e
+  MMDrawerController: 7a4cf8e25596bf2434e03ce50d22a8608ddee6a1
+  NVActivityIndicatorView: 18e82784c9cb2d5f3df3129a3e4754eb075ebca0
+  RSPlayPauseButton: 9def027a1259ded3a6ecfeb0e57df1775ff22fb0
+  Soundcloud: c003a1c7e281eab6206d18bccf00058958250aae
+  SwiftDDP: b4a4d2b2adc47836fb4fb4828b8ef4c68f3f89b1
+  SwiftWebSocket: c24c0dde0b33852f478ffb54226408bfe703b26b
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
+  UICKeyChainStore: 696cd35083f7c8fb5e201d909b7e6aea6b478575
+  UIColor+BFPaperColors: 03101fe6c10ed00c6daae7c26553f1de41500853
+  XCGLogger: d6e196e78940ff6daab17d6917107876f973fa31
+
+COCOAPODS: 0.39.0
