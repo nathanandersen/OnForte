@@ -224,3 +224,56 @@ struct Style {
         return [topConstraint,bottomConstraint]
     }
 }
+
+
+class ShadowButton: UIButton {
+    func setupView() {
+        self.layer.shadowColor = Style.blackColor.CGColor
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowRadius = 1
+        self.layer.shadowOffset = CGSizeMake(2.0, 2.0)
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setupView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("NSCoding not supported for ShadowButon")
+    }
+
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.contentEdgeInsets = UIEdgeInsetsMake(1, 1, -1, -1)
+        self.layer.shadowOffset = CGSizeMake(1.0, 1.0)
+        self.layer.shadowOpacity = 0.8
+        super.touchesBegan(touches, withEvent: event)
+    }
+/*
+ -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+ self.contentEdgeInsets = UIEdgeInsetsMake(1.0,1.0,-1.0,-1.0);
+ self.layer.shadowOffset = CGSizeMake(1.0f, 1.0f);
+ self.layer.shadowOpacity = 0.8;
+
+ [super touchesBegan:touches withEvent:event];
+
+ }*/
+
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+        self.layer.shadowOffset = CGSizeMake(2.0, 2.0)
+        self.layer.shadowOpacity = 0.5
+        super.touchesEnded(touches, withEvent: event)
+    }
+/*
+ -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+ self.contentEdgeInsets = UIEdgeInsetsMake(0.0,0.0,0.0,0.0);
+ self.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
+ self.layer.shadowOpacity = 0.5;
+
+ [super touchesEnded:touches withEvent:event];
+
+ }*/
+
+
+}
