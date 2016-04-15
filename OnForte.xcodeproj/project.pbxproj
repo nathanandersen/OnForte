@@ -1,0 +1,507 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		240AAFCA1CC08DA10061EB54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AAFC91CC08DA10061EB54 /* AppDelegate.swift */; };
+		240AAFCC1CC08DA10061EB54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AAFCB1CC08DA10061EB54 /* ViewController.swift */; };
+		240AAFCF1CC08DA10061EB54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240AAFCD1CC08DA10061EB54 /* Main.storyboard */; };
+		240AAFD11CC08DA10061EB54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 240AAFD01CC08DA10061EB54 /* Assets.xcassets */; };
+		240AAFD41CC08DA10061EB54 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240AAFD21CC08DA10061EB54 /* LaunchScreen.storyboard */; };
+		240AAFDF1CC08DA10061EB54 /* OnForteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AAFDE1CC08DA10061EB54 /* OnForteTests.swift */; };
+		240AAFEA1CC08DA20061EB54 /* OnForteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AAFE91CC08DA20061EB54 /* OnForteUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		240AAFDB1CC08DA10061EB54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 240AAFBE1CC08DA10061EB54 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 240AAFC51CC08DA10061EB54;
+			remoteInfo = OnForte;
+		};
+		240AAFE61CC08DA20061EB54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 240AAFBE1CC08DA10061EB54 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 240AAFC51CC08DA10061EB54;
+			remoteInfo = OnForte;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		240AAFC61CC08DA10061EB54 /* OnForte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnForte.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		240AAFC91CC08DA10061EB54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		240AAFCB1CC08DA10061EB54 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		240AAFCE1CC08DA10061EB54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		240AAFD01CC08DA10061EB54 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		240AAFD31CC08DA10061EB54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		240AAFD51CC08DA10061EB54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		240AAFDA1CC08DA10061EB54 /* OnForteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnForteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		240AAFDE1CC08DA10061EB54 /* OnForteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnForteTests.swift; sourceTree = "<group>"; };
+		240AAFE01CC08DA10061EB54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		240AAFE51CC08DA20061EB54 /* OnForteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnForteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		240AAFE91CC08DA20061EB54 /* OnForteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnForteUITests.swift; sourceTree = "<group>"; };
+		240AAFEB1CC08DA20061EB54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		240AAFC31CC08DA10061EB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		240AAFD71CC08DA10061EB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		240AAFE21CC08DA20061EB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		240AAFBD1CC08DA10061EB54 = {
+			isa = PBXGroup;
+			children = (
+				240AAFC81CC08DA10061EB54 /* OnForte */,
+				240AAFDD1CC08DA10061EB54 /* OnForteTests */,
+				240AAFE81CC08DA20061EB54 /* OnForteUITests */,
+				240AAFC71CC08DA10061EB54 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		240AAFC71CC08DA10061EB54 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				240AAFC61CC08DA10061EB54 /* OnForte.app */,
+				240AAFDA1CC08DA10061EB54 /* OnForteTests.xctest */,
+				240AAFE51CC08DA20061EB54 /* OnForteUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		240AAFC81CC08DA10061EB54 /* OnForte */ = {
+			isa = PBXGroup;
+			children = (
+				240AAFC91CC08DA10061EB54 /* AppDelegate.swift */,
+				240AAFCB1CC08DA10061EB54 /* ViewController.swift */,
+				240AAFCD1CC08DA10061EB54 /* Main.storyboard */,
+				240AAFD01CC08DA10061EB54 /* Assets.xcassets */,
+				240AAFD21CC08DA10061EB54 /* LaunchScreen.storyboard */,
+				240AAFD51CC08DA10061EB54 /* Info.plist */,
+			);
+			path = OnForte;
+			sourceTree = "<group>";
+		};
+		240AAFDD1CC08DA10061EB54 /* OnForteTests */ = {
+			isa = PBXGroup;
+			children = (
+				240AAFDE1CC08DA10061EB54 /* OnForteTests.swift */,
+				240AAFE01CC08DA10061EB54 /* Info.plist */,
+			);
+			path = OnForteTests;
+			sourceTree = "<group>";
+		};
+		240AAFE81CC08DA20061EB54 /* OnForteUITests */ = {
+			isa = PBXGroup;
+			children = (
+				240AAFE91CC08DA20061EB54 /* OnForteUITests.swift */,
+				240AAFEB1CC08DA20061EB54 /* Info.plist */,
+			);
+			path = OnForteUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		240AAFC51CC08DA10061EB54 /* OnForte */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 240AAFEE1CC08DA20061EB54 /* Build configuration list for PBXNativeTarget "OnForte" */;
+			buildPhases = (
+				240AAFC21CC08DA10061EB54 /* Sources */,
+				240AAFC31CC08DA10061EB54 /* Frameworks */,
+				240AAFC41CC08DA10061EB54 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OnForte;
+			productName = OnForte;
+			productReference = 240AAFC61CC08DA10061EB54 /* OnForte.app */;
+			productType = "com.apple.product-type.application";
+		};
+		240AAFD91CC08DA10061EB54 /* OnForteTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 240AAFF11CC08DA20061EB54 /* Build configuration list for PBXNativeTarget "OnForteTests" */;
+			buildPhases = (
+				240AAFD61CC08DA10061EB54 /* Sources */,
+				240AAFD71CC08DA10061EB54 /* Frameworks */,
+				240AAFD81CC08DA10061EB54 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				240AAFDC1CC08DA10061EB54 /* PBXTargetDependency */,
+			);
+			name = OnForteTests;
+			productName = OnForteTests;
+			productReference = 240AAFDA1CC08DA10061EB54 /* OnForteTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		240AAFE41CC08DA20061EB54 /* OnForteUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 240AAFF41CC08DA20061EB54 /* Build configuration list for PBXNativeTarget "OnForteUITests" */;
+			buildPhases = (
+				240AAFE11CC08DA20061EB54 /* Sources */,
+				240AAFE21CC08DA20061EB54 /* Frameworks */,
+				240AAFE31CC08DA20061EB54 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				240AAFE71CC08DA20061EB54 /* PBXTargetDependency */,
+			);
+			name = OnForteUITests;
+			productName = OnForteUITests;
+			productReference = 240AAFE51CC08DA20061EB54 /* OnForteUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		240AAFBE1CC08DA10061EB54 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Forte Labs";
+				TargetAttributes = {
+					240AAFC51CC08DA10061EB54 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					240AAFD91CC08DA10061EB54 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 240AAFC51CC08DA10061EB54;
+					};
+					240AAFE41CC08DA20061EB54 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 240AAFC51CC08DA10061EB54;
+					};
+				};
+			};
+			buildConfigurationList = 240AAFC11CC08DA10061EB54 /* Build configuration list for PBXProject "OnForte" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 240AAFBD1CC08DA10061EB54;
+			productRefGroup = 240AAFC71CC08DA10061EB54 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				240AAFC51CC08DA10061EB54 /* OnForte */,
+				240AAFD91CC08DA10061EB54 /* OnForteTests */,
+				240AAFE41CC08DA20061EB54 /* OnForteUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		240AAFC41CC08DA10061EB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				240AAFD41CC08DA10061EB54 /* LaunchScreen.storyboard in Resources */,
+				240AAFD11CC08DA10061EB54 /* Assets.xcassets in Resources */,
+				240AAFCF1CC08DA10061EB54 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		240AAFD81CC08DA10061EB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		240AAFE31CC08DA20061EB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		240AAFC21CC08DA10061EB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				240AAFCC1CC08DA10061EB54 /* ViewController.swift in Sources */,
+				240AAFCA1CC08DA10061EB54 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		240AAFD61CC08DA10061EB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				240AAFDF1CC08DA10061EB54 /* OnForteTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		240AAFE11CC08DA20061EB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				240AAFEA1CC08DA20061EB54 /* OnForteUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		240AAFDC1CC08DA10061EB54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 240AAFC51CC08DA10061EB54 /* OnForte */;
+			targetProxy = 240AAFDB1CC08DA10061EB54 /* PBXContainerItemProxy */;
+		};
+		240AAFE71CC08DA20061EB54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 240AAFC51CC08DA10061EB54 /* OnForte */;
+			targetProxy = 240AAFE61CC08DA20061EB54 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		240AAFCD1CC08DA10061EB54 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				240AAFCE1CC08DA10061EB54 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		240AAFD21CC08DA10061EB54 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				240AAFD31CC08DA10061EB54 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		240AAFEC1CC08DA20061EB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		240AAFED1CC08DA20061EB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		240AAFEF1CC08DA20061EB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = OnForte/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Forte-Labs.OnForte";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		240AAFF01CC08DA20061EB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = OnForte/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Forte-Labs.OnForte";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		240AAFF21CC08DA20061EB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = OnForteTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Forte-Labs.OnForteTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OnForte.app/OnForte";
+			};
+			name = Debug;
+		};
+		240AAFF31CC08DA20061EB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = OnForteTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Forte-Labs.OnForteTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OnForte.app/OnForte";
+			};
+			name = Release;
+		};
+		240AAFF51CC08DA20061EB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = OnForteUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Forte-Labs.OnForteUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = OnForte;
+			};
+			name = Debug;
+		};
+		240AAFF61CC08DA20061EB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = OnForteUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Forte-Labs.OnForteUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = OnForte;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		240AAFC11CC08DA10061EB54 /* Build configuration list for PBXProject "OnForte" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				240AAFEC1CC08DA20061EB54 /* Debug */,
+				240AAFED1CC08DA20061EB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		240AAFEE1CC08DA20061EB54 /* Build configuration list for PBXNativeTarget "OnForte" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				240AAFEF1CC08DA20061EB54 /* Debug */,
+				240AAFF01CC08DA20061EB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		240AAFF11CC08DA20061EB54 /* Build configuration list for PBXNativeTarget "OnForteTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				240AAFF21CC08DA20061EB54 /* Debug */,
+				240AAFF31CC08DA20061EB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		240AAFF41CC08DA20061EB54 /* Build configuration list for PBXNativeTarget "OnForteUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				240AAFF51CC08DA20061EB54 /* Debug */,
+				240AAFF61CC08DA20061EB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 240AAFBE1CC08DA10061EB54 /* Project object */;
+}
