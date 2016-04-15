@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="phW-ao-Zft">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Profile View Controller-->
+        <scene sceneID="GVt-fL-nhb">
+            <objects>
+                <viewController storyboardIdentifier="ProfileViewController" id="owX-QR-dLV" customClass="ProfileViewController" customModule="Forte" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XUQ-7P-Q7c"/>
+                        <viewControllerLayoutGuide type="bottom" id="d7V-oH-vVf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9bC-k7-jeB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Hw-uA-uby">
+                                <rect key="frame" x="11" y="279" width="298" height="192"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cwv-0c-Or1">
+                                        <rect key="frame" x="71" y="137" width="183" height="40"/>
+                                    </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="itunes" translatesAutoresizingMaskIntoConstraints="NO" id="raP-yV-Ygd">
+                                        <rect key="frame" x="17" y="137" width="40" height="40"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="soundcloud" translatesAutoresizingMaskIntoConstraints="NO" id="cId-LO-f4x">
+                                        <rect key="frame" x="17" y="82" width="40" height="40"/>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rin-h6-uvc">
+                                        <rect key="frame" x="71" y="29" width="183" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Rin-h6-uvc" secondAttribute="height" multiplier="488:88" id="pyZ-zh-LAJ"/>
+                                        </constraints>
+                                    </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="spotify" translatesAutoresizingMaskIntoConstraints="NO" id="uY1-l7-xdr">
+                                        <rect key="frame" x="17" y="26" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="Dch-iV-g4N"/>
+                                            <constraint firstAttribute="height" constant="40" id="NNL-Y8-WMU"/>
+                                            <constraint firstAttribute="width" secondItem="uY1-l7-xdr" secondAttribute="height" multiplier="75:75" id="eIT-vr-XJs"/>
+                                        </constraints>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K52-Iu-ok5">
+                                        <rect key="frame" x="71" y="77" width="183" height="40"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="cId-LO-f4x" firstAttribute="top" secondItem="uY1-l7-xdr" secondAttribute="bottom" constant="15" id="0Da-Si-VWP"/>
+                                    <constraint firstItem="raP-yV-Ygd" firstAttribute="height" secondItem="cId-LO-f4x" secondAttribute="height" id="9wZ-Jw-xXj"/>
+                                    <constraint firstItem="Rin-h6-uvc" firstAttribute="centerY" secondItem="uY1-l7-xdr" secondAttribute="centerY" id="Gcq-xl-njS"/>
+                                    <constraint firstItem="raP-yV-Ygd" firstAttribute="leading" secondItem="cId-LO-f4x" secondAttribute="leading" id="H0J-4F-nPG"/>
+                                    <constraint firstItem="cId-LO-f4x" firstAttribute="leading" secondItem="uY1-l7-xdr" secondAttribute="leading" id="Lsf-X6-iXL"/>
+                                    <constraint firstItem="raP-yV-Ygd" firstAttribute="top" secondItem="cId-LO-f4x" secondAttribute="bottom" constant="15" id="Nld-r5-i2l"/>
+                                    <constraint firstItem="cwv-0c-Or1" firstAttribute="leading" secondItem="K52-Iu-ok5" secondAttribute="leading" id="PGl-Ng-XcN"/>
+                                    <constraint firstItem="Rin-h6-uvc" firstAttribute="leading" secondItem="uY1-l7-xdr" secondAttribute="trailing" constant="15" id="UVe-PG-SdG"/>
+                                    <constraint firstItem="cId-LO-f4x" firstAttribute="height" secondItem="uY1-l7-xdr" secondAttribute="height" id="a97-Ro-IKy"/>
+                                    <constraint firstItem="K52-Iu-ok5" firstAttribute="leading" secondItem="Rin-h6-uvc" secondAttribute="leading" id="dW8-oU-evf"/>
+                                    <constraint firstItem="raP-yV-Ygd" firstAttribute="width" secondItem="cId-LO-f4x" secondAttribute="width" id="f1k-rj-gK8"/>
+                                    <constraint firstItem="K52-Iu-ok5" firstAttribute="centerY" secondItem="cId-LO-f4x" secondAttribute="centerY" id="hKr-gE-Plt"/>
+                                    <constraint firstItem="cId-LO-f4x" firstAttribute="width" secondItem="uY1-l7-xdr" secondAttribute="width" id="hy8-2U-obL"/>
+                                    <constraint firstItem="cwv-0c-Or1" firstAttribute="centerY" secondItem="raP-yV-Ygd" secondAttribute="centerY" id="nrh-Dc-4ta"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="4Hw-uA-uby" secondAttribute="trailing" constant="-5" id="XKl-oi-CoP"/>
+                            <constraint firstItem="4Hw-uA-uby" firstAttribute="leading" secondItem="9bC-k7-jeB" secondAttribute="leadingMargin" constant="-5" id="Zb0-Dw-hXg"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="hostSettingsView" destination="4Hw-uA-uby" id="W8M-PJ-lQj"/>
+                        <outlet property="iTunesImageView" destination="raP-yV-Ygd" id="iGr-BU-AIc"/>
+                        <outlet property="iTunesInfoView" destination="cwv-0c-Or1" id="MvC-rz-knc"/>
+                        <outlet property="soundCloudImageView" destination="cId-LO-f4x" id="aef-He-tMu"/>
+                        <outlet property="soundCloudInfoView" destination="K52-Iu-ok5" id="adE-Cr-BpW"/>
+                        <outlet property="spotifyImageView" destination="uY1-l7-xdr" id="Zzw-U4-Yjb"/>
+                        <outlet property="spotifyInfoView" destination="Rin-h6-uvc" id="2sp-5S-2BM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eDE-Ew-Q27" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2533" y="1151"/>
+        </scene>
+        <!--Root View Controller-->
+        <scene sceneID="2pK-zL-tDM">
+            <objects>
+                <viewController storyboardIdentifier="RootViewController" id="eUg-VH-F0r" customClass="RootViewController" customModule="Forte" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Eql-7u-mbf"/>
+                        <viewControllerLayoutGuide type="bottom" id="nvH-ee-sAw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4y7-e6-Rt2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="L9n-48-W4v"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fKF-Qs-S0h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1771" y="1154"/>
+        </scene>
+        <!--Playlist Drawer Controller-->
+        <scene sceneID="B8N-6l-oKw">
+            <objects>
+                <viewController storyboardIdentifier="PlaylistDrawerController" id="jLw-EU-cAX" customClass="PlaylistDrawerController" customModule="Forte" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Gk2-ZZ-LLs"/>
+                        <viewControllerLayoutGuide type="bottom" id="7Od-JG-6Vf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7DA-rc-fEw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gpl-ch-TVG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2176" y="1154"/>
+        </scene>
+        <!--Playlist Controller-->
+        <scene sceneID="cId-ON-s0B">
+            <objects>
+                <viewController storyboardIdentifier="PlaylistController" id="EQv-SV-Km9" customClass="PlaylistController" customModule="Forte" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iNx-UD-l4H"/>
+                        <viewControllerLayoutGuide type="bottom" id="NdY-nr-zfr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vwU-Se-spN">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nRE-M1-3jM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2927" y="1151"/>
+        </scene>
+        <!--Playlist History View Controller-->
+        <scene sceneID="QHP-fC-Rpw">
+            <objects>
+                <viewController storyboardIdentifier="PlaylistHistoryViewController" id="Y1r-I7-e2U" customClass="PlaylistHistoryViewController" customModule="Forte" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9EP-Ho-Ti4"/>
+                        <viewControllerLayoutGuide type="bottom" id="ivx-VQ-lpX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vpe-cw-MfH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LGf-C0-0ys" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3288" y="1152"/>
+        </scene>
+        <!--Search View Controller-->
+        <scene sceneID="xxm-wr-Lni">
+            <objects>
+                <viewController storyboardIdentifier="SearchViewController" id="xp3-wo-GPQ" customClass="SearchViewController" customModule="Forte" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="n05-L4-E8u"/>
+                        <viewControllerLayoutGuide type="bottom" id="Y58-39-NCy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RMB-V0-EhK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qLj-Wp-pJB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3630" y="1151"/>
+        </scene>
+        <!--Central Navigation Controller-->
+        <scene sceneID="cwq-MO-vvi">
+            <objects>
+                <navigationController storyboardIdentifier="CentralNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="phW-ao-Zft" customClass="CentralNavigationController" customModule="Forte" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4wS-W5-0ub">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="eUg-VH-F0r" kind="relationship" relationship="rootViewController" id="CUc-Am-Bw0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N1Q-IE-zvk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1239" y="1154"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="itunes" width="122" height="115"/>
+        <image name="soundcloud" width="86" height="86"/>
+        <image name="spotify" width="101" height="101"/>
+    </resources>
+</document>

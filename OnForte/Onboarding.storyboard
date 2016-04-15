@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Onboarding Initial View Controller-->
+        <scene sceneID="ah6-wh-zhL">
+            <objects>
+                <viewController storyboardIdentifier="OnboardingInitialViewController" id="wae-0e-JcT" customClass="OnboardingInitialViewController" customModule="Conch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Amh-ah-1jl"/>
+                        <viewControllerLayoutGuide type="bottom" id="i4Q-ZT-Wyh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fr0-Nw-yNL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pageControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="15" translatesAutoresizingMaskIntoConstraints="NO" id="XKS-bu-Mqh">
+                                <rect key="frame" x="112" y="59" width="343" height="37"/>
+                                <color key="pageIndicatorTintColor" red="0.91110321809999995" green="0.94476340780000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="currentPageIndicatorTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </pageControl>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="XKS-bu-Mqh" firstAttribute="centerX" secondItem="fr0-Nw-yNL" secondAttribute="centerX" id="5dW-YR-xZH"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="pageControl" destination="XKS-bu-Mqh" id="UpN-8k-Abu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EB7-Lg-d2A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-101" y="314"/>
+        </scene>
+        <!--Creation-->
+        <scene sceneID="uaY-Ts-EGG">
+            <objects>
+                <viewController storyboardIdentifier="Creation" title="Creation" id="hia-xf-E4p" customClass="OnboardingCreateViewController" customModule="Conch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KkM-mp-dsu"/>
+                        <viewControllerLayoutGuide type="bottom" id="L4x-yg-gzo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GKD-df-Jl7">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Creation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNw-tD-yIq">
+                                <rect key="frame" x="49" y="111" width="183" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="G6c-Az-wnY">
+                                <rect key="frame" x="32" y="140" width="295" height="90"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">CREATING a playlist gives you a unique ID, which other people can use to JOIN your playlist. (Create, join -&gt; playlist) Remark on logins</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="toq-Ol-uiD">
+                                <rect key="frame" x="49" y="230" width="240" height="270"/>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Animation: typing in a create field, then typing in a join field, then transition to playlist" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="r91-uj-1DN">
+                                <rect key="frame" x="49" y="508" width="240" height="72"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="gifView" destination="toq-Ol-uiD" id="ZSi-Ui-jdF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kaf-T1-uKh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1220" y="314"/>
+        </scene>
+        <!--Final-->
+        <scene sceneID="IRc-Zk-aJt">
+            <objects>
+                <viewController storyboardIdentifier="Final" title="Final" id="C2d-YB-Hf3" customClass="OnboardingFinalViewController" customModule="Conch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FGA-ag-vxB"/>
+                        <viewControllerLayoutGuide type="bottom" id="y3O-9Q-G6X"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zbh-8f-kEu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Final slide" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dn-qj-5c8">
+                                <rect key="frame" x="128" y="28" width="121" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pNu-5p-Mls">
+                                <rect key="frame" x="68" y="87" width="240" height="84"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Anyone in the playlist can vote on any song currently added, and the top song plays next. (GIF of voting and shuffling). Update the view</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iOA-zr-p88">
+                                <rect key="frame" x="56" y="165" width="240" height="270"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Km-ZG-NSa">
+                                <rect key="frame" x="136" y="434" width="240" height="128"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="4Km-ZG-NSa" firstAttribute="centerX" secondItem="Zbh-8f-kEu" secondAttribute="centerX" id="yuq-Yp-iaM"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="doneButtonView" destination="4Km-ZG-NSa" id="eSn-Wn-NrP"/>
+                        <outlet property="gifView" destination="iOA-zr-p88" id="r3H-B2-xFf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bl7-NE-uMb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2589" y="314"/>
+        </scene>
+        <!--Contribution-->
+        <scene sceneID="O8l-p2-BCf">
+            <objects>
+                <viewController storyboardIdentifier="Contribution" title="Contribution" id="pyb-Mf-mEy" customClass="OnboardingContributionViewController" customModule="Conch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="i04-eE-IuL"/>
+                        <viewControllerLayoutGuide type="bottom" id="b2B-xb-lGZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="q9X-P8-qxH">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Contribution" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJM-Ks-pTG">
+                                <rect key="frame" x="47" y="97" width="139" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Once in a playlist, you can search for music. Add Track &gt; Search &gt; Add a song" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="g2V-vl-slx">
+                                <rect key="frame" x="26" y="133" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3n9-gj-bxe">
+                                <rect key="frame" x="26" y="211" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Click the add track button, then search for "Sorry", tab from Spotify to SoundCloud, then select the song in soundcloud. Show the app navigating from search back into the song list</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0A8-wO-7W6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1924" y="314"/>
+        </scene>
+    </scenes>
+</document>
