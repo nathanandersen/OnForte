@@ -42,11 +42,9 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         playlistControlView.translatesAutoresizingMaskIntoConstraints = false
 
         let navHeight = centralNavigationController.navigationBar.frame.height + UIApplication.sharedApplication().statusBarFrame.height
-//        let pcviewleft = NSLayoutConstraint(item: playlistControlView, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1, constant: 10)
         let pcviewleft = NSLayoutConstraint(item: playlistControlView, attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 0)
         pcviewleft.active = true
         pcviewleft.identifier = "PC view leading"
-//        let pcviewright = NSLayoutConstraint(item: playlistControlView, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: -10)
         let pcviewright = NSLayoutConstraint(item: playlistControlView, attribute: .Trailing, relatedBy: .Equal, toItem: self.view, attribute: .Trailing, multiplier: 1, constant: 0)
         pcviewright.active = true
         pcviewright.identifier = "Pc view trailing"

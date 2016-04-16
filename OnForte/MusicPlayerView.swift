@@ -56,8 +56,7 @@ class MusicPlayerView: UIView {
         if isHost {
             createStartConstraints()
         }
-        createSmallConstraints()
-        createLargeConstraints()
+        createPlayerViewConstraints()
         self.translatesAutoresizingMaskIntoConstraints = false
 
     }
@@ -147,10 +146,11 @@ class MusicPlayerView: UIView {
         largePlatformTop.identifier = "Large Platform Top"
         let largePlatformCenterX = NSLayoutConstraint(item: platformView, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
         largePlatformCenterX.identifier = "Large Platform Center X"
+        let platformSpace = NSLayoutConstraint(item: platformView, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1, constant: 0)
+        platformSpace.identifier = "Platform space filler"
 
         smallViewConstraints.appendContentsOf([platformAspect,smallPlatformHeight,smallPlatformCenterY,smallPlatformTrailing,smallPlatformLeadingTitle,smallPlatformLeadingDescription])
-        expandedViewConstraints.appendContentsOf([platformAspect,largePlatformTop,largePlatformCenterX
-            ])
+        expandedViewConstraints.appendContentsOf([platformAspect,largePlatformTop,largePlatformCenterX,platformSpace])
         /*            NSLayoutConstraint(item: platformView, attribute: .Width, relatedBy: .Equal, toItem: self, attribute: .Width, multiplier: 1/5, constant: 0)*/
     }
 
@@ -205,21 +205,29 @@ class MusicPlayerView: UIView {
         playPauseButton.addTarget(self, action: #selector(MusicPlayerView.playButtonDidPress), forControlEvents: .TouchUpInside)
         playPauseButton.translatesAutoresizingMaskIntoConstraints = false
         songArtView.addSubview(playPauseButton)
-        // ^ change this depending on the situation
         addPlayButtonConstraints()
     }
 
     func addPlayButtonConstraints() {
-        let playPauseCenterX = NSLayoutConstraint(item: playPauseButton, attribute: .CenterX, relatedBy: .Equal, toItem: playPauseButton.superview, attribute: .CenterX, multiplier: 1, constant: 0)
-        playPauseCenterX.identifier = "Play Pause Center X"
-        let playPauseCenterY = NSLayoutConstraint(item: playPauseButton, attribute: .CenterY, relatedBy: .Equal, toItem: playPauseButton.superview, attribute: .CenterY, multiplier: 1, constant: 0)
-        playPauseCenterY.identifier = "Play Pause Center Y"
         let playPauseAspect = NSLayoutConstraint(item: playPauseButton, attribute: .Width, relatedBy: .Equal, toItem: playPauseButton, attribute: .Height, multiplier: 1, constant: 0)
         playPauseAspect.identifier = "Play Pause Aspect"
-        let playPauseWidth = NSLayoutConstraint(item: playPauseButton, attribute: .Width, relatedBy: .GreaterThanOrEqual, toItem: playPauseButton.superview, attribute: .Width, multiplier: 1/2, constant: 0)
-        playPauseWidth.identifier = "Play Pause Width"
-        smallViewConstraints.appendContentsOf([playPauseCenterX,playPauseCenterY,playPauseAspect,playPauseWidth])
-        expandedViewConstraints.appendContentsOf([playPauseCenterX,playPauseCenterY,playPauseAspect,playPauseWidth])
+
+
+        let smallPlayPauseCenterX = NSLayoutConstraint(item: playPauseButton, attribute: .CenterX, relatedBy: .Equal, toItem: playPauseButton.superview, attribute: .CenterX, multiplier: 1, constant: 0)
+        smallPlayPauseCenterX.identifier = "Play Pause Center X"
+        let largePlayPauseCenterX = NSLayoutConstraint(item: playPauseButton, attribute: .CenterX, relatedBy: .Equal, toItem: playPauseButton.superview, attribute: .CenterX, multiplier: 1, constant: 0)
+        largePlayPauseCenterX.identifier = "Play Pause Center X"
+        let smallPlayPauseCenterY = NSLayoutConstraint(item: playPauseButton, attribute: .CenterY, relatedBy: .Equal, toItem: songArtView, attribute: .CenterY, multiplier: 1, constant: 0)
+        smallPlayPauseCenterY.identifier = "Play Pause Center Y"
+        let largePlayPauseCenterY = NSLayoutConstraint(item: playPauseButton, attribute: .CenterY, relatedBy: .Equal, toItem: platformView, attribute: .CenterY, multiplier: 1, constant: 0)
+        largePlayPauseCenterY.identifier = "Play Pause Center Y"
+
+        let smallPlayPauseWidth = NSLayoutConstraint(item: playPauseButton, attribute: .Width, relatedBy: .GreaterThanOrEqual, toItem: songArtView, attribute: .Width, multiplier: 1/2, constant: 0)
+        smallPlayPauseWidth.identifier = "Play Pause Width"
+        let largePlayPauseWidth = NSLayoutConstraint(item: playPauseButton, attribute: .Width, relatedBy: .GreaterThanOrEqual, toItem: platformView, attribute: .Width, multiplier: 1/2, constant: 0)
+        largePlayPauseWidth.identifier = "Play Pause Width"
+        smallViewConstraints.appendContentsOf([smallPlayPauseCenterX,smallPlayPauseCenterY,playPauseAspect,smallPlayPauseWidth])
+        expandedViewConstraints.appendContentsOf([largePlayPauseCenterX,largePlayPauseCenterY,playPauseAspect,largePlayPauseWidth])
     }
 
     func renderMusicPlayer() {
@@ -243,52 +251,51 @@ class MusicPlayerView: UIView {
     }
 
     func showStart() {
-        smallViewConstraints.forEach( {$0.active = false} )
-        expandedViewConstraints.forEach( {$0.active = false} )
+        self.constraints.forEach( {$0.active = false} )
+
         playerView.updateConstraints()
         self.playerView.removeFromSuperview()
         self.addSubview(startButton!)
         startButton?.translatesAutoresizingMaskIntoConstraints = false
         startConstraints.forEach( {$0.active = true} )
-        startButton!.updateConstraints()
+        subviews.forEach({$0.updateConstraints()})
         displayType = .Start
     }
 
     func showLarge() {
-        smallViewConstraints.forEach( {$0.active = false} )
-        startConstraints.forEach( {$0.active = false} )
+        playPauseButton.removeFromSuperview()
+        playPauseButton.constraints.forEach({$0.active = false})
 
-        self.playPauseButton.removeFromSuperview()
+        subviews.forEach({
+            $0.constraints.forEach({$0.active = false})
+            $0.removeFromSuperview()
+        })
 
-        startButton?.updateConstraints()
-        self.startButton?.removeFromSuperview()
-        self.addSubview(playerView)
-
+        addSubview(playerView)
         platformView.userInteractionEnabled = true
         platformView.addSubview(playPauseButton)
 
-        expandedViewConstraints.forEach( {$0.active = true} )
-        playerView.updateConstraints()
+        expandedViewConstraints.forEach({$0.active = true})
+        subviews.forEach({$0.updateConstraints()})
         displayType = .Large
-
         // re-draw image?
     }
 
     func showSmall() {
-        startConstraints.forEach( {$0.active = false} )
-        expandedViewConstraints.forEach( {$0.active = false} )
+        playPauseButton.removeFromSuperview()
+        playPauseButton.constraints.forEach({$0.active = false})
 
-        self.playPauseButton.removeFromSuperview()
+        subviews.forEach({
+            $0.constraints.forEach({$0.active = false})
+            $0.removeFromSuperview()
+        })
 
-        startButton?.updateConstraints()
-        self.startButton?.removeFromSuperview()
-        self.addSubview(playerView)
-
+        addSubview(playerView)
         songArtView.userInteractionEnabled = true
         songArtView.addSubview(playPauseButton)
 
-        smallViewConstraints.forEach( {$0.active = true} )
-        playerView.updateConstraints()
+        smallViewConstraints.forEach({$0.active = true})
+        subviews.forEach({$0.updateConstraints()})
         displayType = .Small
     }
 
@@ -309,30 +316,19 @@ class MusicPlayerView: UIView {
         startConstraints.appendContentsOf([startLeading,startTrailing,startTop,startBottom])
     }
 
-    func createSmallConstraints() {
+    func createPlayerViewConstraints() {
         let smallLeading = NSLayoutConstraint(item: playerView, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 0)
-        smallLeading.identifier = "Small Leading"
+        smallLeading.identifier = "PView Leading"
         let smallTrailing = NSLayoutConstraint(item: playerView, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
-        smallTrailing.identifier = "Small Trailing"
+        smallTrailing.identifier = "PView Trailing"
         let smallTop = NSLayoutConstraint(item: playerView, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 0)
-        smallTop.identifier = "Small Top"
+        smallTop.identifier = "PView Top"
         let smallBottom = NSLayoutConstraint(item: playerView, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1, constant: 0)
-        smallBottom.identifier = "Small Bottom"
-        smallViewConstraints.appendContentsOf([smallLeading,smallTrailing,smallTop,smallBottom])
+        smallBottom.identifier = "PV Bottom"
+        let constraints = [smallLeading,smallTrailing,smallTop,smallBottom]
+        smallViewConstraints.appendContentsOf(constraints)
+        expandedViewConstraints.appendContentsOf(constraints)
     }
-
-    func createLargeConstraints() {
-        let largeLeading = NSLayoutConstraint(item: playerView, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 0)
-        largeLeading.identifier = "Large Leading"
-        let largeTrailing = NSLayoutConstraint(item: playerView, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
-        largeTrailing.identifier = "Large Trailing"
-        let largeTop = NSLayoutConstraint(item: playerView, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 0)
-        largeTop.identifier = "Large Top"
-        let largeBottom = NSLayoutConstraint(item: playerView, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1, constant: 0)
-        largeBottom.identifier = "Large Bottom"
-        expandedViewConstraints.appendContentsOf([largeLeading,largeTrailing,largeTop,largeBottom])
-    }
-
 
 
 
