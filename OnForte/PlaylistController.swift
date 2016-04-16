@@ -119,13 +119,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
                            attribute: .Bottom,
                            multiplier: 1,
                            constant: 0).active = true
-/*        NSLayoutConstraint(item: tableView,
-                           attribute: .Top,
-                           relatedBy: .Equal,
-                           toItem: slideDownView,
-                           attribute: .Bottom,
-                           multiplier: 1,
-                           constant: 0).active = true*/
 
         NSLayoutConstraint(item: tableView,
                            attribute: .Left,
@@ -280,6 +273,21 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
 
         sortedSongs = songs.sortedByScore()
         self.tableView.reloadData()
+
+        if nowPlaying == nil {
+            if isHost && songs.count >= 1 {
+                playlistControlView.showStartMusicPlayer()
+            } else {
+
+                playlistControlView.collapseNowPlayingView()
+            }
+        } else {
+            playlistControlView.showANowPlayingView()
+        }
+/*
+        if isHost && nowPlaying == nil && songs.count >= 1{
+            playlistControlView.showStartMusicPlayer()
+        } else if nowPlaying ==
         
         if isHost && !playlistStarted && songs.count >= 1 {
             playlistControlView.showStartMusicPlayer()
@@ -288,7 +296,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
             playlistControlView.collapseNowPlayingView()
         } else if nowPlaying != nil {
             playlistControlView.showANowPlayingView()
-        }
+        }*/
     }
 
 
