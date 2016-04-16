@@ -60,7 +60,7 @@
 		240AB0641CC0989A0061EB54 /* SongViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0631CC0989A0061EB54 /* SongViewCell.swift */; };
 		245789F01CC173B000394C17 /* PlaylistControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245789EF1CC173B000394C17 /* PlaylistControlView.swift */; };
 		245789F81CC1C59600394C17 /* MusicPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245789F71CC1C59600394C17 /* MusicPlayerView.swift */; };
-		245789FA1CC1C83D00394C17 /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245789F91CC1C83D00394C17 /* MusicPlayer.swift */; };
+		245789FE1CC28A5500394C17 /* IntegratedMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245789FD1CC28A5500394C17 /* IntegratedMusicPlayer.swift */; };
 		3330D23D6124A74940E85D23 /* Pods_OnForte.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F30BD231CB5DCD1F61B26BA /* Pods_OnForte.framework */; };
 /* End PBXBuildFile section */
 
@@ -142,7 +142,7 @@
 		240AB0631CC0989A0061EB54 /* SongViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongViewCell.swift; sourceTree = "<group>"; };
 		245789EF1CC173B000394C17 /* PlaylistControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistControlView.swift; sourceTree = "<group>"; };
 		245789F71CC1C59600394C17 /* MusicPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayerView.swift; sourceTree = "<group>"; };
-		245789F91CC1C83D00394C17 /* MusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayer.swift; sourceTree = "<group>"; };
+		245789FD1CC28A5500394C17 /* IntegratedMusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegratedMusicPlayer.swift; sourceTree = "<group>"; };
 		3463E503218EC6DD66A191F2 /* Pods-OnForte.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnForte.release.xcconfig"; path = "Pods/Target Support Files/Pods-OnForte/Pods-OnForte.release.xcconfig"; sourceTree = "<group>"; };
 		3783E112FD670A5078156D43 /* Pods-OnForte.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnForte.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OnForte/Pods-OnForte.debug.xcconfig"; sourceTree = "<group>"; };
 		7F30BD231CB5DCD1F61B26BA /* Pods_OnForte.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OnForte.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -311,7 +311,7 @@
 				240AB0271CC0944D0061EB54 /* PlaylistHistoryViewController.swift */,
 				245789EF1CC173B000394C17 /* PlaylistControlView.swift */,
 				245789F71CC1C59600394C17 /* MusicPlayerView.swift */,
-				245789F91CC1C83D00394C17 /* MusicPlayer.swift */,
+				245789FD1CC28A5500394C17 /* IntegratedMusicPlayer.swift */,
 			);
 			name = Playlist;
 			sourceTree = "<group>";
@@ -573,7 +573,6 @@
 				240AB0461CC094C10061EB54 /* SMAlphaImageSegment.swift in Sources */,
 				240AB0281CC0944D0061EB54 /* PlaylistDrawerController.swift in Sources */,
 				240AB0491CC094C10061EB54 /* SMSegment.swift in Sources */,
-				245789FA1CC1C83D00394C17 /* MusicPlayer.swift in Sources */,
 				240AB0481CC094C10061EB54 /* SMBasicSegmentView.swift in Sources */,
 				240AB0211CC094020061EB54 /* LocalHandler.swift in Sources */,
 				240AB04F1CC095180061EB54 /* ActivityIndicator.swift in Sources */,
@@ -587,6 +586,7 @@
 				240AB04C1CC094CD0061EB54 /* Settings.swift in Sources */,
 				240AB01E1CC094020061EB54 /* SearchViewController.swift in Sources */,
 				240AB00E1CC092BA0061EB54 /* MeteorSong.swift in Sources */,
+				245789FE1CC28A5500394C17 /* IntegratedMusicPlayer.swift in Sources */,
 				240AB01F1CC094020061EB54 /* SoundCloudHandler.swift in Sources */,
 				240AB0181CC093890061EB54 /* SongVotingKey.swift in Sources */,
 				240AB0221CC094020061EB54 /* SearchHandler.swift in Sources */,

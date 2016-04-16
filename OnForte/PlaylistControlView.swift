@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MMDrawerController
 
 class PlaylistControlView: UIView {
 
@@ -21,6 +22,8 @@ class PlaylistControlView: UIView {
     var searchButton: UIButton!
     var titleLabel: UILabel!
     var idLabel: UILabel!
+
+    var playlistController: PlaylistController!
 
     var middleContentHeight: CGFloat = 1
 
@@ -41,10 +44,12 @@ class PlaylistControlView: UIView {
         addConstraints()
         self.collapseNowPlayingView()
         self.backgroundColor = Style.translucentColor
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
 
     func renderMusicPlayerView() {
         musicPlayerView = MusicPlayerView()
+        musicPlayerView.playlistController = playlistController
         self.addSubview(musicPlayerView)
     }
 
@@ -88,41 +93,33 @@ class PlaylistControlView: UIView {
     func renderTopMenuBar() {
         historyButton = Style.iconButton()
         historyButton.setImage(UIImage(named: "menu-alt-256")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: .Normal)
-        historyButton.imageEdgeInsets = UIEdgeInsetsMake(5, 3, 5, 3)
+        historyButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         historyButton.addTarget(self, action: #selector(PlaylistControlView.historyButtonPressed), forControlEvents: .TouchUpInside)
         searchButton = Style.iconButton()
         searchButton.setImage(UIImage(named: "search")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: .Normal)
-        searchButton.imageEdgeInsets = UIEdgeInsetsMake(5, 3, 5, 3)
+        searchButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         searchButton.addTarget(self, action: #selector(PlaylistControlView.searchButtonPressed), forControlEvents: .TouchUpInside)
-
-//        historyButton = UIButton()
-//        historyButton.setImage(UIImage(named: "menu-alt-256"), forState: .Normal)
-        // add targets
-//        searchButton = UIButton()
-//        searchButton.setImage(UIImage(named: "search"), forState: .Normal)
 
         topMenuBar = renderMenuBar(playlistName, leftButton: historyButton, rightButton: searchButton)
         self.addSubview(topMenuBar)
     }
 
     func historyButtonPressed() {
-        print("menu button pressed")
-        self.showLargeNowPlayingView()
+        playlistController.mm_drawerController.openDrawerSide(.Left, animated: true, completion: nil)
     }
 
     func searchButtonPressed() {
-        print("search button pressed")
-        self.showSmallNowPlayingView()
+        playlistController.mm_drawerController.openDrawerSide(.Right, animated: true, completion: nil)
     }
 
     func renderBottomMenuBar() {
         inviteButton = Style.iconButton()
         inviteButton.setImage(UIImage(named: "invite")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: .Normal)
-        inviteButton.imageEdgeInsets = UIEdgeInsetsMake(5, 3, 5, 3)
+        inviteButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         inviteButton.addTarget(self, action: #selector(PlaylistControlView.inviteButtonPressed), forControlEvents: .TouchUpInside)
         leaveButton = Style.iconButton()
         leaveButton.setImage(UIImage(named: "delete")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: .Normal)
-        leaveButton.imageEdgeInsets = UIEdgeInsetsMake(5, 3, 5, 3)
+        leaveButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         leaveButton.addTarget(self, action: #selector(PlaylistControlView.leaveButtonPressed), forControlEvents: .TouchUpInside)
         bottomMenuBar = renderMenuBar(playlistId!, leftButton: leaveButton, rightButton: inviteButton)
         self.addSubview(bottomMenuBar)

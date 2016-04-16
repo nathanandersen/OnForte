@@ -33,6 +33,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
 
     func renderPlaylistControlView() {
         playlistControlView = PlaylistControlView()
+        playlistControlView.playlistController = self
         self.view.addSubview(playlistControlView)
     }
 
@@ -424,84 +425,8 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.updateConstraints()
     }
 
-/*    func renderStartButton(){
-        startButton = Style.circularButton(11.0)
-        startButton.setTitle("Start", forState: .Normal)
-        startButton.addTarget(self, action: #selector(PlaylistController.startPlaylist(_:)), forControlEvents: .TouchUpInside)
-        self.view.addSubview(startButton)
-    }
-
-    func addConstraintsToStartButton() {
-        startButton.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint(item: startButton,
-                           attribute: .Bottom,
-                           relatedBy: .Equal,
-                           toItem: self.view,
-                           attribute: .Bottom,
-                           multiplier: 1,
-                           constant: -10.0).active = true
-
-        NSLayoutConstraint(item: startButton,
-                           attribute: .Height,
-                           relatedBy: .Equal,
-                           toItem: nil,
-                           attribute: .NotAnAttribute,
-                           multiplier: 1,
-                           constant: 50).active = true
-
-        NSLayoutConstraint(item: startButton,
-                           attribute: .Width,
-                           relatedBy: .Equal,
-                           toItem: nil,
-                           attribute: .NotAnAttribute,
-                           multiplier: 1,
-                           constant: 50).active = true
-
-        startShown = NSLayoutConstraint(item: startButton,
-                                        attribute: .Left,
-                                        relatedBy: .Equal,
-                                        toItem: self.view,
-                                        attribute: .Left,
-                                        multiplier: 1,
-                                        constant: 10)
-        startShown.active = false
-
-        startHidden = NSLayoutConstraint(item: startButton,
-                                         attribute: .Left,
-                                         relatedBy: .Equal,
-                                         toItem: self.view,
-                                         attribute: .Left,
-                                         multiplier: 1,
-                                         constant: -50)
-        startHidden.active = true
-
-        startButton.updateConstraints()
-    }
-
-    func showStart() {
-        self.startHidden.active = false
-        UIView.animateWithDuration(0.15, animations: {
-            self.startShown.active = true
-            self.startButton.layoutIfNeeded()
-        })
-    }
-
-    func hideStart() {
-        self.startShown.active = false
-        UIView.animateWithDuration(0.15, animations: {
-            self.startHidden.active = true
-            self.startButton.layoutIfNeeded()
-        })
-    }*/
-
     func getNextSong() -> Song? {
-        if sortedSongs.count > 0 {
-            return Song(songDoc: sortedSongs[0])
-        }
-        else {
-            return nil
-        }
+        return (sortedSongs.count > 0) ? Song(songDoc: sortedSongs[0]) : nil
     }
 
     func displayNextSong() {
@@ -510,7 +435,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
 //            self.nowPlayingView.updateTrackDisplay()
         })
     }
-
 
     func startPlaylist(sender: AnyObject){
 //        nowPlayingView.playNextSong()

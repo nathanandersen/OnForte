@@ -1,51 +1,58 @@
 //
-//  MusicPlayer.swift
+//  IntegratedMusicPlayer.swift
 //  OnForte
 //
-//  Created by Nathan Andersen on 4/15/16.
+//  Created by Nathan Andersen on 4/16/16.
 //  Copyright © 2016 Forte Labs. All rights reserved.
 //
 
 import Foundation
-import RSPlayPauseButton
 import MediaPlayer
 import AVFoundation
 import SwiftDDP
 
-class MusicPlayer: RSPlayPauseButton, AVAudioPlayerDelegate, SPTAudioStreamingPlaybackDelegate {
+class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingPlaybackDelegate {
 
     var spotifyPlayer: SPTAudioStreamingController
     var soundcloudPlayer: AVAudioPlayer?
-    var localPlayer: MPMusicPlayerController!
-    var playlistVC: PlaylistController!
-    var parentView: MusicPlayerView!
+    var localPlayer: MPMusicPlayerController
+    var playlistController: PlaylistController!
 
-    override init(frame: CGRect) {
+    var playing: Bool
+
+    override init() {
         spotifyPlayer = SPTAudioStreamingController.init(clientId: SPTAuth.defaultInstance().clientID)
-        super.init(frame: frame)
+        localPlayer = MPMusicPlayerController.applicationMusicPlayer()
+        playing = false
+        super.init()
         spotifyPlayer.playbackDelegate = self
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NowPlayingView.handlePlaybackStateChanged(_:)), name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: self.localPlayer)
+        localPlayer.beginGeneratingPlaybackNotifications()
     }
 
-
-    func didPress() {
+    func togglePlayingStatus() {
         print("Pressed play/pause")
         if let currentSong = nowPlaying {
             switch(currentSong.service!) {
             case .Soundcloud:
-                if self.paused {
-                    soundcloudPlayer?.play()
-                } else {
+                if playing {
                     soundcloudPlayer?.pause()
+                } else {
+                    soundcloudPlayer?.play()
                 }
             case .Spotify:
-                spotifyPlayer.setIsPlaying(self.paused,callback: nil)
+                spotifyPlayer.setIsPlaying(!playing,callback: nil)
             case .iTunes:
-                self.paused ? localPlayer.play() : localPlayer.pause()
+                playing ? localPlayer.pause() : localPlayer.play()
             }
-            self.setPaused(!self.paused,animated: true)
+            playing = !playing
+            // set paused button to target
+
+
         } else {
             playNextSong()
         }
+
     }
 
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
@@ -53,7 +60,6 @@ class MusicPlayer: RSPlayPauseButton, AVAudioPlayerDelegate, SPTAudioStreamingPl
     }
 
     func registerNextSongWithServer(song: Song ) {
-
         let paramObj = [playlistId!,
                         (song.title != nil) ? song.title! : "",
                         (song.description != nil) ? song.description! : "",
@@ -80,11 +86,14 @@ class MusicPlayer: RSPlayPauseButton, AVAudioPlayerDelegate, SPTAudioStreamingPl
             } catch let error as NSError {
                 print(error.localizedDescription)
             }
-            //            print(nextSong)
+            print(nextSong)
             nowPlaying = nextSong
-//            self.updateTrackDisplay()
-            self.setPaused(false, animated: true)
 
+            playing = true
+            // pass this up and around
+
+            //            self.updateTrackDisplay()
+            // set paused buton to false
             switch(nowPlaying!.service!){
             case .Soundcloud:
                 playSoundCloud()
@@ -95,8 +104,10 @@ class MusicPlayer: RSPlayPauseButton, AVAudioPlayerDelegate, SPTAudioStreamingPl
             }
             self.registerNextSongWithServer(nextSong)
         } else {
-//            playlistVC.hideNowPlayingView()
             nowPlaying = nil
+            playing = false
+
+            // pass this up and around
         }
     }
 
@@ -134,6 +145,7 @@ class MusicPlayer: RSPlayPauseButton, AVAudioPlayerDelegate, SPTAudioStreamingPl
         localPlayer.prepareToPlay()
         localPlayer.repeatMode = .None
         localPlayer.play()
+        playing = true
     }
 
     func playSoundCloud() {
@@ -150,32 +162,35 @@ class MusicPlayer: RSPlayPauseButton, AVAudioPlayerDelegate, SPTAudioStreamingPl
             p.volume = 1.0
             p.play()
             print("Soundcloud is playing track")
+            playing = true
         } else {
             print("Soundcloud player failed.")
-            self.setPaused(true, animated: true)
+            playing = false
+            // set paused button to paused
         }
     }
 
     func playSpotify() {
         if spotifySession == nil {
             print("not logged into spotify!")
-             /*
-            let alertController = UIAlertController(title: "Spotify disabled", message: "Please have the host log in to spotify.", preferredStyle: .Alert)
-            let cancelAction = UIAlertAction(title: "Dismiss", style: .Cancel) { (action) in
+            /*
+             let alertController = UIAlertController(title: "Spotify disabled", message: "Please have the host log in to spotify.", preferredStyle: .Alert)
+             let cancelAction = UIAlertAction(title: "Dismiss", style: .Cancel) { (action) in
 
-            }
-            alertController.addAction(cancelAction)
-            playlistVC.presentViewController(alertController, animated: true, completion: {
-                self.playlistVC.hideNowPlayingView()
-                nowPlaying = nil
-            })*/
+             }
+             alertController.addAction(cancelAction)
+             playlistVC.presentViewController(alertController, animated: true, completion: {
+             self.playlistVC.hideNowPlayingView()
+             nowPlaying = nil
+             })*/
             return
         } else {
             spotifyPlayer.loginWithSession(spotifySession, callback: { (error: NSError?) in
                 if (error != nil) {
                     print("Logging had error:")
                     print(error)
-                    self.setPaused(true, animated: true)
+                    self.playing = false
+                    // set paused button to true
                     return
                 }})
             let trackURI: NSURL = NSURL(string: ("spotify:track:"+String(nowPlaying!.trackId!)))!
@@ -184,13 +199,14 @@ class MusicPlayer: RSPlayPauseButton, AVAudioPlayerDelegate, SPTAudioStreamingPl
                 if (error != nil) {
                     print("Starting playback had error")
                     print(error)
-                    self.setPaused(true, animated: true)
+                    self.playing = false
+                    // set paused button to true
                     return
                 }
             })
         }
-
-        self.setPaused(false, animated: true)
+        playing = true
+        // set paused button to false
     }
 
 
@@ -199,7 +215,7 @@ class MusicPlayer: RSPlayPauseButton, AVAudioPlayerDelegate, SPTAudioStreamingPl
             print("song ended")
         }
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("MusicPlayer does not support NSCoding")
     }
