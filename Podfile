@@ -14,6 +14,7 @@ target 'OnForte' do
   pod 'SWTableViewCell', '~> 0.3.7'
   pod 'MMDrawerController', '~> 0.5.7'
   pod 'NVActivityIndicatorView', '~> 2.3'
+  pod 'SVGPlayButton', '~> 0.2.3'
 end
 
 target 'OnForteTests' do

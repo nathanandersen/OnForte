@@ -35,13 +35,16 @@ class PlaylistControlView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         renderTopMenuBar()
+        print("uhh")
         renderMusicPlayerView()
+        print("huh")
         renderBottomMenuBar()
 
         addConstraints()
         self.collapseNowPlayingView()
         self.backgroundColor = Style.translucentColor
         self.translatesAutoresizingMaskIntoConstraints = false
+        print("ok")
     }
 
     func setParentPlaylistController(playlistC: PlaylistController) {

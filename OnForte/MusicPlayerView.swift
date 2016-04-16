@@ -10,6 +10,8 @@ import UIKit
 import RSPlayPauseButton
 import SwiftDDP
 
+import SVGPlayButton
+
 
 enum MusicPlayerDisplayType {
     case None
@@ -29,7 +31,9 @@ class MusicPlayerView: UIView {
     var startButton: UIButton?
     var musicPlayer: IntegratedMusicPlayer!
 
-    var playPauseButton: RSPlayPauseButton!
+    var playButton: SVGPlayButton!
+
+//    var playPauseButton: RSPlayPauseButton!
 
     var forwardButton: UIButton?
     var playlistController: PlaylistController!
@@ -201,15 +205,41 @@ class MusicPlayerView: UIView {
     }
 
     func renderPlayButton() {
-        playPauseButton = RSPlayPauseButton()
-        playPauseButton.addTarget(self, action: #selector(MusicPlayerView.playButtonDidPress), forControlEvents: .TouchUpInside)
-        playPauseButton.translatesAutoresizingMaskIntoConstraints = false
-        songArtView.addSubview(playPauseButton)
-        addPlayButtonConstraints()
+        playButton = SVGPlayButton()
+        playButton.willPlay = {self.playButtonDidPress() }
+        playButton.willPause = {self.playButtonDidPress() }
+        playButton.translatesAutoresizingMaskIntoConstraints = false
+        songArtView.addSubview(playButton)
+
+
+//        playPauseButton = RSPlayPauseButton()
+//        playPauseButton.addTarget(self, action: #selector(MusicPlayerView.playButtonDidPress), forControlEvents: .TouchUpInside)
+//        playPauseButton.translatesAutoresizingMaskIntoConstraints = false
+//        songArtView.addSubview(playPauseButton)
+//        addPlayButtonConstraints()
     }
 
     func addPlayButtonConstraints() {
-        let playPauseAspect = NSLayoutConstraint(item: playPauseButton, attribute: .Width, relatedBy: .Equal, toItem: playPauseButton, attribute: .Height, multiplier: 1, constant: 0)
+        let playAspect = NSLayoutConstraint(item: playButton, attribute: .Width, relatedBy: .Equal, toItem: playButton, attribute: .Height, multiplier: 1, constant: 0)
+        playAspect.identifier = "Play Pause Aspect"
+
+
+        let smallPlayCenterX = NSLayoutConstraint(item: playButton, attribute: .CenterX, relatedBy: .Equal, toItem: playButton.superview, attribute: .CenterX, multiplier: 1, constant: 0)
+        smallPlayCenterX.identifier = "Play Pause Center X"
+        let largePlayCenterX = NSLayoutConstraint(item: playButton, attribute: .CenterX, relatedBy: .Equal, toItem: playButton.superview, attribute: .CenterX, multiplier: 1, constant: 0)
+        largePlayCenterX.identifier = "Play Pause Center X"
+        let smallPlayCenterY = NSLayoutConstraint(item: playButton, attribute: .CenterY, relatedBy: .Equal, toItem: songArtView, attribute: .CenterY, multiplier: 1, constant: 0)
+        smallPlayCenterY.identifier = "Play Pause Center Y"
+        let largePlayCenterY = NSLayoutConstraint(item: playButton, attribute: .CenterY, relatedBy: .Equal, toItem: platformView, attribute: .CenterY, multiplier: 1, constant: 0)
+        largePlayCenterY.identifier = "Play Pause Center Y"
+
+        let smallPlayWidth = NSLayoutConstraint(item: playButton, attribute: .Width, relatedBy: .GreaterThanOrEqual, toItem: songArtView, attribute: .Width, multiplier: 1/2, constant: 0)
+        smallPlayWidth.identifier = "Play Pause Width"
+        let largePlayWidth = NSLayoutConstraint(item: playButton, attribute: .Width, relatedBy: .GreaterThanOrEqual, toItem: platformView, attribute: .Width, multiplier: 1/2, constant: 0)
+        largePlayWidth.identifier = "Play Pause Width"
+        smallViewConstraints.appendContentsOf([smallPlayCenterX,smallPlayCenterY,playAspect,smallPlayWidth])
+        expandedViewConstraints.appendContentsOf([largePlayCenterX,largePlayCenterY,playAspect,largePlayWidth])
+/*        let playPauseAspect = NSLayoutConstraint(item: playPauseButton, attribute: .Width, relatedBy: .Equal, toItem: playPauseButton, attribute: .Height, multiplier: 1, constant: 0)
         playPauseAspect.identifier = "Play Pause Aspect"
 
 
@@ -227,7 +257,7 @@ class MusicPlayerView: UIView {
         let largePlayPauseWidth = NSLayoutConstraint(item: playPauseButton, attribute: .Width, relatedBy: .GreaterThanOrEqual, toItem: platformView, attribute: .Width, multiplier: 1/2, constant: 0)
         largePlayPauseWidth.identifier = "Play Pause Width"
         smallViewConstraints.appendContentsOf([smallPlayPauseCenterX,smallPlayPauseCenterY,playPauseAspect,smallPlayPauseWidth])
-        expandedViewConstraints.appendContentsOf([largePlayPauseCenterX,largePlayPauseCenterY,playPauseAspect,largePlayPauseWidth])
+        expandedViewConstraints.appendContentsOf([largePlayPauseCenterX,largePlayPauseCenterY,playPauseAspect,largePlayPauseWidth])*/
     }
 
     func renderMusicPlayer() {
@@ -241,9 +271,11 @@ class MusicPlayerView: UIView {
     }
 
     func setPlayButtonStatus(status: Bool) {
-        playPauseButton.setPaused(status, animated: true)
-//        print("did change")
-//        print(status)
+        print("bow wow wow")
+        // set the status?!?!
+//        playButton.isPlaying = status
+
+        //        playPauseButton.setPaused(status, animated: true)
     }
 
     func renderForwardButton() {
@@ -263,8 +295,12 @@ class MusicPlayerView: UIView {
     }
 
     func showLarge() {
-        playPauseButton.removeFromSuperview()
-        playPauseButton.constraints.forEach({$0.active = false})
+        print("why am i here?")
+        playButton.removeFromSuperview()
+        playButton.constraints.forEach({$0.active = false})
+
+/*        playPauseButton.removeFromSuperview()
+        playPauseButton.constraints.forEach({$0.active = false})*/
 
         subviews.forEach({
             $0.constraints.forEach({$0.active = false})
@@ -273,7 +309,8 @@ class MusicPlayerView: UIView {
 
         addSubview(playerView)
         platformView.userInteractionEnabled = true
-        platformView.addSubview(playPauseButton)
+//        platformView.addSubview(playPauseButton)
+        platformView.addSubview(playButton)
 
         expandedViewConstraints.forEach({$0.active = true})
         subviews.forEach({$0.updateConstraints()})
@@ -282,8 +319,11 @@ class MusicPlayerView: UIView {
     }
 
     func showSmall() {
-        playPauseButton.removeFromSuperview()
-        playPauseButton.constraints.forEach({$0.active = false})
+
+        playButton.removeFromSuperview()
+        playButton.constraints.forEach({$0.active = false})
+/*        playPauseButton.removeFromSuperview()
+        playPauseButton.constraints.forEach({$0.active = false})*/
 
         subviews.forEach({
             $0.constraints.forEach({$0.active = false})
@@ -292,7 +332,8 @@ class MusicPlayerView: UIView {
 
         addSubview(playerView)
         songArtView.userInteractionEnabled = true
-        songArtView.addSubview(playPauseButton)
+//        songArtView.addSubview(playPauseButton)
+        songArtView.addSubview(playButton)
 
         smallViewConstraints.forEach({$0.active = true})
         subviews.forEach({$0.updateConstraints()})

@@ -23,6 +23,7 @@ PODS:
   - Soundcloud (0.8.0):
     - 1PasswordExtension (~> 1.5)
     - UICKeyChainStore (~> 2.0.6)
+  - SVGPlayButton (0.2.3)
   - SwiftDDP (0.2.2.1):
     - CryptoSwift (~> 0.3)
     - SwiftWebSocket (~> 2.6.0)
@@ -42,6 +43,7 @@ DEPENDENCIES:
   - NVActivityIndicatorView (~> 2.3)
   - RSPlayPauseButton (~> 1.0)
   - Soundcloud
+  - SVGPlayButton (~> 0.2.3)
   - SwiftDDP (~> 0.2.1)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
   - SWTableViewCell (~> 0.3.7)
@@ -65,6 +67,7 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: 18e82784c9cb2d5f3df3129a3e4754eb075ebca0
   RSPlayPauseButton: 9def027a1259ded3a6ecfeb0e57df1775ff22fb0
   Soundcloud: c003a1c7e281eab6206d18bccf00058958250aae
+  SVGPlayButton: 837de86182782e83bd7ca8927390b17b9a90ca2f
   SwiftDDP: b4a4d2b2adc47836fb4fb4828b8ef4c68f3f89b1
   SwiftWebSocket: c24c0dde0b33852f478ffb54226408bfe703b26b
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
