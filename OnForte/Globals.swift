@@ -95,10 +95,10 @@ enum VotingStatus {
     }
 }
 
-extension NSLayoutConstraint {
+/*extension NSLayoutConstraint {
 
     override public var description: String {
         let id = identifier ?? ""
         return "id: \(id), constant: \(constant)" //you may print whatever you want here
     }
-}
+}*/

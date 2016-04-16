@@ -68,6 +68,7 @@ class MusicPlayerView: UIView {
 
     func renderPlayerView() {
         playerView = UIView()
+        playerView.translatesAutoresizingMaskIntoConstraints = false
     }
 
     func displaySong() {
@@ -168,10 +169,12 @@ class MusicPlayerView: UIView {
         let smallTitleTop = NSLayoutConstraint(item: titleLabel, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: -2)
         smallTitleTop.identifier = "Small Title Top"
         smallViewConstraints.appendContentsOf([smallTitleLeading,smallTitleTop])
-        expandedViewConstraints.appendContentsOf([
-            NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: songArtView, attribute: .Bottom, multiplier: 1, constant: 5),
-            NSLayoutConstraint(item: titleLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
-        ])
+        let largeTitleTop = NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: songArtView, attribute: .Bottom, multiplier: 1, constant: 5)
+        largeTitleTop.identifier = "large title top"
+        let largeTitleCenterX = NSLayoutConstraint(item: titleLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
+        largeTitleCenterX.identifier = "large title center x"
+
+        expandedViewConstraints.appendContentsOf([largeTitleTop,largeTitleCenterX])
     }
 
     func renderDescriptionLabel() {
