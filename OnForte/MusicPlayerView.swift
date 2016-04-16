@@ -206,10 +206,23 @@ class MusicPlayerView: UIView {
 
     func renderPlayButton() {
         playButton = SVGPlayButton()
+        playButton.pauseColor = Style.blackColor
+        playButton.playColor = Style.blackColor
         playButton.willPlay = {self.playButtonDidPress() }
         playButton.willPause = {self.playButtonDidPress() }
         playButton.translatesAutoresizingMaskIntoConstraints = false
+        /*
+        let blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.ExtraLight))
+        blur.frame = playButton.bounds
+        blur.layer.cornerRadius = playButton.frame.width / 2
+        blur.clipsToBounds = true
+        blur.userInteractionEnabled = false //This allows touches to forward to the button
+        playButton.insertSubview(blur, atIndex: 0)
+ figure out the blur 
+ */
+
         songArtView.addSubview(playButton)
+        addPlayButtonConstraints()
 
 
 //        playPauseButton = RSPlayPauseButton()
