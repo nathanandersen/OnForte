@@ -342,7 +342,7 @@ class MusicPlayerView: UIView {
         // re-draw image?
 
         playButtonBlur.layer.masksToBounds = true
-        playButtonBlur.layer.cornerRadius = playButton.frame.width / 2
+        playButtonBlur.layer.cornerRadius = playButtonBlur.frame.width / 2
     }
 
     func showSmall() {
