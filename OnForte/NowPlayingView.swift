@@ -185,7 +185,7 @@ class NowPlayingView: UIView, AVAudioPlayerDelegate, SPTAudioStreamingPlaybackDe
 //            self.server_markCurrentSongAsPlayed(nextSong)
 //            self.server_sendNextSong(nextSong)
         } else {
-            playlistVC.hideNowPlayingView()
+//            playlistVC.hideNowPlayingView()
             nowPlaying = nil
         }
     }
@@ -259,7 +259,7 @@ class NowPlayingView: UIView, AVAudioPlayerDelegate, SPTAudioStreamingPlaybackDe
             }
             alertController.addAction(cancelAction)
             playlistVC.presentViewController(alertController, animated: true, completion: {
-                self.playlistVC.hideNowPlayingView()
+//                self.playlistVC.hideNowPlayingView()
                 nowPlaying = nil
             })
             return

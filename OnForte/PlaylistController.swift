@@ -9,78 +9,40 @@
 import Foundation
 import SwiftDDP
 
-
-//temporary fix
-
-//var timer: NSTimer!
-
-
 class PlaylistController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
 
-    var startButton: UIButton!
     var tableView: UITableView!
     var playlistStarted = false
     var songs = SongCollection(name: "queueSongs")
-//    var songs = SongCollection(name: "songs")
-
-//    var playedSongs = PlaylistSongHistory(name: "playedSongs")
-
     var sortedSongs: [SongDocument]!
-//    var playlistName: String = ""
-
-    var slideDownView: UIView!
-    var playlistNameLabel: UILabel!
-    var playlistIdLabel: UILabel!
-
-    var inviteButton: UIButton!
-
-    var addTrackButton: UIButton!
-    var nowPlayingView: NowPlayingView!
-
-    var slideDownViewHidden: NSLayoutConstraint!
-    var slideDownViewPosition1: NSLayoutConstraint!
-    var slideDownViewPosition2: NSLayoutConstraint!
-
-    var addTrackHidden: NSLayoutConstraint!
-    var addTrackShown: NSLayoutConstraint!
-
-    var startHidden: NSLayoutConstraint!
-    var startShown: NSLayoutConstraint!
-
-    var gestureRecognizerView: UIView!
-
-
-    lazy var refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(PlaylistController.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-
-        return refreshControl
-    }()
-
+    var playlistControlView: PlaylistControlView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         print(self.view.frame)
-
         activityIndicator.showComplete("")
-
         self.navigationItem.setHidesBackButton(true, animated:false)
-
         let paramObj = [playlistId!]
         Meteor.subscribe("queueSongs",params: paramObj)
-//        Meteor.subscribe("songs",params: paramObj)
-//        Meteor.subscribe("playedSongs",params: paramObj)
-
         sortedSongs = []
 
         renderComponents()
         addConstraintsToComponents()
         addNotificationsToGlobalCenter()
+    }
 
-        // TEMPORARY FIX
+    func renderPlaylistControlView() {
+        playlistControlView = PlaylistControlView()
+        self.view.addSubview(playlistControlView)
+    }
 
-//        timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: #selector(PlaylistController.updateTable), userInfo: nil, repeats: true)
+    func addConstraintsToPlaylistControlView() {
+        playlistControlView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: playlistControlView, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1, constant: 0).active = true
+        NSLayoutConstraint(item: playlistControlView, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: 0).active = true
+        NSLayoutConstraint(item: playlistControlView, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1, constant: 50).active = true
+        NSLayoutConstraint(item: playlistControlView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 80).active = true
+        playlistControlView.updateConstraints()
     }
 
     func songWasRemoved() {
@@ -100,130 +62,26 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     func addNotificationsToGlobalCenter() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.updateTable), name:"load", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.displayNextSong), name: "displayNextSong", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.enableRefreshControl), name: "enableRefreshControl", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.disableRefreshControl), name: "disableRefreshControl", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.exitPlaylist), name: "leavePlaylist", object: nil)
-
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.songWasAdded), name: "songWasAdded", object: nil)
-
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.songWasRemoved), name: "songWasRemoved", object: nil)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.hideListOfPlayedSongs), name: "hidePlayedList", object: nil)
     }
 
     func renderComponents() {
-        renderPlaylistNameLabel()
-
-        renderSlideDownView()
-        renderAddTrackButton()
-        renderInviteButton()
-        renderNowPlayingView()
-
-        if isHost {
-            renderStartButton()
-        }
+        renderPlaylistControlView()
         renderTableView()
-        renderPlaylistIdLabel()
     }
 
     func addConstraintsToComponents() {
-        addConstraintsToSlideDownView()
-        addConstraintsToAddTrackButton()
-        if isHost {
-            addConstraintsToStartButton()
-        }
+        addConstraintsToPlaylistControlView()
         addConstraintsToTableView()
-        addConstraintsToPlaylistNameLabel()
-        addConstraintsToInviteButton()
-        addConstraintsToNowPlayingView()
-        addConstraintsToPlaylistIdLabel()
-        self.view.sendSubviewToBack(tableView)
-        // just to be safe ^
-    }
-
-    func enableRefreshControl() {
-        self.tableView.addSubview(self.refreshControl)
-    }
-
-    func disableRefreshControl() {
-        self.refreshControl.removeFromSuperview()
-    }
-
-    func renderAddTrackButton() {
-        addTrackButton = Style.circularButton(30.0)
-        addTrackButton.setTitle("+", forState: .Normal)
-        addTrackButton.addTarget(self, action: #selector(PlaylistController.startSearch), forControlEvents: .TouchUpInside)
-        self.view.addSubview(addTrackButton)
-    }
-
-    func addConstraintsToAddTrackButton() {
-        addTrackButton.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint(item: addTrackButton,
-                           attribute: .Bottom,
-                           relatedBy: .Equal,
-                           toItem: tableView,
-                           attribute: .Bottom,
-                           multiplier: 1,
-                           constant: -10).active = true
-
-        addTrackShown = NSLayoutConstraint(item: addTrackButton,
-                                           attribute: .Right,
-                                           relatedBy: .Equal,
-                                           toItem: self.view,
-                                           attribute: .Right,
-                                           multiplier: 1,
-                                           constant: -10)
-        addTrackShown.active = true
-
-        addTrackHidden = NSLayoutConstraint(item: addTrackButton,
-                                            attribute: .Right,
-                                            relatedBy: .Equal,
-                                            toItem: self.view,
-                                            attribute: .Right,
-                                            multiplier: 1,
-                                            constant: 50)
-        addTrackHidden.active = false
-
-        NSLayoutConstraint(item: addTrackButton,
-                           attribute: .Height,
-                           relatedBy: .Equal,
-                           toItem: nil,
-                           attribute: .NotAnAttribute,
-                           multiplier: 1,
-                           constant: 50).active = true
-
-        NSLayoutConstraint(item: addTrackButton,
-                           attribute: .Width,
-                           relatedBy: .Equal,
-                           toItem: nil,
-                           attribute: .NotAnAttribute,
-                           multiplier: 1,
-                           constant: 50).active = true
-
-        addTrackButton.updateConstraints()
-    }
-
-    func showAddTrack() {
-        self.addTrackHidden.active = false
-        UIView.animateWithDuration(0.15, animations: {
-            self.addTrackShown.active = true
-            self.addTrackButton.layoutIfNeeded()
-        })
-    }
-
-    func hideAddTrack() {
-        self.addTrackShown.active = false
-        UIView.animateWithDuration(0.15, animations: {
-            self.addTrackHidden.active = true
-            self.addTrackButton.layoutIfNeeded()
-        })
     }
 
     func startSearch() {
         self.mm_drawerController.openDrawerSide(.Right, animated: true, completion: nil)
     }
 
-    func renderSlideDownView(){
+/*    func renderSlideDownView(){
         slideDownView = UIView()
         slideDownView.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.1)
         self.view.addSubview(slideDownView)
@@ -293,51 +151,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         slideDownView.setNeedsLayout()
     }
 
-    func renderInviteButton() {
-        inviteButton = Style.iconButton()
-        inviteButton.setImage(UIImage(named: "invite")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: .Normal)
-        inviteButton.imageEdgeInsets = UIEdgeInsetsMake(5, 3, 5, 3)
-        inviteButton.addTarget(self, action: #selector(PlaylistController.inviteButtonPressed(_:)), forControlEvents: .TouchUpInside)
-        slideDownView.addSubview(inviteButton)
-    }
-
-    func addConstraintsToInviteButton() {
-        inviteButton.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint(item: inviteButton,
-                           attribute: .Right,
-                           relatedBy: .Equal,
-                           toItem: self.view,
-                           attribute: .Right,
-                           multiplier: 1,
-                           constant: -15.0).active = true
-
-        NSLayoutConstraint(item: inviteButton,
-                           attribute: .Width,
-                           relatedBy: .Equal,
-                           toItem: nil,
-                           attribute: .NotAnAttribute,
-                           multiplier: 1,
-                           constant: 30.0).active = true
-
-        NSLayoutConstraint(item: inviteButton,
-                           attribute: .Height,
-                           relatedBy: .Equal,
-                           toItem: nil,
-                           attribute: .NotAnAttribute,
-                           multiplier: 1,
-                           constant: 30.0).active = true
-
-        NSLayoutConstraint(item: inviteButton,
-                           attribute: .Bottom,
-                           relatedBy: .Equal,
-                           toItem: slideDownView,
-                           attribute: .Bottom,
-                           multiplier: 1,
-                           constant: -8).active = true
-
-        inviteButton.setNeedsLayout()
-    }
 
     func inviteButtonPressed(sender: AnyObject?) {
         let vc = InvitationViewController()
@@ -548,7 +361,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
 
         playlistLabel.updateConstraints()
 
-    }
+    }*/
 
     func renderTableView(){
         tableView = UITableView()
@@ -563,10 +376,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.tableFooterView = UIView(frame: CGRectZero)
         self.view.sendSubviewToBack(tableView)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.updateTable), name:"load", object: nil)
-
-        self.tableView.addSubview(self.refreshControl)
-        //        self.view.sendSubviewToBack(tableView)
-        disableRefreshControl()
     }
 
     func addConstraintsToTableView() {
@@ -575,10 +384,17 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         NSLayoutConstraint(item: tableView,
                            attribute: .Top,
                            relatedBy: .Equal,
-                           toItem: slideDownView,
+                           toItem: playlistControlView,
                            attribute: .Bottom,
                            multiplier: 1,
                            constant: 0).active = true
+/*        NSLayoutConstraint(item: tableView,
+                           attribute: .Top,
+                           relatedBy: .Equal,
+                           toItem: slideDownView,
+                           attribute: .Bottom,
+                           multiplier: 1,
+                           constant: 0).active = true*/
 
         NSLayoutConstraint(item: tableView,
                            attribute: .Left,
@@ -607,7 +423,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.updateConstraints()
     }
 
-    func renderStartButton(){
+/*    func renderStartButton(){
         startButton = Style.circularButton(11.0)
         startButton.setTitle("Start", forState: .Normal)
         startButton.addTarget(self, action: #selector(PlaylistController.startPlaylist(_:)), forControlEvents: .TouchUpInside)
@@ -676,7 +492,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
             self.startHidden.active = true
             self.startButton.layoutIfNeeded()
         })
-    }
+    }*/
 
     func getNextSong() -> Song? {
         if sortedSongs.count > 0 {
@@ -690,16 +506,16 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     func displayNextSong() {
         dispatch_async(dispatch_get_main_queue(), {
             activityIndicator.showComplete("")
-            self.nowPlayingView.updateTrackDisplay()
+//            self.nowPlayingView.updateTrackDisplay()
         })
     }
 
 
     func startPlaylist(sender: AnyObject){
-        nowPlayingView.playNextSong()
+//        nowPlayingView.playNextSong()
         playlistStarted = true
-        hideStart()
-        showNowPlayingView()
+//        hideStart()
+//        showNowPlayingView()
         displayNextSong()
     }
 
@@ -714,9 +530,9 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
             // stop on a background thread
-            if isHost {
-                self.nowPlayingView.stop()
-            }
+//            if isHost {
+//                self.nowPlayingView.stop()
+//            }
             print("This is run on the background queue")
 
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -806,34 +622,19 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         print("You selected cell #\(indexPath.row)!")
     }
 
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        if sortedSongs.count > 5 {
-            hideAddTrack()
-        }
-    }
-
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        showAddTrack()
-    }
-
     func updateTable() {
 
         sortedSongs = songs.sortedByScore()
         self.tableView.reloadData()
         
         if isHost && !playlistStarted && songs.count >= 1 {
-            showStart()
+//            showStart()
         } else if songs.count == 0 && nowPlaying == nil {
             playlistStarted = false
-            hideNowPlayingView()
+//            hideNowPlayingView()
         } else if nowPlaying != nil {
-            showNowPlayingView()
+//            showNowPlayingView()
         }
-    }
-    
-    func handleRefresh(refreshControl: UIRefreshControl) {
-        self.updateTable()
-        refreshControl.endRefreshing()
     }
 
 
