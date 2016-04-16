@@ -10,6 +10,14 @@ import UIKit
 import RSPlayPauseButton
 import SwiftDDP
 
+
+enum MusicPlayerDisplayType {
+    case None
+    case Start
+    case Small
+    case Large
+}
+
 class MusicPlayerView: UIView {
 
     var playerView: UIView!
@@ -26,12 +34,14 @@ class MusicPlayerView: UIView {
 
     var forwardButton: UIButton?
     var playlistController: PlaylistController!
+    var displayType: MusicPlayerDisplayType
 
     var expandedViewConstraints: [NSLayoutConstraint] = [NSLayoutConstraint]()
     var smallViewConstraints: [NSLayoutConstraint] = [NSLayoutConstraint]()
     var startConstraints: [NSLayoutConstraint] = [NSLayoutConstraint]()
 
     override init(frame: CGRect) {
+        self.displayType = .None
         super.init(frame: frame)
         renderPlayerView()
         renderSongArtView()
@@ -49,6 +59,12 @@ class MusicPlayerView: UIView {
         }
         createSmallConstraints()
         createLargeConstraints()
+        self.translatesAutoresizingMaskIntoConstraints = false
+
+    }
+    func setParentPlaylistController(playlistC: PlaylistController) {
+        self.playlistController = playlistC
+        musicPlayer.playlistController = playlistC
     }
 
     func renderPlayerView() {
@@ -105,11 +121,16 @@ class MusicPlayerView: UIView {
 
     func renderMusicPlayer() {
         musicPlayer = IntegratedMusicPlayer()
-        musicPlayer.playlistController = playlistController
+        musicPlayer.control = self
     }
 
     func playButtonDidPress() {
         musicPlayer.togglePlayingStatus()
+    }
+
+    func setPlayButtonStatus(status: Bool) {
+        print("did change")
+        print(status)
     }
 
     func renderForwardButton() {
@@ -125,6 +146,7 @@ class MusicPlayerView: UIView {
         startButton?.translatesAutoresizingMaskIntoConstraints = false
         startConstraints.forEach( {$0.active = true} )
         startButton!.updateConstraints()
+        displayType = .Start
     }
 
     func showLarge() {
@@ -135,6 +157,7 @@ class MusicPlayerView: UIView {
         self.addSubview(playerView)
         expandedViewConstraints.forEach( {$0.active = true} )
         playerView.updateConstraints()
+        displayType = .Large
     }
 
     func showSmall() {
@@ -145,10 +168,12 @@ class MusicPlayerView: UIView {
         self.addSubview(playerView)
         smallViewConstraints.forEach( {$0.active = true} )
         playerView.updateConstraints()
+        displayType = .Small
     }
 
     func collapse() {
         self.subviews.forEach({$0.removeFromSuperview()})
+        displayType = .None
     }
 
     func createStartConstraints() {

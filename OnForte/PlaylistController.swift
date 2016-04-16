@@ -33,7 +33,8 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
 
     func renderPlaylistControlView() {
         playlistControlView = PlaylistControlView()
-        playlistControlView.playlistController = self
+        playlistControlView.setParentPlaylistController(self)
+        print(playlistControlView.playlistController)
         self.view.addSubview(playlistControlView)
     }
 
@@ -48,6 +49,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func songWasRemoved() {
+        print("ooh")
         dispatch_async(dispatch_get_main_queue(), {
             self.updateTable()
         })
@@ -553,12 +555,12 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.reloadData()
         
         if isHost && !playlistStarted && songs.count >= 1 {
-//            showStart()
+            playlistControlView.showStartMusicPlayer()
         } else if songs.count == 0 && nowPlaying == nil {
             playlistStarted = false
-//            hideNowPlayingView()
+            playlistControlView.collapseNowPlayingView()
         } else if nowPlaying != nil {
-//            showNowPlayingView()
+            playlistControlView.showANowPlayingView()
         }
     }
 

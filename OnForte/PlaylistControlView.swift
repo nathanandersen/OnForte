@@ -9,6 +9,7 @@
 import Foundation
 import MMDrawerController
 
+
 class PlaylistControlView: UIView {
 
 
@@ -47,13 +48,21 @@ class PlaylistControlView: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 
+    func setParentPlaylistController(playlistC: PlaylistController) {
+        self.playlistController = playlistC
+        musicPlayerView.setParentPlaylistController(playlistC)
+    }
+
     func renderMusicPlayerView() {
         musicPlayerView = MusicPlayerView()
-        musicPlayerView.playlistController = playlistController
         self.addSubview(musicPlayerView)
     }
 
     func collapseNowPlayingView() {
+        if musicPlayerView.displayType == .None {
+            return
+        }
+
         musicPlayerView.collapse()
         smallMusicPlayerConstraint.active = false
         largeMusicPlayerConstraint.active = false
@@ -62,7 +71,16 @@ class PlaylistControlView: UIView {
         musicPlayerView.updateConstraints()
     }
 
+    func showANowPlayingView() {
+        if musicPlayerView.displayType == .None || musicPlayerView.displayType == .Start {
+            self.showSmallNowPlayingView()
+        }
+    }
+
     func showSmallNowPlayingView() {
+        if musicPlayerView.displayType == .Small {
+            return
+        }
         musicPlayerView.showSmall()
         collapseMusicPlayerConstraint.active = false
         largeMusicPlayerConstraint.active = false
@@ -72,6 +90,9 @@ class PlaylistControlView: UIView {
     }
 
     func showStartMusicPlayer() {
+        if musicPlayerView.displayType == .Start {
+            return
+        }
         musicPlayerView.showStart()
         collapseMusicPlayerConstraint.active = false
         smallMusicPlayerConstraint.active = false
@@ -82,6 +103,9 @@ class PlaylistControlView: UIView {
     }
 
     func showLargeNowPlayingView() {
+        if musicPlayerView.displayType == .Large {
+            return
+        }
         musicPlayerView.showLarge()
         collapseMusicPlayerConstraint.active = false
         smallMusicPlayerConstraint.active = false

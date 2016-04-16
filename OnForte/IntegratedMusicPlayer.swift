@@ -17,6 +17,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     var soundcloudPlayer: AVAudioPlayer?
     var localPlayer: MPMusicPlayerController
     var playlistController: PlaylistController!
+    var control: MusicPlayerView!
 
     var playing: Bool
 
@@ -60,6 +61,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     }
 
     func registerNextSongWithServer(song: Song ) {
+        print("well, that happened")
         let paramObj = [playlistId!,
                         (song.title != nil) ? song.title! : "",
                         (song.description != nil) ? song.description! : "",
@@ -73,7 +75,8 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     }
 
     func playNextSong() {
-        if let nextSong = playlistVC.getNextSong() {
+        print(playlistController)
+        if let nextSong = playlistController.getNextSong() {
             do {
                 try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
                 print("AVAudioSession Category Playback OK")
@@ -90,10 +93,9 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             nowPlaying = nextSong
 
             playing = true
-            // pass this up and around
+            control.setPlayButtonStatus(playing)
 
             //            self.updateTrackDisplay()
-            // set paused buton to false
             switch(nowPlaying!.service!){
             case .Soundcloud:
                 playSoundCloud()
@@ -106,8 +108,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
         } else {
             nowPlaying = nil
             playing = false
-
-            // pass this up and around
+            control.setPlayButtonStatus(playing)
         }
     }
 
@@ -146,6 +147,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
         localPlayer.repeatMode = .None
         localPlayer.play()
         playing = true
+        control.setPlayButtonStatus(playing)
     }
 
     func playSoundCloud() {
@@ -163,26 +165,28 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             p.play()
             print("Soundcloud is playing track")
             playing = true
+            control.setPlayButtonStatus(playing)
         } else {
             print("Soundcloud player failed.")
             playing = false
-            // set paused button to paused
+            control.setPlayButtonStatus(playing)
         }
     }
 
     func playSpotify() {
         if spotifySession == nil {
             print("not logged into spotify!")
-            /*
+
              let alertController = UIAlertController(title: "Spotify disabled", message: "Please have the host log in to spotify.", preferredStyle: .Alert)
              let cancelAction = UIAlertAction(title: "Dismiss", style: .Cancel) { (action) in
 
              }
              alertController.addAction(cancelAction)
-             playlistVC.presentViewController(alertController, animated: true, completion: {
-             self.playlistVC.hideNowPlayingView()
+             self.playlistController.presentViewController(alertController, animated: true, completion: {
+//             self.playlistVC.hideNowPlayingView()
+                // ^^^?!?!?!?
              nowPlaying = nil
-             })*/
+             })
             return
         } else {
             spotifyPlayer.loginWithSession(spotifySession, callback: { (error: NSError?) in
@@ -190,7 +194,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
                     print("Logging had error:")
                     print(error)
                     self.playing = false
-                    // set paused button to true
+                    self.control.setPlayButtonStatus(self.playing)
                     return
                 }})
             let trackURI: NSURL = NSURL(string: ("spotify:track:"+String(nowPlaying!.trackId!)))!
@@ -200,13 +204,13 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
                     print("Starting playback had error")
                     print(error)
                     self.playing = false
-                    // set paused button to true
+                    self.control.setPlayButtonStatus(self.playing)
                     return
                 }
             })
         }
         playing = true
-        // set paused button to false
+        control.setPlayButtonStatus(playing)
     }
 
 
