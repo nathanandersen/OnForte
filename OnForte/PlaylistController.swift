@@ -42,9 +42,17 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         playlistControlView.translatesAutoresizingMaskIntoConstraints = false
 
         let navHeight = centralNavigationController.navigationBar.frame.height + UIApplication.sharedApplication().statusBarFrame.height
-        NSLayoutConstraint(item: playlistControlView, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1, constant: 10).active = true
-        NSLayoutConstraint(item: playlistControlView, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: -10).active = true
-        NSLayoutConstraint(item: playlistControlView, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1, constant: navHeight).active = true
+//        let pcviewleft = NSLayoutConstraint(item: playlistControlView, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1, constant: 10)
+        let pcviewleft = NSLayoutConstraint(item: playlistControlView, attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 0)
+        pcviewleft.active = true
+        pcviewleft.identifier = "PC view leading"
+//        let pcviewright = NSLayoutConstraint(item: playlistControlView, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: -10)
+        let pcviewright = NSLayoutConstraint(item: playlistControlView, attribute: .Trailing, relatedBy: .Equal, toItem: self.view, attribute: .Trailing, multiplier: 1, constant: 0)
+        pcviewright.active = true
+        pcviewright.identifier = "Pc view trailing"
+        let pcviewtop = NSLayoutConstraint(item: playlistControlView, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1, constant: navHeight)
+        pcviewtop.active = true
+        pcviewtop.identifier = "Pc view top"
         playlistControlView.updateConstraints()
     }
 
@@ -112,37 +120,45 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     func addConstraintsToTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
-        NSLayoutConstraint(item: tableView,
-                           attribute: .Top,
-                           relatedBy: .Equal,
-                           toItem: playlistControlView,
-                           attribute: .Bottom,
-                           multiplier: 1,
-                           constant: 0).active = true
+        let tableViewTop = NSLayoutConstraint(item: tableView,
+                                              attribute: .Top,
+                                              relatedBy: .Equal,
+                                              toItem: playlistControlView,
+                                              attribute: .Bottom,
+                                              multiplier: 1,
+                                              constant: 0)
+        tableViewTop.active = true
+        tableViewTop.identifier = "Table View Top"
 
-        NSLayoutConstraint(item: tableView,
-                           attribute: .Left,
-                           relatedBy: .Equal,
-                           toItem: self.view,
-                           attribute: .Left,
-                           multiplier: 1,
-                           constant: 2).active = true
+        let tableViewLeft = NSLayoutConstraint(item: tableView,
+                                               attribute: .Left,
+                                               relatedBy: .Equal,
+                                               toItem: self.view,
+                                               attribute: .Left,
+                                               multiplier: 1,
+                                               constant: 0)
+        tableViewLeft.active = true
+        tableViewLeft.identifier = "Table View Left"
 
-        NSLayoutConstraint(item: tableView,
-                           attribute: .Right,
-                           relatedBy: .Equal,
-                           toItem: self.view,
-                           attribute: .Right,
-                           multiplier: 1,
-                           constant: 2).active = true
+        let tableViewRight = NSLayoutConstraint(item: tableView,
+                                                attribute: .Right,
+                                                relatedBy: .Equal,
+                                                toItem: self.view,
+                                                attribute: .Right,
+                                                multiplier: 1,
+                                                constant: 0)
+        tableViewRight.active = true
+        tableViewRight.identifier = "Table view right"
 
-        NSLayoutConstraint(item: tableView,
-                           attribute: .Bottom,
-                           relatedBy: .Equal,
-                           toItem: self.view,
-                           attribute: .Bottom,
-                           multiplier: 1,
-                           constant: 0).active = true
+        let tableViewBottom = NSLayoutConstraint(item: tableView,
+                                                 attribute: .Bottom,
+                                                 relatedBy: .Equal,
+                                                 toItem: self.view,
+                                                 attribute: .Bottom,
+                                                 multiplier: 1,
+                                                 constant: 0)
+        tableViewBottom.active = true
+        tableViewBottom.identifier = "table view bottom"
 
         tableView.updateConstraints()
     }
@@ -284,19 +300,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             playlistControlView.showANowPlayingView()
         }
-/*
-        if isHost && nowPlaying == nil && songs.count >= 1{
-            playlistControlView.showStartMusicPlayer()
-        } else if nowPlaying ==
-        
-        if isHost && !playlistStarted && songs.count >= 1 {
-            playlistControlView.showStartMusicPlayer()
-        } else if songs.count == 0 && nowPlaying == nil {
-            playlistStarted = false
-            playlistControlView.collapseNowPlayingView()
-        } else if nowPlaying != nil {
-            playlistControlView.showANowPlayingView()
-        }*/
     }
 
 
