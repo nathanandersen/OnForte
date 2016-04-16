@@ -12,6 +12,7 @@ import SwiftDDP
 
 class MusicPlayerView: UIView {
 
+    var playerView: UIView!
     var songArtView: UIImageView!
     var platformView: UIImageView!
     var titleLabel: UILabel!
@@ -23,11 +24,11 @@ class MusicPlayerView: UIView {
 
     var expandedViewConstraints: [NSLayoutConstraint]!
     var smallViewConstraints: [NSLayoutConstraint]!
-//    var collapsedConstraints: [NSLayoutConstraint]!
     var startConstraints: [NSLayoutConstraint]!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        renderPlayerView()
         renderSongArtView()
         renderPlatformView()
         renderTitleLabel()
@@ -40,11 +41,12 @@ class MusicPlayerView: UIView {
         if isHost {
             createStartConstraints()
         }
-//        createCollapsedConstraints()
         createSmallConstraints()
         createLargeConstraints()
-//        collapsedConstraints.forEach({$0.active = true})
-        self.updateConstraints()
+    }
+
+    func renderPlayerView() {
+        playerView = UIView()
     }
 
     func displaySong() {
@@ -60,7 +62,7 @@ class MusicPlayerView: UIView {
         startButton = Style.defaultButton("START MUSIC")
         startButton?.translatesAutoresizingMaskIntoConstraints = false
         startButton?.addTarget(self, action: #selector(MusicPlayerView.startButtonPress), forControlEvents: .TouchUpInside)
-        self.addSubview(startButton!)
+//        self.addSubview(startButton!)
     }
 
     func startButtonPress() {
@@ -69,28 +71,32 @@ class MusicPlayerView: UIView {
 
     func renderSongArtView() {
         songArtView = UIImageView()
-        self.addSubview(songArtView)
+        playerView.addSubview(songArtView)
+        songArtView.translatesAutoresizingMaskIntoConstraints = false
     }
 
     func renderPlatformView() {
         platformView = UIImageView()
-        self.addSubview(platformView)
+        playerView.addSubview(platformView)
+        platformView.translatesAutoresizingMaskIntoConstraints = false
     }
 
     func renderTitleLabel() {
         titleLabel = Style.defaultLabel()
-        self.addSubview(titleLabel)
+        playerView.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
     }
 
     func renderDescriptionLabel() {
         descriptionLabel = Style.defaultLabel()
-        self.addSubview(descriptionLabel)
+        playerView.addSubview(descriptionLabel)
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
     }
 
     func renderMusicPlayer() {
         musicPlayer = MusicPlayer()
         musicPlayer.parentView = self
-        self.songArtView.addSubview(musicPlayer)
+        songArtView.addSubview(musicPlayer)
         self.musicPlayer.addTarget(self, action: #selector(MusicPlayerView.musicPlayerButtonDidPress), forControlEvents: .TouchUpInside)
     }
 
@@ -103,61 +109,62 @@ class MusicPlayerView: UIView {
     }
 
     func showStart() {
-//        smallViewConstraints.forEach( {$0.active = false} )
-//        expandedViewConstraints.forEach( {$0.active = false} )
-//        collapsedConstraints.forEach( {$0.active = false} )
-//        startConstraints.forEach( {$0.active = true} )
+        self.playerView.removeFromSuperview()
+        self.addSubview(startButton!)
+        smallViewConstraints.forEach( {$0.active = false} )
+        expandedViewConstraints.forEach( {$0.active = false} )
+        startConstraints.forEach( {$0.active = true} )
         self.updateConstraints()
     }
 
     func showLarge() {
-//        collapsedConstraints.forEach( {$0.active = false} )
-//        startConstraints.forEach( {$0.active = false} )
-//        smallViewConstraints.forEach( {$0.active = false} )
-//        expandedViewConstraints.forEach( {$0.active = true} )
+        self.startButton?.removeFromSuperview()
+        self.addSubview(playerView)
+        smallViewConstraints.forEach( {$0.active = false} )
+        startConstraints.forEach( {$0.active = false} )
+        expandedViewConstraints.forEach( {$0.active = true} )
         self.updateConstraints()
     }
 
     func showSmall() {
-//        collapsedConstraints.forEach( {$0.active = false} )
-//        startConstraints.forEach( {$0.active = false} )
-//        expandedViewConstraints.forEach( {$0.active = false} )
-//        smallViewConstraints.forEach( {$0.active = true} )
+        self.startButton?.removeFromSuperview()
+        self.addSubview(playerView)
+        startConstraints.forEach( {$0.active = false} )
+        expandedViewConstraints.forEach( {$0.active = false} )
+        smallViewConstraints.forEach( {$0.active = true} )
         self.updateConstraints()
     }
 
     func collapse() {
-//        smallViewConstraints.forEach( {$0.active = false} )
-//        startConstraints.forEach( {$0.active = false} )
-//        expandedViewConstraints.forEach( {$0.active = false} )
-//        collapsedConstraints.forEach( {$0.active = true} )
-
-        // remove all subviews?
-
-        self.updateConstraints()
+        self.subviews.forEach({$0.removeFromSuperview()})
     }
 
     func createStartConstraints() {
         startConstraints = [
-            NSLayoutConstraint(item: startButton!, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: startButton!, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: startButton!, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: startButton!, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1, constant: 0)
+            NSLayoutConstraint(item: startButton!, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 10),
+            NSLayoutConstraint(item: startButton!, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: -10),
+            NSLayoutConstraint(item: startButton!, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 5),
+            NSLayoutConstraint(item: startButton!, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1, constant: -5)
         ]
     }
 
-/*    func createCollapsedConstraints() {
-        collapsedConstraints = [
-
-        ]
-    }*/
-
     func createSmallConstraints() {
-
+        smallViewConstraints = [
+            NSLayoutConstraint(item: playerView, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 10),
+            NSLayoutConstraint(item: playerView, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: -10),
+            NSLayoutConstraint(item: playerView, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 5),
+            NSLayoutConstraint(item: playerView, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1, constant: -5)
+        ]
     }
 
     func createLargeConstraints() {
+        expandedViewConstraints = [
+            NSLayoutConstraint(item: playerView, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 10),
+            NSLayoutConstraint(item: playerView, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: -10),
+            NSLayoutConstraint(item: playerView, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 5),
+            NSLayoutConstraint(item: playerView, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1, constant: -5)
 
+        ]
     }
 
 

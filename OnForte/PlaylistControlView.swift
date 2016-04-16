@@ -134,6 +134,7 @@ class PlaylistControlView: UIView {
 
     func inviteButtonPressed() {
         print("hello invite")
+        self.showStartMusicPlayer()
     }
 
     func renderMenuBar(labelTitle: String, leftButton: UIButton, rightButton: UIButton) -> UIView {
