@@ -38,10 +38,11 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
 
     func addConstraintsToPlaylistControlView() {
         playlistControlView.translatesAutoresizingMaskIntoConstraints = false
+
+        let navHeight = centralNavigationController.navigationBar.frame.height + UIApplication.sharedApplication().statusBarFrame.height
         NSLayoutConstraint(item: playlistControlView, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: playlistControlView, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: 0).active = true
-        NSLayoutConstraint(item: playlistControlView, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1, constant: 50).active = true
-        NSLayoutConstraint(item: playlistControlView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 80).active = true
+        NSLayoutConstraint(item: playlistControlView, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1, constant: navHeight).active = true
         playlistControlView.updateConstraints()
     }
 

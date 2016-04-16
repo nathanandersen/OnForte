@@ -24,6 +24,11 @@ class PlaylistControlView: UIView {
 
     var middleContentHeight: CGFloat = 1
 
+    var collapseMusicPlayerConstraint: NSLayoutConstraint!
+    var smallMusicPlayerConstraint: NSLayoutConstraint!
+    var startMusicPlayerConstraint: NSLayoutConstraint!
+    var largeMusicPlayerConstraint: NSLayoutConstraint!
+
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,6 +40,7 @@ class PlaylistControlView: UIView {
 
         addConstraints()
         self.collapseNowPlayingView()
+        self.backgroundColor = Style.translucentColor
     }
 
     func renderMusicPlayerView() {
@@ -44,24 +50,39 @@ class PlaylistControlView: UIView {
 
     func collapseNowPlayingView() {
         musicPlayerView.collapse()
-        middleContentHeight = 0
-        // ^ ?
-        self.updateConstraints()
+        smallMusicPlayerConstraint.active = false
+        largeMusicPlayerConstraint.active = false
+        startMusicPlayerConstraint.active = false
+        collapseMusicPlayerConstraint.active = true
+        musicPlayerView.updateConstraints()
     }
 
     func showSmallNowPlayingView() {
         musicPlayerView.showSmall()
-        // ^ consider how i want to actualy do this?
-        middleContentHeight = 85
-        self.updateConstraints()
+        collapseMusicPlayerConstraint.active = false
+        largeMusicPlayerConstraint.active = false
+        startMusicPlayerConstraint.active = false
+        smallMusicPlayerConstraint.active = true
+        musicPlayerView.updateConstraints()
+    }
+
+    func showStartMusicPlayer() {
+        musicPlayerView.showStart()
+        collapseMusicPlayerConstraint.active = false
+        smallMusicPlayerConstraint.active = false
+        largeMusicPlayerConstraint.active = false
+        startMusicPlayerConstraint.active = true
+        musicPlayerView.updateConstraints()
 
     }
 
     func showLargeNowPlayingView() {
         musicPlayerView.showLarge()
-        middleContentHeight = 150
-        self.updateConstraints()
-
+        collapseMusicPlayerConstraint.active = false
+        smallMusicPlayerConstraint.active = false
+        startMusicPlayerConstraint.active = false
+        largeMusicPlayerConstraint.active = true
+        musicPlayerView.updateConstraints()
     }
 
     func renderTopMenuBar() {
@@ -86,10 +107,12 @@ class PlaylistControlView: UIView {
 
     func historyButtonPressed() {
         print("menu button pressed")
+        self.showLargeNowPlayingView()
     }
 
     func searchButtonPressed() {
         print("search button pressed")
+        self.showSmallNowPlayingView()
     }
 
     func renderBottomMenuBar() {
@@ -121,7 +144,6 @@ class PlaylistControlView: UIView {
         label.text = labelTitle
         menuBar.addSubview(label)
 
-//        menuBar.translatesAutoresizingMaskIntoConstraints = false
         leftButton.translatesAutoresizingMaskIntoConstraints = false
         rightButton.translatesAutoresizingMaskIntoConstraints = false
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -138,8 +160,6 @@ class PlaylistControlView: UIView {
         NSLayoutConstraint(item: rightButton, attribute: .Height, relatedBy: .Equal, toItem: menuBar, attribute: .Height, multiplier: 1, constant: -5).active = true
         NSLayoutConstraint(item: leftButton, attribute: .Height, relatedBy: .Equal, toItem: leftButton, attribute: .Width, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: rightButton, attribute: .Height, relatedBy: .Equal, toItem: rightButton, attribute: .Width, multiplier: 1, constant: 0).active = true
-
-
         // ^ this one sets the margins
 
 
@@ -162,14 +182,22 @@ class PlaylistControlView: UIView {
         NSLayoutConstraint(item: topMenuBar, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: bottomMenuBar, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: topMenuBar, attribute: .Height, relatedBy: .Equal, toItem: bottomMenuBar, attribute: .Height, multiplier: 1, constant: 0).active = true
-        NSLayoutConstraint(item: topMenuBar, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 25).active = true
+        NSLayoutConstraint(item: topMenuBar, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 35).active = true
+        // ^ here sets the heights
 
         NSLayoutConstraint(item: musicPlayerView, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: musicPlayerView, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: musicPlayerView, attribute: .Top, relatedBy: .Equal, toItem: topMenuBar, attribute: .Bottom, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: musicPlayerView, attribute: .Bottom, relatedBy: .Equal, toItem: bottomMenuBar, attribute: .Top, multiplier: 1, constant: 0).active = true
 
-        NSLayoutConstraint(item: musicPlayerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: middleContentHeight).active = true
+        collapseMusicPlayerConstraint = NSLayoutConstraint(item: musicPlayerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 1)
+        // PROBABLY NOT 1
+         smallMusicPlayerConstraint = NSLayoutConstraint(item: musicPlayerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 80)
+         largeMusicPlayerConstraint = NSLayoutConstraint(item: musicPlayerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 150)
+         startMusicPlayerConstraint = NSLayoutConstraint(item: musicPlayerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)
+
+        collapseMusicPlayerConstraint.active = true
+
 
 
 

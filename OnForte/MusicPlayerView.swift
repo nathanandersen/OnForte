@@ -103,32 +103,32 @@ class MusicPlayerView: UIView {
     }
 
     func showStart() {
-        smallViewConstraints.forEach( {$0.active = false} )
-        expandedViewConstraints.forEach( {$0.active = false} )
+//        smallViewConstraints.forEach( {$0.active = false} )
+//        expandedViewConstraints.forEach( {$0.active = false} )
 //        collapsedConstraints.forEach( {$0.active = false} )
-        startConstraints.forEach( {$0.active = true} )
+//        startConstraints.forEach( {$0.active = true} )
         self.updateConstraints()
     }
 
     func showLarge() {
 //        collapsedConstraints.forEach( {$0.active = false} )
-        startConstraints.forEach( {$0.active = false} )
-        smallViewConstraints.forEach( {$0.active = false} )
-        expandedViewConstraints.forEach( {$0.active = true} )
+//        startConstraints.forEach( {$0.active = false} )
+//        smallViewConstraints.forEach( {$0.active = false} )
+//        expandedViewConstraints.forEach( {$0.active = true} )
         self.updateConstraints()
     }
 
     func showSmall() {
 //        collapsedConstraints.forEach( {$0.active = false} )
-        startConstraints.forEach( {$0.active = false} )
-        expandedViewConstraints.forEach( {$0.active = false} )
-        smallViewConstraints.forEach( {$0.active = true} )
+//        startConstraints.forEach( {$0.active = false} )
+//        expandedViewConstraints.forEach( {$0.active = false} )
+//        smallViewConstraints.forEach( {$0.active = true} )
         self.updateConstraints()
     }
 
     func collapse() {
 //        smallViewConstraints.forEach( {$0.active = false} )
-        startConstraints.forEach( {$0.active = false} )
+//        startConstraints.forEach( {$0.active = false} )
 //        expandedViewConstraints.forEach( {$0.active = false} )
 //        collapsedConstraints.forEach( {$0.active = true} )
 
