@@ -94,6 +94,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
 
             playing = true
             control.setPlayButtonStatus(playing)
+            control.displaySong()
 
             //            self.updateTrackDisplay()
             switch(nowPlaying!.service!){

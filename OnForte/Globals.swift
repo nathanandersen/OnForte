@@ -58,6 +58,17 @@ enum Service {
             self = .Spotify
         }
     }
+    func asLowerCaseString() -> String {
+        if self == .Spotify {
+            return "spotify"
+        } else if self == .Soundcloud {
+            return "soundcloud"
+        } else if self == .iTunes {
+            return "itunes"
+        } else {
+            return "not a match"
+        }
+    }
 }
 
 enum VotingStatus {

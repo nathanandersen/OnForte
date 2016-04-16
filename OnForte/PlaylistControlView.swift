@@ -36,8 +36,6 @@ class PlaylistControlView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print("hello, world..?")
-
         renderTopMenuBar()
         renderMusicPlayerView()
         renderBottomMenuBar()
@@ -151,11 +149,14 @@ class PlaylistControlView: UIView {
 
     func leaveButtonPressed() {
         print("leave button pressed")
+        self.showLargeNowPlayingView()
+        // maybe we should re-render images
     }
 
     func inviteButtonPressed() {
         print("hello invite")
-        self.showStartMusicPlayer()
+        self.showSmallNowPlayingView()
+        // maybe we should re-render images
     }
 
     func renderMenuBar(labelTitle: String, leftButton: UIButton, rightButton: UIButton) -> UIView {
