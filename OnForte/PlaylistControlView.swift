@@ -170,19 +170,40 @@ class PlaylistControlView: UIView {
         rightButton.translatesAutoresizingMaskIntoConstraints = false
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        NSLayoutConstraint(item: leftButton, attribute: .Leading, relatedBy: .Equal, toItem: menuBar, attribute: .Leading, multiplier: 1, constant: 10).active = true
-        NSLayoutConstraint(item: rightButton, attribute: .Trailing, relatedBy: .Equal, toItem: menuBar, attribute: .Trailing, multiplier: 1, constant: -10).active = true
-        NSLayoutConstraint(item: label, attribute: .CenterX, relatedBy: .Equal, toItem: menuBar, attribute: .CenterX, multiplier: 1, constant: 0).active = true
-        NSLayoutConstraint(item: leftButton, attribute: .CenterY, relatedBy: .Equal, toItem: menuBar, attribute: .CenterY, multiplier: 1, constant: 0).active = true
-        NSLayoutConstraint(item: label, attribute: .CenterY, relatedBy: .Equal, toItem: menuBar, attribute: .CenterY, multiplier: 1, constant: 0).active = true
-        NSLayoutConstraint(item: rightButton, attribute: .CenterY, relatedBy: .Equal, toItem: menuBar, attribute: .CenterY, multiplier: 1, constant: 0).active = true
+        let leftButtonLeading = NSLayoutConstraint(item: leftButton, attribute: .Leading, relatedBy: .Equal, toItem: menuBar, attribute: .Leading, multiplier: 1, constant: 10)
+        leftButtonLeading.active = true
+        leftButtonLeading.identifier = "Left Button Leading"
+        let leftButtonTrailing = NSLayoutConstraint(item: rightButton, attribute: .Trailing, relatedBy: .Equal, toItem: menuBar, attribute: .Trailing, multiplier: 1, constant: -10)
+        leftButtonTrailing.active = true
+        leftButtonTrailing.identifier = "Left Button Trailing"
+        let labelCenterX = NSLayoutConstraint(item: label, attribute: .CenterX, relatedBy: .Equal, toItem: menuBar, attribute: .CenterX, multiplier: 1, constant: 0)
+        labelCenterX.active = true
+        labelCenterX.identifier = "Label Center X"
+        let labelLeftCenterY = NSLayoutConstraint(item: leftButton, attribute: .CenterY, relatedBy: .Equal, toItem: menuBar, attribute: .CenterY, multiplier: 1, constant: 0)
+        labelLeftCenterY.active = true
+        labelLeftCenterY.identifier = "left button label Center Y"
+        let labelCenterY = NSLayoutConstraint(item: label, attribute: .CenterY, relatedBy: .Equal, toItem: menuBar, attribute: .CenterY, multiplier: 1, constant: 0)
+        labelCenterY.active = true
+        labelCenterY.identifier = "Label center y"
+        let labelRightCenterY = NSLayoutConstraint(item: rightButton, attribute: .CenterY, relatedBy: .Equal, toItem: menuBar, attribute: .CenterY, multiplier: 1, constant: 0)
+        labelRightCenterY.active = true
+        labelRightCenterY.identifier = "Label right center y"
 
-        NSLayoutConstraint(item: leftButton, attribute: .Height, relatedBy: .Equal, toItem: rightButton, attribute: .Height, multiplier: 1, constant: 0).active = true
-        NSLayoutConstraint(item: label, attribute: .Height, relatedBy: .Equal, toItem: rightButton, attribute: .Height, multiplier: 1, constant: 0).active = true
-        NSLayoutConstraint(item: rightButton, attribute: .Height, relatedBy: .Equal, toItem: menuBar, attribute: .Height, multiplier: 1, constant: -5).active = true
-        NSLayoutConstraint(item: leftButton, attribute: .Height, relatedBy: .Equal, toItem: leftButton, attribute: .Width, multiplier: 1, constant: 0).active = true
-        NSLayoutConstraint(item: rightButton, attribute: .Height, relatedBy: .Equal, toItem: rightButton, attribute: .Width, multiplier: 1, constant: 0).active = true
-        // ^ this one sets the margins
+        let buttonEqualHeights = NSLayoutConstraint(item: leftButton, attribute: .Height, relatedBy: .Equal, toItem: rightButton, attribute: .Height, multiplier: 1, constant: 0)
+        buttonEqualHeights.active = true
+        buttonEqualHeights.identifier = "Button equal heights"
+        let labelEqualHeight = NSLayoutConstraint(item: label, attribute: .Height, relatedBy: .Equal, toItem: rightButton, attribute: .Height, multiplier: 1, constant: 0)
+        labelEqualHeight.active = true
+        labelEqualHeight.identifier = "Label equal to button height"
+        let buttonHeight = NSLayoutConstraint(item: rightButton, attribute: .Height, relatedBy: .Equal, toItem: menuBar, attribute: .Height, multiplier: 1, constant: -5)
+        buttonHeight.active = true
+        buttonHeight.identifier = "Button height to bar"
+        let lbaspectRatio = NSLayoutConstraint(item: leftButton, attribute: .Height, relatedBy: .Equal, toItem: leftButton, attribute: .Width, multiplier: 1, constant: 0)
+        lbaspectRatio.active = true
+        lbaspectRatio.identifier = "Left button aspect ratio"
+        let rbaspectRatio = NSLayoutConstraint(item: rightButton, attribute: .Height, relatedBy: .Equal, toItem: rightButton, attribute: .Width, multiplier: 1, constant: 0)
+        rbaspectRatio.active = true
+        rbaspectRatio.identifier = "Right button aspect ratio"
 
 
 
