@@ -32,6 +32,7 @@ class MusicPlayerView: UIView {
     var musicPlayer: IntegratedMusicPlayer!
 
     var playButton: SVGPlayButton!
+    var playButtonBlur: UIVisualEffectView!
 
 //    var playPauseButton: RSPlayPauseButton!
 
@@ -205,41 +206,51 @@ class MusicPlayerView: UIView {
     }
 
     func renderPlayButton() {
+
         playButton = SVGPlayButton()
         playButton.pauseColor = Style.blackColor
         playButton.playColor = Style.blackColor
         playButton.willPlay = {self.playButtonDidPress() }
         playButton.willPause = {self.playButtonDidPress() }
         playButton.translatesAutoresizingMaskIntoConstraints = false
-        /*
-        let blur = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.ExtraLight))
-        blur.frame = playButton.bounds
-        blur.layer.cornerRadius = playButton.frame.width / 2
-        blur.clipsToBounds = true
-        blur.userInteractionEnabled = false //This allows touches to forward to the button
-        playButton.insertSubview(blur, atIndex: 0)
- figure out the blur 
- */
+
+
+
+        playButtonBlur = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+        playButton.addSubview(playButtonBlur)
+        //        songArtView.addSubview(playButtonBlur)
+        playButtonBlur.userInteractionEnabled = false
+//        playButtonBlur.clipsToBounds = true
+//        playButtonBlur.layer.cornerRadius = playButtonBlur.bounds.size.width/2
+//        playButtonBlur.layer.masksToBounds = true
+//        playButtonBlur.layer.cornerRadius = playButton.frame.width / 2
+//        playButtonBlur.frame = playButton.bounds
+
+
 
         songArtView.addSubview(playButton)
         addPlayButtonConstraints()
-
-
-//        playPauseButton = RSPlayPauseButton()
-//        playPauseButton.addTarget(self, action: #selector(MusicPlayerView.playButtonDidPress), forControlEvents: .TouchUpInside)
-//        playPauseButton.translatesAutoresizingMaskIntoConstraints = false
-//        songArtView.addSubview(playPauseButton)
-//        addPlayButtonConstraints()
     }
 
     func addPlayButtonConstraints() {
+        playButtonBlur.translatesAutoresizingMaskIntoConstraints = false
+        let blurWidth = NSLayoutConstraint(item: playButtonBlur, attribute: .Width, relatedBy: .Equal, toItem: playButton, attribute: .Width, multiplier: 1, constant: 10)
+        blurWidth.identifier = "blur width"
+        let blurAspect = NSLayoutConstraint(item: playButtonBlur, attribute: .Width, relatedBy: .Equal, toItem: playButtonBlur, attribute: .Height, multiplier: 1, constant: 0)
+        blurAspect.identifier = "blur Aspect"
+        let blurCenterX = NSLayoutConstraint(item: playButtonBlur, attribute: .CenterX, relatedBy: .Equal, toItem: playButton, attribute: .CenterX, multiplier: 1, constant: 0)
+        blurCenterX.identifier = "blur Center X"
+        let blurCenterY = NSLayoutConstraint(item: playButtonBlur, attribute: .CenterY, relatedBy: .Equal, toItem: playButton, attribute: .CenterY, multiplier: 1, constant: 0)
+        blurCenterY.identifier = "blur Center y"
+
+//        [blurWidth,blurAspect,blurCenterX,blurCenterY]
+
+
         let playAspect = NSLayoutConstraint(item: playButton, attribute: .Width, relatedBy: .Equal, toItem: playButton, attribute: .Height, multiplier: 1, constant: 0)
-        playAspect.identifier = "Play Pause Aspect"
-
-
-        let smallPlayCenterX = NSLayoutConstraint(item: playButton, attribute: .CenterX, relatedBy: .Equal, toItem: playButton.superview, attribute: .CenterX, multiplier: 1, constant: 0)
+        playAspect.identifier = "play Aspect"
+        let smallPlayCenterX = NSLayoutConstraint(item: playButton, attribute: .CenterX, relatedBy: .Equal, toItem: songArtView, attribute: .CenterX, multiplier: 1, constant: 0)
         smallPlayCenterX.identifier = "Play Pause Center X"
-        let largePlayCenterX = NSLayoutConstraint(item: playButton, attribute: .CenterX, relatedBy: .Equal, toItem: playButton.superview, attribute: .CenterX, multiplier: 1, constant: 0)
+        let largePlayCenterX = NSLayoutConstraint(item: playButton, attribute: .CenterX, relatedBy: .Equal, toItem: platformView, attribute: .CenterX, multiplier: 1, constant: 0)
         largePlayCenterX.identifier = "Play Pause Center X"
         let smallPlayCenterY = NSLayoutConstraint(item: playButton, attribute: .CenterY, relatedBy: .Equal, toItem: songArtView, attribute: .CenterY, multiplier: 1, constant: 0)
         smallPlayCenterY.identifier = "Play Pause Center Y"
@@ -250,8 +261,8 @@ class MusicPlayerView: UIView {
         smallPlayWidth.identifier = "Play Pause Width"
         let largePlayWidth = NSLayoutConstraint(item: playButton, attribute: .Width, relatedBy: .GreaterThanOrEqual, toItem: platformView, attribute: .Width, multiplier: 1/2, constant: 0)
         largePlayWidth.identifier = "Play Pause Width"
-        smallViewConstraints.appendContentsOf([smallPlayCenterX,smallPlayCenterY,playAspect,smallPlayWidth])
-        expandedViewConstraints.appendContentsOf([largePlayCenterX,largePlayCenterY,playAspect,largePlayWidth])
+        smallViewConstraints.appendContentsOf([smallPlayCenterX,smallPlayCenterY,playAspect,smallPlayWidth,blurWidth,blurAspect,blurCenterX,blurCenterY])
+        expandedViewConstraints.appendContentsOf([largePlayCenterX,largePlayCenterY,playAspect,largePlayWidth,blurWidth,blurAspect,blurCenterX,blurCenterY])
 /*        let playPauseAspect = NSLayoutConstraint(item: playPauseButton, attribute: .Width, relatedBy: .Equal, toItem: playPauseButton, attribute: .Height, multiplier: 1, constant: 0)
         playPauseAspect.identifier = "Play Pause Aspect"
 
@@ -329,6 +340,9 @@ class MusicPlayerView: UIView {
         subviews.forEach({$0.updateConstraints()})
         displayType = .Large
         // re-draw image?
+
+        playButtonBlur.layer.masksToBounds = true
+        playButtonBlur.layer.cornerRadius = playButton.frame.width / 2
     }
 
     func showSmall() {
@@ -351,6 +365,9 @@ class MusicPlayerView: UIView {
         smallViewConstraints.forEach({$0.active = true})
         subviews.forEach({$0.updateConstraints()})
         displayType = .Small
+
+        playButtonBlur.layer.masksToBounds = true
+        playButtonBlur.layer.cornerRadius = playButtonBlur.frame.width / 2
     }
 
     func collapse() {
