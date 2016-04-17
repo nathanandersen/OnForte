@@ -31,10 +31,8 @@ class MusicPlayerView: UIView {
     var startButton: UIButton?
     var musicPlayer: IntegratedMusicPlayer!
 
-    var playButton: SVGPlayButton!
+    var playButton: PlayButton!
     var playButtonBlur: UIVisualEffectView!
-
-//    var playPauseButton: RSPlayPauseButton!
 
     var forwardButton: UIButton?
     var playlistController: PlaylistController!
@@ -93,7 +91,7 @@ class MusicPlayerView: UIView {
     }
 
     func startButtonPress() {
-        musicPlayer.playNextSong()
+        playButton.press()
     }
 
     func renderSongArtView() {
@@ -205,29 +203,25 @@ class MusicPlayerView: UIView {
 
     }
 
+    // returns the new status of the playing button
+    func playPauseDidPress() -> Bool {
+        return musicPlayer.togglePlayingStatus()
+    }
+
     func renderPlayButton() {
 
-        playButton = SVGPlayButton()
+        playButton = PlayButton()
+        playButton.toggleFn = self.playPauseDidPress
+
         playButton.pauseColor = Style.blackColor
         playButton.playColor = Style.blackColor
-        playButton.willPlay = {self.playButtonDidPress() }
-        playButton.willPause = {self.playButtonDidPress() }
         playButton.translatesAutoresizingMaskIntoConstraints = false
 
 
 
         playButtonBlur = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
         playButton.addSubview(playButtonBlur)
-        //        songArtView.addSubview(playButtonBlur)
         playButtonBlur.userInteractionEnabled = false
-//        playButtonBlur.clipsToBounds = true
-//        playButtonBlur.layer.cornerRadius = playButtonBlur.bounds.size.width/2
-//        playButtonBlur.layer.masksToBounds = true
-//        playButtonBlur.layer.cornerRadius = playButton.frame.width / 2
-//        playButtonBlur.frame = playButton.bounds
-
-
-
         songArtView.addSubview(playButton)
         addPlayButtonConstraints()
     }
@@ -242,8 +236,6 @@ class MusicPlayerView: UIView {
         blurCenterX.identifier = "blur Center X"
         let blurCenterY = NSLayoutConstraint(item: playButtonBlur, attribute: .CenterY, relatedBy: .Equal, toItem: playButton, attribute: .CenterY, multiplier: 1, constant: 0)
         blurCenterY.identifier = "blur Center y"
-
-//        [blurWidth,blurAspect,blurCenterX,blurCenterY]
 
 
         let playAspect = NSLayoutConstraint(item: playButton, attribute: .Width, relatedBy: .Equal, toItem: playButton, attribute: .Height, multiplier: 1, constant: 0)
@@ -289,19 +281,6 @@ class MusicPlayerView: UIView {
         musicPlayer.control = self
     }
 
-    func playButtonDidPress() {
-        print("did press")
-//        musicPlayer.togglePlayingStatus()
-    }
-
-    func setPlayButtonStatus(status: Bool) {
-        print("bow wow wow")
-        // set the status?!?!
-//        playButton.isPlaying = status
-
-        //        playPauseButton.setPaused(status, animated: true)
-    }
-
     func renderForwardButton() {
 
     }
@@ -323,9 +302,6 @@ class MusicPlayerView: UIView {
         playButton.removeFromSuperview()
         playButton.constraints.forEach({$0.active = false})
 
-/*        playPauseButton.removeFromSuperview()
-        playPauseButton.constraints.forEach({$0.active = false})*/
-
         subviews.forEach({
             $0.constraints.forEach({$0.active = false})
             $0.removeFromSuperview()
@@ -341,12 +317,16 @@ class MusicPlayerView: UIView {
         displayType = .Large
         // re-draw image?
 
+
+        self.setNeedsLayout()
+
         playButtonBlur.layer.masksToBounds = true
         playButtonBlur.layer.cornerRadius = playButtonBlur.frame.width / 2
     }
 
     func showSmall() {
 
+        print("what?")
         playButton.removeFromSuperview()
         playButton.constraints.forEach({$0.active = false})
 /*        playPauseButton.removeFromSuperview()
@@ -365,6 +345,8 @@ class MusicPlayerView: UIView {
         smallViewConstraints.forEach({$0.active = true})
         subviews.forEach({$0.updateConstraints()})
         displayType = .Small
+
+        self.setNeedsLayout()
 
         playButtonBlur.layer.masksToBounds = true
         playButtonBlur.layer.cornerRadius = playButtonBlur.frame.width / 2
