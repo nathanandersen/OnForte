@@ -12,30 +12,26 @@ import UIKit
 class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDelegate {
 
     var navBar: UIView!
-
     var searchBar: UISearchBar!
-
     var activityIndicator: UIActivityIndicatorView!
     var searchTimer = NSTimer()
-
     var segmentedControl: UISegmentedControl!
     var selectionBar: UIView = UIView()
     var tableView: UITableView!
     var currentService: Service = .Soundcloud
-
-    let translucentColor: UIColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.3)
-
-
     let orderedServices: [Service] = [.Spotify, .Soundcloud, .iTunes]
     let orderedSearchHandlers: [SearchHandler] = [SpotifyHandler(),SoundCloudHandler(),LocalHandler()]
 
+    let searchBarHeight: CGFloat = 40
+
+    /*
     let leftSelectedImage: UIImage = imageWithImage(UIImage(named: "spotify")!, scaledToSize: CGSizeMake(35, 35))
     let leftImage: UIImage = imageWithImage(UIImage(named: "spotify_gray")!, scaledToSize: CGSizeMake(35, 35))
     let centerSelectedImage: UIImage = imageWithImage(UIImage(named: "soundcloud")!, scaledToSize: CGSizeMake(35, 35))
     let centerImage: UIImage = imageWithImage(UIImage(named: "soundcloud_gray")!, scaledToSize: CGSizeMake(35, 35))
     let rightSelectedImage: UIImage = imageWithImage(UIImage(named: "itunes")!, scaledToSize: CGSizeMake(35, 35))
     let rightImage: UIImage = imageWithImage(UIImage(named: "itunes_gray")!, scaledToSize: CGSizeMake(35, 35))
-
+ */
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,23 +117,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
 
     func segmentedBarChangedValue(segment: UISegmentedControl) {
         let index = segment.selectedSegmentIndex
-        print(index)
-        switch(index) {
-        case 0:
-            segment.setImage(leftSelectedImage, forSegmentAtIndex: 0)
-            segment.setImage(centerImage, forSegmentAtIndex: 1)
-            segment.setImage(rightImage,forSegmentAtIndex: 2)
-        case 1:
-            segment.setImage(leftImage, forSegmentAtIndex: 0)
-            segment.setImage(centerSelectedImage, forSegmentAtIndex: 1)
-            segment.setImage(rightImage,forSegmentAtIndex: 2)
-        case 2:
-            segment.setImage(leftImage, forSegmentAtIndex: 0)
-            segment.setImage(centerImage, forSegmentAtIndex: 1)
-            segment.setImage(rightSelectedImage,forSegmentAtIndex: 2)
-        case _:
-            print("oops! only should be 3!")
-        }
+//        print(index)
         tableView.dataSource = orderedSearchHandlers[index]
         tableView.delegate = orderedSearchHandlers[index]
         orderedSearchHandlers[index].search(searchBar.text!)
@@ -147,7 +127,10 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
 
 
     func initializeSegmentedControl(){
-        // height = 40
+        let imageSize = CGSizeMake(searchBarHeight - 5, searchBarHeight - 5)
+        let leftImage: UIImage = imageWithImage(UIImage(named: "spotify_gray")!, scaledToSize: imageSize)
+        let centerImage: UIImage = imageWithImage(UIImage(named: "soundcloud_gray")!, scaledToSize: imageSize)
+        let rightImage: UIImage = imageWithImage(UIImage(named: "itunes_gray")!, scaledToSize: imageSize)
 
         segmentedControl = UISegmentedControl(items: [leftImage,centerImage,rightImage])
         segmentedControl.selectedSegmentIndex = 0
@@ -174,7 +157,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
         NSLayoutConstraint(item: searchBar, attribute: .Left, relatedBy: .Equal, toItem: navBar, attribute: .Left, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: searchBar, attribute: .Right, relatedBy: .Equal, toItem: navBar, attribute: .Right, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: searchBar, attribute: .Top, relatedBy: .Equal, toItem: navBar, attribute: .Top, multiplier: 1, constant: 0).active = true
-        NSLayoutConstraint(item: searchBar, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40).active = true
+        NSLayoutConstraint(item: searchBar, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: searchBarHeight).active = true
 
 
         NSLayoutConstraint(item: navBar, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1, constant: 0).active = true
