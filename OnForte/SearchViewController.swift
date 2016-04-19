@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextFieldDelegate {
+class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextFieldDelegate {
 
     var navBar: UIView!
 
@@ -18,9 +18,9 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
     var activityIndicator: UIActivityIndicatorView!
     var searchTimer = NSTimer()
 
-//    var segmentedControl: UISegmentedControl!
+    var segmentedControl: UISegmentedControl!
+//    var segmentedControl: SMSegmentView!
 
-    var segmentedControl: SMSegmentView!
     var selectionBar: UIView = UIView()
     var searchBarUnderline: UIView!
     var searchBarIcon: UIImageView!
@@ -60,7 +60,7 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchViewController.reloadTable), name: "reloadSearchResults", object: nil)
 
-        segmentedControl.selectSegmentAtIndex(0)
+//        segmentedControl.selectSegmentAtIndex(0)
     }
 
     func reloadTable() {
@@ -109,6 +109,9 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
         tableView.rowHeight = 85.0
         tableView.keyboardDismissMode = .OnDrag
 
+        tableView.delegate = orderedSearchHandlers[0]
+        tableView.dataSource = orderedSearchHandlers[0]
+
         tableView.registerClass(SongViewCell.self, forCellReuseIdentifier: "SongViewCell")
         self.view.addSubview(tableView)
     }
@@ -135,9 +138,10 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
     }
 
 
-/*    func segmentedBarChangedValue(segment: UISegmentedControl) {
-        print(segment.selectedSegmentIndex)
-        switch(segment.selectedSegmentIndex) {
+    func segmentedBarChangedValue(segment: UISegmentedControl) {
+        let index = segment.selectedSegmentIndex
+        print(index)
+        switch(index) {
         case 0:
             segment.setImage(leftSelectedImage, forSegmentAtIndex: 0)
             segment.setImage(centerImage, forSegmentAtIndex: 1)
@@ -153,17 +157,28 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
         case _:
             print("oops! only should be 3!")
         }
-    }*/
+        tableView.dataSource = orderedSearchHandlers[index]
+        tableView.delegate = orderedSearchHandlers[index]
+        orderedSearchHandlers[index].search(searchBar.text!)
+        searchTimer.invalidate()
+        tableView.reloadData()
+    }
 
 
     func initializeSegmentedControl(){
         // height = 40
 
-/*        segmentedControl = UISegmentedControl(items: [leftImage,centerImage,rightImage])
+        segmentedControl = UISegmentedControl(items: [leftImage,centerImage,rightImage])
         segmentedControl.addTarget(self, action: #selector(SearchViewController.segmentedBarChangedValue(_:)), forControlEvents: .ValueChanged)
-        segmentedControl.tintColor = Style.translucentColor*/
+        segmentedControl.tintColor = Style.translucentColor
 
-        segmentedControl = SMSegmentView()
+        segmentedControl.subviews[0].tintColor = Style.greenColor
+        // ^ maybe make this "spotify green"
+        segmentedControl.subviews[1].tintColor = Style.orangeColor
+        // ^ maybe make this "soundcloud orange"
+        segmentedControl.subviews[2].tintColor = Style.redColor
+
+/*        segmentedControl = SMSegmentView()
         segmentedControl.separatorColour = Style.primaryColor
         segmentedControl.separatorWidth = 0.0
         segmentedControl.addSegmentWithTitle("Spotify", onSelectionImage: UIImage(named: "spotify"), offSelectionImage: UIImage(named: "spotify_gray"))
@@ -175,11 +190,11 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
         segmentedControl.segmentOffSelectionColour = Style.clearColor
         segmentedControl.segmentOnSelectionColour = Style.clearColor
         self.segmentedControl.layer.borderWidth = 0.0
-        segmentedControl.delegate = self
+        segmentedControl.delegate = self*/
         navBar.addSubview(segmentedControl)
 
-        self.selectionBar.frame = CGRect(x: 0.0, y: self.segmentedControl.frame.size.height - 5.0, width: self.segmentedControl.frame.size.width/CGFloat(self.segmentedControl.numberOfSegments), height: 5.0)
-        self.view.addSubview(selectionBar)
+/*        self.selectionBar.frame = CGRect(x: 0.0, y: self.segmentedControl.frame.size.height - 5.0, width: self.segmentedControl.frame.size.width/CGFloat(self.segmentedControl.numberOfSegments), height: 5.0)
+        self.view.addSubview(selectionBar)*/
     }
 
     func addConstraints() {
@@ -238,14 +253,15 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
         NSLayoutConstraint(item: tableView, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: tableView, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: 0).active = true
          NSLayoutConstraint(item: tableView, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1, constant: 0).active = true
-         NSLayoutConstraint(item: tableView, attribute: .Top, relatedBy: .Equal, toItem: navBar, attribute: .Bottom, multiplier: 1, constant: 10).active = true
+//        NSLayoutConstraint(item: tableView, attribute: .Top, relatedBy: .Equal, toItem: navBar, attribute: .Bottom, multiplier: 1, constant: 10).active = true
+        NSLayoutConstraint(item: tableView, attribute: .Top, relatedBy: .Equal, toItem: navBar, attribute: .Bottom, multiplier: 1, constant: 5).active = true
 
-        NSLayoutConstraint(item: selectionBar, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 5).active = true
+/*        NSLayoutConstraint(item: selectionBar, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 5).active = true
         NSLayoutConstraint(item: selectionBar, attribute: .Width, relatedBy: .Equal, toItem: segmentedControl, attribute: .Width, multiplier: 1/CGFloat(self.segmentedControl.numberOfSegments), constant: 0).active = true
-        NSLayoutConstraint(item: selectionBar, attribute: .Top, relatedBy: .Equal, toItem: segmentedControl, attribute: .Bottom, multiplier: 1, constant: 5).active = true
+        NSLayoutConstraint(item: selectionBar, attribute: .Top, relatedBy: .Equal, toItem: segmentedControl, attribute: .Bottom, multiplier: 1, constant: 5).active = true*/
 
 
-        selectionBar.updateConstraints()
+//        selectionBar.updateConstraints()
         cancelButton.updateConstraints()
         activityIndicator.updateConstraints()
         searchBarIcon.updateConstraints()
@@ -260,7 +276,7 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
 
     // *********************************** VIEW INITIALIZATION ***********************************
 
-
+/*
     func segmentView(segmentView: SMBasicSegmentView, didSelectSegmentAtIndex index: Int) {
 
         print(index)
@@ -292,7 +308,7 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
         searchTimer.invalidate()
         tableView.reloadData()
 
-    }
+    }*/
 
     // ***********************************      SEARCHING      ***********************************
 
