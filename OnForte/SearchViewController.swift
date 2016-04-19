@@ -9,12 +9,14 @@
 import Foundation
 import UIKit
 
-class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextFieldDelegate {
+class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextFieldDelegate, UISearchBarDelegate {
 
     var navBar: UIView!
 
-    var searchBar: UITextField!
-    var cancelButton: UIButton!
+    var searchBar: UISearchBar!
+
+//    var searchBar: UITextField!
+//    var cancelButton: UIButton!
     var activityIndicator: UIActivityIndicatorView!
     var searchTimer = NSTimer()
 
@@ -22,8 +24,8 @@ class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextF
 //    var segmentedControl: SMSegmentView!
 
     var selectionBar: UIView = UIView()
-    var searchBarUnderline: UIView!
-    var searchBarIcon: UIImageView!
+//    var searchBarUnderline: UIView!
+//    var searchBarIcon: UIImageView!
 
     var tableView: UITableView!
 
@@ -99,10 +101,16 @@ class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextF
     }
 
     func initializeSearchBar() {
-        searchBar = UITextField()
-        searchBar.backgroundColor = Style.blackColor
-
+        searchBar = UISearchBar()
         searchBar.delegate = self
+        searchBar.placeholder = "Search for a song"
+        searchBar.searchBarStyle = .Prominent
+        searchBar.translucent = false
+        navBar.addSubview(searchBar)
+//        searchBar = UITextField()
+//        searchBar.backgroundColor = Style.blackColor
+
+/*        searchBar.delegate = self
         searchBar.returnKeyType = .Search // just to fake it
         searchBar.addTarget(self, action: #selector(SearchViewController.searchTextChanged(_:)), forControlEvents: UIControlEvents.EditingChanged)
         navBar.addSubview(searchBar)
@@ -121,7 +129,7 @@ class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextF
         navBar.addSubview(searchBarIcon)
 
 
-        initializeCancelButton()
+        initializeCancelButton()*/
         initializeActivityIndicator()
     }
 
@@ -137,7 +145,7 @@ class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextF
         self.view.addSubview(tableView)
     }
 
-
+/*
     func initializeCancelButton() {
         cancelButton = UIButton()
         cancelButton.setTitle("Cancel", forState: .Normal)
@@ -148,7 +156,7 @@ class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextF
         cancelButton.addTarget(self, action: #selector(SearchViewController.cancelButtonPressed(_:)), forControlEvents: .TouchUpInside)
         navBar.addSubview(cancelButton)
         self.view.addSubview(cancelButton)
-    }
+    }*/
 
     func initializeActivityIndicator() {
         activityIndicator = UIActivityIndicatorView()
@@ -224,53 +232,59 @@ class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextF
         navBar.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBarUnderline.translatesAutoresizingMaskIntoConstraints = false
-        searchBarIcon.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+//        searchBarUnderline.translatesAutoresizingMaskIntoConstraints = false
+//        searchBarIcon.translatesAutoresizingMaskIntoConstraints = false
+//        cancelButton.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         selectionBar.translatesAutoresizingMaskIntoConstraints = false
 
+        /*
         NSLayoutConstraint(item: cancelButton, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: -120).active = true
         NSLayoutConstraint(item: cancelButton, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: cancelButton, attribute: .CenterY, relatedBy: .Equal, toItem: searchBar, attribute: .CenterY, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: cancelButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 22).active = true
-
-
+*/
+/*
         NSLayoutConstraint(item: searchBarIcon, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1, constant: 14).active = true
         NSLayoutConstraint(item: searchBarIcon, attribute: .CenterY, relatedBy: .Equal, toItem: searchBar, attribute: .CenterY, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: searchBarIcon, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 15).active = true
-        NSLayoutConstraint(item: searchBarIcon, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 22).active = true
+        NSLayoutConstraint(item: searchBarIcon, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 22).active = true*/
 
-
+/*
         NSLayoutConstraint(item: searchBarUnderline, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1, constant: 15).active = true
         NSLayoutConstraint(item: searchBarUnderline, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: -100).active = true
         NSLayoutConstraint(item: searchBarUnderline, attribute: .Top, relatedBy: .Equal, toItem: searchBar, attribute: .Bottom, multiplier: 1, constant: -2).active = true
-        NSLayoutConstraint(item: searchBarUnderline, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 2).active = true
+        NSLayoutConstraint(item: searchBarUnderline, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 2).active = true*/
 
 
-        NSLayoutConstraint(item: searchBar, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1, constant: 35).active = true
-        NSLayoutConstraint(item: searchBar, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: -150).active = true
+        NSLayoutConstraint(item: searchBar, attribute: .Left, relatedBy: .Equal, toItem: navBar, attribute: .Left, multiplier: 1, constant: 0).active = true
+//        NSLayoutConstraint(item: searchBar, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1, constant: 35).active = true
+        //        NSLayoutConstraint(item: searchBar, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: -150).active = true
+        NSLayoutConstraint(item: searchBar, attribute: .Right, relatedBy: .Equal, toItem: navBar, attribute: .Right, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: searchBar, attribute: .Top, relatedBy: .Equal, toItem: navBar, attribute: .Top, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: searchBar, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 30).active = true
 
 
+//        NSLayoutConstraint(item: navBar, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: navBar, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1, constant: 0).active = true
+//        NSLayoutConstraint(item: navBar, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: navBar, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: 0).active = true
         // **********
         NSLayoutConstraint(item: navBar, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1, constant: self.view.frame.minY).active = true
         /// *********
         NSLayoutConstraint(item: navBar, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 70).active = true
 
-        NSLayoutConstraint(item: segmentedControl, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1, constant: 2.5).active = true
-        NSLayoutConstraint(item: segmentedControl, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: -2.5).active = true
+        NSLayoutConstraint(item: segmentedControl, attribute: .Left, relatedBy: .Equal, toItem: navBar, attribute: .Left, multiplier: 1, constant: 0).active = true
+        NSLayoutConstraint(item: segmentedControl, attribute: .Right, relatedBy: .Equal, toItem: navBar, attribute: .Right, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: segmentedControl, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40).active = true
-        NSLayoutConstraint(item: segmentedControl, attribute: .Top, relatedBy: .Equal, toItem: searchBar, attribute: .Bottom, multiplier: 1, constant: 0).active = true
+        NSLayoutConstraint(item: segmentedControl, attribute: .Top, relatedBy: .Equal, toItem: searchBar, attribute: .Bottom, multiplier: 1, constant: 1).active = true
 
 
         NSLayoutConstraint(item: activityIndicator, attribute: .Height, relatedBy: .Equal, toItem: activityIndicator, attribute: .Width, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: activityIndicator, attribute: .Height, relatedBy: .Equal, toItem: searchBar, attribute: .Height, multiplier: 1, constant: -5).active = true
         NSLayoutConstraint(item: activityIndicator, attribute: .CenterY, relatedBy: .Equal, toItem: searchBar, attribute: .CenterY, multiplier: 1, constant: 0).active = true
-        NSLayoutConstraint(item: activityIndicator, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: -120).active = true
+//        NSLayoutConstraint(item: activityIndicator, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: -120).active = true
+        NSLayoutConstraint(item: activityIndicator, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: -60).active = true
 
         NSLayoutConstraint(item: tableView, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: tableView, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1, constant: 0).active = true
@@ -284,11 +298,11 @@ class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextF
 
 
 //        selectionBar.updateConstraints()
-        cancelButton.updateConstraints()
+//        cancelButton.updateConstraints()
         activityIndicator.updateConstraints()
-        searchBarIcon.updateConstraints()
+//        searchBarIcon.updateConstraints()
         searchBar.updateConstraints()
-        searchBarUnderline.updateConstraints()
+//        searchBarUnderline.updateConstraints()
         navBar.updateConstraints()
         segmentedControl.updateConstraints()
         tableView.updateConstraints()
@@ -334,6 +348,14 @@ class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextF
 
     // ***********************************      SEARCHING      ***********************************
 
+
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchBar.text)
+        searchTimer.invalidate()
+        activityIndicator.stopAnimating()
+        searchTimer = NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: #selector(SearchViewController.searchAll), userInfo: nil, repeats: true)
+    }
+
     func clearSearch() {
         orderedSearchHandlers.forEach() { $0.clearSearch() }
         self.view.endEditing(true)
@@ -345,13 +367,14 @@ class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextF
         self.mm_drawerController.closeDrawerAnimated(true, completion: nil)
     }
 
+    /*
     // Called when text changes in search bar
     func searchTextChanged(sender: AnyObject) {
         print(searchBar.text)
         searchTimer.invalidate()
         activityIndicator.stopAnimating()
         searchTimer = NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: #selector(SearchViewController.searchAll), userInfo: nil, repeats: true)
-    }
+    }*/
 
     func searchAll(){
         activityIndicator.startAnimating()

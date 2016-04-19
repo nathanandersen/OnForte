@@ -20,6 +20,9 @@ class PlaylistDrawerController: MMDrawerController {
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.openDrawerGestureModeMask = .PanningCenterView
         self.closeDrawerGestureModeMask = .PanningCenterView
+
+        self.setDrawerVisualStateBlock(MMDrawerVisualState.parallaxVisualStateBlockWithParallaxFactor(2))
+
         self.leftDrawerViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistHistoryViewController")
         self.rightDrawerViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SearchViewController")
         self.centerViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistController")
