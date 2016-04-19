@@ -9,6 +9,7 @@
 import Foundation
 import BFPaperButton
 
+
 struct Style {
 
     //http://sdbr.net/post/Themes-in-Swift/
@@ -41,7 +42,9 @@ struct Style {
     static var primaryOrange = UIColor(red: 1.0, green: 0.5, blue: 0, alpha: 1.0)
     static var secondaryOrange = UIColor(red: 1.0, green: 0.5, blue: 0, alpha: 0.5)
 
-
+    static var spotifyGreen = UIColor(red:0.14, green:0.81, blue:0.37, alpha:1.0)
+    // #23CF5F
+    
     static var primaryColor = primaryBlue
     static var secondaryColor = secondaryBlue
 

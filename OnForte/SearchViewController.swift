@@ -169,10 +169,12 @@ class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextF
         // height = 40
 
         segmentedControl = UISegmentedControl(items: [leftImage,centerImage,rightImage])
+        segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(SearchViewController.segmentedBarChangedValue(_:)), forControlEvents: .ValueChanged)
         segmentedControl.tintColor = Style.translucentColor
 
-        segmentedControl.subviews[0].tintColor = Style.greenColor
+//        segmentedControl.subviews[0].tintColor = Style.greenColor
+        segmentedControl.subviews[0].tintColor = Style.spotifyGreen
         // ^ maybe make this "spotify green"
         segmentedControl.subviews[1].tintColor = Style.orangeColor
         // ^ maybe make this "soundcloud orange"
