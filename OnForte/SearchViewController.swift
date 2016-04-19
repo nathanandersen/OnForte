@@ -17,6 +17,9 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
     var cancelButton: UIButton!
     var activityIndicator: UIActivityIndicatorView!
     var searchTimer = NSTimer()
+
+//    var segmentedControl: UISegmentedControl!
+
     var segmentedControl: SMSegmentView!
     var selectionBar: UIView = UIView()
     var searchBarUnderline: UIView!
@@ -32,6 +35,13 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
 
     let orderedServices: [Service] = [.Spotify, .Soundcloud, .iTunes]
     let orderedSearchHandlers: [SearchHandler] = [SpotifyHandler(),SoundCloudHandler(),LocalHandler()]
+
+    let leftSelectedImage: UIImage = imageWithImage(UIImage(named: "spotify")!, scaledToSize: CGSizeMake(35, 35))
+    let leftImage: UIImage = imageWithImage(UIImage(named: "spotify_gray")!, scaledToSize: CGSizeMake(35, 35))
+    let centerSelectedImage: UIImage = imageWithImage(UIImage(named: "soundcloud")!, scaledToSize: CGSizeMake(35, 35))
+    let centerImage: UIImage = imageWithImage(UIImage(named: "soundcloud_gray")!, scaledToSize: CGSizeMake(35, 35))
+    let rightSelectedImage: UIImage = imageWithImage(UIImage(named: "itunes")!, scaledToSize: CGSizeMake(35, 35))
+    let rightImage: UIImage = imageWithImage(UIImage(named: "itunes_gray")!, scaledToSize: CGSizeMake(35, 35))
 
 
     override func viewDidLoad() {
@@ -124,7 +134,35 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
         navBar.addSubview(activityIndicator)
     }
 
+
+/*    func segmentedBarChangedValue(segment: UISegmentedControl) {
+        print(segment.selectedSegmentIndex)
+        switch(segment.selectedSegmentIndex) {
+        case 0:
+            segment.setImage(leftSelectedImage, forSegmentAtIndex: 0)
+            segment.setImage(centerImage, forSegmentAtIndex: 1)
+            segment.setImage(rightImage,forSegmentAtIndex: 2)
+        case 1:
+            segment.setImage(leftImage, forSegmentAtIndex: 0)
+            segment.setImage(centerSelectedImage, forSegmentAtIndex: 1)
+            segment.setImage(rightImage,forSegmentAtIndex: 2)
+        case 2:
+            segment.setImage(leftImage, forSegmentAtIndex: 0)
+            segment.setImage(centerImage, forSegmentAtIndex: 1)
+            segment.setImage(rightSelectedImage,forSegmentAtIndex: 2)
+        case _:
+            print("oops! only should be 3!")
+        }
+    }*/
+
+
     func initializeSegmentedControl(){
+        // height = 40
+
+/*        segmentedControl = UISegmentedControl(items: [leftImage,centerImage,rightImage])
+        segmentedControl.addTarget(self, action: #selector(SearchViewController.segmentedBarChangedValue(_:)), forControlEvents: .ValueChanged)
+        segmentedControl.tintColor = Style.translucentColor*/
+
         segmentedControl = SMSegmentView()
         segmentedControl.separatorColour = Style.primaryColor
         segmentedControl.separatorWidth = 0.0
@@ -225,6 +263,8 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
 
     func segmentView(segmentView: SMBasicSegmentView, didSelectSegmentAtIndex index: Int) {
 
+        print(index)
+
         let placeSelectionBar = { () -> () in
             var barFrame = self.selectionBar.frame
             barFrame.origin.x = barFrame.size.width * CGFloat(index)
@@ -243,7 +283,9 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
         let orderedColors: [UIColor] = [Style.greenColor, Style.orangeColor, Style.redColor]
         currentService = orderedServices[index]
         selectionBar.backgroundColor = orderedColors[index]
+
         segmentedControl.segmentOnSelectionTextColour = orderedColors[index]
+
         tableView.dataSource = orderedSearchHandlers[index]
         tableView.delegate = orderedSearchHandlers[index]
         orderedSearchHandlers[index].search(searchBar.text!)

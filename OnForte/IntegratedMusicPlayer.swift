@@ -27,7 +27,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
         playing = false
         super.init()
         spotifyPlayer.playbackDelegate = self
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NowPlayingView.handlePlaybackStateChanged(_:)), name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: self.localPlayer)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(IntegratedMusicPlayer.handlePlaybackStateChanged(_:)), name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: self.localPlayer)
         localPlayer.beginGeneratingPlaybackNotifications()
     }
 
