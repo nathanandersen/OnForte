@@ -50,7 +50,6 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchViewController.reloadTable), name: "reloadSearchResults", object: nil)
 
-        searchBar.becomeFirstResponder()
         segmentedControl.selectSegmentAtIndex(0)
     }
 
@@ -101,10 +100,6 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
         tableView.keyboardDismissMode = .OnDrag
 
         tableView.registerClass(SongViewCell.self, forCellReuseIdentifier: "SongViewCell")
-
-//        let nib = UINib(nibName: "SearchResultsTableViewCell", bundle: nil)
-//        tableView.registerNib(nib, forCellReuseIdentifier: "SearchResultsTableViewCell")
-
         self.view.addSubview(tableView)
     }
 
@@ -260,8 +255,6 @@ class SearchViewController: UIViewController, SMSegmentViewDelegate, UITextField
     // ***********************************      SEARCHING      ***********************************
 
     func clearSearch() {
-//        searchActive = false
-        self.searchBar.text = ""
         orderedSearchHandlers.forEach() { $0.clearSearch() }
         self.view.endEditing(true)
         self.tableView.reloadData()

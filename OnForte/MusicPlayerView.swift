@@ -63,6 +63,7 @@ class MusicPlayerView: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
 
     }
+
     func setParentPlaylistController(playlistC: PlaylistController) {
         self.playlistController = playlistC
         musicPlayer.playlistController = playlistC
@@ -312,7 +313,6 @@ class MusicPlayerView: UIView {
 
         addSubview(playerView)
         platformView.userInteractionEnabled = true
-//        platformView.addSubview(playPauseButton)
         platformView.addSubview(playButton)
 //        playButton.addSubview(playButtonBlur)
 
@@ -326,7 +326,8 @@ class MusicPlayerView: UIView {
 
         playButtonBlur.layer.masksToBounds = true
         playButtonBlur.layer.cornerRadius = playButtonBlur.bounds.width / 2
-//        self.setNeedsLayout()
+        self.setNeedsLayout()
+        playButton.setNeedsLayout()
     }
 
     func showSmall() {
@@ -335,8 +336,6 @@ class MusicPlayerView: UIView {
         playButton.removeFromSuperview()
 //        playButtonBlur.removeFromSuperview()
         playButton.constraints.forEach({$0.active = false})
-/*        playPauseButton.removeFromSuperview()
-        playPauseButton.constraints.forEach({$0.active = false})*/
 
         subviews.forEach({
             $0.constraints.forEach({$0.active = false})
@@ -345,7 +344,6 @@ class MusicPlayerView: UIView {
 
         addSubview(playerView)
         songArtView.userInteractionEnabled = true
-//        songArtView.addSubview(playPauseButton)
         songArtView.addSubview(playButton)
 //        playButton.addSubview(playButtonBlur)
 
@@ -358,7 +356,8 @@ class MusicPlayerView: UIView {
         print(playButtonBlur.bounds.width)
         playButtonBlur.layer.masksToBounds = true
         playButtonBlur.layer.cornerRadius = playButtonBlur.bounds.width / 2
-//        self.setNeedsLayout()
+        self.setNeedsLayout()
+        playButton.setNeedsLayout()
     }
 
     func collapse() {

@@ -147,17 +147,30 @@ class PlaylistControlView: UIView {
         leaveButton.addTarget(self, action: #selector(PlaylistControlView.leaveButtonPressed), forControlEvents: .TouchUpInside)
         bottomMenuBar = renderMenuBar(playlistId!, leftButton: leaveButton, rightButton: inviteButton)
         self.addSubview(bottomMenuBar)
+
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PlaylistControlView.togglePlayerDisplaySize))
+        bottomMenuBar.addGestureRecognizer(tapGestureRecognizer)
+    }
+
+    func togglePlayerDisplaySize() {
+        if musicPlayerView.displayType == .Large {
+            self.showSmallNowPlayingView()
+        } else if musicPlayerView.displayType == .Small {
+            self.showLargeNowPlayingView()
+        }
     }
 
     func leaveButtonPressed() {
-        print("leave button pressed")
-        self.showLargeNowPlayingView()
+//        print("leave button pressed")
+        NSNotificationCenter.defaultCenter().postNotificationName("leavePlaylist", object: nil)
+//        self.showLargeNowPlayingView()
         // maybe we should re-render images
     }
 
     func inviteButtonPressed() {
-        print("hello invite")
-        self.showSmallNowPlayingView()
+//        print("hello invite")
+        playlistController.inviteButtonPressed()
+//        self.showSmallNowPlayingView()
         // maybe we should re-render images
     }
 

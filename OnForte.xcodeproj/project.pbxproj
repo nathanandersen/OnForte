@@ -296,7 +296,6 @@
 		240AB0231CC094150061EB54 /* SearchHandlers */ = {
 			isa = PBXGroup;
 			children = (
-				240AB0191CC094020061EB54 /* SearchViewController.swift */,
 				240AB01A1CC094020061EB54 /* SoundCloudHandler.swift */,
 				240AB01B1CC094020061EB54 /* SpotifyHandler.swift */,
 				240AB01C1CC094020061EB54 /* LocalHandler.swift */,
@@ -315,6 +314,7 @@
 				245789F71CC1C59600394C17 /* MusicPlayerView.swift */,
 				245789FD1CC28A5500394C17 /* IntegratedMusicPlayer.swift */,
 				24959C2D1CC30AC2009F55B6 /* PlayButton.swift */,
+				240AB0191CC094020061EB54 /* SearchViewController.swift */,
 			);
 			name = Playlist;
 			sourceTree = "<group>";

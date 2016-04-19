@@ -32,7 +32,6 @@ class PlaylistDrawerController: MMDrawerController {
     }
 
     func completeSearch() {
-        print("eh")
         (self.rightDrawerViewController as! SearchViewController).clearSearch()
         self.closeDrawerAnimated(true, completion: nil)
     }

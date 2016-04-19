@@ -20,6 +20,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         print(self.view.frame)
+        print("bah")
         activityIndicator.showComplete("")
         self.navigationItem.setHidesBackButton(true, animated:false)
         let paramObj = [playlistId!]
@@ -88,17 +89,15 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func startSearch() {
-        self.mm_drawerController.openDrawerSide(.Right, animated: true, completion: nil)
+        (self.mm_drawerController as! PlaylistDrawerController).openDrawerSide(.Right, animated: true, completion: nil)
     }
 
-/*
-    func inviteButtonPressed(sender: AnyObject?) {
+
+    func inviteButtonPressed() {
         let vc = InvitationViewController()
         vc.setParentVC(self)
         self.navigationController?.presentViewController(vc, animated: true, completion: nil)
     }
-
-   */
 
     func renderTableView(){
         tableView = UITableView()

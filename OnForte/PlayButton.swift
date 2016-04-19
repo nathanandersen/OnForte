@@ -122,7 +122,7 @@ private let kInnerRadiusScaleFactor = CGFloat(0.05)
     }
 
     private func sharedInit() {
-        self.addTarget(self, action: "touchUpInsideHandler", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addTarget(self, action: #selector(SVGPlayButton.touchUpInsideHandler), forControlEvents: UIControlEvents.TouchUpInside)
     }
 
     override public func drawRect(rect: CGRect) {
