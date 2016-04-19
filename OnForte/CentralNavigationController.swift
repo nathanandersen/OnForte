@@ -104,32 +104,85 @@ class PushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     }
 
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
+        /*let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
         transitionContext.containerView()?.addSubview((toViewController?.view)!)
         toViewController!.view.alpha = 0
 
         UIView.animateWithDuration(self.transitionDuration(transitionContext), animations: {
             toViewController!.view.alpha = 1
-            }, completion: {(finished: Bool) in transitionContext.completeTransition(!transitionContext.transitionWasCancelled())})
+            }, completion: {(finished: Bool) in transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+ })*/
+        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+        let finalFrameForVC = transitionContext.finalFrameForViewController(toViewController)
+        let containerView = transitionContext.containerView()!
+        let bounds = UIScreen.mainScreen().bounds
+        toViewController.view.frame = CGRectOffset(finalFrameForVC, 0, bounds.size.height)
+        containerView.addSubview(toViewController.view)
 
+
+        UIView.animateWithDuration(transitionDuration(transitionContext), delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+            fromViewController.view.alpha = 0.5
+            toViewController.view.frame = finalFrameForVC
+            }, completion: {
+                finished in
+                transitionContext.completeTransition(true)
+                fromViewController.view.alpha = 1.0
+//                fromViewController.view.removeFromSuperview()
+        })
+
+/*        UIView.animateWithDuration(transitionDuration(transitionContext), delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: .CurveLinear, animations: {
+            fromViewController.view.alpha = 0.5
+            toViewController.view.frame = finalFrameForVC
+            }, completion: {
+                finished in
+                transitionContext.completeTransition(true)
+                fromViewController.view.alpha = 1.0
+        })*/
     }
+
+    
 }
 
 class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return 0.5
+        return 0.3
+        //        return 0.5
     }
 
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
+        // this code animates the TO view controller, from the bottom up.
+        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+        let finalFrameForVC = transitionContext.finalFrameForViewController(toViewController)
+        let containerView = transitionContext.containerView()!
+        let bounds = UIScreen.mainScreen().bounds
+        toViewController.view.frame = CGRectOffset(finalFrameForVC, 0, bounds.size.height)
+        toViewController.view.frame = finalFrameForVC
+        toViewController.view.alpha = 0
+
+        containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
+//        containerView.addSubview(toViewController.view)
+
+        UIView.animateWithDuration(transitionDuration(transitionContext), delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+
+            toViewController.view.alpha = 1
+            fromViewController.view.alpha = 0.5
+            fromViewController.view.frame = CGRectOffset(finalFrameForVC, 0, bounds.size.height)
+            toViewController.view.frame = finalFrameForVC
+            }, completion: {
+                finished in
+                toViewController.view.alpha = 1
+                transitionContext.completeTransition(true)
+//                fromViewController.view.alpha = 1.0
+        })
+        /*let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
         let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
         transitionContext.containerView()?.insertSubview((toViewController?.view)!, belowSubview: (fromViewController?.view)!)
         UIView.animateWithDuration(self.transitionDuration(transitionContext), animations: {
             fromViewController!.view.alpha = 0
             }, completion: {(finished: Bool) in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
-        })
-
-
+        })*/
     }
 }
