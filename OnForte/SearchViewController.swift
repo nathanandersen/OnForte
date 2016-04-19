@@ -61,6 +61,27 @@ class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextF
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchViewController.reloadTable), name: "reloadSearchResults", object: nil)
 
 //        segmentedControl.selectSegmentAtIndex(0)
+
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(SearchViewController.handlePan(_:)))
+        self.view.addGestureRecognizer(panGestureRecognizer)
+
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchViewController.closeSearch), name: "completeSearch", object: nil)
+    }
+
+    func handlePan(gesture: UIPanGestureRecognizer) {
+        let gesture = gesture.velocityInView(self.view)
+        if gesture.x > 0 {
+            self.closeSearch()
+        }
+    }
+
+    func closeSearch() {
+        self.searchBar.text = ""
+        orderedSearchHandlers.forEach() { $0.clearSearch() }
+        self.view.endEditing(true)
+        self.tableView.reloadData()
+        self.mm_drawerController.closeDrawerAnimated(true, completion: nil)
     }
 
     func reloadTable() {
@@ -173,10 +194,9 @@ class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextF
         segmentedControl.addTarget(self, action: #selector(SearchViewController.segmentedBarChangedValue(_:)), forControlEvents: .ValueChanged)
         segmentedControl.tintColor = Style.translucentColor
 
-//        segmentedControl.subviews[0].tintColor = Style.greenColor
         segmentedControl.subviews[0].tintColor = Style.spotifyGreen
-        // ^ maybe make this "spotify green"
         segmentedControl.subviews[1].tintColor = Style.orangeColor
+//        segmentedControl.subviews[1].tintColor = Style.soundcloudOrange
         // ^ maybe make this "soundcloud orange"
         segmentedControl.subviews[2].tintColor = Style.redColor
 

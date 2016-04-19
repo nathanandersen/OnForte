@@ -9,7 +9,8 @@
 import Foundation
 import MMDrawerController
 
-let drawerWidth = UIScreen.mainScreen().bounds.width - 60
+let totalScreenWidth = UIScreen.mainScreen().bounds.width
+let drawerWidth = totalScreenWidth - 60
 let drawerHeight = UIScreen.mainScreen().bounds.height
 
 class PlaylistDrawerController: MMDrawerController {
@@ -24,17 +25,17 @@ class PlaylistDrawerController: MMDrawerController {
         self.centerViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistController")
 
         self.setMaximumLeftDrawerWidth(drawerWidth, animated: true, completion: nil)
-        self.setMaximumRightDrawerWidth(drawerWidth, animated: true, completion: nil)
+        self.setMaximumRightDrawerWidth(totalScreenWidth, animated: true, completion: nil)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistDrawerController.closeOpenDrawer), name: "closeOpenDrawer", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistDrawerController.completeSearch), name: "completeSearch", object: nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistDrawerController.completeSearch), name: "completeSearch", object: nil)
 
     }
 
-    func completeSearch() {
+/*    func completeSearch() {
         (self.rightDrawerViewController as! SearchViewController).clearSearch()
         self.closeDrawerAnimated(true, completion: nil)
-    }
+    }*/
 
     func closeOpenDrawer() {
         self.closeDrawerAnimated(true, completion: nil)
