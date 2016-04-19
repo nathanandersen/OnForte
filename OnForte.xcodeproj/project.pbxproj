@@ -51,8 +51,6 @@
 		240AB04C1CC094CD0061EB54 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB04A1CC094CD0061EB54 /* Settings.swift */; };
 		240AB04D1CC094CD0061EB54 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB04B1CC094CD0061EB54 /* Checkbox.swift */; };
 		240AB04F1CC095180061EB54 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB04E1CC095180061EB54 /* ActivityIndicator.swift */; };
-		240AB0521CC095220061EB54 /* NowPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0501CC095220061EB54 /* NowPlayingView.swift */; };
-		240AB0531CC095220061EB54 /* NowPlayingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240AB0511CC095220061EB54 /* NowPlayingView.xib */; };
 		240AB0561CC095280061EB54 /* SongTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0541CC095280061EB54 /* SongTableViewCell.swift */; };
 		240AB0571CC095280061EB54 /* SongTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240AB0551CC095280061EB54 /* SongTableViewCell.xib */; };
 		240AB05E1CC095300061EB54 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB05A1CC095300061EB54 /* ContactTableViewCell.swift */; };
@@ -134,8 +132,6 @@
 		240AB04A1CC094CD0061EB54 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		240AB04B1CC094CD0061EB54 /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		240AB04E1CC095180061EB54 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
-		240AB0501CC095220061EB54 /* NowPlayingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayingView.swift; sourceTree = "<group>"; };
-		240AB0511CC095220061EB54 /* NowPlayingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NowPlayingView.xib; sourceTree = "<group>"; };
 		240AB0541CC095280061EB54 /* SongTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongTableViewCell.swift; sourceTree = "<group>"; };
 		240AB0551CC095280061EB54 /* SongTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SongTableViewCell.xib; sourceTree = "<group>"; };
 		240AB05A1CC095300061EB54 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
@@ -244,8 +240,6 @@
 			isa = PBXGroup;
 			children = (
 				240AB04E1CC095180061EB54 /* ActivityIndicator.swift */,
-				240AB0501CC095220061EB54 /* NowPlayingView.swift */,
-				240AB0511CC095220061EB54 /* NowPlayingView.xib */,
 				240AB0541CC095280061EB54 /* SongTableViewCell.swift */,
 				240AB0551CC095280061EB54 /* SongTableViewCell.xib */,
 				240AB05A1CC095300061EB54 /* ContactTableViewCell.swift */,
@@ -480,7 +474,6 @@
 				240AB0571CC095280061EB54 /* SongTableViewCell.xib in Resources */,
 				240AB03E1CC094A80061EB54 /* Keys.plist in Resources */,
 				240AAFD41CC08DA10061EB54 /* LaunchScreen.storyboard in Resources */,
-				240AB0531CC095220061EB54 /* NowPlayingView.xib in Resources */,
 				240AB03B1CC094870061EB54 /* Onboarding.storyboard in Resources */,
 				240AB0391CC094830061EB54 /* LaunchScreen.storyboard in Resources */,
 				240AAFD11CC08DA10061EB54 /* Assets.xcassets in Resources */,
@@ -597,7 +590,6 @@
 				240AB0471CC094C10061EB54 /* SMBasicSegment.swift in Sources */,
 				240AB0071CC092360061EB54 /* Song.swift in Sources */,
 				240AB0331CC0946F0061EB54 /* InvitationViewController.swift in Sources */,
-				240AB0521CC095220061EB54 /* NowPlayingView.swift in Sources */,
 				240AB0161CC093700061EB54 /* ArtworkHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

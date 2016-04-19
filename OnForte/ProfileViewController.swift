@@ -25,7 +25,6 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate {
 
     let sptAuthenticator = SPTAuth.defaultInstance()
 
-    var leavePlaylistButton: BFPaperButton!
 
     var timer: NSTimer!
 
@@ -40,8 +39,6 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate {
         // temporary work-around
         self.view.frame = CGRect(x: 0, y: 40, width: UIScreen.mainScreen().bounds.width, height: UIScreen.mainScreen().bounds.height - 40)
 
-        renderLeavePlaylistButton()
-        addConstraintsToLeavePlaylistButton()
 
         addVariableConstraints()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileViewController.didLogInToSpotify), name: "didLogInToSpotify", object: nil)
@@ -74,59 +71,6 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate {
         authenticationViewController.clearCookies(nil)
     }
 
-
-    func renderLeavePlaylistButton(){
-        leavePlaylistButton = Style.defaultBFPaperButton("Leave playlist")
-        leavePlaylistButton.addTarget(self, action: #selector(ProfileViewController.leavePlaylist(_:)), forControlEvents: .TouchUpInside)
-        leavePlaylistButton.layer.borderColor = Style.redColor.CGColor
-        leavePlaylistButton.tintColor = Style.redColor
-        leavePlaylistButton.tapCircleColor = Style.grayColor
-        leavePlaylistButton.setTitleColor(UIColor.redColor(), forState: .Normal)
-        self.view.addSubview(leavePlaylistButton)
-    }
-
-    func addConstraintsToLeavePlaylistButton(){
-        leavePlaylistButton.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint(item: leavePlaylistButton,
-                           attribute: .Bottom,
-                           relatedBy: .Equal,
-                           toItem: self.view,
-                           attribute: .Bottom,
-                           multiplier: 1,
-                           constant: -20).active = true
-
-        NSLayoutConstraint(item: leavePlaylistButton,
-                           attribute: .Left,
-                           relatedBy: .Equal,
-                           toItem: self.view,
-                           attribute: .Left,
-                           multiplier: 1,
-                           constant: 20).active = true
-
-        NSLayoutConstraint(item: leavePlaylistButton,
-                           attribute: .Right,
-                           relatedBy: .Equal,
-                           toItem: self.view,
-                           attribute: .Right,
-                           multiplier: 1,
-                           constant: -20).active = true
-
-        NSLayoutConstraint(item: leavePlaylistButton,
-                           attribute: .Height,
-                           relatedBy: .Equal,
-                           toItem: nil,
-                           attribute: .NotAnAttribute,
-                           multiplier: 1,
-                           constant: 50).active = true
-
-        leavePlaylistButton.setNeedsLayout()
-    }
-
-    func leavePlaylist(sender: AnyObject?) {
-        NSNotificationCenter.defaultCenter().postNotificationName("leavePlaylist", object: nil)
-    }
-
     func updateLogins() {
         renderSpotifyLogin()
         renderSoundCloudLogin()
@@ -155,7 +99,6 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate {
         updateLogins()
         hideHostSettingsConstraint.active = false
         showHostSettingsConstraint.active = true
-        leavePlaylistButton.hidden = false
         self.updateViewConstraints()
     }
 

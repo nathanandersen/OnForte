@@ -10,7 +10,7 @@
         <!--Profile View Controller-->
         <scene sceneID="GVt-fL-nhb">
             <objects>
-                <viewController storyboardIdentifier="ProfileViewController" id="owX-QR-dLV" customClass="ProfileViewController" customModule="Forte" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewController" id="owX-QR-dLV" customClass="ProfileViewController" customModule="OnForte" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XUQ-7P-Q7c"/>
                         <viewControllerLayoutGuide type="bottom" id="d7V-oH-vVf"/>
@@ -90,7 +90,7 @@
         <!--Root View Controller-->
         <scene sceneID="2pK-zL-tDM">
             <objects>
-                <viewController storyboardIdentifier="RootViewController" id="eUg-VH-F0r" customClass="RootViewController" customModule="Forte" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RootViewController" id="eUg-VH-F0r" customClass="RootViewController" customModule="OnForte" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Eql-7u-mbf"/>
                         <viewControllerLayoutGuide type="bottom" id="nvH-ee-sAw"/>
@@ -109,7 +109,7 @@
         <!--Playlist Drawer Controller-->
         <scene sceneID="B8N-6l-oKw">
             <objects>
-                <viewController storyboardIdentifier="PlaylistDrawerController" id="jLw-EU-cAX" customClass="PlaylistDrawerController" customModule="Forte" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlaylistDrawerController" id="jLw-EU-cAX" customClass="PlaylistDrawerController" customModule="OnForte" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Gk2-ZZ-LLs"/>
                         <viewControllerLayoutGuide type="bottom" id="7Od-JG-6Vf"/>
@@ -127,7 +127,7 @@
         <!--Playlist Controller-->
         <scene sceneID="cId-ON-s0B">
             <objects>
-                <viewController storyboardIdentifier="PlaylistController" id="EQv-SV-Km9" customClass="PlaylistController" customModule="Forte" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlaylistController" id="EQv-SV-Km9" customClass="PlaylistController" customModule="OnForte" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iNx-UD-l4H"/>
                         <viewControllerLayoutGuide type="bottom" id="NdY-nr-zfr"/>
@@ -146,7 +146,7 @@
         <!--Playlist History View Controller-->
         <scene sceneID="QHP-fC-Rpw">
             <objects>
-                <viewController storyboardIdentifier="PlaylistHistoryViewController" id="Y1r-I7-e2U" customClass="PlaylistHistoryViewController" customModule="Forte" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlaylistHistoryViewController" id="Y1r-I7-e2U" customClass="PlaylistHistoryViewController" customModule="OnForte" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9EP-Ho-Ti4"/>
                         <viewControllerLayoutGuide type="bottom" id="ivx-VQ-lpX"/>
@@ -165,7 +165,7 @@
         <!--Search View Controller-->
         <scene sceneID="xxm-wr-Lni">
             <objects>
-                <viewController storyboardIdentifier="SearchViewController" id="xp3-wo-GPQ" customClass="SearchViewController" customModule="Forte" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchViewController" id="xp3-wo-GPQ" customClass="SearchViewController" customModule="OnForte" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="n05-L4-E8u"/>
                         <viewControllerLayoutGuide type="bottom" id="Y58-39-NCy"/>
@@ -183,7 +183,7 @@
         <!--Central Navigation Controller-->
         <scene sceneID="cwq-MO-vvi">
             <objects>
-                <navigationController storyboardIdentifier="CentralNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="phW-ao-Zft" customClass="CentralNavigationController" customModule="Forte" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="CentralNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="phW-ao-Zft" customClass="CentralNavigationController" customModule="OnForte" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4wS-W5-0ub">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
