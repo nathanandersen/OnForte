@@ -243,10 +243,10 @@
 				240AB0301CC0946F0061EB54 /* InvitationViewController.swift */,
 				240AB0311CC0946F0061EB54 /* ProfileViewController.swift */,
 				240AB0321CC0946F0061EB54 /* RootViewController.swift */,
+				240AAFFF1CC091830061EB54 /* CentralNavigationController.swift */,
 				240AB02B1CC0945B0061EB54 /* Onboarding */,
 				240AB0241CC094440061EB54 /* Playlist */,
 				240AB0231CC094150061EB54 /* SearchHandlers */,
-				240AAFFF1CC091830061EB54 /* CentralNavigationController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";

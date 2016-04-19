@@ -11,12 +11,12 @@ import UIKit
 
 var centralNavigationController: CentralNavigationController!
 
-class CentralNavigationController: UINavigationController/*, UINavigationControllerDelegate*/ {
+class CentralNavigationController: UINavigationController, UINavigationControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         centralNavigationController = self
-        //        self.delegate = self
+        self.delegate = self
         renderActivityIndicator()
         renderLogo()
     }
@@ -82,5 +82,54 @@ class CentralNavigationController: UINavigationController/*, UINavigationControl
         self.popViewControllerAnimated(true)
         self.pushViewController(UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RootViewController"), animated: true)
     }
+
+    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+
+        if operation == UINavigationControllerOperation.Push {
+            return PushAnimator()
+        }
+
+        if operation == UINavigationControllerOperation.Pop {
+            return PopAnimator()
+        }
+        return nil
+    }
     
+}
+
+
+class PushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+        return 0.5
+    }
+
+    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
+        transitionContext.containerView()?.addSubview((toViewController?.view)!)
+        toViewController!.view.alpha = 0
+
+        UIView.animateWithDuration(self.transitionDuration(transitionContext), animations: {
+            toViewController!.view.alpha = 1
+            }, completion: {(finished: Bool) in transitionContext.completeTransition(!transitionContext.transitionWasCancelled())})
+
+    }
+}
+
+class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+        return 0.5
+    }
+
+    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
+        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+        transitionContext.containerView()?.insertSubview((toViewController?.view)!, belowSubview: (fromViewController?.view)!)
+        UIView.animateWithDuration(self.transitionDuration(transitionContext), animations: {
+            fromViewController!.view.alpha = 0
+            }, completion: {(finished: Bool) in
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+        })
+
+
+    }
 }
