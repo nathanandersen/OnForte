@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextFieldDelegate, UISearchBarDelegate {
+class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDelegate {
 
     var navBar: UIView!
 
@@ -119,7 +119,6 @@ class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextF
         navBar.addSubview(activityIndicator)
     }
 
-
     func segmentedBarChangedValue(segment: UISegmentedControl) {
         let index = segment.selectedSegmentIndex
         print(index)
@@ -217,23 +216,12 @@ class SearchViewController: UIViewController/*, SMSegmentViewDelegate*/, UITextF
         activityIndicator.stopAnimating()
         searchTimer = NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: #selector(SearchViewController.searchAll), userInfo: nil, repeats: true)
     }
-/*
-    func clearSearch() {
-        orderedSearchHandlers.forEach() { $0.clearSearch() }
-        self.view.endEditing(true)
-        self.tableView.reloadData()
-    }*/
 
     func searchAll(){
         activityIndicator.startAnimating()
         orderedSearchHandlers.forEach() { $0.search(searchBar.text!) }
         searchTimer.invalidate()
     }
-/*
-    func updateCurrentPageFromSwipe(index: Int){
-        orderedSearchHandlers[index].search(searchBar.text!)
-        searchTimer.invalidate()
-    }*/
 
     func scrollViewDidScroll(scrollView: UIScrollView) {
         searchBar.resignFirstResponder()
