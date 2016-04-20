@@ -161,11 +161,10 @@ class SongCollection: MeteorCollection<SongDocument> {
                 NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
                 // save it in the global nowPlaying
             }
-
-            NSNotificationCenter.defaultCenter().postNotificationName("songWasRemoved", object: nil)
             self.documents[id] = nil
             collectionSetDidChange()
             keys.removeAtIndex(keys.indexOf(id)!)
+            NSNotificationCenter.defaultCenter().postNotificationName("songWasRemoved", object: nil)
         }
     }
 

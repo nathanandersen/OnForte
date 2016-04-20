@@ -149,7 +149,8 @@ class PlaylistControlView: UIView {
         self.addSubview(bottomMenuBar)
 
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PlaylistControlView.togglePlayerDisplaySize))
-        bottomMenuBar.addGestureRecognizer(tapGestureRecognizer)
+        tapGestureRecognizer.numberOfTapsRequired = 2
+        musicPlayerView.addGestureRecognizer(tapGestureRecognizer)
     }
 
     func togglePlayerDisplaySize() {
