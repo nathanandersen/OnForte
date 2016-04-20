@@ -112,7 +112,7 @@ class InvitationViewController: UIViewController, UITableViewDelegate, UITableVi
         let twilioPassword = keys!["TwilioAuthToken"] as! String
 
         for number in selectedPhoneNumbers {
-            var digits = number.stringValue
+            let digits = number.stringValue
 //            if number.stringValue.characters.count == 10 {
 //                digits = "+1" + digits
 //            }
@@ -275,7 +275,10 @@ class InvitationViewController: UIViewController, UITableViewDelegate, UITableVi
                     let garbageLength = 4
                     if label.substringToIndex(label.startIndex.advancedBy(4)) == "_$!<" {
                         print("aha")
-                        label = label.substringWithRange(Range<String.Index>(start: label.startIndex.advancedBy(garbageLength), end: label.endIndex.advancedBy(-1*garbageLength)))
+//                        label = label.substringWithRange(Range<String.Index>(start: label.startIndex.advancedBy(garbageLength), end: label.endIndex.advancedBy(-1*garbageLength)))
+
+                        let range: Range<String.Index> = label.startIndex.advancedBy(garbageLength)..<label.endIndex.advancedBy(-1*garbageLength)
+                        label = label.substringWithRange(range)
                     }
                     // ^^^
                     let option = UIAlertAction(title: label + ": " + a.stringValue, style: .Default, handler: {(action) in
