@@ -200,7 +200,8 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
             })
         })
 
-        self.navigationController!.popToRootViewControllerAnimated(true)
+        (self.navigationController! as! CentralNavigationController).leavePlaylist()
+//        self.navigationController!.popToRootViewControllerAnimated(true)
         playlistId = ""
         playlistName = ""
         nowPlaying = nil
