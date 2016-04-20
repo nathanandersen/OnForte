@@ -13,7 +13,7 @@ var centralNavigationController: CentralNavigationController!
 
 class CentralNavigationController: UINavigationController, UINavigationControllerDelegate {
 
-    let rootController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RootViewController")
+//    let rootController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RootViewController")
     let playlistController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistDrawerController")
     let profileController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ProfileViewController")
 
@@ -74,21 +74,15 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
     }
 
     func presentPlaylist() {
-//        self.popViewControllerAnimated(true)
         self.pushViewController(playlistController, animated: true)
-//        self.pushViewController(UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistDrawerController"), animated: true)
     }
 
     func presentProfile() {
         self.pushViewController(profileController, animated: true)
-//        self.pushViewController(UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ProfileViewController"), animated: true)
     }
 
     func leavePlaylist() {
         self.popViewControllerAnimated(true)
-
-//        self.viewControllers.forEach({ print($0 )})
-//        self.pushViewController(UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RootViewController"), animated: true)
     }
 
     func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -112,14 +106,6 @@ class PushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     }
 
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-/*        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
-        transitionContext.containerView()?.addSubview((toViewController?.view)!)
-        toViewController!.view.alpha = 0
-
-        UIView.animateWithDuration(self.transitionDuration(transitionContext), animations: {
-            toViewController!.view.alpha = 1
-            }, completion: {(finished: Bool) in transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
-        })*/
         let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         let finalFrameForVC = transitionContext.finalFrameForViewController(toViewController)
@@ -127,9 +113,7 @@ class PushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         let bounds = UIScreen.mainScreen().bounds
         toViewController.view.frame = CGRectOffset(finalFrameForVC, 0, bounds.size.height)
         containerView.addSubview(toViewController.view)
-        fromViewController.view.alpha = 0
-
-
+//        fromViewController.view.alpha = 0
         UIView.animateWithDuration(transitionDuration(transitionContext), delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
             fromViewController.view.alpha = 0.5
             toViewController.view.frame = finalFrameForVC
@@ -137,17 +121,7 @@ class PushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                 finished in
                 transitionContext.completeTransition(true)
                 fromViewController.view.alpha = 1.0
-//                fromViewController.view.removeFromSuperview()
         })
-
-/*        UIView.animateWithDuration(transitionDuration(transitionContext), delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: .CurveLinear, animations: {
-            fromViewController.view.alpha = 0.5
-            toViewController.view.frame = finalFrameForVC
-            }, completion: {
-                finished in
-                transitionContext.completeTransition(true)
-                fromViewController.view.alpha = 1.0
-        })*/
     }
 
     
@@ -184,13 +158,5 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                 transitionContext.completeTransition(true)
                 fromViewController.view.alpha = 1.0
         })
-/*        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
-        transitionContext.containerView()?.insertSubview((toViewController?.view)!, belowSubview: (fromViewController?.view)!)
-        UIView.animateWithDuration(self.transitionDuration(transitionContext), animations: {
-            fromViewController!.view.alpha = 0
-            }, completion: {(finished: Bool) in
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
-        })*/
     }
 }
