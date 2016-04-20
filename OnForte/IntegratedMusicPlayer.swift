@@ -109,10 +109,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
         } else {
             nowPlaying = nil
             return false
-//            playing = false
-//            control.setPlayButtonStatus(playing)
         }
-//        return playing
     }
 
 
@@ -150,8 +147,6 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
         localPlayer.repeatMode = .None
         localPlayer.play()
         return true
-//        playing = true
-//        control.setPlayButtonStatus(playing)
     }
 
     func playSoundCloud() -> Bool {
@@ -168,14 +163,10 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             p.volume = 1.0
             p.play()
             print("Soundcloud is playing track")
-//            playing = true
             return true
-//            control.setPlayButtonStatus(playing)
         } else {
             print("Soundcloud player failed.")
             return false
-//            playing = false
-//            control.setPlayButtonStatus(playing)
         }
     }
 
@@ -199,8 +190,6 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
                 if (error != nil) {
                     print("Logging had error:")
                     print(error)
-//                    self.playing = false
-//                    self.control.setPlayButtonStatus(self.playing)
                     return
                 }})
             let trackURI: NSURL = NSURL(string: ("spotify:track:"+String(nowPlaying!.trackId!)))!
@@ -209,15 +198,11 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
                 if (error != nil) {
                     print("Starting playback had error")
                     print(error)
-//                    self.playing = false
-//                    self.control.setPlayButtonStatus(self.playing)
                     return
                 }
             })
         }
         return true
-//        playing = true
-//        control.setPlayButtonStatus(playing)
     }
 
 

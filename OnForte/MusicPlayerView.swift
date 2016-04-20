@@ -87,6 +87,8 @@ class MusicPlayerView: UIView {
 
     func renderStartButton() {
         startButton = Style.defaultButton("START MUSIC")
+        startButton?.backgroundColor = Style.secondaryColor
+        startButton?.setTitleColor(Style.whiteColor, forState: .Normal)
         startButton?.translatesAutoresizingMaskIntoConstraints = false
         startButton?.addTarget(self, action: #selector(MusicPlayerView.startButtonPress), forControlEvents: .TouchUpInside)
     }
@@ -366,9 +368,11 @@ class MusicPlayerView: UIView {
     }
 
     func createStartConstraints() {
-        let startLeading = NSLayoutConstraint(item: startButton!, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 0)
+        let startLeading = NSLayoutConstraint(item: startButton!, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 80)
+//        let startLeading = NSLayoutConstraint(item: startButton!, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 0)
         startLeading.identifier = "Start Leading"
-        let startTrailing = NSLayoutConstraint(item: startButton!, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
+        let startTrailing = NSLayoutConstraint(item: startButton!, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: -80)
+//        let startTrailing = NSLayoutConstraint(item: startButton!, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
         startTrailing.identifier = "Start Trailing"
         let startTop = NSLayoutConstraint(item: startButton!, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 0)
         startTop.identifier = "Start Top"
