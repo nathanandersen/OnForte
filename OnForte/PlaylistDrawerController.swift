@@ -31,14 +31,7 @@ class PlaylistDrawerController: MMDrawerController {
         self.setMaximumRightDrawerWidth(totalScreenWidth, animated: true, completion: nil)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistDrawerController.closeOpenDrawer), name: "closeOpenDrawer", object: nil)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistDrawerController.completeSearch), name: "completeSearch", object: nil)
-
     }
-
-/*    func completeSearch() {
-        (self.rightDrawerViewController as! SearchViewController).clearSearch()
-        self.closeDrawerAnimated(true, completion: nil)
-    }*/
 
     func closeOpenDrawer() {
         self.closeDrawerAnimated(true, completion: nil)

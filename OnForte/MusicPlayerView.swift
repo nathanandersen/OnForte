@@ -216,6 +216,8 @@ class MusicPlayerView: UIView {
         playButton = PlayButton()
         playButton.toggleFn = self.playPauseDidPress
 
+//        playButton.pauseColor = Style.orangeColor
+//        playButton.playColor = Style.orangeColor
         playButton.pauseColor = Style.blackColor
         playButton.playColor = Style.blackColor
         playButton.translatesAutoresizingMaskIntoConstraints = false
@@ -330,6 +332,8 @@ class MusicPlayerView: UIView {
         playButtonBlur.layer.cornerRadius = playButtonBlur.bounds.width / 2
         self.setNeedsLayout()
         playButton.setNeedsLayout()
+
+        descriptionLabel.textAlignment = .Center
     }
 
     func showSmall() {
@@ -360,6 +364,8 @@ class MusicPlayerView: UIView {
         playButtonBlur.layer.cornerRadius = playButtonBlur.bounds.width / 2
         self.setNeedsLayout()
         playButton.setNeedsLayout()
+
+        descriptionLabel.textAlignment = .Natural
     }
 
     func collapse() {
