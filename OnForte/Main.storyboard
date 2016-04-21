@@ -66,9 +66,20 @@
                                     <constraint firstItem="cwv-0c-Or1" firstAttribute="centerY" secondItem="raP-yV-Ygd" secondAttribute="centerY" id="nrh-Dc-4ta"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="NL0-b4-hQh">
+                                <rect key="frame" x="110" y="80" width="100" height="100"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="X8x-8R-ewc"/>
+                                    <constraint firstAttribute="width" secondItem="NL0-b4-hQh" secondAttribute="height" multiplier="1:1" id="ufx-xp-6xs"/>
+                                    <constraint firstAttribute="height" constant="100" id="yAe-6d-Dyk"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="NL0-b4-hQh" firstAttribute="centerX" secondItem="9bC-k7-jeB" secondAttribute="centerX" id="8Z0-GU-M0W"/>
+                            <constraint firstItem="NL0-b4-hQh" firstAttribute="top" secondItem="XUQ-7P-Q7c" secondAttribute="bottom" constant="60" id="I6v-ee-rS0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="4Hw-uA-uby" secondAttribute="trailing" constant="-5" id="XKl-oi-CoP"/>
                             <constraint firstItem="4Hw-uA-uby" firstAttribute="leading" secondItem="9bC-k7-jeB" secondAttribute="leadingMargin" constant="-5" id="Zb0-Dw-hXg"/>
                         </constraints>
@@ -201,6 +212,7 @@
     </scenes>
     <resources>
         <image name="itunes" width="122" height="115"/>
+        <image name="profile" width="128" height="128"/>
         <image name="soundcloud" width="86" height="86"/>
         <image name="spotify" width="101" height="101"/>
     </resources>

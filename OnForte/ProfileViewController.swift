@@ -49,6 +49,11 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate {
         self.navigationItem.setHidesBackButton(true, animated: true)
     }
 
+    func updateProfileDisplay() {
+        print("merp")
+    }
+
+
     func authenticationViewController(authenticationViewController: SPTAuthViewController!, didLoginWithSession session: SPTSession!) {
         print("Logged In")
         spotifySession = session

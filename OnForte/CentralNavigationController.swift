@@ -14,8 +14,8 @@ var centralNavigationController: CentralNavigationController!
 class CentralNavigationController: UINavigationController, UINavigationControllerDelegate {
 
 //    let rootController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RootViewController")
-    let playlistController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistDrawerController")
-    let profileController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ProfileViewController")
+    let playlistController: PlaylistDrawerController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistDrawerController") as! PlaylistDrawerController
+    let profileController: ProfileViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
 
     var profileButton: UIButton!
     var profileButtonConstraints: [NSLayoutConstraint]!
@@ -51,12 +51,9 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
     }
 
     func renderProfileButton() {
-        // figure out the sizing
         profileButton = Style.iconButton()
-//        profileButton = UIButton(type: .System)
         profileButton.setImage(UIImage(named: "profile")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: .Normal)
         profileButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-//        profileButton.setImage(UIImage(named: "profile"), forState: .Normal)
         profileButton.addTarget(self, action: #selector(CentralNavigationController.presentProfile), forControlEvents: .TouchUpInside)
         profileButton.translatesAutoresizingMaskIntoConstraints = false
 
@@ -70,10 +67,8 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
 
     func renderLeaveProfileButton() {
         leaveProfileButton = Style.iconButton()
-        //        leaveProfileButton = UIButton(type: .System)
         leaveProfileButton.setImage(UIImage(named: "delete")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: .Normal)
         leaveProfileButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-//        leaveProfileButton.setImage(UIImage(named: "delete"), forState: .Normal)
         leaveProfileButton.addTarget(self, action: #selector(CentralNavigationController.leaveProfile), forControlEvents: .TouchUpInside)
 
         leaveProfileButton.translatesAutoresizingMaskIntoConstraints = false
@@ -134,6 +129,7 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
     }
 
     func presentProfile() {
+        profileController.updateProfileDisplay()
         self.pushViewController(profileController, animated: true)
         showLeaveProfileButton()
     }
