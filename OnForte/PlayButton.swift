@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 //import SVGPlayButton
 
+
 class PlayButton: SVGPlayButton {
 
     var toggleFn: (() -> Bool)!
