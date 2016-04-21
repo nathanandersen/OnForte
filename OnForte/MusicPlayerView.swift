@@ -107,10 +107,12 @@ class MusicPlayerView: UIView {
 
     func createSongArtConstraints() {
         let songArtLeading = NSLayoutConstraint(item: songArtView, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 0)
-        let songArtSmallHeight =  NSLayoutConstraint(item: songArtView, attribute: .Height, relatedBy: .Equal, toItem: self, attribute: .Height, multiplier: 1, constant: -10)
         songArtLeading.identifier = "Song Art Leading"
-        let songArtAspect =  NSLayoutConstraint(item: songArtView, attribute: .Height, relatedBy: .Equal, toItem: songArtView, attribute: .Width, multiplier: 1, constant: 0)
-        songArtAspect.identifier = "Song Art Aspect"
+        let songArtSmallHeight =  NSLayoutConstraint(item: songArtView, attribute: .Height, relatedBy: .Equal, toItem: self, attribute: .Height, multiplier: 1, constant: 0)
+//        let songArtSmallHeight =  NSLayoutConstraint(item: songArtView, attribute: .Height, relatedBy: .Equal, toItem: self, attribute: .Height, multiplier: 1, constant: -10)
+        songArtSmallHeight.identifier = "Song art small height"
+/*        let songArtAspect =  NSLayoutConstraint(item: songArtView, attribute: .Height, relatedBy: .Equal, toItem: songArtView, attribute: .Width, multiplier: 1, constant: 0)
+        songArtAspect.identifier = "Song Art Aspect"*/
         let smallSongArtCenterY = NSLayoutConstraint(item: songArtView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
         smallSongArtCenterY.identifier = "Small Song Art Center Y"
         let largeSongArtCenterX = NSLayoutConstraint(item: songArtView, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
@@ -120,9 +122,9 @@ class MusicPlayerView: UIView {
         let largeSongArtTop = NSLayoutConstraint(item: songArtView, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 0)
         largeSongArtTop.identifier = "Large Song Art Top"
 
-        smallViewConstraints.appendContentsOf([songArtLeading,songArtSmallHeight,smallSongArtCenterY,songArtAspect])
+        smallViewConstraints.appendContentsOf([songArtLeading,songArtSmallHeight,smallSongArtCenterY/*,songArtAspect*/])
         expandedViewConstraints.appendContentsOf([songArtLeading,largeSongArtTrailing,largeSongArtTop,
-            largeSongArtCenterX,songArtAspect
+            largeSongArtCenterX/*,songArtAspect*/
         ])
     }
 
@@ -320,8 +322,8 @@ class MusicPlayerView: UIView {
 //        playButtonBlurView.layer.cornerRadius = playButtonBlurView.bounds.width / 2
 //        playButtonBlurView.layer.masksToBounds = true
 
-        print(playButtonBlurView.bounds)
-        print(playButtonBlurView.frame)
+//        print(playButtonBlurView.bounds)
+//        print(playButtonBlurView.frame)
 
 
 /*        let circlePath = UIBezierPath(ovalInRect: playButtonBlurView.frame)
@@ -356,7 +358,7 @@ class MusicPlayerView: UIView {
         playButtonBlurView.layoutIfNeeded()
 //        playButton.setNeedsDisplay()
 
-        print(playButtonBlurView.frame)
+//        print(playButtonBlurView.frame)
 
 
 /*        let circlePath = UIBezierPath(ovalInRect: playButtonBlurView.frame)

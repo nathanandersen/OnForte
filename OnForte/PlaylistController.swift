@@ -49,6 +49,9 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         let pcviewright = NSLayoutConstraint(item: playlistControlView, attribute: .Trailing, relatedBy: .Equal, toItem: self.view, attribute: .Trailing, multiplier: 1, constant: 0)
         pcviewright.active = true
         pcviewright.identifier = "Pc view trailing"
+
+        // ^^^^ these constraints are essential
+
         let pcviewtop = NSLayoutConstraint(item: playlistControlView, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1, constant: navHeight)
         pcviewtop.active = true
         pcviewtop.identifier = "Pc view top"
@@ -128,24 +131,24 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         tableViewTop.identifier = "Table View Top"
 
         let tableViewLeft = NSLayoutConstraint(item: tableView,
-                                               attribute: .Left,
+                                               attribute: .Leading,
                                                relatedBy: .Equal,
                                                toItem: self.view,
-                                               attribute: .Left,
+                                               attribute: .Leading,
                                                multiplier: 1,
                                                constant: 0)
         tableViewLeft.active = true
-        tableViewLeft.identifier = "Table View Left"
+        tableViewLeft.identifier = "Table View Leading"
 
         let tableViewRight = NSLayoutConstraint(item: tableView,
-                                                attribute: .Right,
+                                                attribute: .Trailing,
                                                 relatedBy: .Equal,
                                                 toItem: self.view,
-                                                attribute: .Right,
+                                                attribute: .Trailing,
                                                 multiplier: 1,
                                                 constant: 0)
         tableViewRight.active = true
-        tableViewRight.identifier = "Table view right"
+        tableViewRight.identifier = "Table view trailing"
 
         let tableViewBottom = NSLayoutConstraint(item: tableView,
                                                  attribute: .Bottom,
@@ -257,6 +260,10 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
      and other methods related to the table
      */
 
+
+//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        if playlistControlView
+//    }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sortedSongs.count
