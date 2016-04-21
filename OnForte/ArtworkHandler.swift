@@ -54,8 +54,11 @@ class ArtworkHandler {
                         if let albumArt = UIImage(data: albumArtData){
                             dispatch_async(dispatch_get_main_queue()) {
                                 self.artworkCache.setObject(albumArt, forKey: url)
-                                imageView!.image = self.artworkCache.objectForKey(url) as? UIImage
+                                imageView!.image = albumArt
+//                                imageView!.contentMode = UIViewContentMode.ScaleAspectFit
+//                                imageView!.image = self.artworkCache.objectForKey(url) as? UIImage
                                 imageView?.setNeedsLayout()
+
                             }
                         }
                     }

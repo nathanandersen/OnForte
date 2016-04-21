@@ -12,13 +12,36 @@ import UIKit
 
 class BlurredPlayButton: UIVisualEffectView {
 
-    let playButton: PlayButton = PlayButton()
+    let playButton: PlayButton
+
+    override init(effect: UIVisualEffect?) {
+        playButton = PlayButton()
+        super.init(effect: effect)
+        let rect = self.frame
+        let buttonFrame = CGRectMake(rect.minX + 5, rect.minY + 5, rect.width - 10, rect.height - 10)
+        playButton.frame = buttonFrame
+        print("far out dude")
+        print(buttonFrame)
+//        playButton = PlayButton(frame: buttonFrame)
+//        playButton.frame =
+        self.addSubview(playButton)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("BlurredPlayButton does not support NSCoding")
+    }
 
     override func drawRect(rect: CGRect) {
+        print("bah! this happened")
+        print(rect)
         super.drawRect(rect)
-        let buttonFrame = CGRectMake(rect.minX + 10, rect.minY + 10, rect.width - 20, rect.height - 20)
-        playButton.drawRect(buttonFrame)
-        self.addSubview(playButton)
+        playButton.setNeedsDisplay()
+//        let buttonFrame = CGRectMake(rect.minX + 5, rect.minY + 5, rect.width - 10, rect.height - 10)
+//        print(buttonFrame)
+//        self.addSubview(playButton)
+//        playButton.drawRect(buttonFrame)
+
+//        self.insertSubview(playButton, atIndex: 1)
     }
 
     func buttonWasPressed() {

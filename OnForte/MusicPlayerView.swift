@@ -100,6 +100,7 @@ class MusicPlayerView: UIView {
 
     func renderSongArtView() {
         songArtView = UIImageView()
+        songArtView.contentMode = UIViewContentMode.ScaleAspectFit
         playerView.addSubview(songArtView)
         songArtView.translatesAutoresizingMaskIntoConstraints = false
         createSongArtConstraints()
@@ -111,10 +112,12 @@ class MusicPlayerView: UIView {
         let songArtSmallHeight =  NSLayoutConstraint(item: songArtView, attribute: .Height, relatedBy: .Equal, toItem: self, attribute: .Height, multiplier: 1, constant: 0)
 //        let songArtSmallHeight =  NSLayoutConstraint(item: songArtView, attribute: .Height, relatedBy: .Equal, toItem: self, attribute: .Height, multiplier: 1, constant: -10)
         songArtSmallHeight.identifier = "Song art small height"
-/*        let songArtAspect =  NSLayoutConstraint(item: songArtView, attribute: .Height, relatedBy: .Equal, toItem: songArtView, attribute: .Width, multiplier: 1, constant: 0)
-        songArtAspect.identifier = "Song Art Aspect"*/
+        let songArtAspect =  NSLayoutConstraint(item: songArtView, attribute: .Height, relatedBy: .Equal, toItem: songArtView, attribute: .Width, multiplier: 1, constant: 0)
+        songArtAspect.identifier = "Song Art Aspect"
         let smallSongArtCenterY = NSLayoutConstraint(item: songArtView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
         smallSongArtCenterY.identifier = "Small Song Art Center Y"
+
+        
         let largeSongArtCenterX = NSLayoutConstraint(item: songArtView, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
         largeSongArtCenterX.identifier = "Large Song Art Center X"
         let largeSongArtTrailing = NSLayoutConstraint(item: songArtView, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
@@ -122,10 +125,9 @@ class MusicPlayerView: UIView {
         let largeSongArtTop = NSLayoutConstraint(item: songArtView, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 0)
         largeSongArtTop.identifier = "Large Song Art Top"
 
-        smallViewConstraints.appendContentsOf([songArtLeading,songArtSmallHeight,smallSongArtCenterY/*,songArtAspect*/])
+        smallViewConstraints.appendContentsOf([songArtLeading,songArtSmallHeight,smallSongArtCenterY,songArtAspect])
         expandedViewConstraints.appendContentsOf([songArtLeading,largeSongArtTrailing,largeSongArtTop,
-            largeSongArtCenterX/*,songArtAspect*/
-        ])
+            largeSongArtCenterX,songArtAspect])
     }
 
     func renderPlatformView() {
@@ -139,7 +141,7 @@ class MusicPlayerView: UIView {
         let platformAspect =
             NSLayoutConstraint(item: platformView, attribute: .Height, relatedBy: .Equal, toItem: platformView, attribute: .Width, multiplier: 1, constant: 0)
         platformAspect.identifier = "Platform Aspect"
-        let smallPlatformHeight = NSLayoutConstraint(item: platformView, attribute: .Height, relatedBy: .Equal, toItem: self, attribute: .Height, multiplier: 1, constant: -40)
+        let smallPlatformHeight = NSLayoutConstraint(item: platformView, attribute: .Height, relatedBy: .Equal, toItem: self, attribute: .Height, multiplier: 1, constant: -20)
         smallPlatformHeight.identifier = "Small Platform Height"
 
         let smallPlatformCenterY = NSLayoutConstraint(item: platformView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
@@ -257,9 +259,9 @@ class MusicPlayerView: UIView {
         let blurLargeCenterY = NSLayoutConstraint(item: playButtonBlurView, attribute: .CenterY, relatedBy: .Equal, toItem: platformView, attribute: .CenterY, multiplier: 1, constant: 0)
         blurLargeCenterY.identifier = "Blur large center y"
 
-        let blurSmallWidth = NSLayoutConstraint(item: playButtonBlurView, attribute: .Width, relatedBy: .Equal, toItem: songArtView, attribute: .Width, multiplier: 0.65, constant: 0)
+        let blurSmallWidth = NSLayoutConstraint(item: playButtonBlurView, attribute: .Width, relatedBy: .Equal, toItem: songArtView, attribute: .Width, multiplier: 0.60, constant: 0)
         blurSmallWidth.identifier = "blur small width"
-        let blurLargeWidth = NSLayoutConstraint(item: playButtonBlurView, attribute: .Width, relatedBy: .Equal, toItem: platformView, attribute: .Width, multiplier: 0.65, constant: 0)
+        let blurLargeWidth = NSLayoutConstraint(item: playButtonBlurView, attribute: .Width, relatedBy: .Equal, toItem: platformView, attribute: .Width, multiplier: 0.60, constant: 0)
         blurLargeWidth.identifier = "blur large width"
 
 

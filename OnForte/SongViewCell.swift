@@ -49,6 +49,7 @@ class SongViewCell: UITableViewCell {
 
     func initializeArtwork() {
         artworkView = UIImageView()
+        artworkView.contentMode = UIViewContentMode.ScaleAspectFit
         self.addSubview(artworkView)
     }
 
