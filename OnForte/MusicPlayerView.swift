@@ -330,8 +330,9 @@ class MusicPlayerView: UIView {
 
         playButtonBlur.layer.masksToBounds = true
         playButtonBlur.layer.cornerRadius = playButtonBlur.bounds.width / 2
-        self.setNeedsLayout()
-        playButton.setNeedsLayout()
+//        self.setNeedsLayout()
+//        playButton.setNeedsLayout()
+        platformView.layoutIfNeeded()
 
         descriptionLabel.textAlignment = .Center
     }
@@ -362,8 +363,9 @@ class MusicPlayerView: UIView {
         print(playButtonBlur.bounds.width)
         playButtonBlur.layer.masksToBounds = true
         playButtonBlur.layer.cornerRadius = playButtonBlur.bounds.width / 2
-        self.setNeedsLayout()
-        playButton.setNeedsLayout()
+//        self.setNeedsLayout()
+//        playButton.setNeedsLayout()
+        songArtView.layoutIfNeeded()
 
         descriptionLabel.textAlignment = .Natural
     }

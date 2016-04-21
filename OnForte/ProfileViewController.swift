@@ -46,6 +46,7 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate {
         if isHost {
             displayHostSettings()
         }
+        self.navigationItem.setHidesBackButton(true, animated: true)
     }
 
     func authenticationViewController(authenticationViewController: SPTAuthViewController!, didLoginWithSession session: SPTSession!) {

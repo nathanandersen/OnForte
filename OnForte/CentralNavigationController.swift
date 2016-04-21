@@ -17,12 +17,73 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
     let playlistController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistDrawerController")
     let profileController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ProfileViewController")
 
+    var profileButton: UIButton!
+    var profileButtonConstraints: [NSLayoutConstraint]!
+    var leaveProfileButton: UIButton!
+    var leaveProfileButtonConstraints: [NSLayoutConstraint]!
+    var rightButtonView: UIView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         centralNavigationController = self
         self.delegate = self
         renderActivityIndicator()
         renderLogo()
+        renderRightButtonView()
+        renderProfileButton()
+        renderLeaveProfileButton()
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        showProfileButton()
+    }
+
+    func renderRightButtonView() {
+        rightButtonView = UIView()
+
+        self.view.addSubview(rightButtonView)
+        rightButtonView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint(item: rightButtonView, attribute: .Right, relatedBy: .Equal, toItem: self.navigationBar, attribute: .Right, multiplier: 1, constant: -20).active = true
+        NSLayoutConstraint(item: rightButtonView, attribute: .Height, relatedBy: .Equal, toItem: rightButtonView, attribute: .Width, multiplier: 1, constant: 0).active = true
+        NSLayoutConstraint(item: rightButtonView, attribute: .Top, relatedBy: .Equal, toItem: self.navigationBar, attribute: .Top, multiplier: 1, constant: 5).active = true
+        NSLayoutConstraint(item: rightButtonView, attribute: .Bottom, relatedBy: .Equal, toItem: self.navigationBar, attribute: .Bottom, multiplier: 1, constant: -5).active = true
+
+        rightButtonView.updateConstraints()
+    }
+
+    func renderProfileButton() {
+        // figure out the sizing
+        profileButton = Style.iconButton()
+//        profileButton = UIButton(type: .System)
+        profileButton.setImage(UIImage(named: "profile")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: .Normal)
+        profileButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+//        profileButton.setImage(UIImage(named: "profile"), forState: .Normal)
+        profileButton.addTarget(self, action: #selector(CentralNavigationController.presentProfile), forControlEvents: .TouchUpInside)
+        profileButton.translatesAutoresizingMaskIntoConstraints = false
+
+        let leftConstraint = NSLayoutConstraint(item: profileButton, attribute: .Left, relatedBy: .Equal, toItem: rightButtonView, attribute: .Left, multiplier: 1, constant: 0)
+        let rightConstraint = NSLayoutConstraint(item: profileButton, attribute: .Right, relatedBy: .Equal, toItem: rightButtonView, attribute: .Right, multiplier: 1, constant: 0)
+        let topConstraint = NSLayoutConstraint(item: profileButton, attribute: .Top, relatedBy: .Equal, toItem: rightButtonView, attribute: .Top, multiplier: 1, constant: 0)
+        let bottomConstraint = NSLayoutConstraint(item: profileButton, attribute: .Bottom, relatedBy: .Equal, toItem: rightButtonView, attribute: .Bottom, multiplier: 1, constant: 0)
+
+        profileButtonConstraints = [leftConstraint,rightConstraint,topConstraint,bottomConstraint]
+    }
+
+    func renderLeaveProfileButton() {
+        leaveProfileButton = Style.iconButton()
+        //        leaveProfileButton = UIButton(type: .System)
+        leaveProfileButton.setImage(UIImage(named: "delete")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: .Normal)
+        leaveProfileButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+//        leaveProfileButton.setImage(UIImage(named: "delete"), forState: .Normal)
+        leaveProfileButton.addTarget(self, action: #selector(CentralNavigationController.leaveProfile), forControlEvents: .TouchUpInside)
+
+        leaveProfileButton.translatesAutoresizingMaskIntoConstraints = false
+
+        let leftConstraint = NSLayoutConstraint(item: leaveProfileButton, attribute: .Left, relatedBy: .Equal, toItem: rightButtonView, attribute: .Left, multiplier: 1, constant: 0)
+        let rightConstraint = NSLayoutConstraint(item: leaveProfileButton, attribute: .Right, relatedBy: .Equal, toItem: rightButtonView, attribute: .Right, multiplier: 1, constant: 0)
+        let topConstraint = NSLayoutConstraint(item: leaveProfileButton, attribute: .Top, relatedBy: .Equal, toItem: rightButtonView, attribute: .Top, multiplier: 1, constant: 0)
+        let bottomConstraint = NSLayoutConstraint(item: leaveProfileButton, attribute: .Bottom, relatedBy: .Equal, toItem: rightButtonView, attribute: .Bottom, multiplier: 1, constant: 0)
+
+        leaveProfileButtonConstraints = [leftConstraint,rightConstraint,topConstraint,bottomConstraint]
     }
 
     func renderActivityIndicator(){
@@ -35,11 +96,6 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
         label.text = "forte"
         label.textAlignment = .Center
         self.navigationBar.addSubview(label)
-
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CentralNavigationController.presentProfile))
-        tapGestureRecognizer.numberOfTapsRequired = 1
-        label.userInteractionEnabled = true
-        label.addGestureRecognizer(tapGestureRecognizer)
 
         let centerConstraint = NSLayoutConstraint(item: label,
                                                   attribute: .CenterX,
@@ -79,6 +135,27 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
 
     func presentProfile() {
         self.pushViewController(profileController, animated: true)
+        showLeaveProfileButton()
+    }
+
+    func showProfileButton() {
+        self.rightButtonView.subviews.forEach({$0.removeFromSuperview()})
+        rightButtonView.addSubview(profileButton)
+        profileButtonConstraints.forEach({$0.active = true})
+        profileButton.updateConstraints()
+    }
+
+    func showLeaveProfileButton() {
+        self.rightButtonView.subviews.forEach({$0.removeFromSuperview()})
+        rightButtonView.addSubview(leaveProfileButton)
+        leaveProfileButtonConstraints.forEach({$0.active = true})
+        leaveProfileButton.updateConstraints()
+
+    }
+
+    func leaveProfile() {
+        self.popViewControllerAnimated(true)
+        showProfileButton()
     }
 
     func leavePlaylist() {
@@ -102,7 +179,7 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
 
 class PushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return 0.5
+        return 0.4
     }
 
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
@@ -129,7 +206,7 @@ class PushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
 class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return 0.3
+        return 0.4
         //        return 0.5
     }
 
