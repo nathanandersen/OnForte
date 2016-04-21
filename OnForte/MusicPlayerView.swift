@@ -304,20 +304,21 @@ class MusicPlayerView: UIView {
         displayType = .Large
         // re-draw image?
         playButtonBlurView.setNeedsDisplay()
-        playButtonBlurView.layoutIfNeeded()
+//        playButtonBlurView.layoutIfNeeded()
         playButton.setNeedsDisplay()
 
 //        playButtonBlurView.layer.cornerRadius = playButtonBlurView.bounds.width / 2
 //        playButtonBlurView.layer.masksToBounds = true
 
+        print(playButtonBlurView.bounds)
         print(playButtonBlurView.frame)
 
 
-        let circlePath = UIBezierPath(ovalInRect: playButtonBlurView.frame)
+/*        let circlePath = UIBezierPath(ovalInRect: playButtonBlurView.frame)
         let maskForPath = CAShapeLayer()
         maskForPath.path = circlePath.CGPath
         playButtonBlurView.layer.mask = maskForPath
-        print("redraw happened")
+        print("redraw happened")*/
 
         descriptionLabel.textAlignment = .Center
     }
@@ -348,11 +349,11 @@ class MusicPlayerView: UIView {
         print(playButtonBlurView.frame)
 
 
-        let circlePath = UIBezierPath(ovalInRect: playButtonBlurView.frame)
+/*        let circlePath = UIBezierPath(ovalInRect: playButtonBlurView.frame)
         let maskForPath = CAShapeLayer()
         maskForPath.path = circlePath.CGPath
         playButtonBlurView.layer.mask = maskForPath
-        print("redraw happened")
+        print("redraw happened")*/
 
 //        playButtonBlurView.layer.cornerRadius = playButtonBlurView.bounds.width / 2
 //        playButtonBlurView.layer.masksToBounds = true
