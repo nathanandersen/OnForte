@@ -10,6 +10,23 @@ import Foundation
 import UIKit
 //import SVGPlayButton
 
+class BlurredPlayButton: UIVisualEffectView {
+
+    let playButton: PlayButton = PlayButton()
+
+    override func drawRect(rect: CGRect) {
+        super.drawRect(rect)
+        let buttonFrame = CGRectMake(rect.minX + 10, rect.minY + 10, rect.width - 20, rect.height - 20)
+        playButton.drawRect(buttonFrame)
+        self.addSubview(playButton)
+    }
+
+    func buttonWasPressed() {
+        self.playButton.press()
+    }
+
+}
+
 
 class PlayButton: SVGPlayButton {
 

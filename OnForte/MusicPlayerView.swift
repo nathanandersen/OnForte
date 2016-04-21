@@ -30,7 +30,8 @@ class MusicPlayerView: UIView {
     var musicPlayer: IntegratedMusicPlayer!
 
     var playButton: PlayButton!
-    var playButtonBlurView: UIVisualEffectView!
+//    var playButtonBlurView: UIVisualEffectView!
+    var playButtonBlurView: BlurredPlayButton!
 
     var forwardButton: UIButton?
     var playlistController: PlaylistController!
@@ -92,7 +93,9 @@ class MusicPlayerView: UIView {
     }
 
     func startButtonPress() {
-        playButton.press()
+        (playButtonBlurView as! BlurredPlayButton).buttonWasPressed()
+
+//        playButton.press()
     }
 
     func renderSongArtView() {
@@ -210,25 +213,31 @@ class MusicPlayerView: UIView {
     }
 
     func pressPlayButton() {
-        playButton.press()
+        playButtonBlurView.playButton.press()
+//        playButton.press()
     }
 
     func renderPlayButton() {
-        playButtonBlurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+//        playButtonBlurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+
+
+        playButtonBlurView = BlurredPlayButton(effect: UIBlurEffect(style: .Light))
 
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(MusicPlayerView.pressPlayButton))
         playButtonBlurView.addGestureRecognizer(tapRecognizer)
+
+        playButtonBlurView.playButton.toggleFn = self.playPauseDidPress
         // rather than have the touch look for the button, just press the button directly
         songArtView.addSubview(playButtonBlurView)
         playButtonBlurView.translatesAutoresizingMaskIntoConstraints = false
-        playButton = PlayButton()
+/*        playButton = PlayButton()
         playButton.userInteractionEnabled = false
         playButton.toggleFn = self.playPauseDidPress
 
         playButton.pauseColor = Style.blackColor
         playButton.playColor = Style.blackColor
         playButton.translatesAutoresizingMaskIntoConstraints = false
-        playButtonBlurView.addSubview(playButton)
+        playButtonBlurView.addSubview(playButton)*/
         addPlayButtonConstraints()
     }
 
@@ -252,7 +261,7 @@ class MusicPlayerView: UIView {
         blurLargeWidth.identifier = "blur large width"
 
 
-        let playAspect = NSLayoutConstraint(item: playButton, attribute: .Width, relatedBy: .Equal, toItem: playButton, attribute: .Height, multiplier: 1, constant: 0)
+/*        let playAspect = NSLayoutConstraint(item: playButton, attribute: .Width, relatedBy: .Equal, toItem: playButton, attribute: .Height, multiplier: 1, constant: 0)
         playAspect.identifier = "play Aspect"
 
         let buttonCenterX = NSLayoutConstraint(item: playButton, attribute: .CenterX, relatedBy: .Equal, toItem: playButtonBlurView, attribute: .CenterX, multiplier: 1, constant: 0)
@@ -260,10 +269,10 @@ class MusicPlayerView: UIView {
         let buttonCenterY = NSLayoutConstraint(item: playButton, attribute: .CenterY, relatedBy: .Equal, toItem: playButtonBlurView, attribute: .CenterY, multiplier: 1, constant: 0)
         buttonCenterY.identifier = "button center y"
         let playWidth = NSLayoutConstraint(item: playButton, attribute: .Width, relatedBy: .Equal, toItem: playButtonBlurView, attribute: .Width, multiplier: 0.8, constant: 0)
-        playWidth.identifier = "play button width"
+        playWidth.identifier = "play button width"*/
 
-        smallViewConstraints.appendContentsOf([playAspect,buttonCenterX,buttonCenterY,playWidth,blurAspect,blurSmallCenterX,blurSmallCenterY,blurSmallWidth])
-        expandedViewConstraints.appendContentsOf([playAspect,buttonCenterX,buttonCenterY,playWidth,blurAspect,blurLargeCenterX,blurLargeCenterY,blurLargeWidth])
+        smallViewConstraints.appendContentsOf([/*playAspect,buttonCenterX,buttonCenterY,playWidth,*/blurAspect,blurSmallCenterX,blurSmallCenterY,blurSmallWidth])
+        expandedViewConstraints.appendContentsOf([/*playAspect,buttonCenterX,buttonCenterY,playWidth,*/blurAspect,blurLargeCenterX,blurLargeCenterY,blurLargeWidth])
     }
 
     func renderMusicPlayer() {
@@ -304,8 +313,9 @@ class MusicPlayerView: UIView {
         displayType = .Large
         // re-draw image?
         playButtonBlurView.setNeedsDisplay()
+        playButtonBlurView.layoutIfNeeded()
 //        playButtonBlurView.layoutIfNeeded()
-        playButton.setNeedsDisplay()
+//        playButton.setNeedsDisplay()
 
 //        playButtonBlurView.layer.cornerRadius = playButtonBlurView.bounds.width / 2
 //        playButtonBlurView.layer.masksToBounds = true
@@ -344,7 +354,7 @@ class MusicPlayerView: UIView {
 
         playButtonBlurView.setNeedsDisplay()
         playButtonBlurView.layoutIfNeeded()
-        playButton.setNeedsDisplay()
+//        playButton.setNeedsDisplay()
 
         print(playButtonBlurView.frame)
 
