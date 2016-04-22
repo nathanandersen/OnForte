@@ -160,7 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // alert.. login failed!
         return false
         //        }
-        return false
+//        return false
 
     }
 
