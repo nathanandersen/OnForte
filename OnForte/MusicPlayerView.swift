@@ -269,30 +269,25 @@ class MusicPlayerView: UIView {
 
     func showStart() {
         self.constraints.forEach( {$0.active = false} )
-
         playerView.updateConstraints()
         self.playerView.removeFromSuperview()
         self.addSubview(startButton!)
         startButton?.translatesAutoresizingMaskIntoConstraints = false
         startConstraints.forEach( {$0.active = true} )
-        subviews.forEach({$0.updateConstraints()})
         displayType = .Start
     }
 
     func showLarge() {
         playButton.removeFromSuperview()
         playButton.constraints.forEach({$0.active = false})
-
         subviews.forEach({
             $0.constraints.forEach({$0.active = false})
             $0.removeFromSuperview()
         })
-
         addSubview(playerView)
         platformView.userInteractionEnabled = true
         platformView.addSubview(playButton)
         expandedViewConstraints.forEach({$0.active = true})
-        subviews.forEach({$0.updateConstraints()})
         displayType = .Large
         // re-draw image?
         playButton.setNeedsDisplay()
@@ -306,15 +301,11 @@ class MusicPlayerView: UIView {
             $0.constraints.forEach({$0.active = false})
             $0.removeFromSuperview()
         })
-
         addSubview(playerView)
         songArtView.userInteractionEnabled = true
         songArtView.addSubview(playButton)
-
         smallViewConstraints.forEach({$0.active = true})
-        subviews.forEach({$0.updateConstraints()})
         displayType = .Small
-
         playButton.setNeedsDisplay()
         descriptionLabel.textAlignment = .Natural
     }

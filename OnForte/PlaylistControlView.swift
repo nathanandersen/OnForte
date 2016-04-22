@@ -72,19 +72,6 @@ class PlaylistControlView: UIView {
         }
     }
 
-    func showSmallNowPlayingView() {
-        if musicPlayerView.displayType == .Small {
-            return
-        }
-        collapseMusicPlayerConstraint.active = false
-        largeMusicPlayerConstraint.active = false
-        startMusicPlayerConstraint.active = false
-        print("ho hum small..")
-        smallMusicPlayerConstraint.active = true
-        musicPlayerView.showSmall()
-        musicPlayerView.setNeedsLayout()
-    }
-
     func showStartMusicPlayer() {
         if musicPlayerView.displayType == .Start {
             return
@@ -93,10 +80,21 @@ class PlaylistControlView: UIView {
         smallMusicPlayerConstraint.active = false
         largeMusicPlayerConstraint.active = false
         startMusicPlayerConstraint.active = true
-//        musicPlayerView.updateConstraints()
         musicPlayerView.showStart()
         musicPlayerView.setNeedsLayout()
+        
+    }
 
+    func showSmallNowPlayingView() {
+        if musicPlayerView.displayType == .Small {
+            return
+        }
+        collapseMusicPlayerConstraint.active = false
+        largeMusicPlayerConstraint.active = false
+        startMusicPlayerConstraint.active = false
+        musicPlayerView.showSmall()
+        smallMusicPlayerConstraint.active = true
+        musicPlayerView.setNeedsUpdateConstraints()
     }
 
     func showLargeNowPlayingView() {
@@ -106,11 +104,9 @@ class PlaylistControlView: UIView {
         collapseMusicPlayerConstraint.active = false
         smallMusicPlayerConstraint.active = false
         startMusicPlayerConstraint.active = false
-        print("ho hum large")
-        largeMusicPlayerConstraint.active = true
-//        musicPlayerView.updateConstraints()
         musicPlayerView.showLarge()
-        musicPlayerView.setNeedsLayout()
+        largeMusicPlayerConstraint.active = true
+        musicPlayerView.setNeedsUpdateConstraints()
     }
 
     func renderTopMenuBar() {
