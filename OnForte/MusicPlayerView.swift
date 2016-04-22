@@ -18,6 +18,11 @@ enum MusicPlayerDisplayType {
     case Large
 }
 
+
+func isValidString(str: String?) -> Bool {
+    return str != nil && str! != ""
+}
+
 class MusicPlayerView: UIView {
 
     var playerView: UIView!
@@ -72,10 +77,14 @@ class MusicPlayerView: UIView {
     }
 
     func displaySong() {
+        print("weeaa")
+        print(nowPlaying!.description)
         dispatch_async(dispatch_get_main_queue(), {
             artworkHandler.lookupForImageView(nowPlaying!.artworkURL, imageView: self.songArtView)
-            self.titleLabel.text = nowPlaying!.title
-            self.descriptionLabel.text = nowPlaying!.description
+            self.titleLabel.text = (isValidString(nowPlaying!.title)) ? nowPlaying!.title! : "<no title>"
+//            self.titleLabel.text = nowPlaying!.title
+            self.descriptionLabel.text = (isValidString(nowPlaying!.description)) ? nowPlaying!.description! : "<no description>"
+//            self.descriptionLabel.text = nowPlaying!.description
             let platformString = (nowPlaying!.service?.asLowerCaseString())!
             print(platformString)
             self.platformView.image = UIImage(named: platformString)
@@ -149,7 +158,7 @@ class MusicPlayerView: UIView {
         let smallPlatformLeadingDescription = NSLayoutConstraint(item: platformView, attribute: .Leading, relatedBy: .GreaterThanOrEqual, toItem: descriptionLabel, attribute: .Trailing, multiplier: 1, constant: 5)
         smallPlatformLeadingDescription.identifier = "Small Platform Leading Description"
 
-        let largePlatformTop = NSLayoutConstraint(item: platformView, attribute: .Top, relatedBy: .Equal, toItem: descriptionLabel, attribute: .Bottom, multiplier: 1, constant: 5)
+        let largePlatformTop = NSLayoutConstraint(item: platformView, attribute: .Top, relatedBy: .GreaterThanOrEqual, toItem: descriptionLabel, attribute: .Bottom, multiplier: 1, constant: 5)
         largePlatformTop.identifier = "Large Platform Top"
         let largePlatformCenterX = NSLayoutConstraint(item: platformView, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
         largePlatformCenterX.identifier = "Large Platform Center X"
@@ -176,7 +185,7 @@ class MusicPlayerView: UIView {
         let smallTitleTop = NSLayoutConstraint(item: titleLabel, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: -2)
         smallTitleTop.identifier = "Small Title Top"
         smallViewConstraints.appendContentsOf([smallTitleLeading,smallTitleTop])
-        let largeTitleTop = NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: songArtView, attribute: .Bottom, multiplier: 1, constant: 5)
+        let largeTitleTop = NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .GreaterThanOrEqual, toItem: songArtView, attribute: .Bottom, multiplier: 1, constant: 5)
         largeTitleTop.identifier = "large title top"
         let largeTitleCenterX = NSLayoutConstraint(item: titleLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
         largeTitleCenterX.identifier = "large title center x"
@@ -201,7 +210,7 @@ class MusicPlayerView: UIView {
         smallViewConstraints.appendContentsOf([smallDescriptionLeading,smallDescriptionTop])
         let largeDescriptionTop = NSLayoutConstraint(item: descriptionLabel, attribute: .Top, relatedBy: .Equal, toItem: titleLabel, attribute: .Bottom, multiplier: 1, constant: 5)
         largeDescriptionTop.identifier = "Large Description Top"
-        let largeDescriptionCenter = NSLayoutConstraint(item: titleLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
+        let largeDescriptionCenter = NSLayoutConstraint(item: descriptionLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
         largeDescriptionCenter.identifier = "Large Description Center"
         expandedViewConstraints.appendContentsOf([largeDescriptionTop,largeDescriptionCenter])
 
@@ -287,14 +296,6 @@ class MusicPlayerView: UIView {
         displayType = .Large
         // re-draw image?
         playButton.setNeedsDisplay()
-
-
-/*        let circlePath = UIBezierPath(ovalInRect: playButtonBlurView.frame)
-        let maskForPath = CAShapeLayer()
-        maskForPath.path = circlePath.CGPath
-        playButtonBlurView.layer.mask = maskForPath
-        print("redraw happened")*/
-
         descriptionLabel.textAlignment = .Center
     }
 
@@ -314,17 +315,7 @@ class MusicPlayerView: UIView {
         subviews.forEach({$0.updateConstraints()})
         displayType = .Small
 
-        self.setNeedsLayout()
-
         playButton.setNeedsDisplay()
-
-/*        let circlePath = UIBezierPath(ovalInRect: playButtonBlurView.frame)
-        let maskForPath = CAShapeLayer()
-        maskForPath.path = circlePath.CGPath
-        playButtonBlurView.layer.mask = maskForPath
-        print("redraw happened")*/
-
-
         descriptionLabel.textAlignment = .Natural
     }
 
@@ -335,10 +326,8 @@ class MusicPlayerView: UIView {
 
     func createStartConstraints() {
         let startLeading = NSLayoutConstraint(item: startButton!, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 80)
-//        let startLeading = NSLayoutConstraint(item: startButton!, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 0)
         startLeading.identifier = "Start Leading"
         let startTrailing = NSLayoutConstraint(item: startButton!, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: -80)
-//        let startTrailing = NSLayoutConstraint(item: startButton!, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
         startTrailing.identifier = "Start Trailing"
         let startTop = NSLayoutConstraint(item: startButton!, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 0)
         startTop.identifier = "Start Top"

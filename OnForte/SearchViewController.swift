@@ -117,7 +117,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
 
     func segmentedBarChangedValue(segment: UISegmentedControl) {
         let index = segment.selectedSegmentIndex
-//        print(index)
         tableView.dataSource = orderedSearchHandlers[index]
         tableView.delegate = orderedSearchHandlers[index]
         orderedSearchHandlers[index].search(searchBar.text!)
@@ -194,7 +193,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
 
 
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchBar.text)
         searchTimer.invalidate()
         activityIndicator.stopAnimating()
         searchTimer = NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: #selector(SearchViewController.searchAll), userInfo: nil, repeats: true)

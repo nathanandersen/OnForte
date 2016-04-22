@@ -58,13 +58,12 @@ class PlaylistControlView: UIView {
         if musicPlayerView.displayType == .None {
             return
         }
-
-        musicPlayerView.collapse()
         smallMusicPlayerConstraint.active = false
         largeMusicPlayerConstraint.active = false
         startMusicPlayerConstraint.active = false
         collapseMusicPlayerConstraint.active = true
         musicPlayerView.updateConstraints()
+        musicPlayerView.collapse()
     }
 
     func showANowPlayingView() {
@@ -77,24 +76,26 @@ class PlaylistControlView: UIView {
         if musicPlayerView.displayType == .Small {
             return
         }
-        musicPlayerView.showSmall()
         collapseMusicPlayerConstraint.active = false
         largeMusicPlayerConstraint.active = false
         startMusicPlayerConstraint.active = false
+        print("ho hum small..")
         smallMusicPlayerConstraint.active = true
-        musicPlayerView.updateConstraints()
+        musicPlayerView.showSmall()
+        musicPlayerView.setNeedsLayout()
     }
 
     func showStartMusicPlayer() {
         if musicPlayerView.displayType == .Start {
             return
         }
-        musicPlayerView.showStart()
         collapseMusicPlayerConstraint.active = false
         smallMusicPlayerConstraint.active = false
         largeMusicPlayerConstraint.active = false
         startMusicPlayerConstraint.active = true
-        musicPlayerView.updateConstraints()
+//        musicPlayerView.updateConstraints()
+        musicPlayerView.showStart()
+        musicPlayerView.setNeedsLayout()
 
     }
 
@@ -102,12 +103,14 @@ class PlaylistControlView: UIView {
         if musicPlayerView.displayType == .Large {
             return
         }
-        musicPlayerView.showLarge()
         collapseMusicPlayerConstraint.active = false
         smallMusicPlayerConstraint.active = false
         startMusicPlayerConstraint.active = false
+        print("ho hum large")
         largeMusicPlayerConstraint.active = true
-        musicPlayerView.updateConstraints()
+//        musicPlayerView.updateConstraints()
+        musicPlayerView.showLarge()
+        musicPlayerView.setNeedsLayout()
     }
 
     func renderTopMenuBar() {
@@ -275,7 +278,7 @@ class PlaylistControlView: UIView {
         collapseMusicPlayerConstraint = NSLayoutConstraint(item: musicPlayerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 1)
         collapseMusicPlayerConstraint.identifier = "Collapse Music Player Height"
 
-         smallMusicPlayerConstraint = NSLayoutConstraint(item: musicPlayerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 80)
+        smallMusicPlayerConstraint = NSLayoutConstraint(item: musicPlayerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 80)
         smallMusicPlayerConstraint.identifier = "Small Music Player Height"
 
         let navHeight = centralNavigationController.navigationBar.frame.height + UIApplication.sharedApplication().statusBarFrame.height
@@ -283,9 +286,9 @@ class PlaylistControlView: UIView {
         let totalHeight: CGFloat = UIScreen.mainScreen().bounds.height
 
         let largeHeight: CGFloat = totalHeight - navHeight - 2*menuBarHeight
-
          largeMusicPlayerConstraint = NSLayoutConstraint(item: musicPlayerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: largeHeight)
         largeMusicPlayerConstraint.identifier = "Large Music Player Height"
+
          startMusicPlayerConstraint = NSLayoutConstraint(item: musicPlayerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)
         startMusicPlayerConstraint.identifier = "Start Music Player Height"
 
