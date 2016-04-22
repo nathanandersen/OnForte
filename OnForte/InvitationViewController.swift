@@ -274,7 +274,6 @@ class InvitationViewController: UIViewController, UITableViewDelegate, UITableVi
                     var label = phoneNumber.label
                     let garbageLength = 4
                     if label.substringToIndex(label.startIndex.advancedBy(4)) == "_$!<" {
-                        print("aha")
 //                        label = label.substringWithRange(Range<String.Index>(start: label.startIndex.advancedBy(garbageLength), end: label.endIndex.advancedBy(-1*garbageLength)))
 
                         let range: Range<String.Index> = label.startIndex.advancedBy(garbageLength)..<label.endIndex.advancedBy(-1*garbageLength)

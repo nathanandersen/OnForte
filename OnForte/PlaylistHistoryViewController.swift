@@ -75,7 +75,6 @@ class PlaylistHistoryViewController: UIViewController, UITableViewDelegate, UITa
     }
 
     func updateTable() {
-//        print("meh")
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
         })
@@ -88,7 +87,6 @@ class PlaylistHistoryViewController: UIViewController, UITableViewDelegate, UITa
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell")! as! SongViewCell
-//        let cell = tableView.dequeueReusableCellWithIdentifier("PlaylistHistoryTableViewCell")! as! PlaylistHistoryTableViewCell
         cell.selectionStyle = .None
         let songId = playedSongs.keys[indexPath.row]
         print(songId)

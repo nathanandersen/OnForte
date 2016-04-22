@@ -308,7 +308,6 @@ class RootViewController: UIViewController, UITextFieldDelegate {
                 let playlistInfo = [targetPlaylistName,playlistId!]
                 Meteor.call("addPlaylist",params:playlistInfo,callback:{(result: AnyObject?,error:DDPError?) in
                     if error != nil {
-                        print("GAH")
                         print(error)
                         exit(1)
                     } else {

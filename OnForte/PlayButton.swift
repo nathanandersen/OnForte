@@ -10,47 +10,22 @@ import Foundation
 import UIKit
 //import SVGPlayButton
 
-class BlurredPlayButton: UIVisualEffectView {
+class BlurredPlayButton: SVGPlayButton {
 
-    let playButton: PlayButton
+    var toggleFn: (() -> Bool)!
 
-    override init(effect: UIVisualEffect?) {
-        playButton = PlayButton()
-        super.init(effect: effect)
-        let rect = self.frame
-        let buttonFrame = CGRectMake(rect.minX + 5, rect.minY + 5, rect.width - 10, rect.height - 10)
-        playButton.frame = buttonFrame
-        print("far out dude")
-        print(buttonFrame)
-//        playButton = PlayButton(frame: buttonFrame)
-//        playButton.frame =
-        self.addSubview(playButton)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("BlurredPlayButton does not support NSCoding")
+    func press() {
+        touchUpInsideHandler()
     }
 
-    override func drawRect(rect: CGRect) {
-        print("bah! this happened")
-        print(rect)
-        super.drawRect(rect)
-        playButton.setNeedsDisplay()
-//        let buttonFrame = CGRectMake(rect.minX + 5, rect.minY + 5, rect.width - 10, rect.height - 10)
-//        print(buttonFrame)
-//        self.addSubview(playButton)
-//        playButton.drawRect(buttonFrame)
-
-//        self.insertSubview(playButton, atIndex: 1)
-    }
-
-    func buttonWasPressed() {
-        self.playButton.press()
+    override func touchUpInsideHandler() {
+        let result = toggleFn()
+        playing = result
     }
 
 }
 
-
+/*
 class PlayButton: SVGPlayButton {
 
     var toggleFn: (() -> Bool)!
@@ -63,7 +38,7 @@ class PlayButton: SVGPlayButton {
         let result = toggleFn()
         playing = result
     }
-}
+}*/
 
 // from the github
 // https://github.com/maml/SVGPlayButton/blob/master/Pod/Classes/SVGPlayButton.swift
@@ -281,6 +256,18 @@ private let kInnerRadiusScaleFactor = CGFloat(0.05)
         progressShapeLayer.strokeStart = 0
         progressShapeLayer.strokeEnd = self.progressStrokeEnd
         self.layer.addSublayer(progressShapeLayer)
+
+
+
+        // add a background that is translucent-ish
+        // this is a step towards blur
+        // then mask out everything else
+        progressShapeLayer.fillColor = Style.translucentColor.CGColor
+
+        let maskForPath = CAShapeLayer()
+        maskForPath.path = progressArc()
+        self.layer.mask = maskForPath
+        // this masks the background of the circle
 
     }
 

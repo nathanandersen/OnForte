@@ -20,7 +20,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         print(self.view.frame)
-        print("bah")
         activityIndicator.showComplete("")
         self.navigationItem.setHidesBackButton(true, animated:false)
         let paramObj = [playlistId!]
@@ -59,7 +58,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func songWasRemoved() {
-        print("ooh")
         dispatch_async(dispatch_get_main_queue(), {
             self.updateTable()
         })
@@ -67,7 +65,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
 
     func songWasAdded() {
         dispatch_async(dispatch_get_main_queue(), {
-            print("meh")
             activityIndicator.showComplete("Song added")
             self.updateTable()
         })

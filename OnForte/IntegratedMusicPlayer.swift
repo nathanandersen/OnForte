@@ -33,7 +33,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
 
     // returns the new playing status
     func togglePlayingStatus() -> Bool {
-        print("Pressed play/pause")
+        print("toggle playing status")
         if let currentSong = nowPlaying {
             switch(currentSong.service!) {
             case .Soundcloud:
@@ -61,7 +61,6 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     }
 
     func registerNextSongWithServer(song: Song ) {
-        print("well, that happened")
         let paramObj = [playlistId!,
                         (song.title != nil) ? song.title! : "",
                         (song.description != nil) ? song.description! : "",
@@ -115,7 +114,6 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
 
     func handlePlaybackStateChanged(notification: NSNotification) {
         if (self.localPlayer.playbackState == .Stopped) {
-            print("next song")
             self.playNextSong()
         }
     }
