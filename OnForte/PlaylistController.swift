@@ -56,12 +56,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         pcviewtop.identifier = "Pc view top"
         playlistControlView.updateConstraints()
     }
-/*
-    func updateTable() {
-        dispatch_async(dispatch_get_main_queue(), {
-            self.updateTable()
-        })
-    }*/
 
     func songWasAdded() {
         dispatch_async(dispatch_get_main_queue(), {
@@ -167,15 +161,11 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     func displayNextSong() {
         dispatch_async(dispatch_get_main_queue(), {
             activityIndicator.showComplete("")
-//            self.nowPlayingView.updateTrackDisplay()
         })
     }
 
     func startPlaylist(sender: AnyObject){
-//        nowPlayingView.playNextSong()
         playlistStarted = true
-//        hideStart()
-//        showNowPlayingView()
         displayNextSong()
     }
 
@@ -184,6 +174,10 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
      and other segues
      */
     func leavePlaylist() {
+
+        // MAKE SURE WE DO THIS CORRECTLY
+        // SO NO PLAYLIST IS ACTIVE IF WE RETURN
+
         let qualityOfServiceClass = QOS_CLASS_BACKGROUND
 
 
@@ -201,12 +195,10 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         })
 
         (self.navigationController! as! CentralNavigationController).leavePlaylist()
-//        self.navigationController!.popToRootViewControllerAnimated(true)
         playlistId = ""
         playlistName = ""
         nowPlaying = nil
         isHost = false
-//        self.songs = SongCollection(name: "songs")
         self.songs = SongCollection(name: "queueSongs")
         (self.mm_drawerController.leftDrawerViewController as! PlaylistHistoryViewController).playedSongs = PlaylistSongHistory(name: "playedSongs")
         Meteor.unsubscribe("songs")
@@ -257,10 +249,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
      and other methods related to the table
      */
 
-
-//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        if playlistControlView
-//    }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sortedSongs.count

@@ -25,7 +25,6 @@
 		240AB0101CC092DF0061EB54 /* PlayedSongDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB00F1CC092DF0061EB54 /* PlayedSongDocument.swift */; };
 		240AB0121CC093040061EB54 /* PlayedSongCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0111CC093040061EB54 /* PlayedSongCollection.swift */; };
 		240AB0161CC093700061EB54 /* ArtworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0151CC093700061EB54 /* ArtworkHandler.swift */; };
-		240AB0181CC093890061EB54 /* SongVotingKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0171CC093890061EB54 /* SongVotingKey.swift */; };
 		240AB01E1CC094020061EB54 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0191CC094020061EB54 /* SearchViewController.swift */; };
 		240AB01F1CC094020061EB54 /* SoundCloudHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB01A1CC094020061EB54 /* SoundCloudHandler.swift */; };
 		240AB0201CC094020061EB54 /* SpotifyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB01B1CC094020061EB54 /* SpotifyHandler.swift */; };
@@ -100,7 +99,6 @@
 		240AB00F1CC092DF0061EB54 /* PlayedSongDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayedSongDocument.swift; sourceTree = "<group>"; };
 		240AB0111CC093040061EB54 /* PlayedSongCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayedSongCollection.swift; sourceTree = "<group>"; };
 		240AB0151CC093700061EB54 /* ArtworkHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtworkHandler.swift; sourceTree = "<group>"; };
-		240AB0171CC093890061EB54 /* SongVotingKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongVotingKey.swift; sourceTree = "<group>"; };
 		240AB0191CC094020061EB54 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		240AB01A1CC094020061EB54 /* SoundCloudHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloudHandler.swift; sourceTree = "<group>"; };
 		240AB01B1CC094020061EB54 /* SpotifyHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyHandler.swift; sourceTree = "<group>"; };
@@ -259,7 +257,6 @@
 				240AB0041CC091E60061EB54 /* Style.swift */,
 				240AB0061CC092360061EB54 /* Song.swift */,
 				240AB0151CC093700061EB54 /* ArtworkHandler.swift */,
-				240AB0171CC093890061EB54 /* SongVotingKey.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -558,7 +555,6 @@
 				240AB00E1CC092BA0061EB54 /* MeteorSong.swift in Sources */,
 				245789FE1CC28A5500394C17 /* IntegratedMusicPlayer.swift in Sources */,
 				240AB01F1CC094020061EB54 /* SoundCloudHandler.swift in Sources */,
-				240AB0181CC093890061EB54 /* SongVotingKey.swift in Sources */,
 				240AB0221CC094020061EB54 /* SearchHandler.swift in Sources */,
 				240AB0071CC092360061EB54 /* Song.swift in Sources */,
 				240AB0331CC0946F0061EB54 /* InvitationViewController.swift in Sources */,
