@@ -56,12 +56,12 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         pcviewtop.identifier = "Pc view top"
         playlistControlView.updateConstraints()
     }
-
-    func songWasRemoved() {
+/*
+    func updateTable() {
         dispatch_async(dispatch_get_main_queue(), {
             self.updateTable()
         })
-    }
+    }*/
 
     func songWasAdded() {
         dispatch_async(dispatch_get_main_queue(), {
@@ -75,7 +75,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.displayNextSong), name: "displayNextSong", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.exitPlaylist), name: "leavePlaylist", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.songWasAdded), name: "songWasAdded", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.songWasRemoved), name: "songWasRemoved", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.updateTable), name: "updateTable", object: nil)
     }
 
     func renderComponents() {
@@ -288,21 +288,21 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func updateTable() {
-
-        sortedSongs = songs.sortedByScore()
-        self.tableView.reloadData()
-
-        if nowPlaying == nil {
-            if isHost && songs.count >= 1 {
-                playlistControlView.showStartMusicPlayer()
+        dispatch_async(dispatch_get_main_queue(), {
+            self.sortedSongs = self.songs.sortedByScore()
+            self.tableView.reloadData()
+            if nowPlaying == nil {
+                if isHost && self.songs.count >= 1 {
+                    self.playlistControlView.showStartMusicPlayer()
+                } else {
+                    self.playlistControlView.collapseNowPlayingView()
+                }
             } else {
-
-                playlistControlView.collapseNowPlayingView()
+                self.playlistControlView.showANowPlayingView()
             }
-        } else {
-            playlistControlView.showANowPlayingView()
-        }
-    }
 
+
+        })
+    }
 
 }

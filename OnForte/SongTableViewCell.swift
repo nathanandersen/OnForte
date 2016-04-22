@@ -81,7 +81,8 @@ class SongTableViewCell: SWTableViewCell {
     }
 
     @IBAction func upvoteClicked(sender: AnyObject) {
-        let key = SongVotingKey(doc: song)
+        let key = song._id
+//        let key = SongVotingKey(doc: song)
         if votes[key]! != VotingStatus.Upvote {
             let newVotingStatus = votes[key]!.upvote()
             displayVotingStatus(newVotingStatus)
@@ -92,7 +93,8 @@ class SongTableViewCell: SWTableViewCell {
     }
 
     @IBAction func downvoteClicked(sender: AnyObject) {
-        let key = SongVotingKey(doc: song)
+        let key = song._id
+//        let key = SongVotingKey(doc: song)
         if votes[key]! != VotingStatus.Downvote {
             let newVotingStatus = votes[key]!.downvote()
             displayVotingStatus(newVotingStatus)
@@ -147,7 +149,8 @@ class SongTableViewCell: SWTableViewCell {
             
         }
         platformImage.image = UIImage(named: platformSource)
-        let key = SongVotingKey(doc: song)
+        let key = song._id
+//        let key = SongVotingKey(doc: song)
         displayVotingStatus(votes[key]!)
     }
 

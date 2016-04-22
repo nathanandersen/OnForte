@@ -16,7 +16,9 @@ var spotifySession: SPTSession?
 var nowPlaying: Song?
 var keys: NSDictionary?
 //var votes = [SongDocument:VotingStatus]()
-var votes = [SongVotingKey:VotingStatus]()
+
+var votes = [String:VotingStatus]()
+//var votes = [SongVotingKey:VotingStatus]()
 var isHost: Bool = false
 var playlistName: String!
 var artworkHandler = ArtworkHandler()

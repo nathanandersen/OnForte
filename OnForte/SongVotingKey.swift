@@ -6,7 +6,7 @@
 //  Copyright © 2016 Forte Labs. All rights reserved.
 //
 import Foundation
-
+/*
 class SongVotingKey: Hashable {
     var id: String
     var title: String?
@@ -47,4 +47,4 @@ class SongVotingKey: Hashable {
 
 func ==(lhs: SongVotingKey, rhs: SongVotingKey) -> Bool {
     return lhs.id == rhs.id
-}
+}*/
