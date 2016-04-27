@@ -46,7 +46,9 @@ class PlaylistControlView: UIView {
 
     func setParentPlaylistController(playlistC: PlaylistController) {
         self.playlistController = playlistC
-        musicPlayerView.setParentPlaylistController(playlistC)
+        if isHost {
+            musicPlayerView.setParentPlaylistController(playlistC)
+        }
     }
 
     func renderMusicPlayerView() {
