@@ -129,7 +129,7 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
             self.pushViewController(self.playlistController, animated: true)
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 // completion block
-                self.playlistController.updateBaseController()
+                self.playlistController.updatePlaylistViewController()
             })
         })
         activityIndicator.showComplete("")

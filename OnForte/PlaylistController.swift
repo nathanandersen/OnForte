@@ -228,7 +228,10 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         }
         alertController.addAction(endAction)
 
-        self.presentViewController(alertController, animated: true, completion: nil)
+        dispatch_async(dispatch_get_main_queue(), {
+            self.presentViewController(alertController, animated: true, completion: nil)
+        })
+//        self.presentViewController(alertController, animated: true, completion: nil)
     }
 
     func hostExitPlaylist() {
@@ -243,8 +246,10 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
             (action) in self.leavePlaylist()
         }
         alertController.addAction(endAction)
-
-        self.presentViewController(alertController, animated: true, completion: nil)
+        dispatch_async(dispatch_get_main_queue(), {
+            self.presentViewController(alertController, animated: true, completion: nil)
+        })
+//        self.presentViewController(alertController, animated: true, completion: nil)
     }
 
     /*
