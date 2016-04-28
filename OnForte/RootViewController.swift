@@ -166,7 +166,7 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         joinField.autocapitalizationType = .None
         joinField.spellCheckingType = .No
         joinField.returnKeyType = .Join
-        joinField.textColor = Style.secondaryColor
+        joinField.textColor = Style.primaryColor
 
         let button = Style.defaultButton("Join")
         button.frame = CGRectMake(0, 0, 90, 50)
@@ -194,7 +194,7 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         createField.layer.borderWidth = 1
         createField.layer.borderColor = Style.primaryColor.CGColor
         createField.layer.cornerRadius = 5
-        createField.textColor = Style.secondaryColor
+        createField.textColor = Style.primaryColor
 
         let button = Style.defaultButton("Join")
         button.frame = CGRectMake(0, 0, 90, 50)

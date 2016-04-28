@@ -29,8 +29,8 @@ struct Style {
     static var redColor = UIColor.redColor()
     static var lightGrayColor = UIColor.lightGrayColor()
 
-    static var primaryBlue = UIColor(red: 0, green: 0, blue: 1.0, alpha: 1.0)
-    static var secondaryBlue = UIColor(red: 0, green: 0, blue: 1.0, alpha: 0.5)
+    static var primaryBlue = UIColor(red:0.00, green:0.45, blue:0.74, alpha:1.0)
+    static var secondaryBlue = UIColor(red:0.00, green:0.45, blue:0.74, alpha:0.5)
     static var primaryRed = UIColor(red: 1.0, green: 0, blue: 0, alpha: 1.0)
     static var secondaryRed = UIColor(red: 1.0, green: 0, blue: 0, alpha: 0.5)
     static var primaryGreen = UIColor(red: 0, green: 1.0, blue: 0, alpha: 1.0)
