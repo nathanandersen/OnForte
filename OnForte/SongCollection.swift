@@ -148,7 +148,6 @@ class SongCollection: MeteorCollection<SongDocument> {
             document.update(fields, cleared: cleared)
             self.documents[id] = document
             collectionSetDidChange()
-            print("weaa")
             NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
         }
     }

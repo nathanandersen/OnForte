@@ -74,7 +74,6 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
 
     // returns success or failure
     func playNextSong() -> Bool {
-//        print(playlistController)
         if let nextSong = playlistController.getNextSong() {
             // set backgrounding
             do {
@@ -168,19 +167,8 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     }
 
     func playSpotify() -> Bool {
-        if spotifySession == nil {
+        if spotifySession == nil || !spotifySession!.isValid() {
             print("not logged into spotify!")
-
-             let alertController = UIAlertController(title: "Spotify disabled", message: "Please have the host log in to spotify.", preferredStyle: .Alert)
-             let cancelAction = UIAlertAction(title: "Dismiss", style: .Cancel) { (action) in
-
-             }
-             alertController.addAction(cancelAction)
-             self.playlistController.presentViewController(alertController, animated: true, completion: {
-//             self.playlistVC.hideNowPlayingView()
-                // ^^^?!?!?!?
-             nowPlaying = nil
-             })
             return false
         } else {
             spotifyPlayer.loginWithSession(spotifySession, callback: { (error: NSError?) in

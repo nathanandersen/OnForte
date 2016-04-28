@@ -158,7 +158,22 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func getNextSong() -> Song? {
-        return (sortedSongs.count > 0) ? Song(songDoc: sortedSongs[0]) : nil
+        if spotifySession != nil && spotifySession!.isValid() {
+            print("User is logged into Spotify. Playing top song.")
+            return (sortedSongs.count > 0) ? Song(songDoc: sortedSongs[0]) : nil
+        } else {
+            print("User is not logged into Spotify. Playing top non-Spotify song.")
+            let nonSpotifySongs = sortedSongs.filter({ $0.platform.lowercaseString != "spotify"})
+
+            let alertController = UIAlertController(title: "Spotify Not Authenticated", message: "Please log in to Spotify through the profile in order to play Spotify music.\n\n Playing top non-Spotify song.", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "Dismiss", style: .Cancel) { (action) in
+
+            }
+            alertController.addAction(cancelAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+
+            return (nonSpotifySongs.count > 0) ? Song(songDoc: nonSpotifySongs[0]) : nil
+        }
     }
 
     func displayNextSong() {
