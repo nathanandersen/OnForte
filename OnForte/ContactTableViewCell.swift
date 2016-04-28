@@ -10,6 +10,12 @@ import Foundation
 import Contacts
 import UIKit
 
+/**
+ ContactTableViewCell depicts one contact in the ContactViewTable.
+ Name on the left, and a check box on the right
+ 
+ When selected, a popup is displayed to pick a phone number
+ */
 class ContactTableViewCell: UITableViewCell {
 
     var contactNameLabel: UILabel!
@@ -26,20 +32,27 @@ class ContactTableViewCell: UITableViewCell {
         fatalError("ContactTableViewCell does not support NSCoding")
     }
 
-    func initializeContactName() {
+    /**
+    Initialize the contact name label
+    */
+    private func initializeContactName() {
         contactNameLabel = Style.defaultLabel()
         contactNameLabel.textAlignment = .Natural
         self.addSubview(contactNameLabel)
 
     }
-
-    func initializeCheckBox() {
+    /**
+    Initialize the checkbox
+     */
+    private func initializeCheckBox() {
         checkBox = CheckboxButton()
         self.addSubview(checkBox)
         checkBox.userInteractionEnabled = false
     }
-
-    func initializeConstraints() {
+    /**
+    Initialize constraints
+    */
+    private func initializeConstraints() {
         checkBox.translatesAutoresizingMaskIntoConstraints = false
         contactNameLabel.translatesAutoresizingMaskIntoConstraints = false
 
@@ -97,18 +110,11 @@ class ContactTableViewCell: UITableViewCell {
         contactNameLabel.updateConstraints()
     }
 
-    func loadContact(ic: InviteContact) {
+    /**
+    Load a contact into the cell
+    */
+    internal func loadContact(ic: InviteContact) {
         contactNameLabel.text = CNContactFormatter.stringFromContact(ic.contact, style: .FullName)
         checkBox.on = ic.isSelected
-//        self.selected = ic.isSelected
     }
-/*
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }*/
-
-
-    
 }

@@ -8,6 +8,12 @@
 
 import Foundation
 
+/**
+ SongViewCell is used in the PlaylistHistoryTable and in the SearchResultsTable.
+ 
+ A simple construction, with album artwork on the left, title and description in the middle,
+ and platform on the rigth
+ */
 class SongViewCell: UITableViewCell {
 
     var songTitleLabel: UILabel!
@@ -28,32 +34,44 @@ class SongViewCell: UITableViewCell {
         fatalError("PlaylistHistoryTableViewCell does not support NSCoding")
     }
 
-    func initializeTitleLabel() {
+    /**
+    Initialize the title label.
+    */
+    private func initializeTitleLabel() {
         songTitleLabel = Style.defaultLabel()
         songTitleLabel.textAlignment = .Left
         self.addSubview(songTitleLabel)
         songTitleLabel.backgroundColor = Style.clearColor
     }
 
-    func initializeDescriptionLabel() {
+    /**
+    Initialize the description label
+    */
+    private func initializeDescriptionLabel() {
         songDescriptionLabel = Style.defaultLabel()
         songDescriptionLabel.textAlignment = .Left
         self.addSubview(songDescriptionLabel)
         songDescriptionLabel.backgroundColor = Style.clearColor
     }
-
-    func initializePlatform() {
+    /**
+    Initialize the platform image view.
+    */
+    private func initializePlatform() {
         platformImageView = UIImageView(image: UIImage(named: "spotify"))
         self.addSubview(platformImageView)
     }
-
-    func initializeArtwork() {
+    /**
+    Initialize the artwork view
+    */
+    private func initializeArtwork() {
         artworkView = UIImageView()
         artworkView.contentMode = UIViewContentMode.ScaleAspectFit
         self.addSubview(artworkView)
     }
-
-    func initializeConstraints() {
+    /** 
+    Initialize all constraints
+    */
+    private func initializeConstraints() {
         songTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         songDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         platformImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -84,7 +102,10 @@ class SongViewCell: UITableViewCell {
         artworkView.updateConstraints()
     }
 
-    func loadItem(song: Song) {
+    /**
+    Load a song into the cell.
+     */
+    internal func loadItem(song: Song) {
         self.songTitleLabel.text = song.title
         self.songDescriptionLabel.text = song.description
         let platformSource = String(song.service).lowercaseString
@@ -98,7 +119,10 @@ class SongViewCell: UITableViewCell {
         platformImageView.image = UIImage(named: platformSource)
     }
 
-    func loadItem(songId: String, song: MeteorSong) {
+    /**
+     Load a MeteorSong into the cell
+    */
+    internal func loadItem(songId: String, song: MeteorSong) {
         self.songTitleLabel.text = song.title
         self.songDescriptionLabel.text = song.annotation
         let platformSource = song.platform.lowercaseString

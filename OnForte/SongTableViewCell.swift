@@ -10,6 +10,9 @@ import UIKit
 import SwiftDDP
 import SWTableViewCell
 
+/**
+ A viewing cell for the SongTable, including voting.
+ */
 class SongTableViewCell: SWTableViewCell {
 
     @IBOutlet var titleLabelView: UIView!
@@ -24,8 +27,7 @@ class SongTableViewCell: SWTableViewCell {
     @IBOutlet var platformImage: UIImageView!
     @IBOutlet var upvoteButton: UIButton!
     @IBOutlet var downvoteButton: UIButton!
-    
-//    var song: SongDocument!
+
     var song: MeteorSong!
     var songId: String = ""
     
@@ -36,8 +38,11 @@ class SongTableViewCell: SWTableViewCell {
         renderDescriptionLabel()
         renderScoreLabel()
     }
-    
-    func renderScoreLabel() {
+
+    /**
+    Render the score label
+    */
+    private func renderScoreLabel() {
         let label = Style.defaultLabel()
         label.font = Style.defaultFont(15)
         scoreLabelView.addSubview(label)
@@ -47,8 +52,10 @@ class SongTableViewCell: SWTableViewCell {
         NSLayoutConstraint.activateConstraints(constraints)
         scoreLabel = label
     }
-    
-    func renderTitleLabel() {
+    /**
+    Render the title label
+    */
+    private func renderTitleLabel() {
         let label = Style.defaultLabel()
         label.textAlignment = .Left
         titleLabelView.addSubview(label)
@@ -59,7 +66,9 @@ class SongTableViewCell: SWTableViewCell {
         NSLayoutConstraint.activateConstraints(constraints)
         titleLabel = label
     }
-    
+    /**
+    Render the description label
+    */
     func renderDescriptionLabel() {
         let label = Style.defaultLabel()
         label.backgroundColor = Style.clearColor
@@ -74,16 +83,19 @@ class SongTableViewCell: SWTableViewCell {
         
         descriptionLabel = label
     }
-    
+
+    /**
+    Reload the song table
+    */
     func reloadTable(result: AnyObject?,error:DDPError?) {
-        // find a way to time this... it's out of sync w/ call?
         NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
-//        NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
     }
 
+    /**
+    Upvote the song
+    */
     @IBAction func upvoteClicked(sender: AnyObject) {
         let key = song._id
-//        let key = SongVotingKey(doc: song)
         if votes[key]! != VotingStatus.Upvote {
             let newVotingStatus = votes[key]!.upvote()
             displayVotingStatus(newVotingStatus)
@@ -92,10 +104,11 @@ class SongTableViewCell: SWTableViewCell {
         }
         
     }
-
+    /**
+    Downvote the song
+    */
     @IBAction func downvoteClicked(sender: AnyObject) {
         let key = song._id
-//        let key = SongVotingKey(doc: song)
         if votes[key]! != VotingStatus.Downvote {
             let newVotingStatus = votes[key]!.downvote()
             displayVotingStatus(newVotingStatus)
@@ -103,30 +116,25 @@ class SongTableViewCell: SWTableViewCell {
             Meteor.call("downvoteSong",params:[songId],callback: self.reloadTable)
         }
     }
-    
-/*    func loadItem(songId: String, song: SongDocument) {
-        self.songId = songId
-        self.song = song
-        self.render()
-    }*/
-    func loadItem(songId: String, song: MeteorSong) {
+    /**
+    Load a song into the song table cell.
+    */
+    internal func loadItem(songId: String, song: MeteorSong) {
         self.songId = songId
         self.song = song
         self.render()
     }
 
-/*    func loadItem(songId: String, song: PlayedSongDocument) {
-        self.songId = songId
-        self.song = song
-        self.render()
-    }*/
-
-    func render() {
+    /**
+    Update all displays
+    */
+    private func render() {
         titleLabel!.text = song.title
         descriptionLabel!.text = song.annotation
         scoreLabel!.text = String(song.score)
         let platformSource = song.platform.lowercaseString
         if let url = song.artworkURL {
+            // if no URL, use a platform image for placeholder
             if url == "" {
                 switch(song.platform.lowercaseString){
                 case "spotify":
@@ -138,24 +146,19 @@ class SongTableViewCell: SWTableViewCell {
                 default:
                     break
                 }
-            }
-            else {
+            } else {
                 artworkHandler.lookupForCell(NSURL(string: url)!,imageView: songImage,cell: self)
             }
         }
-        else {
-            print(song.platform.lowercaseString)
-            
-            
-            
-        }
         platformImage.image = UIImage(named: platformSource)
         let key = song._id
-//        let key = SongVotingKey(doc: song)
         displayVotingStatus(votes[key]!)
     }
 
-    func displayVotingStatus(votingStatus: VotingStatus) {
+    /**
+     Display the voting status
+    */
+    private func displayVotingStatus(votingStatus: VotingStatus) {
         switch(votingStatus) {
         case .Upvote:
             upvoteButton.setTitleColor(Style.blackColor, forState: .Normal)
@@ -168,11 +171,4 @@ class SongTableViewCell: SWTableViewCell {
             downvoteButton.setTitleColor(Style.lightGrayColor, forState: .Normal)
         }
     }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }
