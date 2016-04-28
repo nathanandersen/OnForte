@@ -8,6 +8,9 @@
 import Foundation
 import UIKit
 
+/**
+ A basic struct to encapsulate a song
+ */
 class Song {
     var title: String?
     var description: String?
@@ -43,13 +46,5 @@ class Song {
             (self.artworkURL != nil) ? self.artworkURL!.URLString : ""
         ]
         return fields
-    }
-
-    func printToConsole() {
-        print("Title: " + self.title!)
-        print("Description: " + self.description!)
-        print("Service: " + String(self.service))
-        print("Track ID: " + self.trackId!)
-        print("AlbumURL: " + String(self.artworkURL))
     }
 }

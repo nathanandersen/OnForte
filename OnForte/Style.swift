@@ -9,7 +9,9 @@
 import Foundation
 import BFPaperButton
 
-
+/**
+ Style encapsulates the global style of the app
+ */
 struct Style {
 
     //http://sdbr.net/post/Themes-in-Swift/
@@ -40,16 +42,6 @@ struct Style {
 
     static var primaryBlue = UIColor(red:0.00, green:0.45, blue:0.74, alpha:1.0)
     static var secondaryBlue = UIColor(red:0.00, green:0.45, blue:0.74, alpha:0.5)
-    static var primaryRed = UIColor(red: 1.0, green: 0, blue: 0, alpha: 1.0)
-    static var secondaryRed = UIColor(red: 1.0, green: 0, blue: 0, alpha: 0.5)
-    static var primaryGreen = UIColor(red: 0, green: 1.0, blue: 0, alpha: 1.0)
-    static var secondaryGreen = UIColor(red: 0, green: 1.0, blue: 0, alpha: 0.5)
-    static var primaryPurple = UIColor(red: 1.0, green: 0, blue: 1.0, alpha: 1.0)
-    static var secondaryPurple = UIColor(red: 1.0, green: 0, blue: 1.0, alpha: 0.5)
-    static var primaryYellow = UIColor(red: 1.0, green: 1.0, blue: 0, alpha: 1.0)
-    static var secondaryYellow = UIColor(red: 1.0, green: 1.0, blue: 0, alpha: 0.5)
-    static var primaryOrange = UIColor(red: 1.0, green: 0.5, blue: 0, alpha: 1.0)
-    static var secondaryOrange = UIColor(red: 1.0, green: 0.5, blue: 0, alpha: 0.5)
 
     static var spotifyGreen = UIColor(red:0.14, green:0.81, blue:0.37, alpha:1.0)
     // #23CF5F
@@ -64,36 +56,6 @@ struct Style {
 
     static func defaultFont(fontsize: CGFloat) -> UIFont {
         return UIFont.systemFontOfSize(fontsize)
-    }
-
-    static func themeBlue() {
-        primaryColor = primaryBlue
-        secondaryColor = secondaryBlue
-    }
-
-    static func themeRed() {
-        primaryColor = primaryRed
-        secondaryColor = secondaryRed
-    }
-
-    static func themeGreen() {
-        primaryColor = primaryGreen
-        secondaryColor = secondaryGreen
-    }
-
-    static func themeYellow() {
-        primaryColor = primaryYellow
-        secondaryColor = secondaryYellow
-    }
-
-    static func themePurple() {
-        primaryColor = primaryPurple
-        secondaryColor = secondaryPurple
-    }
-
-    static func themeOrange() {
-        primaryColor = primaryOrange
-        secondaryColor = secondaryOrange
     }
 
     static func defaultButton(title: String) -> UIButton {
@@ -120,10 +82,8 @@ struct Style {
         button.setTitle(title, forState: .Normal)
         button.tintColor = Style.primaryColor
         button.titleLabel?.font = Style.defaultFont(20)
-        //        button.titleLabel?.font = Style.buttonFont
         button.setTitleColor(Style.primaryColor, forState: .Normal)
         button.titleFont = Style.defaultFont(17)
-        //        button.titleFont = UIFont(name: "Raleway-Medium", size: 17.0)
         return button
     }
 
@@ -135,7 +95,6 @@ struct Style {
         button.rippleBeyondBounds = false
         button.setTitleColor(Style.primaryColor, forState: .Normal)
         button.titleFont = UIFont.systemFontOfSize(CGFloat(fontSize))
-        //        button.titleFont = UIFont(name: font, size: CGFloat(fontSize))
         button.rippleFromTapLocation = false
         button.tintColor = Style.primaryColor
         button.cornerRadius = 25
@@ -181,6 +140,7 @@ struct Style {
         label.userInteractionEnabled = false
         return label
     }
+
     static func constrainToBoundsOfFrame(label: UIView, parentView: UIView) -> [NSLayoutConstraint] {
         let leftConstraint =
             NSLayoutConstraint(item: label,
@@ -236,57 +196,4 @@ struct Style {
                                constant: 0)
         return [topConstraint,bottomConstraint]
     }
-}
-
-
-class ShadowButton: UIButton {
-    func setupView() {
-        self.layer.shadowColor = Style.blackColor.CGColor
-        self.layer.shadowOpacity = 0.5
-        self.layer.shadowRadius = 1
-        self.layer.shadowOffset = CGSizeMake(2.0, 2.0)
-    }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setupView()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("NSCoding not supported for ShadowButon")
-    }
-
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.contentEdgeInsets = UIEdgeInsetsMake(1, 1, -1, -1)
-        self.layer.shadowOffset = CGSizeMake(1.0, 1.0)
-        self.layer.shadowOpacity = 0.8
-        super.touchesBegan(touches, withEvent: event)
-    }
-/*
- -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
- self.contentEdgeInsets = UIEdgeInsetsMake(1.0,1.0,-1.0,-1.0);
- self.layer.shadowOffset = CGSizeMake(1.0f, 1.0f);
- self.layer.shadowOpacity = 0.8;
-
- [super touchesBegan:touches withEvent:event];
-
- }*/
-
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
-        self.layer.shadowOffset = CGSizeMake(2.0, 2.0)
-        self.layer.shadowOpacity = 0.5
-        super.touchesEnded(touches, withEvent: event)
-    }
-/*
- -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
- self.contentEdgeInsets = UIEdgeInsetsMake(0.0,0.0,0.0,0.0);
- self.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
- self.layer.shadowOpacity = 0.5;
-
- [super touchesEnded:touches withEvent:event];
-
- }*/
-
-
 }

@@ -10,6 +10,9 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
+/**
+ This is a cache for artwork music
+ */
 class ArtworkHandler {
 
     var artworkCache: NSCache!
@@ -18,6 +21,9 @@ class ArtworkHandler {
         artworkCache = NSCache()
     }
 
+    /**
+     Given a table view cell and an image view, lookup the artwork and insert it into the cell
+    */
     func lookupForCell(lookupURL: NSURL?, imageView: UIImageView?, cell: UITableViewCell) {
         if let url = lookupURL {
             if (self.artworkCache.objectForKey(url) != nil){
@@ -41,6 +47,9 @@ class ArtworkHandler {
         }
     }
 
+    /**
+     Given a image view, look up the artwork
+     */
     func lookupForImageView(lookupURL: NSURL?, imageView: UIImageView?) {
         if let url = lookupURL {
             if (self.artworkCache.objectForKey(url) != nil){
@@ -55,8 +64,6 @@ class ArtworkHandler {
                             dispatch_async(dispatch_get_main_queue()) {
                                 self.artworkCache.setObject(albumArt, forKey: url)
                                 imageView!.image = albumArt
-//                                imageView!.contentMode = UIViewContentMode.ScaleAspectFit
-//                                imageView!.image = self.artworkCache.objectForKey(url) as? UIImage
                                 imageView?.setNeedsLayout()
 
                             }

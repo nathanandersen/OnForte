@@ -15,10 +15,7 @@ var playlistId: String?
 var spotifySession: SPTSession?
 var nowPlaying: Song?
 var keys: NSDictionary?
-//var votes = [SongDocument:VotingStatus]()
-
 var votes = [String:VotingStatus]()
-//var votes = [SongVotingKey:VotingStatus]()
 var isHost: Bool = false
 var playlistName: String!
 var artworkHandler = ArtworkHandler()
@@ -104,21 +101,3 @@ func imageWithImage(image: UIImage, scaledToSize newSize: CGSize) -> UIImage {
     UIGraphicsEndImageContext()
     return newImage
 }
-/*
-- (UIImage*)imageWithImage:(UIImage*)image
-scaledToSize:(CGSize)newSize;
-{
-    UIGraphicsBeginImageContext( newSize );
-    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
-    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}*/
-
-/*extension NSLayoutConstraint {
-
-    override public var description: String {
-        let id = identifier ?? ""
-        return "id: \(id), constant: \(constant)" //you may print whatever you want here
-    }
-}*/
