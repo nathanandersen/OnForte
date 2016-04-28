@@ -17,8 +17,6 @@ enum Storyboard: String {
     case Onboarding = "Onboarding"
 }
 
-// figure out when spinners are ok and when they are not
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -111,22 +109,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = controller
 
         ((controller as! CentralNavigationController).presentedViewController as! RootViewController).joinPlaylistFromURL(playlistID)
-
-        // that should be good
-
-
-        /*
-         let storyboard = UIStoryboard(name: Storyboard.Main.rawValue, bundle: nil)
-         let controller = MMDrawerController()
-         controller.openDrawerGestureModeMask = .PanningCenterView
-         controller.closeDrawerGestureModeMask = .PanningCenterView
-         controller.centerViewController = storyboard.instantiateViewControllerWithIdentifier("MainNavigationController")
-         controller.rightDrawerViewController =
-         storyboard.instantiateViewControllerWithIdentifier("MenuViewController")
-         self.window?.rootViewController = controller
-
-         ((controller.centerViewController as! MainNavigationController).childViewControllers[0] as! HomeViewController).joinPlaylistFromURL(playlistID)
-         */
     }
 
     func application(application: UIApplication,openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
@@ -140,7 +122,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         }
         //        else if sourceApplication != nil && sourceApplication == "com.apple.SafariViewService" {
-        print("Opening from deep link")
+//        print("Opening from deep link")
         activityIndicator.showActivity("Confirming login")
         if SPTAuth.defaultInstance().canHandleURL(url) {
             SPTAuth.defaultInstance().handleAuthCallbackWithTriggeredAuthURL(url, callback: {(error:NSError?,session: SPTSession?) in
@@ -168,13 +150,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
         NSLog("Application Will Resign Active")
-
-        //        Meteor.unsubscribe("songs")
-        // should we also delete all songs?
-
-        // thinking
-
-        // should unsubscribe from songs here also
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
@@ -191,7 +166,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         NSLog("application did become active")
-
         activityIndicator.showActivity("Connecting")
 
         // can we refresh the spotify session here?
@@ -201,7 +175,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             activityIndicator.showComplete("Connected")
             if playlistId != nil {
                 Meteor.subscribe("songs",params: [playlistId!])
-                // also reload the table?
             }
         }
     }
@@ -211,6 +184,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSLog("application will terminate")
     }
 
+    /*
     func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
         let rect = CGRectMake(0, 0, size.width, size.height)
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
@@ -219,7 +193,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
-    }
+    }*/
     
     
 }
