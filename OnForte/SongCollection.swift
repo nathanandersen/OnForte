@@ -97,6 +97,10 @@ class SongCollection: MeteorCollection<SongDocument> {
         return values.sort({ $0.score > $1.score })
     }
 
+    func clear() {
+        documents = [String:SongDocument]()
+        keys = [String]()
+    }
 
 
     /**
@@ -126,6 +130,7 @@ class SongCollection: MeteorCollection<SongDocument> {
         votes[id] = VotingStatus.None
 //        votes[SongVotingKey(doc: document)] = VotingStatus.None
 
+        print("easgasgsalgkng")
         NSNotificationCenter.defaultCenter().postNotificationName("songWasAdded", object: nil)
     }
 
@@ -143,7 +148,7 @@ class SongCollection: MeteorCollection<SongDocument> {
             document.update(fields, cleared: cleared)
             self.documents[id] = document
             collectionSetDidChange()
-
+            print("weaa")
             NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
         }
     }

@@ -77,7 +77,8 @@ class SongTableViewCell: SWTableViewCell {
     
     func reloadTable(result: AnyObject?,error:DDPError?) {
         // find a way to time this... it's out of sync w/ call?
-        NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
+//        NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
     }
 
     @IBAction func upvoteClicked(sender: AnyObject) {

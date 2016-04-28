@@ -125,7 +125,14 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
     }
 
     func presentPlaylist() {
-        self.pushViewController(playlistController, animated: true)
+        dispatch_async(dispatch_get_main_queue(), {
+            self.pushViewController(self.playlistController, animated: true)
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                // completion block
+                self.playlistController.updateBaseController()
+            })
+        })
+        activityIndicator.showComplete("")
     }
 
     func presentProfile() {

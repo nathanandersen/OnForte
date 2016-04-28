@@ -388,20 +388,13 @@ class RootViewController: UIViewController, UITextFieldDelegate {
             playlistName = jsonPlaylistInfo["name"].string!
             let songPlaying = jsonPlaylistInfo["nowPlaying"]
             if songPlaying != "" {
-                //                print(songPlaying)
-                //                print(songPlaying["title"].string)
                 let arr: [String] = songPlaying.arrayObject as! [String]
-                //                print(arr)
                 // THIS IS NOT GOOD PRACTICE
                 let title: String? = arr[1]
                 let description: String? = arr[2]
                 let service: Service? = Service(platform: arr[3])
                 let trackId: String? = arr[4]
                 let artworkURL: NSURL? = NSURL(string: arr[5])
-                //                let title: String? = songPlaying["title"].string
-                //                let description: String? = songPlaying["annotation"].string
-                //                print(songPlaying["platform"].string)
-                //                let service: Service? = Service(platform: (songPlaying["platform"].string)!)
 
 
                 let song = Song(
@@ -411,16 +404,10 @@ class RootViewController: UIViewController, UITextFieldDelegate {
                     trackId: (trackId != nil) ? trackId! : "" ,
                     artworkURL: (artworkURL != nil) ? artworkURL : NSURL(string: "")
                 )
-                //                song.printToConsole()
                 nowPlaying = song
-                //                nowPlaying?.printToConsole()
-                //                print("finished")
             }
         }
-//        print(centralNavigationController)
         centralNavigationController.presentPlaylist()
-//        (self.navigationController! as! CentralNavigationController).presentPlaylist()
-//        self.performSegueWithIdentifier("PlaylistSegue",sender: nil)
     }
 
     func generateRandomId() -> String {

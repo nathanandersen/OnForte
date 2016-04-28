@@ -59,6 +59,10 @@ class PlaylistSongHistory: MeteorCollection<PlayedSongDocument> {
      return sorted.indexOf({item in item._id == id})
      }*/
 
+    func clear() {
+        documents = [String:PlayedSongDocument]()
+        keys = [String]()
+    }
 
     /**
      Find a single document by id

@@ -14,27 +14,29 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     var tableView: UITableView!
     var playlistStarted = false
     var songs = SongCollection(name: "queueSongs")
-    var sortedSongs: [SongDocument]!
+    var sortedSongs: [SongDocument] = []
     var playlistControlView: PlaylistControlView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(self.view.frame)
-        activityIndicator.showComplete("")
         self.navigationItem.setHidesBackButton(true, animated:false)
-        let paramObj = [playlistId!]
-        Meteor.subscribe("queueSongs",params: paramObj)
-        sortedSongs = []
-
         renderComponents()
         addConstraintsToComponents()
         addNotificationsToGlobalCenter()
     }
 
+    func updateForDisplay() {
+        let paramObj = [playlistId!]
+        Meteor.subscribe("queueSongs",params: paramObj)
+        sortedSongs = []
+        self.updateTable()
+        self.addNotificationsToGlobalCenter()
+    }
+
     func renderPlaylistControlView() {
         playlistControlView = PlaylistControlView()
         playlistControlView.setParentPlaylistController(self)
-        print(playlistControlView.playlistController)
+//        print(playlistControlView.playlistController)
         self.view.addSubview(playlistControlView)
     }
 
@@ -65,7 +67,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func addNotificationsToGlobalCenter() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.updateTable), name:"load", object: nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.updateTable), name:"load", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.displayNextSong), name: "displayNextSong", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.exitPlaylist), name: "leavePlaylist", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.songWasAdded), name: "songWasAdded", object: nil)
@@ -102,10 +104,11 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         let nib = UINib(nibName: "SongTableViewCell", bundle: nil)
         tableView.registerNib(nib,forCellReuseIdentifier: "songCell")
         tableView.rowHeight = 85.0
-        tableView.tableHeaderView = nil;
+        tableView.tableHeaderView = nil
         tableView.tableFooterView = UIView(frame: CGRectZero)
         self.view.sendSubviewToBack(tableView)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.updateTable), name:"load", object: nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.updateTable), name:"updateTable", object: nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.updateTable), name:"load", object: nil)
     }
 
     func addConstraintsToTableView() {
@@ -184,9 +187,9 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
             // stop on a background thread
-//            if isHost {
-//                self.nowPlayingView.stop()
-//            }
+            if isHost {
+                self.playlistControlView.musicPlayerView.musicPlayer.stop()
+            }
             print("This is run on the background queue")
 
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -199,9 +202,9 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         playlistName = ""
         nowPlaying = nil
         isHost = false
-        self.songs = SongCollection(name: "queueSongs")
-        (self.mm_drawerController.leftDrawerViewController as! PlaylistHistoryViewController).playedSongs = PlaylistSongHistory(name: "playedSongs")
-        Meteor.unsubscribe("songs")
+        self.songs.clear()
+        (self.mm_drawerController.leftDrawerViewController as! PlaylistHistoryViewController).playedSongs.clear()
+        Meteor.unsubscribe("queueSongs")
     }
 
     func exitPlaylist() {
@@ -249,7 +252,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
      and other methods related to the table
      */
 
-
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sortedSongs.count
     }
@@ -259,14 +261,11 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = self.tableView.dequeueReusableCellWithIdentifier("songCell")! as! SongTableViewCell
         cell.selectionStyle = .None
 
-        let leftButtons: NSMutableArray = NSMutableArray()
-        leftButtons.sw_addUtilityButtonWithColor(Style.yellowColor, icon: UIImage(named: "star"))
-        cell.leftUtilityButtons = leftButtons as [AnyObject]
+//        let leftButtons: NSMutableArray = NSMutableArray()
+//        leftButtons.sw_addUtilityButtonWithColor(Style.yellowColor, icon: UIImage(named: "star"))
+//        cell.leftUtilityButtons = leftButtons as [AnyObject]
 
         cell.loadItem(sortedSongs[indexPath.row]._id,song: sortedSongs[indexPath.row])
-
-        // I have some doubts about this ^
-
         return cell
     }
 
@@ -276,6 +275,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func updateTable() {
+        print("was updated")
         dispatch_async(dispatch_get_main_queue(), {
             self.sortedSongs = self.songs.sortedByScore()
             self.tableView.reloadData()

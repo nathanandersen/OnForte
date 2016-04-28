@@ -21,6 +21,10 @@ class PlaylistDrawerController: MMDrawerController {
         self.openDrawerGestureModeMask = .PanningCenterView
         self.closeDrawerGestureModeMask = .PanningCenterView
 
+        self.setGestureCompletionBlock({(drawerController, gestureRecognizer) in
+            print(drawerController)
+        })
+
         self.setDrawerVisualStateBlock(MMDrawerVisualState.parallaxVisualStateBlockWithParallaxFactor(2))
 
         self.leftDrawerViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistHistoryViewController")
@@ -35,5 +39,9 @@ class PlaylistDrawerController: MMDrawerController {
 
     func closeOpenDrawer() {
         self.closeDrawerAnimated(true, completion: nil)
+    }
+
+    func updateBaseController() {
+        (self.centerViewController as! PlaylistController).updateForDisplay()
     }
 }
