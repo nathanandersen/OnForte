@@ -11,6 +11,10 @@ import Contacts
 import ContactsUI
 import Alamofire
 
+/**
+ The InvitationViewController displays a list of contacts to choose and invite to the playlist.
+ */
+
 class InvitationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate {
 
     var contacts = [InviteContact]()
@@ -27,11 +31,9 @@ class InvitationViewController: UIViewController, UITableViewDelegate, UITableVi
         self.parent = parent
     }
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Style.whiteColor
-//        UIApplication.sharedApplication().statusBarHidden=true; // for status bar hide
         renderTableView()
         renderSearchBar()
         renderBottomBar()
@@ -52,27 +54,26 @@ class InvitationViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
-    func searchDisplayControllerDidBeginSearch() {
-        searchController.searchBar.showsCancelButton = false
-    }
-
     func didPresentSearchController(searchController: UISearchController) {
         searchController.searchBar.showsCancelButton = false
     }
 
-    func renderSearchBar() {
+    /**
+     Render the search bar
+    */
+    private func renderSearchBar() {
         searchController.delegate = self
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.scopeButtonTitles = ["All", "Selected"]
         searchController.searchBar.delegate = self
-//        searchController.searchBar.showsCancelButton = false
-
         tableView.tableHeaderView = searchController.searchBar
-//        self.view.addSubview(searchController.searchBar)
     }
 
-    func addConstraints() {
+    /**
+    Add constraints.
+     */
+    private func addConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         bottomBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: tableView, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1, constant: 0).active = true
@@ -89,12 +90,18 @@ class InvitationViewController: UIViewController, UITableViewDelegate, UITableVi
         bottomBar.updateConstraints()
     }
 
-    func renderBottomBar() {
+    /**
+    Render the bottom bar
+     */
+    private func renderBottomBar() {
         bottomBar = UIToolbar()
         self.view.addSubview(bottomBar)
     }
 
-    func renderBottomBarContents() {
+    /**
+    Render the contents of the bottom bar
+    */
+    private func renderBottomBarContents() {
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(InvitationViewController.cancel))
         cancelButton.tintColor = Style.redColor
@@ -106,17 +113,16 @@ class InvitationViewController: UIViewController, UITableViewDelegate, UITableVi
         bottomBar.setItems([flexibleSpace,cancelButton,flexibleSpace], animated: true)
     }
 
-    func sendInvitations() {
+    /**
+     Send the invitations using Twilio
+    */
+    internal func sendInvitations() {
         let twilioPhoneNumber = keys!["TwilioPhoneNumber"] as! String
         let twilioUsername = keys!["TwilioAccountSID"] as! String
         let twilioPassword = keys!["TwilioAuthToken"] as! String
 
         for number in selectedPhoneNumbers {
             let digits = number.stringValue
-//            if number.stringValue.characters.count == 10 {
-//                digits = "+1" + digits
-//            }
-//            print(digits)
             let message = [
                 "To": digits,
                 "From" : twilioPhoneNumber,
@@ -125,49 +131,14 @@ class InvitationViewController: UIViewController, UITableViewDelegate, UITableVi
              Alamofire.request(.POST, "https://\(twilioUsername):\(twilioPassword)@api.twilio.com/2010-04-01/Accounts/\(twilioUsername)/Messages", parameters: message).responseJSON { response in
                 print("sent")
             }
-
-/*            let endings = ["Make your playlists great again.","Discussion of what plays next is often nasty, brutish, and short. Enter a social Forte-tract.","Central planning didn't work for the communist party. It won't work for your playlist, either."]
-
-
-            let parameters1 = [
-                "To" : number,
-                "From" : twilioPhoneNumber,
-                "Body" : "You've been invited to join a playlist on Forte. To join, open the following URL in Safari. " + endings[Int(arc4random_uniform(UInt32(endings.count)))]
-            ]
-
-            Alamofire.request(.POST, "https://\(twilioUsername):\(twilioPassword)@api.twilio.com/2010-04-01/Accounts/\(twilioUsername)/Messages", parameters: parameters1).responseJSON { response in
-
-
-                guard response.result.error == nil else {
-                    activityIndicator.showComplete("Invited!")
-                    print("Error occurred during twilio request")
-                    print(response.description)
-                    print(response.request)
-                    return
-                }
-
-                if let _: AnyObject = response.result.value {
-                    activityIndicator.showComplete("Invited!")
-                    print("Successfully invited to partys")
-                }
-
-            }
-
-            let parameters2 = [
-                "To" : number,
-                "From" : "+16148088588",
-                "Body" : "Forte://" + playlistId!
-            ]
-
-            Alamofire.request(.POST, "https://\(twilioUsername):\(twilioPassword)@api.twilio.com/2010-04-01/Accounts/\(twilioUsername)/Messages", parameters: parameters2).responseJSON { response in
-
-            }*/
         }
         self.parent.dismissViewControllerAnimated(true, completion: nil)
-//        print("send")
     }
 
-    func cancel() {
+    /**
+     Cancel the invitatation
+    */
+    internal func cancel() {
         self.parent.dismissViewControllerAnimated(true, completion: nil)
     }
 
@@ -175,7 +146,10 @@ class InvitationViewController: UIViewController, UITableViewDelegate, UITableVi
         searchBar.setNeedsLayout()
     }
 
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
+    /** 
+    Filter table contents
+    */
+    internal func filterContentForSearchText(searchText: String, scope: String = "All") {
         filteredContacts = contacts.filter { contact in
             let categoryMatch = (scope == "All") || (contact.isSelected == (scope == "Selected"))
             if searchText == "" {
@@ -187,7 +161,10 @@ class InvitationViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.reloadData()
     }
 
-    func renderTableView() {
+    /**
+     Render the table view
+    */
+    private func renderTableView() {
         tableView = UITableView()
         self.view.addSubview(tableView)
         tableView.keyboardDismissMode = .OnDrag
@@ -197,7 +174,10 @@ class InvitationViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.delegate = self
     }
 
-    func findContacts() -> [InviteContact] {
+    /**
+     Find all contacts
+    */
+    private func findContacts() -> [InviteContact] {
         let store = CNContactStore()
 
         let keysToFetch = [CNContactFormatter.descriptorForRequiredKeysForStyle(.FullName),
@@ -274,12 +254,9 @@ class InvitationViewController: UIViewController, UITableViewDelegate, UITableVi
                     var label = phoneNumber.label
                     let garbageLength = 4
                     if label.substringToIndex(label.startIndex.advancedBy(4)) == "_$!<" {
-//                        label = label.substringWithRange(Range<String.Index>(start: label.startIndex.advancedBy(garbageLength), end: label.endIndex.advancedBy(-1*garbageLength)))
-
                         let range: Range<String.Index> = label.startIndex.advancedBy(garbageLength)..<label.endIndex.advancedBy(-1*garbageLength)
                         label = label.substringWithRange(range)
                     }
-                    // ^^^
                     let option = UIAlertAction(title: label + ": " + a.stringValue, style: .Default, handler: {(action) in
                         ic.isSelected = true
                         self.selectedContacts.append(ic.contact)
@@ -302,12 +279,18 @@ class InvitationViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 }
 
+/**
+ A custom search bar, that does not display a cancel button
+ */
 class CustomSearchBar: UISearchBar {
     override func setShowsCancelButton(showsCancelButton: Bool, animated: Bool) {
         // do nothing
     }
 }
 
+/**
+ A custom search controller that implements the custom search bar
+ */
 class CustomSearchController: UISearchController {
 
     var _searchBar: CustomSearchBar
@@ -331,6 +314,9 @@ class CustomSearchController: UISearchController {
     }
 }
 
+/**
+ An extension of the Search such that we can use the scope bar to filter
+ */
 extension InvitationViewController: UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         let searchBar = searchController.searchBar
@@ -338,7 +324,9 @@ extension InvitationViewController: UISearchResultsUpdating {
         filterContentForSearchText(searchController.searchBar.text!, scope: scope)
     }
 }
-
+/**
+ Filtering the table based on search
+ */
 extension InvitationViewController: UISearchBarDelegate {
     func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])

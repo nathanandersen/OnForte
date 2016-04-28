@@ -10,10 +10,11 @@ import Foundation
 import SwiftDDP
 import Soundcloud
 
-
+/**
+ SoundCloudHandler is a SearchHandler to search SoundCloud music.
+ */
 class SoundCloudHandler: NSObject, SearchHandler {
     var results: [Song] = []
-
 
     func clearSearch() {
         results = [Song]()
@@ -29,7 +30,6 @@ class SoundCloudHandler: NSObject, SearchHandler {
                 switch paginatedTracks.response {
                 case .Success(let tracks):
                     self.results = self.parseSoundcloudTracks(tracks)
-//                    print("success")
                     NSNotificationCenter.defaultCenter().postNotificationName("reloadSearchResults", object: nil)
                 case .Failure(let error):
                     print(error)
@@ -60,14 +60,8 @@ class SoundCloudHandler: NSObject, SearchHandler {
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
-//        let cell = tableView.dequeueReusableCellWithIdentifier("SearchResultsTableViewCell")! as! SearchResultsTableViewCell
-
         let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell") as! SongViewCell
         cell.loadItem(results[indexPath.row])
-
-//        artworkHandler.lookupForCell(results[indexPath.row].artworkURL!, imageView: cell.albumImage, cell: cell)
-
         return cell;
     }
 

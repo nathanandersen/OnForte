@@ -8,8 +8,11 @@
 
 import Foundation
 import SafariServices
-import BFPaperButton
+//import BFPaperButton
 
+/**
+ The ProfileViewController controls the user profile
+ */
 class ProfileViewController: UIViewController, SPTAuthViewDelegate {
 
     @IBOutlet var hostSettingsView: UIView!

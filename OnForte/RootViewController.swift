@@ -10,8 +10,10 @@ import Foundation
 import SwiftDDP
 import SwiftyJSON
 
-//var playlistName: String = ""
-
+/**
+ RootViewController holds the root view for the application, with the
+ Create and Join fields.
+ */
 class RootViewController: UIViewController, UITextFieldDelegate {
 
     var createSectionView: UIView!
@@ -23,10 +25,8 @@ class RootViewController: UIViewController, UITextFieldDelegate {
     var headline: UILabel!
     var alignBottomConstraint: NSLayoutConstraint!
     var alignTopConstraint: NSLayoutConstraint!
-//    var playlistName: String = ""
 
     override func viewDidLoad() {
-//        print("um waht")
         super.viewDidLoad()
         self.view.backgroundColor = Style.whiteColor
 
@@ -47,27 +47,36 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.hidesBackButton = true
     }
 
-    func renderCreateSection() {
+    /**
+     Render the create sub-section
+    */
+    private func renderCreateSection() {
         createSectionView = UIView()
         self.view.addSubview(createSectionView)
     }
 
-    func renderJoinSection() {
+    /**
+     Render the join sub-section
+    */
+    private func renderJoinSection() {
         joinSectionView = UIView()
         self.view.addSubview(joinSectionView)
     }
 
+    /**
+     Clear the active fields if you touch outside the fields.
+    */
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch: UITouch = touches.first! as UITouch
         if touch.view != createSectionView && touch.view != joinSectionView && touch.view != createButton && touch.view != joinButton {
-//            print("Touched outside of buttons. Dismissing keyboard.")
             resetView()
         }
     }
 
-    func resetView(){
-//        print(headline.frame)
-
+    /**
+     Clear the active fields.
+    */
+    private func resetView(){
         self.createField.resignFirstResponder()
         self.joinField.resignFirstResponder()
 
@@ -92,7 +101,10 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         })
     }
 
-    func renderHeadline(){
+    /**
+     Render the headline
+    */
+    private func renderHeadline(){
         headline = UILabel()
         headline.text = "Keep your playlists strong."
         headline.font = Style.defaultFont(60)
@@ -101,7 +113,10 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(headline)
     }
 
-    func renderCreateButton() {
+    /**
+     Render the create button
+    */
+    private func renderCreateButton() {
         createButton = Style.defaultButton("Create a playlist")
         createSectionView.addSubview(createButton)
         createSectionView.backgroundColor = UIColor.whiteColor()
@@ -111,7 +126,10 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         NSLayoutConstraint.activateConstraints(constraints)
     }
 
-    func displayCreateField() {
+    /**
+     Display the create field
+    */
+    internal func displayCreateField() {
         UIView.animateWithDuration(0.25, animations: {
             self.alignBottomConstraint.active = false
             self.alignTopConstraint.active = true
@@ -129,7 +147,10 @@ class RootViewController: UIViewController, UITextFieldDelegate {
             }, completion: nil)
     }
 
-    func displayJoinField() {
+    /**
+     Display the join field
+    */
+    internal func displayJoinField() {
         UIView.animateWithDuration(0.25, animations: {
             self.alignBottomConstraint.active = false
             self.alignTopConstraint.active = true
@@ -147,7 +168,10 @@ class RootViewController: UIViewController, UITextFieldDelegate {
             }, completion: nil)
     }
 
-    func renderJoinButton() {
+    /**
+     Render the join button
+    */
+    private func renderJoinButton() {
         joinButton = Style.defaultButton("Join a playlist")
         joinSectionView.addSubview(joinButton)
         joinSectionView.backgroundColor = UIColor.whiteColor()
@@ -157,7 +181,10 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         NSLayoutConstraint.activateConstraints(constraints)
     }
 
-    func renderJoinTextField() {
+    /**
+     Render the join text field
+    */
+    private func renderJoinTextField() {
         joinField = Style.defaultTextField("Playlist Code")
         joinField.layer.borderWidth = 1
         joinField.layer.borderColor = Style.primaryColor.CGColor
@@ -187,7 +214,10 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         NSLayoutConstraint.activateConstraints(constraints)
     }
 
-    func renderCreateTextField() {
+    /**
+     Render the create text field
+    */
+    private func renderCreateTextField() {
         createField = Style.defaultTextField("Playlist Name")
         createField.delegate = self
         createField.returnKeyType = .Go
@@ -218,7 +248,10 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         NSLayoutConstraint.activateConstraints(constraints)
     }
 
-    func addConstraints(){
+    /**
+     Add the constraints to the views.
+    */
+    private func addConstraints(){
         createSectionView.translatesAutoresizingMaskIntoConstraints = false
         joinSectionView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -245,7 +278,6 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         alignBottomConstraint.active = true
 
         let navHeight = centralNavigationController.navigationBar.frame.height
-//        let navHeight = self.navigationController!.navigationBar.frame.height
         let statusHeight = UIApplication.sharedApplication().statusBarFrame.height
 
         alignTopConstraint = NSLayoutConstraint(item: createSectionView,
@@ -288,7 +320,10 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         headline.setNeedsLayout()
     }
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    /**
+     UITextFieldDelegate
+    */
+    internal func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == createField {
             self.createButtonPressed(nil)
         } else if textField == joinField {
@@ -297,7 +332,11 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         return false
     }
 
-    func createButtonPressed(sender: AnyObject?){
+    /**
+     Called when the create button was pressed.
+     It tries to create a playlist
+    */
+    internal func createButtonPressed(sender: AnyObject?){
         if let targetPlaylistName = self.createField.text {
             if targetPlaylistName != "" {
                 print("title:" + targetPlaylistName)
@@ -323,7 +362,11 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
-    func joinButtonPressed(sender: AnyObject?) {
+    /**
+     Called when the join button was pressed.
+     Checks for existence of the playlist then joins
+    */
+    internal func joinButtonPressed(sender: AnyObject?) {
 
         activityIndicator.showActivity("Joining Playlist")
         if let targetPlaylistId = self.joinField.text?.lowercaseString {
@@ -354,7 +397,10 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
-    func joinPlaylistFromURL(targetPlaylistId: String) {
+    /**
+     Join a playlist from deep-linking.
+    */
+    internal func joinPlaylistFromURL(targetPlaylistId: String) {
         Meteor.call("getInitialPlaylistInfo",params:[targetPlaylistId],callback: {(result: AnyObject?,error: DDPError?) in
             if (error != nil) {
                 activityIndicator.showComplete("Failed")
@@ -381,7 +427,10 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         })
     }
 
-    func parseSongAndSendToPlaylist(playlistInfo: AnyObject?) {
+    /**
+     Parse the now-playing song if joining
+    */
+    internal func parseSongAndSendToPlaylist(playlistInfo: AnyObject?) {
         if playlistInfo != nil {
             let jsonPlaylistInfo = JSON(playlistInfo!)
             playlistName = jsonPlaylistInfo["name"].string!
@@ -409,7 +458,10 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         centralNavigationController.presentPlaylist()
     }
 
-    func generateRandomId() -> String {
+    /**
+     Generate a random playlist Id
+    */
+    private func generateRandomId() -> String {
         let _base36chars_string = "0123456789abcdefghijklmnopqrstuvwxyz"
         let _base36chars = Array(_base36chars_string.characters)
         var uniqueId = "";

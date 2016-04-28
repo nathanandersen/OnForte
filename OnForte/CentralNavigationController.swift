@@ -11,9 +11,11 @@ import UIKit
 
 var centralNavigationController: CentralNavigationController!
 
+/**
+ CentralNavigationController is the backbone UINavigationController for the entire application.
+ */
 class CentralNavigationController: UINavigationController, UINavigationControllerDelegate {
 
-//    let rootController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RootViewController")
     let playlistController: PlaylistDrawerController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistDrawerController") as! PlaylistDrawerController
     let profileController: ProfileViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
 
@@ -36,7 +38,10 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
         showProfileButton()
     }
 
-    func renderRightButtonView() {
+    /**
+     Initialize the right button view, where the profile/leave profile buttons will be
+    */
+    private func renderRightButtonView() {
         rightButtonView = UIView()
 
         self.view.addSubview(rightButtonView)
@@ -50,7 +55,10 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
         rightButtonView.updateConstraints()
     }
 
-    func renderProfileButton() {
+    /**
+    Initialize the profile button
+    */
+    private func renderProfileButton() {
         profileButton = Style.iconButton()
         profileButton.setImage(UIImage(named: "profile")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: .Normal)
         profileButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
@@ -65,7 +73,10 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
         profileButtonConstraints = [leftConstraint,rightConstraint,topConstraint,bottomConstraint]
     }
 
-    func renderLeaveProfileButton() {
+    /**
+     Initialize the leave profile button
+    */
+    private func renderLeaveProfileButton() {
         leaveProfileButton = Style.iconButton()
         leaveProfileButton.setImage(UIImage(named: "delete")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: .Normal)
         leaveProfileButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
@@ -81,11 +92,17 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
         leaveProfileButtonConstraints = [leftConstraint,rightConstraint,topConstraint,bottomConstraint]
     }
 
-    func renderActivityIndicator(){
+    /**
+     Add the activity indicator
+    */
+    private func renderActivityIndicator(){
         self.view.addSubview(activityIndicator)
     }
 
-    func renderLogo() {
+    /**
+     Render the logo and add its constraints
+    */
+    private func renderLogo() {
         let label = UILabel()
         label.font = Style.logoFont
         label.text = "forte"
@@ -124,6 +141,9 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
         NSLayoutConstraint.activateConstraints(constraints)
     }
 
+    /**
+     Push the playlist view controller
+    */
     func presentPlaylist() {
         dispatch_async(dispatch_get_main_queue(), {
             self.pushViewController(self.playlistController, animated: true)
@@ -135,32 +155,46 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
         activityIndicator.showComplete("")
     }
 
+    /**
+     Push the profile view controller, and hide the profile button
+    */
     func presentProfile() {
         profileController.updateProfileDisplay()
         self.pushViewController(profileController, animated: true)
         showLeaveProfileButton()
     }
-
-    func showProfileButton() {
+    /**
+     Display the profile button
+    */
+    private func showProfileButton() {
         self.rightButtonView.subviews.forEach({$0.removeFromSuperview()})
         rightButtonView.addSubview(profileButton)
         profileButtonConstraints.forEach({$0.active = true})
         profileButton.updateConstraints()
     }
 
-    func showLeaveProfileButton() {
+    /**
+     Show the leave profile button
+    */
+    private func showLeaveProfileButton() {
         self.rightButtonView.subviews.forEach({$0.removeFromSuperview()})
         rightButtonView.addSubview(leaveProfileButton)
         leaveProfileButtonConstraints.forEach({$0.active = true})
         leaveProfileButton.updateConstraints()
-
     }
 
+    /**
+     Leave the profile (by popping the profile view controller which is active), and
+     then re-display the profile button
+    */
     func leaveProfile() {
         self.popViewControllerAnimated(true)
         showProfileButton()
     }
 
+    /**
+     Leave the playlist (by popping the active view controller)
+     */
     func leavePlaylist() {
         self.popViewControllerAnimated(true)
     }
@@ -180,6 +214,9 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
 }
 
 
+/**
+ The animator for the push animation of CentralNavigationController
+ */
 class PushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return 0.4
@@ -206,11 +243,12 @@ class PushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
     
 }
-
+/**
+ The animator for the pop animation of CentralNavigationController
+ */
 class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return 0.4
-        //        return 0.5
     }
 
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {

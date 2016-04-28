@@ -166,10 +166,7 @@ class PlaylistControlView: UIView {
     }
 
     func inviteButtonPressed() {
-//        print("hello invite")
-        playlistController.inviteButtonPressed()
-//        self.showSmallNowPlayingView()
-        // maybe we should re-render images
+        playlistController.displayInviteController()
     }
 
     func renderMenuBar(labelTitle: String, leftButton: UIButton, rightButton: UIButton) -> UIView {

@@ -107,12 +107,15 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         addConstraintsToPlaylistControlView()
         addConstraintsToTableView()
     }
-    /*
-    func inviteButtonPressed() {
+
+    /**
+     Display the invite controller
+    */
+    func displayInviteController() {
         let vc = InvitationViewController()
         vc.setParentVC(self)
         self.navigationController?.presentViewController(vc, animated: true, completion: nil)
-    }*/
+    }
 
     /**
      Render the table view

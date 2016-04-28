@@ -39,11 +39,11 @@ class PlaylistDrawerController: MMDrawerController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistDrawerController.closeOpenDrawer), name: "closeOpenDrawer", object: nil)
     }
 
-    func closeOpenDrawer() {
+    internal func closeOpenDrawer() {
         self.closeDrawerAnimated(true, completion: nil)
     }
 
-    func updatePlaylistViewController() {
+    internal func updatePlaylistViewController() {
         (self.centerViewController as! PlaylistController).presentNewPlaylist()
         (self.leftDrawerViewController as! PlaylistHistoryViewController).presentNewPlaylist()
     }
