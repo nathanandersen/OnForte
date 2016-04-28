@@ -22,6 +22,11 @@ class PlaylistDrawerController: MMDrawerController {
         self.closeDrawerGestureModeMask = .PanningCenterView
 
         self.setGestureCompletionBlock({(drawerController, gestureRecognizer) in
+//            let gesture = gestureRecognizer.velocityInView(self.view)
+//            if gesture.x > 0 {
+//                print("waaaa")
+//                self.closeSearch()
+//            }
             print(drawerController)
         })
 
