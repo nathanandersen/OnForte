@@ -186,6 +186,9 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
         navBar.addSubview(segmentedControl)
     }
 
+    /**
+     Add all constraints to the view
+    */
     private func addConstraints() {
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         navBar.translatesAutoresizingMaskIntoConstraints = false
@@ -239,14 +242,12 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
         searchTimer = NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: #selector(SearchViewController.searchAll), userInfo: nil, repeats: true)
     }
 
+    /**
+     Search all SearchHandlers
+    */
     func searchAll(){
         activityIndicator.startAnimating()
         orderedSearchHandlers.forEach() { $0.search(searchBar.text!) }
         searchTimer.invalidate()
     }
-
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        searchBar.resignFirstResponder()
-    }
-
 }
