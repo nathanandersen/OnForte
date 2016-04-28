@@ -21,6 +21,15 @@ class PlaylistDrawerController: MMDrawerController {
         self.openDrawerGestureModeMask = .PanningCenterView
         self.closeDrawerGestureModeMask = .PanningCenterView
 
+        self.setGestureCompletionBlock({(drawerController, gestureRecognizer) in
+            if drawerController.openSide == .Right {
+                print("opened right (search) drawer")
+                (self.rightDrawerViewController as! SearchViewController).enableSearchBar()
+            } else if drawerController.openSide == .Left {
+                print("opened left (history) side")
+            }
+        })
+
         self.setDrawerVisualStateBlock(MMDrawerVisualState.parallaxVisualStateBlockWithParallaxFactor(2))
 
         self.leftDrawerViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistHistoryViewController")
@@ -35,5 +44,9 @@ class PlaylistDrawerController: MMDrawerController {
 
     func closeOpenDrawer() {
         self.closeDrawerAnimated(true, completion: nil)
+    }
+
+    func updatePlaylistViewController() {
+        (self.centerViewController as! PlaylistController).updateForDisplay()
     }
 }

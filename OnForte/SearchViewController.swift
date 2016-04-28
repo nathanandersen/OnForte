@@ -37,7 +37,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
         super.viewDidLoad()
         let navHeight = centralNavigationController.navigationBar.bounds.maxY + UIApplication.sharedApplication().statusBarFrame.height
         self.view.frame = CGRectMake(UIScreen.mainScreen().bounds.width-drawerWidth, navHeight, drawerWidth, drawerHeight-navHeight)
-        print(self.view.frame)
+//        print(self.view.frame)
 
         self.view.backgroundColor = Style.whiteColor
         self.automaticallyAdjustsScrollViewInsets = false
@@ -57,6 +57,10 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
         if gesture.x > 0 {
             self.closeSearch()
         }
+    }
+
+    func enableSearchBar() {
+        self.searchBar.becomeFirstResponder()
     }
 
     func closeSearch() {

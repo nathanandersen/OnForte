@@ -75,7 +75,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
 
     // returns success or failure
     func playNextSong() -> Bool {
-        print(playlistController)
+//        print(playlistController)
         if let nextSong = playlistController.getNextSong() {
             // set backgrounding
             do {
