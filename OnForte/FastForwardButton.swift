@@ -20,8 +20,6 @@ func drawFastForward(rect: CGRect) -> UIBezierPath {
     let singleTriangleWidth = totalWidth / 2
     let heightProportion: CGFloat = 0.17
 
-    let width = CGRectGetWidth(rect)
-
     let midY = CGRectGetMidY(rect)
     let midX = CGRectGetMidX(rect)
 

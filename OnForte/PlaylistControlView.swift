@@ -184,12 +184,12 @@ class PlaylistControlView: UIView {
         rightButton.translatesAutoresizingMaskIntoConstraints = false
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        let leftButtonLeading = NSLayoutConstraint(item: leftButton, attribute: .Leading, relatedBy: .Equal, toItem: menuBar, attribute: .Leading, multiplier: 1, constant: 10)
+        let leftButtonLeading = NSLayoutConstraint(item: leftButton, attribute: .Leading, relatedBy: .Equal, toItem: menuBar, attribute: .Leading, multiplier: 1, constant: Style.menuButtonInset)
         leftButtonLeading.active = true
         leftButtonLeading.identifier = "Left Button Leading"
-        let leftButtonTrailing = NSLayoutConstraint(item: rightButton, attribute: .Trailing, relatedBy: .Equal, toItem: menuBar, attribute: .Trailing, multiplier: 1, constant: -10)
-        leftButtonTrailing.active = true
-        leftButtonTrailing.identifier = "Left Button Trailing"
+        let rightButtonTrailing = NSLayoutConstraint(item: rightButton, attribute: .Trailing, relatedBy: .Equal, toItem: menuBar, attribute: .Trailing, multiplier: 1, constant: -1 * Style.menuButtonInset)
+        rightButtonTrailing.active = true
+        rightButtonTrailing.identifier = "right Button Trailing"
         let labelCenterX = NSLayoutConstraint(item: label, attribute: .CenterX, relatedBy: .Equal, toItem: menuBar, attribute: .CenterX, multiplier: 1, constant: 0)
         labelCenterX.active = true
         labelCenterX.identifier = "Label Center X"

@@ -42,7 +42,7 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
         self.view.addSubview(rightButtonView)
         rightButtonView.translatesAutoresizingMaskIntoConstraints = false
 
-        NSLayoutConstraint(item: rightButtonView, attribute: .Right, relatedBy: .Equal, toItem: self.navigationBar, attribute: .Right, multiplier: 1, constant: -20).active = true
+        NSLayoutConstraint(item: rightButtonView, attribute: .Right, relatedBy: .Equal, toItem: self.navigationBar, attribute: .Right, multiplier: 1, constant: -1 * Style.menuButtonInset).active = true
         NSLayoutConstraint(item: rightButtonView, attribute: .Height, relatedBy: .Equal, toItem: rightButtonView, attribute: .Width, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: rightButtonView, attribute: .Top, relatedBy: .Equal, toItem: self.navigationBar, attribute: .Top, multiplier: 1, constant: 5).active = true
         NSLayoutConstraint(item: rightButtonView, attribute: .Bottom, relatedBy: .Equal, toItem: self.navigationBar, attribute: .Bottom, multiplier: 1, constant: -5).active = true

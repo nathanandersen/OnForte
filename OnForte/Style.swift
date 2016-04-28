@@ -18,6 +18,8 @@ struct Style {
 
     // time to start standardizing fonts.
 
+    static var menuButtonInset: CGFloat = 15
+
     static var blackColor = UIColor.blackColor()
     static var clearColor = UIColor.clearColor()
     static var grayColor = UIColor.grayColor()
