@@ -36,7 +36,8 @@ class MusicPlayerView: UIView {
 
     var playButton: BlurredPlayButton!
 
-    var forwardButton: UIButton?
+//    var forwardButton: UIButton?
+    var forwardButton: FastForwardButton!
     var playlistController: PlaylistController!
     var displayType: MusicPlayerDisplayType
 
@@ -67,7 +68,6 @@ class MusicPlayerView: UIView {
     }
 
     func setParentPlaylistController(playlistC: PlaylistController) {
-//        print(playlistC)
         self.playlistController = playlistC
         musicPlayer.playlistController = playlistC
     }
@@ -83,9 +83,7 @@ class MusicPlayerView: UIView {
         dispatch_async(dispatch_get_main_queue(), {
             artworkHandler.lookupForImageView(nowPlaying!.artworkURL, imageView: self.songArtView)
             self.titleLabel.text = (isValidString(nowPlaying!.title)) ? nowPlaying!.title! : "<no title>"
-//            self.titleLabel.text = nowPlaying!.title
             self.descriptionLabel.text = (isValidString(nowPlaying!.description)) ? nowPlaying!.description! : "<no description>"
-//            self.descriptionLabel.text = nowPlaying!.description
             let platformString = (nowPlaying!.service?.asLowerCaseString())!
             print(platformString)
             self.platformView.image = UIImage(named: platformString)
@@ -147,13 +145,14 @@ class MusicPlayerView: UIView {
         let platformAspect =
             NSLayoutConstraint(item: platformView, attribute: .Height, relatedBy: .Equal, toItem: platformView, attribute: .Width, multiplier: 1, constant: 0)
         platformAspect.identifier = "Platform Aspect"
+
         let smallPlatformHeight = NSLayoutConstraint(item: platformView, attribute: .Height, relatedBy: .Equal, toItem: self, attribute: .Height, multiplier: 1, constant: -20)
         smallPlatformHeight.identifier = "Small Platform Height"
 
         let smallPlatformCenterY = NSLayoutConstraint(item: platformView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
         smallPlatformCenterY.identifier = "Small Platform Center Y"
-        let smallPlatformTrailing = NSLayoutConstraint(item: platformView, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
-        smallPlatformTrailing.identifier = "Small Platform Trailing"
+//        let smallPlatformTrailing = NSLayoutConstraint(item: platformView, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
+//        smallPlatformTrailing.identifier = "Small Platform Trailing"
         let smallPlatformLeadingTitle = NSLayoutConstraint(item: platformView, attribute: .Leading, relatedBy: .GreaterThanOrEqual, toItem: titleLabel, attribute: .Trailing, multiplier: 1, constant: 5)
         smallPlatformLeadingTitle.identifier = "Small Platform Leading Title"
         let smallPlatformLeadingDescription = NSLayoutConstraint(item: platformView, attribute: .Leading, relatedBy: .GreaterThanOrEqual, toItem: descriptionLabel, attribute: .Trailing, multiplier: 1, constant: 5)
@@ -166,7 +165,7 @@ class MusicPlayerView: UIView {
         let platformSpace = NSLayoutConstraint(item: platformView, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1, constant: 0)
         platformSpace.identifier = "Platform space filler"
 
-        smallViewConstraints.appendContentsOf([platformAspect,smallPlatformHeight,smallPlatformCenterY,smallPlatformTrailing,smallPlatformLeadingTitle,smallPlatformLeadingDescription])
+        smallViewConstraints.appendContentsOf([platformAspect,smallPlatformHeight,smallPlatformCenterY/*,smallPlatformTrailing*/,smallPlatformLeadingTitle,smallPlatformLeadingDescription])
         expandedViewConstraints.appendContentsOf([platformAspect,largePlatformTop,largePlatformCenterX,platformSpace])
         /*            NSLayoutConstraint(item: platformView, attribute: .Width, relatedBy: .Equal, toItem: self, attribute: .Width, multiplier: 1/5, constant: 0)*/
     }
@@ -228,6 +227,7 @@ class MusicPlayerView: UIView {
 
     func renderPlayButton() {
         playButton = BlurredPlayButton()
+        playButton.showsTouchWhenHighlighted = true
         playButton.toggleFn = self.playPauseDidPress
         playButton.translatesAutoresizingMaskIntoConstraints = false
         songArtView.addSubview(playButton)
@@ -264,8 +264,37 @@ class MusicPlayerView: UIView {
         musicPlayer.control = self
     }
 
-    func renderForwardButton() {
+    func fastForward() {
+        playButton.setIsPlaying(musicPlayer.playNextSong())
 
+        // update the display?
+        NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
+    }
+
+    func renderForwardButton() {
+        forwardButton = FastForwardButton()
+        forwardButton.showsTouchWhenHighlighted = true
+        playerView.addSubview(forwardButton)
+        forwardButton.addTarget(self, action: #selector(MusicPlayerView.fastForward), forControlEvents: .TouchUpInside)
+        addConstraintsToForwardButton()
+    }
+
+    func addConstraintsToForwardButton() {
+        forwardButton.translatesAutoresizingMaskIntoConstraints = false
+
+        let leftConstraint = NSLayoutConstraint(item: forwardButton, attribute: .Left, relatedBy: .Equal, toItem: platformView, attribute: .Right, multiplier: 1, constant: 10)
+        leftConstraint.identifier = "forward button left constraint"
+        let centerYConstraint = NSLayoutConstraint(item: forwardButton, attribute: .CenterY, relatedBy: .Equal, toItem: platformView, attribute: .CenterY, multiplier: 1, constant: 0)
+        centerYConstraint.identifier = "forward button center y"
+        let aspectConstraint = NSLayoutConstraint(item: forwardButton, attribute: .Height, relatedBy: .Equal, toItem: forwardButton, attribute: .Width, multiplier: 1, constant: 0)
+        aspectConstraint.identifier = "forward button aspect"
+        let heightConstraint = NSLayoutConstraint(item: forwardButton, attribute: .Height, relatedBy: .Equal, toItem: playButton, attribute: .Height, multiplier: 1, constant: 0)
+        heightConstraint.identifier = "forward button height"
+        let smallRightConstraint = NSLayoutConstraint(item: forwardButton, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: -10)
+        smallRightConstraint.identifier = "forward button small right"
+
+        smallViewConstraints.appendContentsOf([leftConstraint,centerYConstraint,aspectConstraint,heightConstraint,smallRightConstraint])
+        expandedViewConstraints.appendContentsOf([leftConstraint,centerYConstraint,aspectConstraint,heightConstraint])
     }
 
     func showStart() {
@@ -290,7 +319,7 @@ class MusicPlayerView: UIView {
         platformView.addSubview(playButton)
         expandedViewConstraints.forEach({$0.active = true})
         displayType = .Large
-        // re-draw image?
+        // re-draw artwork image?
         playButton.setNeedsDisplay()
         descriptionLabel.textAlignment = .Center
     }
@@ -312,7 +341,11 @@ class MusicPlayerView: UIView {
     }
 
     func collapse() {
-        self.subviews.forEach({$0.removeFromSuperview()})
+        print("did collapse")
+        subviews.forEach({
+            $0.constraints.forEach({$0.active = false})
+            $0.removeFromSuperview()
+        })
         displayType = .None
     }
 

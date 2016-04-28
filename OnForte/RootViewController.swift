@@ -60,7 +60,7 @@ class RootViewController: UIViewController, UITextFieldDelegate {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch: UITouch = touches.first! as UITouch
         if touch.view != createSectionView && touch.view != joinSectionView && touch.view != createButton && touch.view != joinButton {
-            print("Touched outside of buttons. Dismissing keyboard.")
+//            print("Touched outside of buttons. Dismissing keyboard.")
             resetView()
         }
     }
@@ -382,7 +382,6 @@ class RootViewController: UIViewController, UITextFieldDelegate {
     }
 
     func parseSongAndSendToPlaylist(playlistInfo: AnyObject?) {
-        print("made it here")
         if playlistInfo != nil {
             let jsonPlaylistInfo = JSON(playlistInfo!)
             playlistName = jsonPlaylistInfo["name"].string!

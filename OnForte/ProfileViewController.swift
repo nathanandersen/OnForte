@@ -192,21 +192,21 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate {
     func renderSoundCloudLogin() {
         soundCloudInfoView.subviews.forEach() { $0.removeFromSuperview() }
         // yes, this is unnecessary, but leaving the structure for future development
-        if true {
+//        if true {
             renderGuestButton("soundcloud",imageView: soundCloudImageView,infoView: soundCloudInfoView, text: "Enabled", textColor: UIColor.orangeColor())
-        } else {
-            renderGuestButton("soundcloud_gray",imageView: soundCloudImageView,infoView: soundCloudInfoView, text: "Disabled", textColor: UIColor.grayColor())
-        }
+//        } else {
+//            renderGuestButton("soundcloud_gray",imageView: soundCloudImageView,infoView: soundCloudInfoView, text: "Disabled", textColor: UIColor.grayColor())
+//        }
     }
 
     func renderiTunesLogin() {
         iTunesInfoView.subviews.forEach() { $0.removeFromSuperview() }
         // yes, this is unnecessary, but leaving the structure for future development
-        if true {
+//        if true {
             renderGuestButton("itunes", imageView: iTunesImageView, infoView: iTunesInfoView, text: "Enabled", textColor: UIColor.redColor())
-        } else {
-            renderGuestButton("itunes_gray", imageView: iTunesImageView, infoView: iTunesInfoView, text: "Disabled", textColor: UIColor.grayColor())
-        }
+//        } else {
+//            renderGuestButton("itunes_gray", imageView: iTunesImageView, infoView: iTunesInfoView, text: "Disabled", textColor: UIColor.grayColor())
+//        }
     }
 
     func renderGuestButton(imageName: String, imageView: UIImageView, infoView: UIView, text: String, textColor: UIColor) {

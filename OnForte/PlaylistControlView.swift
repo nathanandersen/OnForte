@@ -63,9 +63,9 @@ class PlaylistControlView: UIView {
         smallMusicPlayerConstraint.active = false
         largeMusicPlayerConstraint.active = false
         startMusicPlayerConstraint.active = false
-        collapseMusicPlayerConstraint.active = true
-        musicPlayerView.updateConstraints()
         musicPlayerView.collapse()
+        collapseMusicPlayerConstraint.active = true
+        musicPlayerView.setNeedsLayout()
     }
 
     func showANowPlayingView() {
@@ -81,9 +81,11 @@ class PlaylistControlView: UIView {
         collapseMusicPlayerConstraint.active = false
         smallMusicPlayerConstraint.active = false
         largeMusicPlayerConstraint.active = false
-        startMusicPlayerConstraint.active = true
         musicPlayerView.showStart()
+        startMusicPlayerConstraint.active = true
         musicPlayerView.setNeedsLayout()
+
+        print("gaga la la")
         
     }
 
@@ -146,9 +148,9 @@ class PlaylistControlView: UIView {
         bottomMenuBar = renderMenuBar(playlistId!, leftButton: leaveButton, rightButton: inviteButton)
         self.addSubview(bottomMenuBar)
 
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PlaylistControlView.togglePlayerDisplaySize))
-        tapGestureRecognizer.numberOfTapsRequired = 2
-        musicPlayerView.addGestureRecognizer(tapGestureRecognizer)
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PlaylistControlView.togglePlayerDisplaySize))
+//        tapGestureRecognizer.numberOfTapsRequired = 2
+//        musicPlayerView.addGestureRecognizer(tapGestureRecognizer)
     }
 
     func togglePlayerDisplaySize() {

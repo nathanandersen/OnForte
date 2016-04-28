@@ -25,7 +25,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         addNotificationsToGlobalCenter()
     }
 
-    func updateForDisplay() {
+    func presentNewPlaylist() {
         let paramObj = [playlistId!]
         Meteor.subscribe("queueSongs",params: paramObj)
         sortedSongs = []
@@ -279,10 +279,8 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         print("You selected cell #\(indexPath.row)!")
     }
 
-    func updateTable() {
-        print("was updated")
+    func updatePlaylistDisplay() {
         dispatch_async(dispatch_get_main_queue(), {
-            self.sortedSongs = self.songs.sortedByScore()
             self.tableView.reloadData()
             if nowPlaying == nil {
                 if isHost && self.songs.count >= 1 {
@@ -293,9 +291,11 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
             } else {
                 self.playlistControlView.showANowPlayingView()
             }
-
-
         })
     }
 
+    func updateTable() {
+        self.sortedSongs = self.songs.sortedByScore()
+        self.updatePlaylistDisplay()
+    }
 }

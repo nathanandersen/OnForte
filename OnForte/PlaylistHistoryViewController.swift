@@ -31,6 +31,10 @@ class PlaylistHistoryViewController: UIViewController, UITableViewDelegate, UITa
         Meteor.subscribe("playedSongs",params: paramObj)
     }
 
+    func presentNewPlaylist() {
+        self.updateTable()
+    }
+
     func renderTitleLabel() {
         titleLabel = Style.defaultLabel()
         titleLabel.text = "Playlist History"
@@ -89,9 +93,9 @@ class PlaylistHistoryViewController: UIViewController, UITableViewDelegate, UITa
         let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell")! as! SongViewCell
         cell.selectionStyle = .None
         let songId = playedSongs.keys[indexPath.row]
-        print(songId)
+//        print(songId)
         let song = playedSongs.findOne(songId)
-        print(song)
+//        print(song)
         cell.loadItem(songId,song: song!)
         return cell
     }

@@ -33,7 +33,6 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
 
     // returns the new playing status
     func togglePlayingStatus() -> Bool {
-        print("toggle playing status")
         if let currentSong = nowPlaying {
             switch(currentSong.service!) {
             case .Soundcloud:

@@ -47,6 +47,7 @@ class PlaylistDrawerController: MMDrawerController {
     }
 
     func updatePlaylistViewController() {
-        (self.centerViewController as! PlaylistController).updateForDisplay()
+        (self.centerViewController as! PlaylistController).presentNewPlaylist()
+        (self.leftDrawerViewController as! PlaylistHistoryViewController).presentNewPlaylist()
     }
 }
