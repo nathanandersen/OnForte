@@ -29,7 +29,7 @@ class SoundCloudHandler: NSObject, SearchHandler {
                 switch paginatedTracks.response {
                 case .Success(let tracks):
                     self.results = self.parseSoundcloudTracks(tracks)
-                    print("success")
+//                    print("success")
                     NSNotificationCenter.defaultCenter().postNotificationName("reloadSearchResults", object: nil)
                 case .Failure(let error):
                     print(error)

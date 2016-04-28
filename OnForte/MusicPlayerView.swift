@@ -36,7 +36,6 @@ class MusicPlayerView: UIView {
 
     var playButton: BlurredPlayButton!
 
-//    var forwardButton: UIButton?
     var forwardButton: FastForwardButton!
     var playlistController: PlaylistController!
     var displayType: MusicPlayerDisplayType
@@ -78,7 +77,6 @@ class MusicPlayerView: UIView {
     }
 
     func displaySong() {
-        print("weeaa")
         print(nowPlaying!.description)
         dispatch_async(dispatch_get_main_queue(), {
             artworkHandler.lookupForImageView(nowPlaying!.artworkURL, imageView: self.songArtView)
@@ -151,8 +149,6 @@ class MusicPlayerView: UIView {
 
         let smallPlatformCenterY = NSLayoutConstraint(item: platformView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
         smallPlatformCenterY.identifier = "Small Platform Center Y"
-//        let smallPlatformTrailing = NSLayoutConstraint(item: platformView, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
-//        smallPlatformTrailing.identifier = "Small Platform Trailing"
         let smallPlatformLeadingTitle = NSLayoutConstraint(item: platformView, attribute: .Leading, relatedBy: .GreaterThanOrEqual, toItem: titleLabel, attribute: .Trailing, multiplier: 1, constant: 5)
         smallPlatformLeadingTitle.identifier = "Small Platform Leading Title"
         let smallPlatformLeadingDescription = NSLayoutConstraint(item: platformView, attribute: .Leading, relatedBy: .GreaterThanOrEqual, toItem: descriptionLabel, attribute: .Trailing, multiplier: 1, constant: 5)
@@ -265,9 +261,8 @@ class MusicPlayerView: UIView {
     }
 
     func fastForward() {
+        musicPlayer.stop()
         playButton.setIsPlaying(musicPlayer.playNextSong())
-
-        // update the display?
         NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
     }
 
@@ -341,7 +336,6 @@ class MusicPlayerView: UIView {
     }
 
     func collapse() {
-        print("did collapse")
         subviews.forEach({
             $0.constraints.forEach({$0.active = false})
             $0.removeFromSuperview()

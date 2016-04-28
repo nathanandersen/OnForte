@@ -33,9 +33,8 @@ class SpotifyHandler: NSObject, SearchHandler {
                     print(response.result.error!)
                     return
                 }
-
                 if let value: AnyObject = response.result.value {
-                    print("spotify success")
+//                    print("spotify success")
                     self.results = self.parseSpotifyTracks(JSON(value))
                     NSNotificationCenter.defaultCenter().postNotificationName("reloadSearchResults", object: nil)
                 }
@@ -46,8 +45,7 @@ class SpotifyHandler: NSObject, SearchHandler {
     }
 
     func parseSpotifyTracks(json: JSON) -> [Song] {
-        print("Parsing spotify results")
-
+//        print("Parsing spotify results")
         var songs: [Song] = []
         let tracks = json["tracks"]["items"]
         for (_,subJson):(String, JSON) in tracks {

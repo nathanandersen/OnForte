@@ -84,9 +84,6 @@ class PlaylistControlView: UIView {
         musicPlayerView.showStart()
         startMusicPlayerConstraint.active = true
         musicPlayerView.setNeedsLayout()
-
-        print("gaga la la")
-        
     }
 
     func showSmallNowPlayingView() {

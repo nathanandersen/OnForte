@@ -81,15 +81,11 @@ class PlaylistSongHistory: MeteorCollection<PlayedSongDocument> {
      - parameter fields:         an optional NSDictionary with the documents properties
      */
     internal override func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {
-        print("song added to played")
-
-        print(fields)
-
+//        print(fields)
         let document = PlayedSongDocument(id: id, fields: fields)
         self.documents[id] = document
         keys.insert(id, atIndex: 0)
         collectionSetDidChange()
-
         NSNotificationCenter.defaultCenter().postNotificationName("reloadHistoryTable", object: nil)
     }
 

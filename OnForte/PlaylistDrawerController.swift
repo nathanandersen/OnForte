@@ -23,10 +23,7 @@ class PlaylistDrawerController: MMDrawerController {
 
         self.setGestureCompletionBlock({(drawerController, gestureRecognizer) in
             if drawerController.openSide == .Right {
-                print("opened right (search) drawer")
                 (self.rightDrawerViewController as! SearchViewController).enableSearchBar()
-            } else if drawerController.openSide == .Left {
-                print("opened left (history) side")
             }
         })
 
