@@ -73,14 +73,14 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
     /**
      Enable the search bar as first responder.
     */
-    func enableSearchBar() {
+    internal func enableSearchBar() {
         self.searchBar.becomeFirstResponder()
     }
 
     /**
      Close the search, and clear it.
     */
-    func closeSearch() {
+    internal func closeSearch() {
         self.searchBar.text = ""
         orderedSearchHandlers.forEach() { $0.clearSearch() }
         self.view.endEditing(true)
@@ -91,7 +91,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
     /**
      Reload the table
     */
-    func reloadTable() {
+    internal func reloadTable() {
         activityIndicator.stopAnimating()
         self.tableView.reloadData()
     }
@@ -114,7 +114,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
      
      - postcondition: The search bar and all subcomponents are initialized
     */
-    func initializeSearchBar() {
+    private func initializeSearchBar() {
         searchBar = UISearchBar()
         searchBar.searchBarStyle = .Prominent
         searchBar.delegate = self
@@ -130,7 +130,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
     /**
      Initialize the table view
     */
-    func initializeTableView() {
+    private func initializeTableView() {
         tableView = UITableView()
         tableView.rowHeight = 85.0
         tableView.keyboardDismissMode = .OnDrag
@@ -143,7 +143,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
     /**
      Initialize the activity indicator
     */
-    func initializeActivityIndicator() {
+    private func initializeActivityIndicator() {
         activityIndicator = UIActivityIndicatorView()
         activityIndicator.hidesWhenStopped = true
         activityIndicator.color = Style.blackColor
@@ -245,7 +245,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
     /**
      Search all SearchHandlers
     */
-    func searchAll(){
+    internal func searchAll(){
         activityIndicator.startAnimating()
         orderedSearchHandlers.forEach() { $0.search(searchBar.text!) }
         searchTimer.invalidate()

@@ -9,6 +9,11 @@
 import Foundation
 import SwiftDDP
 
+/**
+ The PlaylistController controls the majority of the playlist workflow.
+ It has a table view with the songs in the queue, and a playlist control view.
+ 
+ */
 class PlaylistController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
 
     var tableView: UITableView!
@@ -25,6 +30,9 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         addNotificationsToGlobalCenter()
     }
 
+    /**
+     Clear the PlaylistController for a new playlist.
+    */
     func presentNewPlaylist() {
         let paramObj = [playlistId!]
         Meteor.subscribe("queueSongs",params: paramObj)
@@ -33,14 +41,19 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         self.addNotificationsToGlobalCenter()
     }
 
-    func renderPlaylistControlView() {
+    /**
+     Initialize the playlist control view
+     */
+    private func renderPlaylistControlView() {
         playlistControlView = PlaylistControlView()
         playlistControlView.setParentPlaylistController(self)
-//        print(playlistControlView.playlistController)
         self.view.addSubview(playlistControlView)
     }
 
-    func addConstraintsToPlaylistControlView() {
+    /**
+     Add the constraints to the playlist control view
+    */
+    private func addConstraintsToPlaylistControlView() {
         playlistControlView.translatesAutoresizingMaskIntoConstraints = false
 
         let navHeight = centralNavigationController.navigationBar.frame.height + UIApplication.sharedApplication().statusBarFrame.height
@@ -59,43 +72,52 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         playlistControlView.updateConstraints()
     }
 
-    func songWasAdded() {
+    /**
+     Called when a song was added, to update the table.
+    */
+    internal func songWasAdded() {
         dispatch_async(dispatch_get_main_queue(), {
             activityIndicator.showComplete("Song added")
             self.updateTable()
         })
     }
 
-    func addNotificationsToGlobalCenter() {
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.updateTable), name:"load", object: nil)
+    /**
+     Add relevant listeners to the notification center
+    */
+    private func addNotificationsToGlobalCenter() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.displayNextSong), name: "displayNextSong", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.exitPlaylist), name: "leavePlaylist", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.songWasAdded), name: "songWasAdded", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.updateTable), name: "updateTable", object: nil)
     }
 
-    func renderComponents() {
+    /**
+     Initialize all components
+    */
+    private func renderComponents() {
         renderPlaylistControlView()
         renderTableView()
     }
 
-    func addConstraintsToComponents() {
+    /**
+     Add the constraints to the components
+    */
+    private func addConstraintsToComponents() {
         addConstraintsToPlaylistControlView()
         addConstraintsToTableView()
     }
-
-    func startSearch() {
-        (self.mm_drawerController as! PlaylistDrawerController).openDrawerSide(.Right, animated: true, completion: nil)
-    }
-
-
+    /*
     func inviteButtonPressed() {
         let vc = InvitationViewController()
         vc.setParentVC(self)
         self.navigationController?.presentViewController(vc, animated: true, completion: nil)
-    }
+    }*/
 
-    func renderTableView(){
+    /**
+     Render the table view
+    */
+    private func renderTableView(){
         tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
@@ -107,11 +129,12 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.tableHeaderView = nil
         tableView.tableFooterView = UIView(frame: CGRectZero)
         self.view.sendSubviewToBack(tableView)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.updateTable), name:"updateTable", object: nil)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistController.updateTable), name:"load", object: nil)
     }
 
-    func addConstraintsToTableView() {
+    /**
+     Add constraints to the table view
+    */
+    private func addConstraintsToTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         let tableViewTop = NSLayoutConstraint(item: tableView,
@@ -157,7 +180,12 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.updateConstraints()
     }
 
-    func getNextSong() -> Song? {
+    /**
+     Return the next song, if it exists, pending voting order and Spotify login status.
+     
+     - returns: (optional) next song
+    */
+    internal func getNextSong() -> Song? {
         if spotifySession != nil && spotifySession!.isValid() {
             print("User is logged into Spotify. Playing top song.")
             return (sortedSongs.count > 0) ? Song(songDoc: sortedSongs[0]) : nil
@@ -184,42 +212,48 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
 
+    /**
+     Display the next song
+    */
     func displayNextSong() {
         dispatch_async(dispatch_get_main_queue(), {
             activityIndicator.showComplete("")
+            // check out this next line
+            self.playlistControlView.musicPlayerView.displaySong()
+
+            // COME BACK TO ME
+
         })
     }
 
+    /*
     func startPlaylist(sender: AnyObject){
         playlistStarted = true
         displayNextSong()
-    }
+    }*/
 
     /*
      Functions related to leaving the playlist
      and other segues
      */
+
+    /**
+     Called when the leave button is pressed and confirmed.
+     Wipe the variables and boot out.
+    */
     func leavePlaylist() {
-
-        // MAKE SURE WE DO THIS CORRECTLY
-        // SO NO PLAYLIST IS ACTIVE IF WE RETURN
-
         let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-
-
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
             // stop on a background thread
             if isHost {
                 self.playlistControlView.musicPlayerView.musicPlayer.stop()
             }
-            print("This is run on the background queue")
-
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                print("This is run on the main queue, after the previous code in outer block")
-            })
+//            print("This is run on the background queue")
+//            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//                print("This is run on the main queue, after the previous code in outer block")
+//            })
         })
-
         (self.navigationController! as! CentralNavigationController).leavePlaylist()
         playlistId = ""
         playlistName = ""
@@ -230,6 +264,9 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         Meteor.unsubscribe("queueSongs")
     }
 
+    /**
+     Called when a user presses the cancel button.
+    */
     func exitPlaylist() {
         if isHost {
             hostExitPlaylist()
@@ -238,6 +275,9 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
 
+    /**
+     Called when a guest is trying to leave the playlist.
+    */
     func guestExitPlaylist() {
         // Create an alert popup
         let alertController = UIAlertController(title: "Leave Playlist", message: "Are you sure you want to leave this playlist?", preferredStyle: .Alert)
@@ -254,9 +294,11 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         dispatch_async(dispatch_get_main_queue(), {
             self.presentViewController(alertController, animated: true, completion: nil)
         })
-//        self.presentViewController(alertController, animated: true, completion: nil)
     }
 
+    /**
+     Called when the host is trying to exit the playlist.
+    */
     func hostExitPlaylist() {
         // Create an alert popup
         let alertController = UIAlertController(title: "End Playlist", message: "You're the host, so leaving this playlist will end it for everyone.", preferredStyle: .Alert)
@@ -272,7 +314,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         dispatch_async(dispatch_get_main_queue(), {
             self.presentViewController(alertController, animated: true, completion: nil)
         })
-//        self.presentViewController(alertController, animated: true, completion: nil)
     }
 
     /*
@@ -302,6 +343,9 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         print("You selected cell #\(indexPath.row)!")
     }
 
+    /**
+     Update the playlist display
+    */
     func updatePlaylistDisplay() {
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
@@ -317,6 +361,9 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         })
     }
 
+    /**
+     Update the whole page
+    */
     func updateTable() {
         self.sortedSongs = self.songs.sortedByScore()
         self.updatePlaylistDisplay()

@@ -115,13 +115,6 @@ class PlaylistSongHistory: MeteorCollection<PlayedSongDocument> {
 
     internal override func documentWasRemoved(collection:String, id:String) {
         if let _ = documents[id] {
-            // the only time we can remove a document from the local collection
-            // is when it has started playing (or when party has been left..)
-            /*            if playlistId != "" {
-             nowPlaying = Song(songDoc: documents[id]!)
-             NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
-             // save it in the global nowPlaying
-             }*/
             self.documents[id] = nil
             collectionSetDidChange()
             keys.removeAtIndex(keys.indexOf(id)!)

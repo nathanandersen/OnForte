@@ -74,7 +74,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
         - flag: A boolean noting whether or not the player finished successfully
  
     */
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+    internal func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
         playNextSong()
     }
 
@@ -90,7 +90,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      removeSongFromQueue: remove the song from the QueueSongs database
      setSongAsPlaying: add the song as now playing to the Playlists database
     */
-    func registerNextSongWithServer(song: Song ) {
+    private func registerNextSongWithServer(song: Song ) {
         let paramObj = [playlistId!,
                         (song.title != nil) ? song.title! : "",
                         (song.description != nil) ? song.description! : "",
@@ -113,7 +113,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      
      - returns: whether or not the music is successfully playing -> from the callbacks
     */
-    func playNextSong() -> Bool {
+    internal func playNextSong() -> Bool {
         if let nextSong = playlistController.getNextSong() {
             // set backgrounding
             do {
@@ -155,7 +155,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      
      When the music is stopped, we play the next song.
     */
-    func handlePlaybackStateChanged(notification: NSNotification) {
+    internal func handlePlaybackStateChanged(notification: NSNotification) {
         if (self.localPlayer.playbackState == .Stopped) {
             self.playNextSong()
         }
@@ -166,7 +166,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      
      - bug: SoundCloud stopping is very slow.
     */
-    func stop() {
+    internal func stop() {
         spotifyPlayer.setIsPlaying(false,callback: nil)
 //        print("1")
         soundcloudPlayer?.stop()
@@ -190,7 +190,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      
      - returns: whether playing was successful
     */
-    func playLocalSong() -> Bool {
+    private func playLocalSong() -> Bool {
         let index: Int = Int(nowPlaying!.trackId!)!
         let nowPlayingItem: MPMediaItem! = allLocalITunesOriginals![index]
         let itemCollection: MPMediaItemCollection = MPMediaItemCollection(items: [nowPlayingItem])
@@ -207,7 +207,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      - precondition: `nowPlaying` must have `Service.SoundCloud`
      - returns: whether playing was successful
     */
-    func playSoundCloud() -> Bool {
+    private func playSoundCloud() -> Bool {
         let url = "https://api.soundcloud.com/tracks/" + (nowPlaying?.trackId)! + "/stream?client_id=50ea1a6c977ecf3fb47ecaf6078c388b"
         print(url)
         let soundData = NSData(contentsOfURL: NSURL(string: url)!)
@@ -233,7 +233,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      - precondition: `nowPlaying` must have `Service.Spotify`
      - returns: whether playing was successful
      */
-    func playSpotify() -> Bool {
+    private func playSpotify() -> Bool {
         if spotifySession == nil || !spotifySession!.isValid() {
             print("not logged into spotify!")
             return false
@@ -264,7 +264,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      It plays the next song.
  
     */
-    func audioStreaming(audioStreaming: SPTAudioStreamingController!, didChangeToTrack trackMetadata: [NSObject : AnyObject]!) {
+    internal func audioStreaming(audioStreaming: SPTAudioStreamingController!, didChangeToTrack trackMetadata: [NSObject : AnyObject]!) {
         if trackMetadata == nil {
             playNextSong()
         }
