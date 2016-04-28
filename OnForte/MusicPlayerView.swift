@@ -10,7 +10,9 @@ import UIKit
 import RSPlayPauseButton
 import SwiftDDP
 
-
+/**
+ An enum to describe the size of the MusicPlayer display
+ */
 enum MusicPlayerDisplayType {
     case None
     case Start
@@ -18,11 +20,17 @@ enum MusicPlayerDisplayType {
     case Large
 }
 
-
+/**
+ Returns if an optional string is a valid string with length > 0
+ */
 func isValidString(str: String?) -> Bool {
     return str != nil && str! != ""
 }
 
+/**
+ MusicPlayerView displays the variable states of the Music Player:
+ collapsed, started, small, and large
+ */
 class MusicPlayerView: UIView {
 
     var playerView: UIView!
@@ -30,12 +38,9 @@ class MusicPlayerView: UIView {
     var platformView: UIImageView!
     var titleLabel: UILabel!
     var descriptionLabel: UILabel!
-
     var startButton: UIButton?
     var musicPlayer: IntegratedMusicPlayer!
-
     var playButton: BlurredPlayButton!
-
     var forwardButton: FastForwardButton!
     var playlistController: PlaylistController!
     var displayType: MusicPlayerDisplayType
@@ -66,17 +71,26 @@ class MusicPlayerView: UIView {
 
     }
 
-    func setParentPlaylistController(playlistC: PlaylistController) {
+    /**
+    Create the reference to the playlist controller, and pass it to its children
+    */
+    internal func setParentPlaylistController(playlistC: PlaylistController) {
         self.playlistController = playlistC
         musicPlayer.playlistController = playlistC
     }
 
-    func renderPlayerView() {
+    /**
+    Render the player view
+    */
+    private func renderPlayerView() {
         playerView = UIView()
         playerView.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    func displaySong() {
+    /** 
+    Display the now playing song
+    */
+    internal func displaySong() {
         print(nowPlaying!.description)
         dispatch_async(dispatch_get_main_queue(), {
             artworkHandler.lookupForImageView(nowPlaying!.artworkURL, imageView: self.songArtView)
@@ -88,7 +102,10 @@ class MusicPlayerView: UIView {
         } )
     }
 
-    func renderStartButton() {
+    /**
+    Render the start button
+    */
+    private func renderStartButton() {
         startButton = Style.defaultButton("START MUSIC")
         startButton?.backgroundColor = Style.secondaryColor
         startButton?.setTitleColor(Style.whiteColor, forState: .Normal)
@@ -96,11 +113,17 @@ class MusicPlayerView: UIView {
         startButton?.addTarget(self, action: #selector(MusicPlayerView.startButtonPress), forControlEvents: .TouchUpInside)
     }
 
-    func startButtonPress() {
+    /**
+    Handle the press of the start button, by starting to play music
+    */
+    internal func startButtonPress() {
         playButton.press()
     }
 
-    func renderSongArtView() {
+    /**
+    Render the song art view
+    */
+    private func renderSongArtView() {
         songArtView = UIImageView()
         songArtView.contentMode = UIViewContentMode.ScaleAspectFit
         playerView.addSubview(songArtView)
@@ -108,7 +131,10 @@ class MusicPlayerView: UIView {
         createSongArtConstraints()
     }
 
-    func createSongArtConstraints() {
+    /**
+    Create the constraints for the song art view
+    */
+    private func createSongArtConstraints() {
         let songArtLeading = NSLayoutConstraint(item: songArtView, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 0)
         songArtLeading.identifier = "Song Art Leading"
         let songArtSmallHeight =  NSLayoutConstraint(item: songArtView, attribute: .Height, relatedBy: .Equal, toItem: self, attribute: .Height, multiplier: 1, constant: 0)
@@ -132,14 +158,20 @@ class MusicPlayerView: UIView {
             largeSongArtCenterX,songArtAspect])
     }
 
-    func renderPlatformView() {
+    /**
+     Render the platform view
+    */
+    private func renderPlatformView() {
         platformView = UIImageView()
         playerView.addSubview(platformView)
         platformView.translatesAutoresizingMaskIntoConstraints = false
         createPlatformConstraints()
     }
 
-    func createPlatformConstraints() {
+    /**
+    Create the platform view constraints
+    */
+    private func createPlatformConstraints() {
         let platformAspect =
             NSLayoutConstraint(item: platformView, attribute: .Height, relatedBy: .Equal, toItem: platformView, attribute: .Width, multiplier: 1, constant: 0)
         platformAspect.identifier = "Platform Aspect"
@@ -166,7 +198,10 @@ class MusicPlayerView: UIView {
         /*            NSLayoutConstraint(item: platformView, attribute: .Width, relatedBy: .Equal, toItem: self, attribute: .Width, multiplier: 1/5, constant: 0)*/
     }
 
-    func renderTitleLabel() {
+    /**
+    Render the title label
+    */
+    private func renderTitleLabel() {
         titleLabel = Style.defaultLabel()
         titleLabel.textAlignment = .Left
         titleLabel.font = Style.defaultFont(10)
@@ -175,7 +210,10 @@ class MusicPlayerView: UIView {
         createTitleLabelConstraints()
     }
 
-    func createTitleLabelConstraints() {
+    /**
+    Add constraints to the title label
+    */
+    private func createTitleLabelConstraints() {
         let smallTitleLeading = NSLayoutConstraint(item: titleLabel, attribute: .Leading, relatedBy: .Equal, toItem: songArtView, attribute: .Trailing, multiplier: 1, constant: 5)
         smallTitleLeading.identifier = "Small Title Leading"
         let smallTitleTop = NSLayoutConstraint(item: titleLabel, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: -2)
@@ -189,7 +227,10 @@ class MusicPlayerView: UIView {
         expandedViewConstraints.appendContentsOf([largeTitleTop,largeTitleCenterX])
     }
 
-    func renderDescriptionLabel() {
+    /**
+    Render the description label
+    */
+    private func renderDescriptionLabel() {
         descriptionLabel = Style.defaultLabel()
         descriptionLabel.textAlignment = .Left
         descriptionLabel.font = Style.defaultFont(10)
@@ -197,8 +238,10 @@ class MusicPlayerView: UIView {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         createDescriptionLabelConstraints()
     }
-
-    func createDescriptionLabelConstraints() {
+    /**
+    Add constraints to the description label
+    */
+    private func createDescriptionLabelConstraints() {
         let smallDescriptionLeading = NSLayoutConstraint(item: descriptionLabel, attribute: .Leading, relatedBy: .Equal, toItem: songArtView, attribute: .Trailing, multiplier: 1, constant: 5)
         smallDescriptionLeading.identifier = "Small Description Leading"
         let smallDescriptionTop = NSLayoutConstraint(item: descriptionLabel, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 2)
@@ -212,16 +255,18 @@ class MusicPlayerView: UIView {
 
     }
 
-    // returns the new status of the playing button
+    /**
+     Handle the pressing of the play-pause button
+     - returns: the final state of the play button
+    */
     func playPauseDidPress() -> Bool {
         return musicPlayer.togglePlayingStatus()
     }
 
-    func pressPlayButton() {
-        playButton.press()
-    }
-
-    func renderPlayButton() {
+    /**
+    Render the play button
+    */
+    private func renderPlayButton() {
         playButton = BlurredPlayButton()
         playButton.showsTouchWhenHighlighted = true
         playButton.toggleFn = self.playPauseDidPress
@@ -229,8 +274,10 @@ class MusicPlayerView: UIView {
         songArtView.addSubview(playButton)
         addPlayButtonConstraints()
     }
-
-    func addPlayButtonConstraints() {
+    /**
+    Add constraints to the play button
+    */
+    private func addPlayButtonConstraints() {
 
         let buttonSmallCenterX = NSLayoutConstraint(item: playButton, attribute: .CenterX, relatedBy: .Equal, toItem: songArtView, attribute: .CenterX, multiplier: 1, constant: 0)
         buttonSmallCenterX.identifier = "button small center x"
@@ -255,18 +302,27 @@ class MusicPlayerView: UIView {
         expandedViewConstraints.appendContentsOf([buttonLargeWidth,buttonLargeCenterX,buttonLargeCenterY,playAspect])
     }
 
-    func renderMusicPlayer() {
+    /**
+    Initialize the music player
+    */
+    private func renderMusicPlayer() {
         musicPlayer = IntegratedMusicPlayer()
         musicPlayer.control = self
     }
 
-    func fastForward() {
+    /**
+    Handle the press of the fast forward button
+    */
+    internal func fastForward() {
         musicPlayer.stop()
         playButton.setIsPlaying(musicPlayer.playNextSong())
         NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
     }
 
-    func renderForwardButton() {
+    /**
+    Render the fast forward button 
+    */
+    private func renderForwardButton() {
         forwardButton = FastForwardButton()
         forwardButton.showsTouchWhenHighlighted = true
         playerView.addSubview(forwardButton)
@@ -274,7 +330,10 @@ class MusicPlayerView: UIView {
         addConstraintsToForwardButton()
     }
 
-    func addConstraintsToForwardButton() {
+    /**
+    Add constraints to the forward button
+    */
+    private func addConstraintsToForwardButton() {
         forwardButton.translatesAutoresizingMaskIntoConstraints = false
 
         let leftConstraint = NSLayoutConstraint(item: forwardButton, attribute: .Left, relatedBy: .Equal, toItem: platformView, attribute: .Right, multiplier: 1, constant: 10)
@@ -292,7 +351,10 @@ class MusicPlayerView: UIView {
         expandedViewConstraints.appendContentsOf([leftConstraint,centerYConstraint,aspectConstraint,heightConstraint])
     }
 
-    func showStart() {
+    /**
+    Show the start button
+    */
+    internal func showStart() {
         self.constraints.forEach( {$0.active = false} )
         playerView.updateConstraints()
         self.playerView.removeFromSuperview()
@@ -301,8 +363,10 @@ class MusicPlayerView: UIView {
         startConstraints.forEach( {$0.active = true} )
         displayType = .Start
     }
-
-    func showLarge() {
+    /**
+    Show the large music display
+    */
+    internal func showLarge() {
         playButton.removeFromSuperview()
         playButton.constraints.forEach({$0.active = false})
         subviews.forEach({
@@ -319,7 +383,10 @@ class MusicPlayerView: UIView {
         descriptionLabel.textAlignment = .Center
     }
 
-    func showSmall() {
+    /**
+    Show the small music display
+    */
+    internal func showSmall() {
         playButton.removeFromSuperview()
         playButton.constraints.forEach({$0.active = false})
         subviews.forEach({
@@ -335,7 +402,10 @@ class MusicPlayerView: UIView {
         descriptionLabel.textAlignment = .Natural
     }
 
-    func collapse() {
+    /**
+    Collapse the music display  
+    */
+    internal func collapse() {
         subviews.forEach({
             $0.constraints.forEach({$0.active = false})
             $0.removeFromSuperview()
@@ -343,7 +413,10 @@ class MusicPlayerView: UIView {
         displayType = .None
     }
 
-    func createStartConstraints() {
+    /**
+    Create the start button constraints
+    */
+    private func createStartConstraints() {
         let startLeading = NSLayoutConstraint(item: startButton!, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 80)
         startLeading.identifier = "Start Leading"
         let startTrailing = NSLayoutConstraint(item: startButton!, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: -80)
@@ -354,8 +427,10 @@ class MusicPlayerView: UIView {
         startBottom.identifier = "Start Bottom"
         startConstraints.appendContentsOf([startLeading,startTrailing,startTop,startBottom])
     }
-
-    func createPlayerViewConstraints() {
+    /**
+    Create the player view constraints  
+    */
+    private func createPlayerViewConstraints() {
         let smallLeading = NSLayoutConstraint(item: playerView, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 0)
         smallLeading.identifier = "PView Leading"
         let smallTrailing = NSLayoutConstraint(item: playerView, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
@@ -368,8 +443,6 @@ class MusicPlayerView: UIView {
         smallViewConstraints.appendContentsOf(constraints)
         expandedViewConstraints.appendContentsOf(constraints)
     }
-
-
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("NSCoding is not implemented for MusicPlayerView")

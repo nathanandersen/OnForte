@@ -9,6 +9,9 @@
 import UIKit
 import NVActivityIndicatorView
 
+/**
+ This is an extension of the NVActivityIndicatorView pod.
+ */
 class ActivityIndicator: UIView {
     
     var activityIndicator: NVActivityIndicatorView!
@@ -26,21 +29,29 @@ class ActivityIndicator: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func renderCompleteIndicator() {
+
+    /**
+     Render the 'complete' indicator
+     */
+    private func renderCompleteIndicator() {
         completeIndicator = UIImageView(frame: CGRectMake(10, 5, 20, 20))
         completeIndicator.image = UIImage(named: "check")
         completeIndicator.tintColor = Style.primaryColor
         self.addSubview(completeIndicator)
     }
-    
-    func renderActivityIndicator() {
+
+    /**
+     Render the normal activity indicator
+    */
+    private func renderActivityIndicator() {
         activityIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40), type: NVActivityIndicatorType.LineScaleParty, color: Style.primaryColor, padding: CGFloat(15))
-//        activityIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40), type: NVActivityIndicatorType.LineScaleParty, color: Style.primaryColor, size: CGSizeMake(20, 15))
         self.addSubview(activityIndicator)
     }
-    
-    func renderLabel(){
+
+    /**
+    Render the label
+    */
+    private func renderLabel(){
         label = UILabel(frame: CGRectMake(0, 28, 40, 10))
         label.text = ""
         label.textColor = Style.primaryColor
@@ -48,16 +59,22 @@ class ActivityIndicator: UIView {
         label.font = Style.defaultFont(7)
         self.addSubview(label)
     }
-    
-    func showActivity(text: String){
+
+    /**
+     Display some activity with a label caption
+    */
+    internal func showActivity(text: String){
         completeIndicator.hidden = true
         activityIndicator.hidden = false
         label.hidden = false
         label.text = text
         activityIndicator.startAnimation()
     }
-    
-    func showComplete(text: String){
+
+    /**
+     Show 'complete' status
+    */
+    internal func showComplete(text: String){
         activityIndicator.stopAnimation()
         activityIndicator.hidden = true
         completeIndicator.hidden = false
@@ -65,7 +82,10 @@ class ActivityIndicator: UIView {
         label.text = text
         NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ActivityIndicator.hideAll), userInfo: nil, repeats: false)
     }
-    
+
+    /**
+    Hide the activity indicator
+    */
     func hideAll(){
         activityIndicator.hidden = true
         completeIndicator.hidden = true

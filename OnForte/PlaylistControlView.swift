@@ -9,14 +9,13 @@
 import Foundation
 import MMDrawerController
 
-
+/**
+ The playlist control view is a small menu that controls the behavior of the playlist
+ */
 class PlaylistControlView: UIView {
-
-
     var topMenuBar: UIView!
     var bottomMenuBar: UIView!
     var musicPlayerView: MusicPlayerView!
-
     var inviteButton: UIButton!
     var leaveButton: UIButton!
     var historyButton: UIButton!
@@ -31,7 +30,6 @@ class PlaylistControlView: UIView {
     var startMusicPlayerConstraint: NSLayoutConstraint!
     var largeMusicPlayerConstraint: NSLayoutConstraint!
 
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         renderTopMenuBar()
@@ -44,19 +42,28 @@ class PlaylistControlView: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    func setParentPlaylistController(playlistC: PlaylistController) {
+    /**
+    Set the parent PlaylistController and pass on to the children
+    */
+    internal func setParentPlaylistController(playlistC: PlaylistController) {
         self.playlistController = playlistC
         if isHost {
             musicPlayerView.setParentPlaylistController(playlistC)
         }
     }
 
-    func renderMusicPlayerView() {
+    /**
+    Render the music player view
+    */
+    private func renderMusicPlayerView() {
         musicPlayerView = MusicPlayerView()
         self.addSubview(musicPlayerView)
     }
 
-    func collapseNowPlayingView() {
+    /**
+    Collapse the music player view
+    */
+    internal func collapseNowPlayingView() {
         if musicPlayerView.displayType == .None {
             return
         }
@@ -68,13 +75,19 @@ class PlaylistControlView: UIView {
         musicPlayerView.setNeedsLayout()
     }
 
-    func showANowPlayingView() {
+    /**
+    Show the small music player view if one is not displayed already
+    */
+    internal func showANowPlayingView() {
         if musicPlayerView.displayType == .None || musicPlayerView.displayType == .Start {
             self.showSmallNowPlayingView()
         }
     }
 
-    func showStartMusicPlayer() {
+    /**
+    Show the start button
+    */
+    internal func showStartMusicPlayer() {
         if musicPlayerView.displayType == .Start {
             return
         }
@@ -86,7 +99,10 @@ class PlaylistControlView: UIView {
         musicPlayerView.setNeedsLayout()
     }
 
-    func showSmallNowPlayingView() {
+    /**
+    Show the small music player
+    */
+    internal func showSmallNowPlayingView() {
         if musicPlayerView.displayType == .Small {
             return
         }
@@ -98,7 +114,10 @@ class PlaylistControlView: UIView {
         musicPlayerView.setNeedsUpdateConstraints()
     }
 
-    func showLargeNowPlayingView() {
+    /**
+    Show the large music player
+    */
+    internal func showLargeNowPlayingView() {
         if musicPlayerView.displayType == .Large {
             return
         }
@@ -110,7 +129,10 @@ class PlaylistControlView: UIView {
         musicPlayerView.setNeedsUpdateConstraints()
     }
 
-    func renderTopMenuBar() {
+    /**
+    Render the top menu bar
+    */
+    private func renderTopMenuBar() {
         historyButton = Style.iconButton()
         historyButton.setImage(UIImage(named: "menu-alt-256")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: .Normal)
         historyButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
@@ -124,16 +146,25 @@ class PlaylistControlView: UIView {
         self.addSubview(topMenuBar)
     }
 
-    func historyButtonPressed() {
+    /**
+    Handle the press of the history button
+    */
+    internal func historyButtonPressed() {
         playlistController.mm_drawerController.openDrawerSide(.Left, animated: true, completion: nil)
     }
 
-    func searchButtonPressed() {
+    /**
+    Handle the press of the search button
+    */
+    internal func searchButtonPressed() {
         playlistController.mm_drawerController.openDrawerSide(.Right, animated: true, completion: nil)
         // activate search?
     }
 
-    func renderBottomMenuBar() {
+    /**
+    Render the bottom menu bar
+    */
+    private func renderBottomMenuBar() {
         inviteButton = Style.iconButton()
         inviteButton.setImage(UIImage(named: "invite")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: .Normal)
         inviteButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
@@ -150,26 +181,33 @@ class PlaylistControlView: UIView {
 //        musicPlayerView.addGestureRecognizer(tapGestureRecognizer)
     }
 
+    /*
     func togglePlayerDisplaySize() {
         if musicPlayerView.displayType == .Large {
             self.showSmallNowPlayingView()
         } else if musicPlayerView.displayType == .Small {
             self.showLargeNowPlayingView()
         }
-    }
+    }*/
 
-    func leaveButtonPressed() {
-//        print("leave button pressed")
+    /**
+     Handle the leave button being pressed
+    */
+    internal func leaveButtonPressed() {
         NSNotificationCenter.defaultCenter().postNotificationName("leavePlaylist", object: nil)
-//        self.showLargeNowPlayingView()
-        // maybe we should re-render images
     }
 
-    func inviteButtonPressed() {
+    /**
+    Handle the invite button being pressed
+    */
+    internal func inviteButtonPressed() {
         playlistController.displayInviteController()
     }
 
-    func renderMenuBar(labelTitle: String, leftButton: UIButton, rightButton: UIButton) -> UIView {
+    /**
+    Render a menu bar (top or bottom) generically
+    */
+    private func renderMenuBar(labelTitle: String, leftButton: UIButton, rightButton: UIButton) -> UIView {
         let menuBar = UIView()
         menuBar.addSubview(leftButton)
         menuBar.addSubview(rightButton)
@@ -224,7 +262,10 @@ class PlaylistControlView: UIView {
         return menuBar
     }
 
-    func addConstraints() {
+    /**
+    Add all appropriate constraints
+    */
+    private func addConstraints() {
         topMenuBar.translatesAutoresizingMaskIntoConstraints = false
         musicPlayerView.translatesAutoresizingMaskIntoConstraints = false
         bottomMenuBar.translatesAutoresizingMaskIntoConstraints = false
