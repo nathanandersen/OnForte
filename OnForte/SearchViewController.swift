@@ -9,6 +9,14 @@
 import Foundation
 import UIKit
 
+/**
+ SearchViewController implements a search bar, a three-piece segment view to split
+ between Spotify, SoundCloud, and local music, and a table view in which to display the
+ data.
+ 
+ It uses the SearchHandler protocol to determine which source the table's data is derived from.
+ 
+ */
 class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDelegate {
 
     var navBar: UIView!
@@ -24,20 +32,10 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
 
     let searchBarHeight: CGFloat = 40
 
-    /*
-    let leftSelectedImage: UIImage = imageWithImage(UIImage(named: "spotify")!, scaledToSize: CGSizeMake(35, 35))
-    let leftImage: UIImage = imageWithImage(UIImage(named: "spotify_gray")!, scaledToSize: CGSizeMake(35, 35))
-    let centerSelectedImage: UIImage = imageWithImage(UIImage(named: "soundcloud")!, scaledToSize: CGSizeMake(35, 35))
-    let centerImage: UIImage = imageWithImage(UIImage(named: "soundcloud_gray")!, scaledToSize: CGSizeMake(35, 35))
-    let rightSelectedImage: UIImage = imageWithImage(UIImage(named: "itunes")!, scaledToSize: CGSizeMake(35, 35))
-    let rightImage: UIImage = imageWithImage(UIImage(named: "itunes_gray")!, scaledToSize: CGSizeMake(35, 35))
- */
-
     override func viewDidLoad() {
         super.viewDidLoad()
         let navHeight = centralNavigationController.navigationBar.bounds.maxY + UIApplication.sharedApplication().statusBarFrame.height
         self.view.frame = CGRectMake(UIScreen.mainScreen().bounds.width-drawerWidth, navHeight, drawerWidth, drawerHeight-navHeight)
-//        print(self.view.frame)
 
         self.view.backgroundColor = Style.whiteColor
         self.automaticallyAdjustsScrollViewInsets = false
@@ -45,24 +43,43 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
         initializeNavBar()
         initializeTableView()
         addConstraints()
+        addNotificationsToGlobalCenter()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchViewController.reloadTable), name: "reloadSearchResults", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchViewController.closeSearch), name: "completeSearch", object: nil)
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(SearchViewController.handlePan(_:)))
         self.view.addGestureRecognizer(panGestureRecognizer)
     }
 
-    func handlePan(gesture: UIPanGestureRecognizer) {
+    /**
+     Add the proper event listeners to the global center. 
+     - Attention: Events:
+        - reloadSearchResults -> data table reload
+        - completeSearch -> finish the search
+     */
+    private func addNotificationsToGlobalCenter() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchViewController.reloadTable), name: "reloadSearchResults", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchViewController.closeSearch), name: "completeSearch", object: nil)
+    }
+
+    /**
+     Handle a pan gesture. If swipe left, close the search.
+    */
+    internal func handlePan(gesture: UIPanGestureRecognizer) {
         let gesture = gesture.velocityInView(self.view)
         if gesture.x > 0 {
             self.closeSearch()
         }
     }
 
+    /**
+     Enable the search bar as first responder.
+    */
     func enableSearchBar() {
         self.searchBar.becomeFirstResponder()
     }
 
+    /**
+     Close the search, and clear it.
+    */
     func closeSearch() {
         self.searchBar.text = ""
         orderedSearchHandlers.forEach() { $0.clearSearch() }
@@ -71,12 +88,19 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
         self.mm_drawerController.closeDrawerAnimated(true, completion: nil)
     }
 
+    /**
+     Reload the table
+    */
     func reloadTable() {
         activityIndicator.stopAnimating()
         self.tableView.reloadData()
     }
 
-    func initializeNavBar(){
+    /**
+     Initialize the navbar
+     - postcondition: The navbar and all subcomponents are initialized
+    */
+    private func initializeNavBar(){
         navBar = UIView()
         navBar.backgroundColor = Style.whiteColor
         self.view.addSubview(navBar)
@@ -85,11 +109,15 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
         initializeSegmentedControl()
     }
 
+    /**
+     Initialize the search bar.
+     
+     - postcondition: The search bar and all subcomponents are initialized
+    */
     func initializeSearchBar() {
         searchBar = UISearchBar()
         searchBar.searchBarStyle = .Prominent
         searchBar.delegate = self
-//        searchBar.tintColor = Style.blackColor // sets the font stuffs
         searchBar.barTintColor = Style.whiteColor // sets the boundary tint color
         searchBar.showsBookmarkButton = false
         searchBar.showsCancelButton = false
@@ -99,18 +127,22 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
         initializeActivityIndicator()
     }
 
+    /**
+     Initialize the table view
+    */
     func initializeTableView() {
         tableView = UITableView()
         tableView.rowHeight = 85.0
         tableView.keyboardDismissMode = .OnDrag
-
         tableView.delegate = orderedSearchHandlers[0]
         tableView.dataSource = orderedSearchHandlers[0]
-
         tableView.registerClass(SongViewCell.self, forCellReuseIdentifier: "SongViewCell")
         self.view.addSubview(tableView)
     }
 
+    /**
+     Initialize the activity indicator
+    */
     func initializeActivityIndicator() {
         activityIndicator = UIActivityIndicatorView()
         activityIndicator.hidesWhenStopped = true
@@ -119,6 +151,10 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
         navBar.addSubview(activityIndicator)
     }
 
+    /**
+     Handle when the segmented bar changed index.
+     Set the table view data source / delegate to that SearchHandler
+    */
     func segmentedBarChangedValue(segment: UISegmentedControl) {
         let index = segment.selectedSegmentIndex
         tableView.dataSource = orderedSearchHandlers[index]
@@ -128,8 +164,10 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
         tableView.reloadData()
     }
 
-
-    func initializeSegmentedControl(){
+    /**
+     Initialize the segmented control
+    */
+    private func initializeSegmentedControl(){
         let imageSize = CGSizeMake(searchBarHeight - 5, searchBarHeight - 5)
         let leftImage: UIImage = imageWithImage(UIImage(named: "spotify_gray")!, scaledToSize: imageSize)
         let centerImage: UIImage = imageWithImage(UIImage(named: "soundcloud_gray")!, scaledToSize: imageSize)
@@ -143,13 +181,12 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
         segmentedControl.subviews[0].tintColor = Style.spotifyGreen
         segmentedControl.subviews[1].tintColor = Style.orangeColor
 //        segmentedControl.subviews[1].tintColor = Style.soundcloudOrange
-        // ^ maybe make this "soundcloud orange"
         segmentedControl.subviews[2].tintColor = Style.redColor
 
         navBar.addSubview(segmentedControl)
     }
 
-    func addConstraints() {
+    private func addConstraints() {
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         navBar.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false

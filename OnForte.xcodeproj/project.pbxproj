@@ -228,6 +228,10 @@
 		240AAFFD1CC091650061EB54 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				24959C2D1CC30AC2009F55B6 /* PlayButton.swift */,
+				24A931061CD24FE4008A7F29 /* FastForwardButton.swift */,
+				245789EF1CC173B000394C17 /* PlaylistControlView.swift */,
+				245789F71CC1C59600394C17 /* MusicPlayerView.swift */,
 				240AB04E1CC095180061EB54 /* ActivityIndicator.swift */,
 				240AB0541CC095280061EB54 /* SongTableViewCell.swift */,
 				240AB0551CC095280061EB54 /* SongTableViewCell.xib */,
@@ -292,12 +296,8 @@
 				240AB0251CC0944D0061EB54 /* PlaylistDrawerController.swift */,
 				240AB0261CC0944D0061EB54 /* PlaylistController.swift */,
 				240AB0271CC0944D0061EB54 /* PlaylistHistoryViewController.swift */,
-				245789EF1CC173B000394C17 /* PlaylistControlView.swift */,
-				245789F71CC1C59600394C17 /* MusicPlayerView.swift */,
-				245789FD1CC28A5500394C17 /* IntegratedMusicPlayer.swift */,
-				24959C2D1CC30AC2009F55B6 /* PlayButton.swift */,
 				240AB0191CC094020061EB54 /* SearchViewController.swift */,
-				24A931061CD24FE4008A7F29 /* FastForwardButton.swift */,
+				245789FD1CC28A5500394C17 /* IntegratedMusicPlayer.swift */,
 			);
 			name = Playlist;
 			sourceTree = "<group>";

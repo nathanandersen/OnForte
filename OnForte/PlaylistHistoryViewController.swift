@@ -9,19 +9,21 @@
 import Foundation
 import SwiftDDP
 
+/**
+ A view controller to display a table containing the playlist history.
+ 
+ */
 class PlaylistHistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var tableView: UITableView!
     var titleLabel: UILabel!
     var playedSongs = PlaylistSongHistory(name: "playedSongs")
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let navHeight = centralNavigationController.navigationBar.bounds.maxY + UIApplication.sharedApplication().statusBarFrame.height
         self.view.frame = CGRectMake(0, navHeight, drawerWidth, drawerHeight-navHeight)
-
 
         renderTitleLabel()
         renderTableView()
@@ -31,11 +33,17 @@ class PlaylistHistoryViewController: UIViewController, UITableViewDelegate, UITa
         Meteor.subscribe("playedSongs",params: paramObj)
     }
 
+    /**
+     PresentNewPlaylist prepares the controller for a new playlist, by reloading the (now empty) table
+    */
     func presentNewPlaylist() {
         self.updateTable()
     }
 
-    func renderTitleLabel() {
+    /**
+     Render the title label and add it to the view
+    */
+    private func renderTitleLabel() {
         titleLabel = Style.defaultLabel()
         titleLabel.text = "Playlist History"
         titleLabel.textAlignment = .Center
@@ -43,24 +51,26 @@ class PlaylistHistoryViewController: UIViewController, UITableViewDelegate, UITa
         self.view.addSubview(titleLabel)
     }
 
-    func renderTableView() {
+    /**
+     Render the table view and add it to the view
+    */
+    private func renderTableView() {
         tableView = UITableView()
         self.view.addSubview(tableView)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.allowsSelection = false
         tableView.registerClass(SongViewCell.self, forCellReuseIdentifier: "SongViewCell")
-//        tableView.registerClass(PlaylistHistoryTableViewCell.self, forCellReuseIdentifier: "PlaylistHistoryTableViewCell")
         tableView.rowHeight = 85.0
         tableView.tableHeaderView = nil;
         tableView.tableFooterView = UIView(frame: CGRectZero)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistHistoryViewController.updateTable), name:"reloadHistoryTable", object: nil)
-
-
-
     }
 
-    func addConstraints() {
+    /**
+     Add all constraints to the view.
+     */
+    private func addConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1, constant: self.view.frame.minY).active = true
@@ -84,7 +94,9 @@ class PlaylistHistoryViewController: UIViewController, UITableViewDelegate, UITa
         })
     }
 
-
+    /**
+     UITableViewDelegate protocol
+     */
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return playedSongs.count
     }
@@ -93,9 +105,7 @@ class PlaylistHistoryViewController: UIViewController, UITableViewDelegate, UITa
         let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell")! as! SongViewCell
         cell.selectionStyle = .None
         let songId = playedSongs.keys[indexPath.row]
-//        print(songId)
         let song = playedSongs.findOne(songId)
-//        print(song)
         cell.loadItem(songId,song: song!)
         return cell
     }
