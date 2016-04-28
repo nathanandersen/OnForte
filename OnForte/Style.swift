@@ -20,6 +20,13 @@ struct Style {
 
     static var menuButtonInset: CGFloat = 15
 
+    static var darkGrayColor = UIColor(
+        red: 147.0 / 255.0,
+        green: 149.0 / 255.0,
+        blue: 152.0 / 250.0,
+        alpha: 1
+    )
+    
     static var blackColor = UIColor.blackColor()
     static var clearColor = UIColor.clearColor()
     static var grayColor = UIColor.grayColor()

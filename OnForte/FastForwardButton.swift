@@ -8,85 +8,24 @@
 
 import Foundation
 
-private let darkGray = UIColor(
-    red: 147.0 / 255.0,
-    green: 149.0 / 255.0,
-    blue: 152.0 / 250.0,
-    alpha: 1
-)
-
-func drawFastForward(rect: CGRect) -> UIBezierPath {
-    let totalWidth: CGFloat = 0.35
-    let singleTriangleWidth = totalWidth / 2
-    let heightProportion: CGFloat = 0.17
-
-    let midY = CGRectGetMidY(rect)
-    let midX = CGRectGetMidX(rect)
-
-    let leftX = CGRectGetWidth(rect) * (0.5 - singleTriangleWidth)
-    let rightX = CGRectGetWidth(rect) * (0.5 + singleTriangleWidth)
-    let bottomY = (midY - CGRectGetHeight(rect) * heightProportion)
-    let topY = (midY + CGRectGetHeight(rect) * heightProportion)
-
-    let path = UIBezierPath()
-    path.lineJoinStyle = CGLineJoin.Round
-    path.moveToPoint(CGPointMake(leftX, midY))
-
-    path.addLineToPoint(CGPointMake(leftX, bottomY))
-    path.addLineToPoint(CGPointMake(midX, midY))
-    path.addLineToPoint(CGPointMake(leftX, topY))
-    path.addLineToPoint(CGPointMake(leftX, midY))
-    path.closePath()
-
-    path.moveToPoint(CGPointMake(midX, midY))
-    path.addLineToPoint(CGPointMake(midX, bottomY))
-    path.addLineToPoint(CGPointMake(rightX, midY))
-    path.addLineToPoint(CGPointMake(midX, topY))
-    path.addLineToPoint(CGPointMake(midX, midY))
-    path.closePath()
-
-    /*
-    let midY = CGRectGetMidY(rect)
-
-    let leftX = CGRectGetWidth(rect) * 0.4107
-
-    let path = UIBezierPath()
-    path.lineJoinStyle = CGLineJoin.Round
-    path.moveToPoint(CGPointMake(leftX, midY))
-    path.addLineToPoint(CGPointMake(leftX, (midY - CGRectGetHeight(rect) * 0.17)))
-    path.addLineToPoint(CGPointMake(leftX + (CGRectGetWidth(rect) * 0.2322), midY))
-    path.addLineToPoint(CGPointMake(leftX, (midY + CGRectGetHeight(rect) * 0.17)))
-    path.addLineToPoint(CGPointMake(leftX, midY))
-*/
-    return path
-}
-
+/**
+ A circular fast-forward button, with a blurred background.
+ 
+ */
 class FastForwardButton: UIButton {
 
     private let kInnerRadiusScaleFactor = CGFloat(0.05)
-    private let kDefaultFFColor           = darkGray
+    private let kDefaultFFColor           = Style.darkGrayColor
     private var ffShapeLayer: CAShapeLayer = CAShapeLayer()
-    
+
     override func drawRect(rect: CGRect) {
 
-        // figure out how this actually draws the shenanigans
-//        let midY = CGRectGetMidY(rect)
-//        let playLeftX = CGRectGetWidth(rect) * 0.4107
-
-        let playPath = drawFastForward(rect)
-/*        let playPath = UIBezierPath()
-        playPath.lineJoinStyle = CGLineJoin.Round
-        playPath.moveToPoint(CGPointMake(playLeftX, midY))
-        playPath.addLineToPoint(CGPointMake(playLeftX, (midY - CGRectGetHeight(rect) * 0.17)))
-        playPath.addLineToPoint(CGPointMake(playLeftX + (CGRectGetWidth(rect) * 0.2322), midY))
-        playPath.addLineToPoint(CGPointMake(playLeftX, (midY + CGRectGetHeight(rect) * 0.17)))
-        playPath.addLineToPoint(CGPointMake(playLeftX, midY))*/
+        let playPath = drawFastForwardIcon(rect)
 
         ffShapeLayer.path = playPath.CGPath
         ffShapeLayer.strokeColor = kDefaultFFColor.CGColor
         ffShapeLayer.fillColor = kDefaultFFColor.CGColor
         self.layer.addSublayer(ffShapeLayer)
-
 
         // draw a circle
         func d2R(degrees: CGFloat) -> CGFloat {
@@ -109,10 +48,47 @@ class FastForwardButton: UIButton {
         let maskForPath = CAShapeLayer()
         maskForPath.path = progressArc()
         self.layer.mask = maskForPath
-        // this masks the background of the progress bar circle
-        // (sets everything else to be transparent)
-
-        // add the image to the view
     }
+
+
+    /**
+     Draw the two-triangle fast forward icon using a Bezier Path.
+     
+     - parameters:
+        - rect: The CGRect in which to draw the icon.
+     - returns: The fast forward icon
+    */
+    func drawFastForwardIcon(rect: CGRect) -> UIBezierPath {
+        let totalWidth: CGFloat = 0.35
+        let singleTriangleWidth = totalWidth / 2
+        let heightProportion: CGFloat = 0.17
+
+        let midY = CGRectGetMidY(rect)
+        let midX = CGRectGetMidX(rect)
+
+        let leftX = CGRectGetWidth(rect) * (0.5 - singleTriangleWidth)
+        let rightX = CGRectGetWidth(rect) * (0.5 + singleTriangleWidth)
+        let bottomY = (midY - CGRectGetHeight(rect) * heightProportion)
+        let topY = (midY + CGRectGetHeight(rect) * heightProportion)
+
+        let path = UIBezierPath()
+        path.lineJoinStyle = CGLineJoin.Round
+        path.moveToPoint(CGPointMake(leftX, midY))
+
+        path.addLineToPoint(CGPointMake(leftX, bottomY))
+        path.addLineToPoint(CGPointMake(midX, midY))
+        path.addLineToPoint(CGPointMake(leftX, topY))
+        path.addLineToPoint(CGPointMake(leftX, midY))
+        path.closePath()
+
+        path.moveToPoint(CGPointMake(midX, midY))
+        path.addLineToPoint(CGPointMake(midX, bottomY))
+        path.addLineToPoint(CGPointMake(rightX, midY))
+        path.addLineToPoint(CGPointMake(midX, topY))
+        path.addLineToPoint(CGPointMake(midX, midY))
+        path.closePath()
+        return path
+    }
+
 
 }

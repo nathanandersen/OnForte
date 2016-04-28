@@ -11,6 +11,11 @@ import MediaPlayer
 import AVFoundation
 import SwiftDDP
 
+/**
+ IntegratedMusicPlayer is a 3-piece integrated music player that brings together the playing
+ capabilities of Spotify, SoundCloud, and local music stored on your phone.
+ 
+ */
 class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingPlaybackDelegate {
 
     var spotifyPlayer: SPTAudioStreamingController
@@ -32,6 +37,9 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     }
 
     // returns the new playing status
+    /**
+     A function to toggle the playing status of the player.
+     */
     func togglePlayingStatus() -> Bool {
         if let currentSong = nowPlaying {
             switch(currentSong.service!) {
@@ -55,10 +63,33 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
 
     }
 
+    /**
+     This method hails from the AVAudioPlayerDelegate protocol. It is called when
+     the AVAudioPlayer finished playing a song.
+     
+     Inside, we simply play the next song for autoplay.
+     
+     - parameters:
+        - player: The AVAudioPlayer
+        - flag: A boolean noting whether or not the player finished successfully
+ 
+    */
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
         playNextSong()
     }
 
+    /**
+     This function calls the necessary Meteor methods in order to properly register
+     the next song with the server.
+     
+     - parameters: 
+        - song: the song that will be registered on the server
+     
+     - attention: Meteor Methods:
+     registerSongAsPlayed: add the song to the PlayedSongs database
+     removeSongFromQueue: remove the song from the QueueSongs database
+     setSongAsPlaying: add the song as now playing to the Playlists database
+    */
     func registerNextSongWithServer(song: Song ) {
         let paramObj = [playlistId!,
                         (song.title != nil) ? song.title! : "",
@@ -69,10 +100,19 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
 
         Meteor.call("registerSongAsPlayed",params: paramObj,callback: nil)
         Meteor.call("removeSongFromQueue",params: [song.id!],callback: nil)
-        Meteor.call("markSongAsPlayed",params: [song.id!],callback: nil)
+
+        let songParamObj: [AnyObject] = [playlistId!,song.getSongDocFields()]
+        Meteor.call("setSongAsPlaying",params: songParamObj,callback: nil)
     }
 
-    // returns success or failure
+    /**
+     This function gets the next song from the playlist controller, then tries to play it, calling
+     the other methods in this class depending on the platform.
+     
+     It also tells the iPhone that music is playing in the background.
+     
+     - returns: whether or not the music is successfully playing -> from the callbacks
+    */
     func playNextSong() -> Bool {
         if let nextSong = playlistController.getNextSong() {
             // set backgrounding
@@ -109,19 +149,28 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
         }
     }
 
-
+    /**
+     This method hails from the MPMusicPlayer delegate, it is called when the MPMusicPlayer
+     changes state.
+     
+     When the music is stopped, we play the next song.
+    */
     func handlePlaybackStateChanged(notification: NSNotification) {
         if (self.localPlayer.playbackState == .Stopped) {
             self.playNextSong()
         }
     }
 
+    /**
+     Stop all music, on any platforms that are playing.
+     
+     - bug: SoundCloud stopping is very slow.
+    */
     func stop() {
         spotifyPlayer.setIsPlaying(false,callback: nil)
-        //        spotifyPlayer?.stop(nil)
-        print("1")
+//        print("1")
         soundcloudPlayer?.stop()
-        print("2")
+//        print("2")
         localPlayer.stop()
         // ^ this line takes a long time
         print("3")
@@ -134,6 +183,13 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
         print("4")
     }
 
+    /**
+     Called when we want to play a song from the iPhone's local music
+     
+     - precondition: `nowPlaying` must have `Service.iTunes`
+     
+     - returns: whether playing was successful
+    */
     func playLocalSong() -> Bool {
         let index: Int = Int(nowPlaying!.trackId!)!
         let nowPlayingItem: MPMediaItem! = allLocalITunesOriginals![index]
@@ -145,6 +201,12 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
         return true
     }
 
+    /**
+     Called when we want to play a song from SoundCloud.
+
+     - precondition: `nowPlaying` must have `Service.SoundCloud`
+     - returns: whether playing was successful
+    */
     func playSoundCloud() -> Bool {
         let url = "https://api.soundcloud.com/tracks/" + (nowPlaying?.trackId)! + "/stream?client_id=50ea1a6c977ecf3fb47ecaf6078c388b"
         print(url)
@@ -165,7 +227,12 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             return false
         }
     }
+    /**
+     Called when we want to play a song from Spotify.
 
+     - precondition: `nowPlaying` must have `Service.Spotify`
+     - returns: whether playing was successful
+     */
     func playSpotify() -> Bool {
         if spotifySession == nil || !spotifySession!.isValid() {
             print("not logged into spotify!")
@@ -190,10 +257,16 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
         return true
     }
 
-
+    /**
+     This method hails from the SPTAudioStreamingPlaybackDelegate.
+     It is called when the audioStreaming changes.
+     
+     It plays the next song.
+ 
+    */
     func audioStreaming(audioStreaming: SPTAudioStreamingController!, didChangeToTrack trackMetadata: [NSObject : AnyObject]!) {
         if trackMetadata == nil {
-            print("song ended")
+            playNextSong()
         }
     }
     
