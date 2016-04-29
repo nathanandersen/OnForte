@@ -93,11 +93,3 @@ enum VotingStatus {
         }
     }
 }
-
-func imageWithImage(image: UIImage, scaledToSize newSize: CGSize) -> UIImage {
-    UIGraphicsBeginImageContext(newSize)
-    image.drawInRect(CGRectMake(0,0,newSize.width,newSize.height))
-    let newImage = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-    return newImage
-}
