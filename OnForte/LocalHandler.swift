@@ -51,7 +51,7 @@ class LocalHandler: NSObject, SearchHandler {
 
     func addSongToPlaylist(song: Song) {
         Meteor.call("addSongWithAlbumArtURL",params: song.getSongDocFields(),callback: {(result: AnyObject?, error: DDPError?) in
-            activityIndicator.showComplete("Added")
+            activityIndicator.showComplete("")
             NSNotificationCenter.defaultCenter().postNotificationName("completeSearch", object: nil)
         })
     }

@@ -133,7 +133,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return
                 }
                 spotifySession = session
-                activityIndicator.showComplete("Logged in")
+                activityIndicator.showComplete("")
                 NSNotificationCenter.defaultCenter().postNotificationName("didLogInToSpotify", object: nil)
             })
             return true

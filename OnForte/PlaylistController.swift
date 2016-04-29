@@ -22,6 +22,8 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     var sortedSongs: [SongDocument] = []
     var playlistControlView: PlaylistControlView!
 
+//    var alertController: UIAlertController!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated:false)
@@ -78,7 +80,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     */
     internal func songWasAdded() {
         dispatch_async(dispatch_get_main_queue(), {
-            activityIndicator.showComplete("Song added")
+            activityIndicator.showComplete("")
             self.updateTable()
         })
     }
