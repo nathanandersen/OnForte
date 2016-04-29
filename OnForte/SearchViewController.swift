@@ -168,10 +168,9 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
      Initialize the segmented control
     */
     private func initializeSegmentedControl(){
-        let imageSize = CGSizeMake(searchBarHeight - 5, searchBarHeight - 5)
-        let leftImage: UIImage = imageWithImage(UIImage(named: "spotify_gray")!, scaledToSize: imageSize)
-        let centerImage: UIImage = imageWithImage(UIImage(named: "soundcloud_gray")!, scaledToSize: imageSize)
-        let rightImage: UIImage = imageWithImage(UIImage(named: "itunes_gray")!, scaledToSize: imageSize)
+        let leftImage: UIImage = UIImage(named: "spotify_gray")!
+        let centerImage: UIImage = UIImage(named: "soundcloud_gray")!
+        let rightImage: UIImage = UIImage(named: "itunes_gray")!
 
         segmentedControl = UISegmentedControl(items: [leftImage,centerImage,rightImage])
         segmentedControl.selectedSegmentIndex = 0
