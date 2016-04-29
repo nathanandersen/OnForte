@@ -35,7 +35,7 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
         renderProfileButton()
         renderLeaveProfileButton()
         self.navigationItem.setHidesBackButton(true, animated: true)
-        showProfileButton()
+//        showProfileButton()
     }
 
     /**
@@ -150,6 +150,9 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 // completion block
                 self.playlistController.updatePlaylistViewController()
+                if isHost {
+                    self.showProfileButton()
+                }
             })
         })
         activityIndicator.showComplete("")
@@ -184,12 +187,21 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
     }
 
     /**
+     Hide the profile button
+    */
+    private func hideProfileButton() {
+        self.rightButtonView.subviews.forEach({$0.removeFromSuperview()})
+    }
+
+    /**
      Leave the profile (by popping the profile view controller which is active), and
      then re-display the profile button
     */
     func leaveProfile() {
         self.popViewControllerAnimated(true)
-        showProfileButton()
+        if isHost {
+            showProfileButton()
+        }
     }
 
     /**
@@ -197,6 +209,8 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
      */
     func leavePlaylist() {
         self.popViewControllerAnimated(true)
+        hideProfileButton()
+
     }
 
     func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {

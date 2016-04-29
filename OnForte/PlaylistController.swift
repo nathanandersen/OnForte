@@ -39,6 +39,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         sortedSongs = []
         self.updateTable()
         self.addNotificationsToGlobalCenter()
+        self.playlistControlView.updatePlaylistInformation()
     }
 
     /**

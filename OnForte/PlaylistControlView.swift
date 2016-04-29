@@ -43,6 +43,20 @@ class PlaylistControlView: UIView {
     }
 
     /**
+     Update the displayed playlist information
+     */
+    internal func updatePlaylistInformation() {
+        print("hmm")
+        if idLabel != nil {
+            print("happened")
+            self.idLabel.text = playlistId
+        }
+        if titleLabel != nil {
+            print("yow!")
+            self.titleLabel.text = playlistName
+        }
+    }
+    /**
     Set the parent PlaylistController and pass on to the children
     */
     internal func setParentPlaylistController(playlistC: PlaylistController) {
@@ -142,7 +156,9 @@ class PlaylistControlView: UIView {
         searchButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         searchButton.addTarget(self, action: #selector(PlaylistControlView.searchButtonPressed), forControlEvents: .TouchUpInside)
 
-        topMenuBar = renderMenuBar(playlistName, leftButton: historyButton, rightButton: searchButton)
+        titleLabel = Style.defaultLabel()
+        titleLabel.text = playlistName
+        topMenuBar = renderMenuBar(titleLabel, leftButton: historyButton, rightButton: searchButton)
         self.addSubview(topMenuBar)
     }
 
@@ -173,7 +189,9 @@ class PlaylistControlView: UIView {
         leaveButton.setImage(UIImage(named: "delete")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: .Normal)
         leaveButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         leaveButton.addTarget(self, action: #selector(PlaylistControlView.leaveButtonPressed), forControlEvents: .TouchUpInside)
-        bottomMenuBar = renderMenuBar(playlistId!, leftButton: leaveButton, rightButton: inviteButton)
+        idLabel = Style.defaultLabel()
+        idLabel.text = playlistId!
+        bottomMenuBar = renderMenuBar(idLabel, leftButton: leaveButton, rightButton: inviteButton)
         self.addSubview(bottomMenuBar)
 
 //        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PlaylistControlView.togglePlayerDisplaySize))
@@ -207,12 +225,12 @@ class PlaylistControlView: UIView {
     /**
     Render a menu bar (top or bottom) generically
     */
-    private func renderMenuBar(labelTitle: String, leftButton: UIButton, rightButton: UIButton) -> UIView {
+    private func renderMenuBar(label: UILabel, leftButton: UIButton, rightButton: UIButton) -> UIView {
         let menuBar = UIView()
         menuBar.addSubview(leftButton)
         menuBar.addSubview(rightButton)
-        let label = Style.defaultLabel()
-        label.text = labelTitle
+//        let label = Style.defaultLabel()
+//        label.text = labelTitle
         menuBar.addSubview(label)
 
         leftButton.translatesAutoresizingMaskIntoConstraints = false
