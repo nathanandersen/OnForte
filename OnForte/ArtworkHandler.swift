@@ -8,7 +8,7 @@
 
 import Foundation
 import Alamofire
-import SwiftyJSON
+//import SwiftyJSON
 
 /**
  This is a cache for artwork music
@@ -19,6 +19,35 @@ class ArtworkHandler {
 
     init() {
         artworkCache = NSCache()
+    }
+
+
+    /**
+     Lookup artwork, if it's in the cache return the UIImage, else search it, cache it, and return it.
+    */
+
+    func lookupArtwork(lookupURL: NSURL?) -> UIImage? {
+        if let url = lookupURL {
+            if let image = self.artworkCache.objectForKey(url) as? UIImage {
+                print("cache hit for image")
+                return image
+            } else {
+                print("cache miss")
+                if let albumArtData = NSData(contentsOfURL: url){
+                    if let albumArt = UIImage(data: albumArtData){
+                        self.artworkCache.setObject(albumArt, forKey: url)
+                        return albumArt
+                    }
+                    print("album art no good")
+                }
+                print("couldn't make data")
+            }
+        } else {
+            print("url was invalid")
+        }
+
+
+        return UIImage()
     }
 
     /**
