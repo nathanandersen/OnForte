@@ -18,11 +18,15 @@ enum Storyboard: String {
     case Onboarding = "Onboarding"
 }
 
+let onboardingKey = "onboardingShown"
+//let autoRefresh = "autoRefreshEnabled"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var launchURL: String? = nil
+    var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
 
     // iTunes: load and parse all songs from local library
     func loadAllLocalSongs() {
@@ -79,10 +83,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         loadAllLocalSongs()
 
+        defaults.registerDefaults(
+            [onboardingKey: false]
+        )
 
-        Settings.registerDefaults()
-
-        if( !Settings.groupDefaults().boolForKey(onboardingKey)) {
+        if ( !defaults.boolForKey(onboardingKey)) {
             launchStoryboard(Storyboard.Main)
         } else {
             launchStoryboard(Storyboard.Main)

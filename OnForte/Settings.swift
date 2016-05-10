@@ -9,13 +9,14 @@
 import Foundation
 
 
-let onboardingKey = "onboardingShown"
-let autoRefresh = "autoRefreshEnabled"
-
+//let onboardingKey = "onboardingShown"
+//let autoRefresh = "autoRefreshEnabled"
+/*
 class Settings {
     class func groupDefaults() -> NSUserDefaults {
         return NSUserDefaults.standardUserDefaults()
     }
+
     class func registerDefaults() {
         let defaults = groupDefaults()
         defaults.registerDefaults(
@@ -23,4 +24,4 @@ class Settings {
                 autoRefresh: true]
         )
     }
-}
+}*/

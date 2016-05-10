@@ -40,7 +40,6 @@
 		240AB0371CC094770061EB54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240AB0361CC094770061EB54 /* Main.storyboard */; };
 		240AB0391CC094830061EB54 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240AB0381CC094830061EB54 /* LaunchScreen.storyboard */; };
 		240AB03B1CC094870061EB54 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240AB03A1CC094870061EB54 /* Onboarding.storyboard */; };
-		240AB04C1CC094CD0061EB54 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB04A1CC094CD0061EB54 /* Settings.swift */; };
 		240AB04D1CC094CD0061EB54 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB04B1CC094CD0061EB54 /* Checkbox.swift */; };
 		240AB04F1CC095180061EB54 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB04E1CC095180061EB54 /* ActivityIndicator.swift */; };
 		240AB0561CC095280061EB54 /* SongTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0541CC095280061EB54 /* SongTableViewCell.swift */; };
@@ -118,7 +117,6 @@
 		240AB0381CC094830061EB54 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		240AB03A1CC094870061EB54 /* Onboarding.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		240AB03C1CC094900061EB54 /* Forte-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Forte-Bridging-Header.h"; sourceTree = "<group>"; };
-		240AB04A1CC094CD0061EB54 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		240AB04B1CC094CD0061EB54 /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		240AB04E1CC095180061EB54 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		240AB0541CC095280061EB54 /* SongTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongTableViewCell.swift; sourceTree = "<group>"; };
@@ -209,8 +207,6 @@
 				507BAFAD1CD1AC340059F31D /* Keys.plist */,
 				240AAFD51CC08DA10061EB54 /* Info.plist */,
 				240AB03C1CC094900061EB54 /* Forte-Bridging-Header.h */,
-				240AB04A1CC094CD0061EB54 /* Settings.swift */,
-				240AB04B1CC094CD0061EB54 /* Checkbox.swift */,
 			);
 			path = OnForte;
 			sourceTree = "<group>";
@@ -321,6 +317,7 @@
 		243481761CE23C5E00402A4A /* Invitation */ = {
 			isa = PBXGroup;
 			children = (
+				240AB04B1CC094CD0061EB54 /* Checkbox.swift */,
 				240AB0301CC0946F0061EB54 /* InvitationViewController.swift */,
 				240AB05A1CC095300061EB54 /* ContactTableViewCell.swift */,
 			);
@@ -560,7 +557,6 @@
 				240AB0201CC094020061EB54 /* SpotifyHandler.swift in Sources */,
 				240AB0351CC0946F0061EB54 /* RootViewController.swift in Sources */,
 				240AB00A1CC092790061EB54 /* SongCollection.swift in Sources */,
-				240AB04C1CC094CD0061EB54 /* Settings.swift in Sources */,
 				24A931071CD24FE4008A7F29 /* FastForwardButton.swift in Sources */,
 				240AB01E1CC094020061EB54 /* SearchViewController.swift in Sources */,
 				240AB00E1CC092BA0061EB54 /* MeteorSong.swift in Sources */,

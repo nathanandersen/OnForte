@@ -68,7 +68,8 @@ class OnboardingFinalViewController : UIViewController {
     }
     
     func doneOnboarding(sender: UIButton) {
-        Settings.groupDefaults().setBool(true, forKey: onboardingKey)
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: onboardingKey)
+//        Settings.groupDefaults().setBool(true, forKey: onboardingKey)
         let ad = UIApplication.sharedApplication().delegate as! AppDelegate
         ad.launchStoryboard(Storyboard.Main)
         
