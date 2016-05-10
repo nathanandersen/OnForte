@@ -147,7 +147,12 @@ class SongTableViewCell: SWTableViewCell {
                     break
                 }
             } else {
-                artworkHandler.lookupForCell(NSURL(string: url)!,imageView: songImage,cell: self)
+                ArtworkHandler.lookupArtworkAsync(NSURL(string: url)!, completionHandler: { (image: UIImage) in
+                    self.songImage.image = image
+                    self.setNeedsLayout()
+                })
+
+//                artworkHandler.lookupForCell(NSURL(string: url)!,imageView: songImage,cell: self)
             }
         }
         platformImage.image = UIImage(named: platformSource)

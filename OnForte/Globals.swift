@@ -18,7 +18,6 @@ var keys: NSDictionary?
 var votes = [String:VotingStatus]()
 var isHost: Bool = false
 var playlistName: String!
-var artworkHandler = ArtworkHandler()
 
 var allLocalITunes: [Song] = []
 var allLocalITunesOriginals: [MPMediaItem]? = []

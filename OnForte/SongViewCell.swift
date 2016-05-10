@@ -113,7 +113,11 @@ class SongViewCell: UITableViewCell {
             if url == "" {
                 artworkView.image = UIImage(named: platformSource)
             } else {
-                artworkHandler.lookupForCell((song.artworkURL)!,imageView: artworkView,cell: self)
+                ArtworkHandler.lookupArtworkAsync(song.artworkURL!, completionHandler: { (image: UIImage) in
+                    self.artworkView.image = image
+                    self.setNeedsLayout()
+                })
+//                artworkHandler.lookupForCell((song.artworkURL)!,imageView: artworkView,cell: self)
             }
         }
         platformImageView.image = UIImage(named: platformSource)
@@ -130,7 +134,11 @@ class SongViewCell: UITableViewCell {
             if url == "" {
                 artworkView.image = UIImage(named: platformSource)
             } else {
-                artworkHandler.lookupForCell(NSURL(string: url)!,imageView: artworkView,cell: self)
+                ArtworkHandler.lookupArtworkAsync(NSURL(string: url)!, completionHandler: { (image: UIImage) in
+                    self.artworkView.image = image
+                    self.setNeedsLayout()
+                })
+//                artworkHandler.lookupForCell(NSURL(string: url)!,imageView: artworkView,cell: self)
             }
         }
         platformImageView.image = UIImage(named: platformSource)
