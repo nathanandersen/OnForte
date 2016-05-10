@@ -149,9 +149,7 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 // completion block
                 self.playlistController.updatePlaylistViewController()
-                if isHost {
-                    self.showProfileButton()
-                }
+                self.showProfileButton()
             })
         })
         activityIndicator.showComplete("")
@@ -161,9 +159,13 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
      Push the profile view controller, and hide the profile button
     */
     func presentProfile() {
-        profileController.updateProfileDisplay()
+        CATransaction.begin()
         self.pushViewController(profileController, animated: true)
-        showLeaveProfileButton()
+        CATransaction.setCompletionBlock({
+            self.profileController.updateProfileDisplay()
+            self.showLeaveProfileButton()
+        })
+        CATransaction.commit()
     }
     /**
      Display the profile button
@@ -198,9 +200,7 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
     */
     func leaveProfile() {
         self.popViewControllerAnimated(true)
-        if isHost {
-            showProfileButton()
-        }
+        showProfileButton()
     }
 
     /**

@@ -12,7 +12,7 @@ import SafariServices
 /**
  The ProfileViewController controls the user profile
  */
-class ProfileViewController: UIViewController, SPTAuthViewDelegate {
+class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet var hostSettingsView: UIView!
 
@@ -25,16 +25,24 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate {
     @IBOutlet var iTunesImageView: UIImageView!
     @IBOutlet var iTunesInfoView: UIView!
 
+    @IBOutlet var profileImage: UIImageView!
     let sptAuthenticator = SPTAuth.defaultInstance()
 
 
     var timer: NSTimer!
 
+    @IBOutlet var showHostSettingsConstraintTop: NSLayoutConstraint!
+
+    @IBOutlet var trailingMarginOfLogins: NSLayoutConstraint!
+    @IBOutlet var internalMarginBetweenImageAndLogins: NSLayoutConstraint!
     var showHostSettingsConstraint: NSLayoutConstraint!
     var hideHostSettingsConstraint: NSLayoutConstraint!
 
+    var centerProfileImageConstraint: NSLayoutConstraint!
+
     var safariVC: SFSafariViewController!
 
+    @IBOutlet var tableView: UITableView!
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -43,16 +51,29 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate {
 
 
         addVariableConstraints()
+        renderTableView()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileViewController.didLogInToSpotify), name: "didLogInToSpotify", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileViewController.displayHostSettings), name: "displayHostSettings", object: nil)
         if isHost {
             displayHostSettings()
         }
         self.navigationItem.setHidesBackButton(true, animated: true)
+
+
+    }
+
+    func renderTableView() {
+        tableView.registerClass(SongViewCell.self, forCellReuseIdentifier: "SongViewCell")
+        tableView.delegate = self
+        tableView.dataSource = self
     }
 
     func updateProfileDisplay() {
-        print("merp")
+        if isHost {
+            displayHostSettings()
+        } else {
+            hideHostSettings()
+        }
     }
 
 
@@ -60,8 +81,6 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate {
         print("Logged In")
         spotifySession = session
         self.didLogInToSpotify()
-        //        self.displaySpotifyLogin()
-        //        print(session.expirationDate)
 
     }
 
@@ -86,27 +105,35 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate {
     }
 
     func addVariableConstraints() {
-        showHostSettingsConstraint = NSLayoutConstraint(item: hostSettingsView,
-                                                        attribute: .CenterY,
-                                                        relatedBy: .Equal,
-                                                        toItem: self.view,
-                                                        attribute: .CenterY,
-                                                        multiplier: 1,
-                                                        constant: 0)
-
         hideHostSettingsConstraint = NSLayoutConstraint(item: hostSettingsView,
-                                                        attribute: .Bottom,
+                                                        attribute: .Left,
                                                         relatedBy: .Equal,
                                                         toItem: self.view,
-                                                        attribute: .Top,
+                                                        attribute: .Right,
                                                         multiplier: 1,
-                                                        constant: 0)
+                                                        constant: 50)
+        hideHostSettingsConstraint.identifier = "hide host settings off the right"
+        centerProfileImageConstraint = NSLayoutConstraint(item: profileImage, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
+        centerProfileImageConstraint.identifier = "center the profile image"
+    }
+
+    func hideHostSettings() {
+        //        updateLogins()
+        showHostSettingsConstraintTop.active = false
+        internalMarginBetweenImageAndLogins.active = false
+        trailingMarginOfLogins.active = false
+        hideHostSettingsConstraint.active = true
+        centerProfileImageConstraint.active = true
+        self.updateViewConstraints()
     }
 
     func displayHostSettings() {
         updateLogins()
+        centerProfileImageConstraint.active = false
         hideHostSettingsConstraint.active = false
-        showHostSettingsConstraint.active = true
+        trailingMarginOfLogins.active = true
+        internalMarginBetweenImageAndLogins.active = true
+        showHostSettingsConstraintTop.active = true
         self.updateViewConstraints()
     }
 
@@ -221,5 +248,38 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate {
         let constraints = Style.constrainToBoundsOfFrame(label, parentView: infoView)
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activateConstraints(constraints)
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+//        let favorites = MenuHandler.getFavorites()
+
+        let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell") as! SongViewCell
+//        cell.nameLabel.text = favorites[indexPath.row]
+        return cell;
+    }
+
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+//            let favorite = MenuHandler.getFavorites()[indexPath.row]
+//            MenuHandler.removeItemFromFavorites(favorite)
+//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        } else if editingStyle == .Insert {
+
+        }
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    @IBAction func didSelectSegmentedControl(sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            // suggestions
+        } else {
+            // favorites
+        }
     }
 }

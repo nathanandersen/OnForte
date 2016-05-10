@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+    <entity name="FavoritedSong" representedClassName=".FavoritedSong" syncable="YES">
+        <attribute name="annotation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="artworkURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="service" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trackId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="SuggestedSong" representedClassName=".SuggestedSong" syncable="YES">
         <attribute name="annotation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="artworkURL" optional="YES" attributeType="String" syncable="YES"/>
@@ -9,5 +16,6 @@
     </entity>
     <elements>
         <element name="SuggestedSong" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="FavoritedSong" positionX="-63" positionY="18" width="128" height="120"/>
     </elements>
 </model>

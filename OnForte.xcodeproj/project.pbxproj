@@ -53,6 +53,8 @@
 		245789F01CC173B000394C17 /* PlaylistControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245789EF1CC173B000394C17 /* PlaylistControlView.swift */; };
 		245789F81CC1C59600394C17 /* MusicPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245789F71CC1C59600394C17 /* MusicPlayerView.swift */; };
 		245789FE1CC28A5500394C17 /* IntegratedMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245789FD1CC28A5500394C17 /* IntegratedMusicPlayer.swift */; };
+		246232F81CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246232F61CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift */; };
+		246232F91CE28406004C63E8 /* FavoritedSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246232F71CE28406004C63E8 /* FavoritedSong.swift */; };
 		24959C2E1CC30AC2009F55B6 /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24959C2D1CC30AC2009F55B6 /* PlayButton.swift */; };
 		24A931071CD24FE4008A7F29 /* FastForwardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A931061CD24FE4008A7F29 /* FastForwardButton.swift */; };
 		3330D23D6124A74940E85D23 /* Pods_OnForte.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F30BD231CB5DCD1F61B26BA /* Pods_OnForte.framework */; };
@@ -130,6 +132,8 @@
 		245789EF1CC173B000394C17 /* PlaylistControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistControlView.swift; sourceTree = "<group>"; };
 		245789F71CC1C59600394C17 /* MusicPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayerView.swift; sourceTree = "<group>"; };
 		245789FD1CC28A5500394C17 /* IntegratedMusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegratedMusicPlayer.swift; sourceTree = "<group>"; };
+		246232F61CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FavoritedSong+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		246232F71CE28406004C63E8 /* FavoritedSong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritedSong.swift; sourceTree = "<group>"; };
 		24959C2D1CC30AC2009F55B6 /* PlayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
 		24A931061CD24FE4008A7F29 /* FastForwardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FastForwardButton.swift; sourceTree = "<group>"; };
 		3463E503218EC6DD66A191F2 /* Pods-OnForte.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnForte.release.xcconfig"; path = "Pods/Target Support Files/Pods-OnForte/Pods-OnForte.release.xcconfig"; sourceTree = "<group>"; };
@@ -328,6 +332,8 @@
 			children = (
 				2434816D1CE23ACC00402A4A /* SuggestedSong+CoreDataProperties.swift */,
 				2434816E1CE23ACC00402A4A /* SuggestedSong.swift */,
+				246232F61CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift */,
+				246232F71CE28406004C63E8 /* FavoritedSong.swift */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -543,6 +549,7 @@
 				245789F81CC1C59600394C17 /* MusicPlayerView.swift in Sources */,
 				240AB00C1CC0929F0061EB54 /* SongDocument.swift in Sources */,
 				240AB05E1CC095300061EB54 /* ContactTableViewCell.swift in Sources */,
+				246232F81CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift in Sources */,
 				240AAFCA1CC08DA10061EB54 /* AppDelegate.swift in Sources */,
 				240AB02F1CC094630061EB54 /* OnboardingInitialViewController.swift in Sources */,
 				240AB0001CC091830061EB54 /* CentralNavigationController.swift in Sources */,
@@ -554,6 +561,7 @@
 				240AB0101CC092DF0061EB54 /* PlayedSongDocument.swift in Sources */,
 				240AB0281CC0944D0061EB54 /* PlaylistDrawerController.swift in Sources */,
 				240AB0211CC094020061EB54 /* LocalHandler.swift in Sources */,
+				246232F91CE28406004C63E8 /* FavoritedSong.swift in Sources */,
 				240AB04F1CC095180061EB54 /* ActivityIndicator.swift in Sources */,
 				240AB0561CC095280061EB54 /* SongTableViewCell.swift in Sources */,
 				240AB04D1CC094CD0061EB54 /* Checkbox.swift in Sources */,
