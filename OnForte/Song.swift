@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 /**
- A basic struct to encapsulate a song
+ A basic class to encapsulate a song
  */
 class Song {
     var title: String?
