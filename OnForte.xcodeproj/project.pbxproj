@@ -267,8 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				2434816A1CE239F900402A4A /* DataModel.xcdatamodeld */,
-				2434816D1CE23ACC00402A4A /* SuggestedSong+CoreDataProperties.swift */,
-				2434816E1CE23ACC00402A4A /* SuggestedSong.swift */,
+				243481771CE23DAE00402A4A /* Profile */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -322,6 +321,15 @@
 				240AB05A1CC095300061EB54 /* ContactTableViewCell.swift */,
 			);
 			name = Invitation;
+			sourceTree = "<group>";
+		};
+		243481771CE23DAE00402A4A /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				2434816D1CE23ACC00402A4A /* SuggestedSong+CoreDataProperties.swift */,
+				2434816E1CE23ACC00402A4A /* SuggestedSong.swift */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 		5DFA7C47CA548928823401F7 /* Frameworks */ = {
