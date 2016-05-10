@@ -10,54 +10,62 @@ import Foundation
 import SwiftDDP
 
 /**
- SearchHandler is a protocol for working with music search tables
+ SearchHandler is a abstract class for working with music search tables. Has to be implemented and have search overriden.
  */
-protocol SearchHandler: UITableViewDelegate, UITableViewDataSource {
+class SearchHandler: NSObject, UITableViewDelegate, UITableViewDataSource {
+    var results: [Song] = [Song]()
 
     /**
-     search results to display in the table
+     Search the service for the query. Must be overriden.
     */
-    var results: [Song] { get set }
+    func search(query: String) {
+        fatalError("cannot search on an abstract SearchHandler")
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return results.count
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell") as! SongViewCell
+        cell.loadItem(results[indexPath.row])
+        return cell;
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        activityIndicator.showActivity("Adding Song")
+        addSongToPlaylist(results[indexPath.row])
+    }
 
     /**
-     Search the API for the music
+     Add the song to the database and the user-stored favorites
     */
-    func search(query: String)
+    internal func addSongToPlaylist(song: Song) {
+        addSongToDatabase(song)
+        addSongToSuggestions(song)
+    }
 
     /**
-     UITableView protocol methods
-    */
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-}
-
-// Implementation of common methods amongst all SearchHandlers
-extension SearchHandler {
-    /**
-     Add the song to the Meteor database and suggested songs
+     Add the song to the Meteor database
      */
-    func addSongToPlaylist(song: Song) {
+    private func addSongToDatabase(song: Song) {
         Meteor.call("addSongWithAlbumArtURL",params: song.getSongDocFields(),callback: {(result: AnyObject?, error: DDPError?) in
             activityIndicator.showComplete("")
             NSNotificationCenter.defaultCenter().postNotificationName("completeSearch", object: nil)
         })
-        addSongToSuggestions(song)
     }
 
     /**
      Add the song to the user-stored favorites
      */
-    func addSongToSuggestions(song: Song) {
+    private func addSongToSuggestions(song: Song) {
         let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
         SuggestedSong.createInManagedObjectContext(managedObjectContext, song: song)
     }
 
     /**
      Clear the search
-    */
+     */
     func clearSearch() {
         results = [Song]()
     }

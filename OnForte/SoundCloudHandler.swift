@@ -13,14 +13,9 @@ import Soundcloud
 /**
  SoundCloudHandler is a SearchHandler to search SoundCloud music.
  */
-class SoundCloudHandler: NSObject, SearchHandler {
-    var results: [Song] = []
+class SoundCloudHandler: SearchHandler {
 
-    func clearSearch() {
-        results = [Song]()
-    }
-
-    func search(query: String) {
+    override func search(query: String) {
         if (query != ""){
             print("Searching soundcloud for:" + query)
             let apiQuery: [SearchQueryOptions] = [
@@ -54,20 +49,4 @@ class SoundCloudHandler: NSObject, SearchHandler {
         }
         return songs
     }
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return results.count
-    }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell") as! SongViewCell
-        cell.loadItem(results[indexPath.row])
-        return cell;
-    }
-
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        activityIndicator.showActivity("Adding Song")
-        addSongToPlaylist(results[indexPath.row])
-    }  
-
 }

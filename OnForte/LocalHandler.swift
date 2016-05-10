@@ -11,15 +11,9 @@ import Alamofire
 import SwiftDDP
 import SwiftyJSON
 
-class LocalHandler: NSObject, SearchHandler {
-    
-    var results: [Song] = []
+class LocalHandler: SearchHandler {
 
-    func clearSearch() {
-        results = [Song]()
-    }
-
-    func search(query: String) {
+    override func search(query: String) {
         if (query != ""){
             results = allLocalITunes.filter({ (song) -> Bool in
                 let title: NSString = song.title!
@@ -30,21 +24,5 @@ class LocalHandler: NSObject, SearchHandler {
         else {
             results = []
         }
-    }
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return results.count
-    }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell") as! SongViewCell
-        cell.loadItem(results[indexPath.row])
-        return cell;
-    }
-
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        activityIndicator.showActivity("Adding Song")
-        addSongToPlaylist(results[indexPath.row])
-
     }
 }
