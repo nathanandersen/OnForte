@@ -34,7 +34,6 @@ class SpotifyHandler: NSObject, SearchHandler {
                     return
                 }
                 if let value: AnyObject = response.result.value {
-//                    print("spotify success")
                     self.results = self.parseSpotifyTracks(JSON(value))
                     NSNotificationCenter.defaultCenter().postNotificationName("reloadSearchResults", object: nil)
                 }
@@ -45,7 +44,6 @@ class SpotifyHandler: NSObject, SearchHandler {
     }
 
     func parseSpotifyTracks(json: JSON) -> [Song] {
-//        print("Parsing spotify results")
         var songs: [Song] = []
         let tracks = json["tracks"]["items"]
         for (_,subJson):(String, JSON) in tracks {
@@ -67,14 +65,8 @@ class SpotifyHandler: NSObject, SearchHandler {
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier("SearchResultsTableViewCell")! as! SearchResultsTableViewCell
-
         let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell") as! SongViewCell
         cell.loadItem(results[indexPath.row])
-
-//        artworkHandler.lookupForCell(results[indexPath.row].artworkURL!, imageView: cell.albumImage, cell: cell)
-
-
         return cell;
     }
 

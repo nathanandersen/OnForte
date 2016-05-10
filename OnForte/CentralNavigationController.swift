@@ -35,7 +35,6 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
         renderProfileButton()
         renderLeaveProfileButton()
         self.navigationItem.setHidesBackButton(true, animated: true)
-//        showProfileButton()
     }
 
     /**

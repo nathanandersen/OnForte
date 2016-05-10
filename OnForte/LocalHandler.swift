@@ -22,7 +22,6 @@ class LocalHandler: NSObject, SearchHandler {
     func search(query: String) {
         if (query != ""){
             results = allLocalITunes.filter({ (song) -> Bool in
-                //            iTunesResults = (UIApplication.sharedApplication().delegate as! AppDelegate).allLocalITunes.filter({ (song) -> Bool in
                 let title: NSString = song.title!
                 let range = title.rangeOfString(query, options: NSStringCompareOptions.CaseInsensitiveSearch)
                 return range.location != NSNotFound

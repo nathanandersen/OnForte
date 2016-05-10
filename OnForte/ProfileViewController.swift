@@ -8,7 +8,6 @@
 
 import Foundation
 import SafariServices
-//import BFPaperButton
 
 /**
  The ProfileViewController controls the user profile
