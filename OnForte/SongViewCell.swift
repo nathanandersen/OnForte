@@ -117,7 +117,6 @@ class SongViewCell: UITableViewCell {
                     self.artworkView.image = image
                     self.setNeedsLayout()
                 })
-//                artworkHandler.lookupForCell((song.artworkURL)!,imageView: artworkView,cell: self)
             }
         }
         platformImageView.image = UIImage(named: platformSource)
@@ -138,7 +137,6 @@ class SongViewCell: UITableViewCell {
                     self.artworkView.image = image
                     self.setNeedsLayout()
                 })
-//                artworkHandler.lookupForCell(NSURL(string: url)!,imageView: artworkView,cell: self)
             }
         }
         platformImageView.image = UIImage(named: platformSource)

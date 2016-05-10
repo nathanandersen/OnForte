@@ -151,8 +151,6 @@ class SongTableViewCell: SWTableViewCell {
                     self.songImage.image = image
                     self.setNeedsLayout()
                 })
-
-//                artworkHandler.lookupForCell(NSURL(string: url)!,imageView: songImage,cell: self)
             }
         }
         platformImage.image = UIImage(named: platformSource)
