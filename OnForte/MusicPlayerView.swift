@@ -94,11 +94,12 @@ class MusicPlayerView: UIView {
         print(nowPlaying!.description)
 
         ArtworkHandler.lookupArtworkAsync(nowPlaying!.artworkURL, completionHandler: { (image: UIImage) in
-            self.songArtView.image = image
-            self.setNeedsLayout()
+            dispatch_async(dispatch_get_main_queue(), {
+                self.songArtView.image = image
+                self.setNeedsLayout()
+            })
         })
         dispatch_async(dispatch_get_main_queue(), {
-//            artworkHandler.lookupForImageView(nowPlaying!.artworkURL, imageView: self.songArtView)
             self.titleLabel.text = (isValidString(nowPlaying!.title)) ? nowPlaying!.title! : "<no title>"
             self.descriptionLabel.text = (isValidString(nowPlaying!.description)) ? nowPlaying!.description! : "<no description>"
             let platformString = (nowPlaying!.service?.asLowerCaseString())!
