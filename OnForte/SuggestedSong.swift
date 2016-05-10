@@ -13,5 +13,13 @@ import CoreData
 class SuggestedSong: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
+    class func createInManagedObjectContext(moc: NSManagedObjectContext, song: Song) -> SuggestedSong {
+        let newItem = NSEntityDescription.insertNewObjectForEntityForName("SuggestedSong", inManagedObjectContext: moc) as! SuggestedSong
+        newItem.title = song.title
+        newItem.annotation = song.description
+        newItem.artworkURL = String(song.artworkURL)
+        newItem.trackId = song.trackId
+        return newItem
+    }
 
 }

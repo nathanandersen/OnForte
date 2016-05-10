@@ -74,12 +74,5 @@ class SpotifyHandler: NSObject, SearchHandler {
         activityIndicator.showActivity("Adding Song")
         addSongToPlaylist(results[indexPath.row])
     }
-
-    func addSongToPlaylist(song: Song) {
-        Meteor.call("addSongWithAlbumArtURL",params: song.getSongDocFields(),callback: {(result: AnyObject?, error:DDPError?) in
-            activityIndicator.showComplete("Added")
-            NSNotificationCenter.defaultCenter().postNotificationName("completeSearch", object: nil)
-        })
-    }
     
 }
