@@ -49,8 +49,8 @@ class SearchHandler: NSObject, UITableViewDelegate, UITableViewDataSource {
             NSNotificationCenter.defaultCenter().postNotificationName("completeSearch", object: nil)
         })
 
-        SearchHandler.addSongToSuggestions(song)
-        print("yowzaaa")
+//        SearchHandler.addSongToSuggestions(song)
+        SongHandler.insertIntoSuggestions(song)
     }
 
     /**
@@ -62,15 +62,18 @@ class SearchHandler: NSObject, UITableViewDelegate, UITableViewDataSource {
         })
     }
 
+    /*
     /**
      Add the song to the user-stored favorites
      */
     internal static func addSongToSuggestions(song: Song) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let managedObjectContext = appDelegate.managedObjectContext
-        SuggestedSong.createInManagedObjectContext(managedObjectContext, song: song)
-        appDelegate.saveContext()
-    }
+//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+//        let managedObjectContext = appDelegate.managedObjectContext
+        SongHandler.insertIntoSuggestions(song)
+
+//        SuggestedSong.createInManagedObjectContext(managedObjectContext, song: song)
+//        appDelegate.saveContext()
+    }*/
 
     /**
      Clear the search

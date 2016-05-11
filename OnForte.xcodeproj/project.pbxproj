@@ -205,6 +205,7 @@
 				240AB0021CC091AC0061EB54 /* Globals.swift */,
 				240AB0041CC091E60061EB54 /* Style.swift */,
 				240AB0061CC092360061EB54 /* Song.swift */,
+				246232FA1CE2CCE0004C63E8 /* SongHandler.swift */,
 				240AB0081CC092670061EB54 /* Meteor */,
 				243481711CE23AD200402A4A /* CoreData */,
 				240AAFC91CC08DA10061EB54 /* AppDelegate.swift */,
@@ -336,7 +337,6 @@
 				2434816E1CE23ACC00402A4A /* SuggestedSong.swift */,
 				246232F61CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift */,
 				246232F71CE28406004C63E8 /* FavoritedSong.swift */,
-				246232FA1CE2CCE0004C63E8 /* SongHandler.swift */,
 			);
 			name = Profile;
 			sourceTree = "<group>";

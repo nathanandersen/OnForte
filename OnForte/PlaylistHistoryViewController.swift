@@ -17,7 +17,6 @@ class PlaylistHistoryViewController: UIViewController, UITableViewDelegate, UITa
 
     var tableView: UITableView!
     var titleLabel: UILabel!
-    var playedSongs = PlaylistSongHistory(name: "playedSongs")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,20 +100,20 @@ class PlaylistHistoryViewController: UIViewController, UITableViewDelegate, UITa
      UITableViewDelegate protocol
      */
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return playedSongs.count
+        return SongHandler.getPlaylistHistoryCount()
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell")! as! SongViewCell
         cell.selectionStyle = .None
-        let songId = playedSongs.keys[indexPath.row]
-        let song = playedSongs.findOne(songId)
-        cell.loadItem(songId,song: song!)
+        let (songId, song) = SongHandler.getPlayedSongByIndex(indexPath.row)
+        cell.loadItem(songId, song: song)
         return cell
     }
 
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+     // tap to add to favs?
         print("You selected cell #\(indexPath.row)!")
     }
 

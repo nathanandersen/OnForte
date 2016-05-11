@@ -18,11 +18,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
 
     var tableView: UITableView!
     var playlistStarted = false
-    var songs = SongCollection(name: "queueSongs")
-    var sortedSongs: [SongDocument] = []
     var playlistControlView: PlaylistControlView!
-
-//    var alertController: UIAlertController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +34,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     func presentNewPlaylist() {
         let paramObj = [playlistId!]
         Meteor.subscribe("queueSongs",params: paramObj)
-        sortedSongs = []
         self.updateTable()
         self.addNotificationsToGlobalCenter()
         self.playlistControlView.updatePlaylistInformation()
@@ -192,30 +187,13 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
      - returns: (optional) next song
     */
     internal func getNextSong() -> Song? {
-        if spotifySession != nil && spotifySession!.isValid() {
-            print("User is logged into Spotify. Playing top song.")
-            return (sortedSongs.count > 0) ? Song(songDoc: sortedSongs[0]) : nil
-        } else {
-            print("User is not logged into Spotify. Playing top non-Spotify song.")
-            let topSong: Song? = (sortedSongs.count > 0) ? Song(songDoc: sortedSongs[0]) : nil
-            if topSong == nil {
-                return nil
-            }
-            if topSong!.service == .Spotify {
-                let nonSpotifySongs = sortedSongs.filter({ $0.platform.lowercaseString != "spotify"})
-
-                let alertController = UIAlertController(title: "Spotify Not Authenticated", message: "Please log in to Spotify through the profile in order to play Spotify music.\n\n Playing top non-Spotify song.", preferredStyle: .Alert)
-                let cancelAction = UIAlertAction(title: "Dismiss", style: .Cancel) { (action) in
-
-                }
-                alertController.addAction(cancelAction)
-                self.presentViewController(alertController, animated: true, completion: nil)
-
-                return (nonSpotifySongs.count > 0) ? Song(songDoc: nonSpotifySongs[0]) : nil
-            } else {
-                return topSong
+        var services: [Service] = [.Soundcloud, .iTunes]
+        if let session = spotifySession {
+            if session.isValid() {
+                services.append(.Spotify)
             }
         }
+        return SongHandler.getTopSongWithPlatformConstraints(services)
     }
 
     /**
@@ -255,18 +233,14 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
             if isHost {
                 self.playlistControlView.musicPlayerView.musicPlayer.stop()
             }
-//            print("This is run on the background queue")
-//            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                print("This is run on the main queue, after the previous code in outer block")
-//            })
         })
         (self.navigationController! as! CentralNavigationController).leavePlaylist()
         playlistId = ""
         playlistName = ""
         nowPlaying = nil
         isHost = false
-        self.songs.clear()
-        (self.mm_drawerController.leftDrawerViewController as! PlaylistHistoryViewController).playedSongs.clear()
+//        self.songs.clear()
+        SongHandler.clearForNewPlaylist()
         Meteor.unsubscribe("queueSongs")
     }
 
@@ -328,7 +302,8 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
      */
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sortedSongs.count
+        return SongHandler.getSongsInQueue().count
+//        return sortedSongs.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -340,7 +315,8 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
 //        leftButtons.sw_addUtilityButtonWithColor(Style.yellowColor, icon: UIImage(named: "star"))
 //        cell.leftUtilityButtons = leftButtons as [AnyObject]
 
-        cell.loadItem(sortedSongs[indexPath.row]._id,song: sortedSongs[indexPath.row])
+        let (songId, song) = SongHandler.getQueuedSongByIndex(indexPath.row)
+        cell.loadItem(songId, song: song)
         return cell
     }
 
@@ -356,7 +332,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
             if nowPlaying == nil {
-                if isHost && self.songs.count >= 1 {
+                if isHost && SongHandler.getSongsInQueue().count >= 1 {
                     self.playlistControlView.showStartMusicPlayer()
                 } else {
                     self.playlistControlView.collapseNowPlayingView()
@@ -371,7 +347,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
      Update the whole page
     */
     func updateTable() {
-        self.sortedSongs = self.songs.sortedByScore()
         self.updatePlaylistDisplay()
     }
 }
