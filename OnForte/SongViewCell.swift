@@ -108,7 +108,7 @@ class SongViewCell: UITableViewCell {
     internal func loadItem(song: Song) {
         self.songTitleLabel.text = song.title
         self.songDescriptionLabel.text = song.description
-        let platformSource = String(song.service).lowercaseString
+        let platformSource = String(song.service!).lowercaseString
         if let url = song.artworkURL {
             if url == "" {
                 artworkView.image = UIImage(named: platformSource)
