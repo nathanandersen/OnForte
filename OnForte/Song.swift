@@ -11,7 +11,7 @@ import UIKit
 /**
  A basic class to encapsulate a song
  */
-class Song {
+class Song: Equatable {
     var title: String?
     var description: String?
     var artworkURL: NSURL?
@@ -62,5 +62,25 @@ class Song {
             (self.artworkURL != nil) ? self.artworkURL!.URLString : ""
         ]
         return fields
+    }
+
+
+}
+
+func ==(lhs: Song, rhs: Song) -> Bool {
+    if lhs.title != rhs.title {
+        return false
+    } else if lhs.description != rhs.description {
+        return false
+    } else if lhs.artworkURL != rhs.artworkURL {
+        return false
+    } else if lhs.service != rhs.service {
+        return false
+    } else if lhs.trackId != rhs.trackId {
+        return false
+    } else if lhs.id != rhs.id {
+        return false
+    } else {
+        return true
     }
 }

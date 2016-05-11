@@ -293,23 +293,30 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
     }
 
     func suggestSong(action: UITableViewRowAction, indexPath: NSIndexPath) {
-        var dataSource: [Song]!
+        activityIndicator.showActivity("Adding song..")
+        var song: Song!
         if segmentedControl.selectedSegmentIndex == 0 {
-            dataSource = SongHandler.fetchSuggestions()
+            song = SongHandler.fetchSuggestions()[indexPath.row]
         } else {
-            dataSource = SongHandler.fetchFavorites()
+            song = SongHandler.fetchFavorites()[indexPath.row]
         }
-        // suggest the song to the playlist
+
+        SearchHandler.addSongToDatabase(song, completionHandler: {
+            activityIndicator.showComplete("")
+            centralNavigationController.leaveProfile()
+        })
     }
 
     func deleteSong(action: UITableViewRowAction, indexPath: NSIndexPath) {
-        var dataSource: [Song]!
+        var song: Song!
         if segmentedControl.selectedSegmentIndex == 0 {
-            dataSource = SongHandler.fetchSuggestions()
+            song = SongHandler.fetchSuggestions()[indexPath.row]
+            SongHandler.removeItemFromSuggestions(song)
         } else {
-            dataSource = SongHandler.fetchFavorites()
+            song = SongHandler.fetchFavorites()[indexPath.row]
+            SongHandler.removeItemFromFavorites(song)
         }
-        // delete the song from the data source
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
