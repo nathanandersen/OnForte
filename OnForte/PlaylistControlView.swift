@@ -46,13 +46,10 @@ class PlaylistControlView: UIView {
      Update the displayed playlist information
      */
     internal func updatePlaylistInformation() {
-        print("hmm")
         if idLabel != nil {
-            print("happened")
             self.idLabel.text = playlistId
         }
         if titleLabel != nil {
-            print("yow!")
             self.titleLabel.text = playlistName
         }
     }

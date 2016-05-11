@@ -28,7 +28,7 @@ class ArtworkHandler {
                 completionHandler(image)
             } else {
                 // cache miss, so let's look up the image
-                if let albumArtData = NSData(contentsOfURL: url){
+                if let albumArtData = NSData(contentsOfURL: url) {
                     if let albumArt = UIImage(data: albumArtData){
                         self.artworkCache.setObject(albumArt, forKey: url)
                         completionHandler(albumArt)

@@ -36,6 +36,22 @@ class Song {
         self.id = songDoc._id
     }
 
+    init(suggestedSong: SuggestedSong) {
+        self.title = suggestedSong.title
+        self.trackId = suggestedSong.trackId
+        self.description = suggestedSong.annotation
+        self.artworkURL = NSURL(string: suggestedSong.artworkURL!)
+        self.service = Service(intValue: Int(suggestedSong.service!))
+    }
+
+    init(favoritedSong: FavoritedSong) {
+        self.title = favoritedSong.title
+        self.trackId = favoritedSong.trackId
+        self.description = favoritedSong.annotation
+        self.artworkURL = NSURL(string: favoritedSong.artworkURL!)
+        self.service = Service(intValue: Int(favoritedSong.service!))
+    }
+
     func getSongDocFields() -> [String] {
         let fields = [
             playlistId!,

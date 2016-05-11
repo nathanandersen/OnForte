@@ -28,26 +28,15 @@
                                     <constraint firstAttribute="height" constant="100" id="yAe-6d-Dyk"/>
                                 </constraints>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nZz-3x-MP3">
-                                <rect key="frame" x="0.0" y="238" width="320" height="310"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nZz-3x-MP3">
+                                <rect key="frame" x="16" y="230" width="288" height="338"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <segmentedControl key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="Xlb-ss-HDy">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <segments>
-                                        <segment title="Suggestions"/>
-                                        <segment title="Favorites"/>
-                                    </segments>
-                                    <connections>
-                                        <action selector="didSelectSegmentedControl:" destination="owX-QR-dLV" eventType="valueChanged" id="FAE-6p-beX"/>
-                                    </connections>
-                                </segmentedControl>
                             </tableView>
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Hw-uA-uby">
                                 <rect key="frame" x="121" y="30" width="183" height="200"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cwv-0c-Or1">
-                                        <rect key="frame" x="65" y="155" width="66" height="0.0"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cwv-0c-Or1">
+                                        <rect key="frame" x="65" y="155" width="0.0" height="0.0"/>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="itunes" translatesAutoresizingMaskIntoConstraints="NO" id="raP-yV-Ygd">
                                         <rect key="frame" x="10" y="135" width="40" height="40"/>
@@ -61,8 +50,8 @@
                                             <constraint firstAttribute="width" secondItem="Rin-h6-uvc" secondAttribute="height" multiplier="488:88" id="pyZ-zh-LAJ"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K52-Iu-ok5">
-                                        <rect key="frame" x="65" y="100" width="82" height="0.0"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K52-Iu-ok5">
+                                        <rect key="frame" x="65" y="100" width="0.0" height="0.0"/>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="spotify" translatesAutoresizingMaskIntoConstraints="NO" id="uY1-l7-xdr">
                                         <rect key="frame" x="10" y="25" width="40" height="40"/>

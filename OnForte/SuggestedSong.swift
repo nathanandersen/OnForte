@@ -16,8 +16,9 @@ class SuggestedSong: NSManagedObject {
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("SuggestedSong", inManagedObjectContext: moc) as! SuggestedSong
         newItem.title = song.title
         newItem.annotation = song.description
-        newItem.artworkURL = String(song.artworkURL)
+        newItem.artworkURL = String(song.artworkURL!)
         newItem.trackId = song.trackId
+        newItem.service = song.service?.intValue()
         return newItem
     }
 

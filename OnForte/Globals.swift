@@ -52,10 +52,38 @@ enum Service {
             self = .Soundcloud
         } else if platform.lowercaseString == "itunes" {
             self = .iTunes
-        } else {
+        } else if platform.lowercaseString == "spotify" {
             self = .Spotify
+        } else {
+            fatalError()
         }
     }
+
+    init(intValue: Int) {
+        switch(intValue) {
+        case 0:
+            self = .Spotify
+        case 1:
+            self = .Soundcloud
+        case 2:
+            self = .iTunes
+        case _:
+            fatalError()
+        }
+    }
+
+    func intValue() -> Int {
+        if self == .Spotify {
+            return 0
+        } else if self == .Soundcloud {
+            return 1
+        } else if self == .iTunes {
+            return 2
+        } else {
+            fatalError()
+        }
+    }
+
     func asLowerCaseString() -> String {
         if self == .Spotify {
             return "spotify"
@@ -64,7 +92,7 @@ enum Service {
         } else if self == .iTunes {
             return "itunes"
         } else {
-            return "not a match"
+            fatalError()
         }
     }
 }

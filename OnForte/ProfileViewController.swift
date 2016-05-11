@@ -43,6 +43,9 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
     var safariVC: SFSafariViewController!
 
     @IBOutlet var tableView: UITableView!
+
+    var segmentedControl: UISegmentedControl!
+
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -60,12 +63,25 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
         self.navigationItem.setHidesBackButton(true, animated: true)
 
 
+
+
     }
 
     func renderTableView() {
         tableView.registerClass(SongViewCell.self, forCellReuseIdentifier: "SongViewCell")
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.rowHeight = 85.0
+        tableView.allowsSelection = false
+
+        segmentedControl = UISegmentedControl(items: ["Suggestions","Favorites"])
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(ProfileViewController.didToggleSegmentedControl), forControlEvents: .ValueChanged)
+        tableView.tableHeaderView = segmentedControl
+    }
+
+    func didToggleSegmentedControl() {
+        tableView.reloadData()
     }
 
     func updateProfileDisplay() {
@@ -74,6 +90,7 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
         } else {
             hideHostSettings()
         }
+        tableView.reloadData()
     }
 
 
@@ -250,11 +267,18 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
         NSLayoutConstraint.activateConstraints(constraints)
     }
 
+
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let favorites = MenuHandler.getFavorites()
+        var dataSource: [Song]!
+        if segmentedControl.selectedSegmentIndex == 0 {
+            dataSource = SongHandler.fetchSuggestions()
+        } else {
+            dataSource = SongHandler.fetchFavorites()
+        }
 
         let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell") as! SongViewCell
-//        cell.nameLabel.text = favorites[indexPath.row]
+        cell.loadItem(dataSource[indexPath.row])
         return cell;
     }
 
@@ -262,24 +286,39 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
         return true
     }
 
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-//            let favorite = MenuHandler.getFavorites()[indexPath.row]
-//            MenuHandler.removeItemFromFavorites(favorite)
-//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        } else if editingStyle == .Insert {
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let suggestAction = UITableViewRowAction(style: .Normal, title: "Suggest", handler: self.suggestSong)
+        let deleteAction = UITableViewRowAction(style: .Default, title: "Delete", handler: self.deleteSong)
+        return [deleteAction,suggestAction]
+    }
 
+    func suggestSong(action: UITableViewRowAction, indexPath: NSIndexPath) {
+        var dataSource: [Song]!
+        if segmentedControl.selectedSegmentIndex == 0 {
+            dataSource = SongHandler.fetchSuggestions()
+        } else {
+            dataSource = SongHandler.fetchFavorites()
         }
+        // suggest the song to the playlist
+    }
+
+    func deleteSong(action: UITableViewRowAction, indexPath: NSIndexPath) {
+        var dataSource: [Song]!
+        if segmentedControl.selectedSegmentIndex == 0 {
+            dataSource = SongHandler.fetchSuggestions()
+        } else {
+            dataSource = SongHandler.fetchFavorites()
+        }
+        // delete the song from the data source
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    @IBAction func didSelectSegmentedControl(sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
-            // suggestions
+        var dataSource: [Song]!
+        if segmentedControl.selectedSegmentIndex == 0 {
+            dataSource = SongHandler.fetchSuggestions()
         } else {
-            // favorites
+            dataSource = SongHandler.fetchFavorites()
         }
+        return dataSource.count
     }
 }

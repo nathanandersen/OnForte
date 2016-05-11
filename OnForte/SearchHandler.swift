@@ -41,26 +41,32 @@ class SearchHandler: NSObject, UITableViewDelegate, UITableViewDataSource {
      Add the song to the database and the user-stored favorites
     */
     internal func addSongToPlaylist(song: Song) {
-        addSongToDatabase(song)
-        addSongToSuggestions(song)
+        SearchHandler.addSongToDatabase(song, completionHandler: {
+            activityIndicator.showComplete("")
+            NSNotificationCenter.defaultCenter().postNotificationName("completeSearch", object: nil)
+        })
+
+        SearchHandler.addSongToSuggestions(song)
+        print("yowzaaa")
     }
 
     /**
      Add the song to the Meteor database
      */
-    private func addSongToDatabase(song: Song) {
+    internal static func addSongToDatabase(song: Song, completionHandler: () -> Void) {
         Meteor.call("addSongWithAlbumArtURL",params: song.getSongDocFields(),callback: {(result: AnyObject?, error: DDPError?) in
-            activityIndicator.showComplete("")
-            NSNotificationCenter.defaultCenter().postNotificationName("completeSearch", object: nil)
+            completionHandler()
         })
     }
 
     /**
      Add the song to the user-stored favorites
      */
-    private func addSongToSuggestions(song: Song) {
-        let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    internal static func addSongToSuggestions(song: Song) {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedObjectContext = appDelegate.managedObjectContext
         SuggestedSong.createInManagedObjectContext(managedObjectContext, song: song)
+        appDelegate.saveContext()
     }
 
     /**
