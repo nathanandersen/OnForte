@@ -28,6 +28,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var launchURL: String? = nil
     var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
 
+    /**
+     Register API keys with services
+    */
+    func registerAPIKeys() {
+        SPTAuth.defaultInstance().clientID = keys!["SpotifyClientId"] as! String
+        SPTAuth.defaultInstance().redirectURL = NSURL(string: keys!["SpotifyRedirectURI"] as! String)
+        SPTAuth.defaultInstance().requestedScopes = [SPTAuthStreamingScope]
+        SPTAuth.defaultInstance().sessionUserDefaultsKey = "SpotifySession"
+        SPTAuth.defaultInstance().tokenSwapURL = NSURL(string: keys!["SpotifyTokenSwapURL"] as! String)
+        SPTAuth.defaultInstance().tokenRefreshURL = NSURL(string: keys!["SpotifyTokenRefreshURL"] as! String)
+        Soundcloud.clientIdentifier = keys!["SoundcloudClientId"] as? String
+        Soundcloud.clientSecret = keys!["SoundcloudClientSecret"] as? String
+    }
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -39,29 +52,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         activityIndicator = ActivityIndicator(frame: CGRectMake(5, 20, 40, 40))
 
-        SPTAuth.defaultInstance().clientID = keys!["SpotifyClientId"] as! String
-        SPTAuth.defaultInstance().redirectURL = NSURL(string: keys!["SpotifyRedirectURI"] as! String)
-        SPTAuth.defaultInstance().requestedScopes = [SPTAuthStreamingScope]
-        SPTAuth.defaultInstance().sessionUserDefaultsKey = "SpotifySession"
-        SPTAuth.defaultInstance().tokenSwapURL = NSURL(string: keys!["SpotifyTokenSwapURL"] as! String)
-        SPTAuth.defaultInstance().tokenRefreshURL = NSURL(string: keys!["SpotifyTokenRefreshURL"] as! String)
-        Soundcloud.clientIdentifier = keys!["SoundcloudClientId"] as? String
-        Soundcloud.clientSecret = keys!["SoundcloudClientSecret"] as? String
+        registerAPIKeys()
 
+//        defaults.registerDefaults(
+//            [onboardingKey: false]
+//        )
 
-
-//        SongHandler.loadAllLocalSongs()
-//        loadAllLocalSongs()
-
-        defaults.registerDefaults(
-            [onboardingKey: false]
-        )
-
-        if ( !defaults.boolForKey(onboardingKey)) {
+//        if ( !defaults.boolForKey(onboardingKey)) {
+//            launchStoryboard(Storyboard.Onboarding)
+//        } else {
             launchStoryboard(Storyboard.Main)
-        } else {
-            launchStoryboard(Storyboard.Main)
-        }
+//        }
 
         return true
     }
