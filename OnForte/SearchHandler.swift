@@ -17,8 +17,11 @@ class SearchHandler: NSObject, UITableViewDelegate, UITableViewDataSource {
 
     /**
      Search the service for the query. Must be overriden.
+     - parameters:
+        - query: the search parameter
+        - callback: a function to call on completion, (Bool) success
     */
-    func search(query: String) {
+    func search(query: String, completionHandler: (success: Bool) -> Void) {
         fatalError("cannot search on an abstract SearchHandler")
     }
 

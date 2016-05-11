@@ -15,7 +15,7 @@ import Soundcloud
  */
 class SoundCloudHandler: SearchHandler {
 
-    override func search(query: String) {
+    override func search(query: String, completionHandler: (success: Bool) -> Void) {
         if (query != ""){
             print("Searching soundcloud for:" + query)
             let apiQuery: [SearchQueryOptions] = [
@@ -25,13 +25,15 @@ class SoundCloudHandler: SearchHandler {
                 switch paginatedTracks.response {
                 case .Success(let tracks):
                     self.results = self.parseSoundcloudTracks(tracks)
-                    NSNotificationCenter.defaultCenter().postNotificationName("reloadSearchResults", object: nil)
+                    completionHandler(success: true)
                 case .Failure(let error):
                     print(error)
+                    completionHandler(success: false)
                 }
             }
         } else {
             results = []
+            completionHandler(success: false)
         }
     }
 

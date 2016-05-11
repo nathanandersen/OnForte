@@ -159,9 +159,10 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
         let index = segment.selectedSegmentIndex
         tableView.dataSource = orderedSearchHandlers[index]
         tableView.delegate = orderedSearchHandlers[index]
-        orderedSearchHandlers[index].search(searchBar.text!)
+        orderedSearchHandlers[index].search(searchBar.text!) { (success: Bool) in
+            self.tableView.reloadData()
+        }
         searchTimer.invalidate()
-        tableView.reloadData()
     }
 
     /**
@@ -246,7 +247,11 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
     */
     internal func searchAll(){
         activityIndicator.startAnimating()
-        orderedSearchHandlers.forEach() { $0.search(searchBar.text!) }
+        orderedSearchHandlers.forEach() {
+            $0.search(searchBar.text!) { (success: Bool) in
+                self.tableView.reloadData()
+            }
+        }
         searchTimer.invalidate()
     }
 }

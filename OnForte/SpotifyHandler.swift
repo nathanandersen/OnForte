@@ -13,31 +13,6 @@ import SwiftDDP
 
 class SpotifyHandler: SearchHandler {
 
-    override func search(query: String) {
-        if (query != ""){
-            print("Searching spotify for:" + query)
-            let parameters = [
-                "q": query,
-                "type": "track,artist,album"
-            ]
-
-            Alamofire.request(.GET, "https://api.spotify.com/v1/search", parameters: parameters).responseJSON { response in
-
-                guard response.result.error == nil else {
-                    print("Error occurred during spotify request")
-                    print(response.result.error!)
-                    return
-                }
-                if let value: AnyObject = response.result.value {
-                    self.results = self.parseSpotifyTracks(JSON(value))
-                    NSNotificationCenter.defaultCenter().postNotificationName("reloadSearchResults", object: nil)
-                }
-            }
-        } else {
-            results = []
-        }
-    }
-
     func parseSpotifyTracks(json: JSON) -> [Song] {
         var songs: [Song] = []
         let tracks = json["tracks"]["items"]
@@ -53,5 +28,32 @@ class SpotifyHandler: SearchHandler {
         }
 
         return songs
+    }
+
+    override func search(query: String, completionHandler: (success: Bool) -> Void) {
+        if (query != ""){
+            print("Searching spotify for:" + query)
+            let parameters = [
+                "q": query,
+                "type": "track,artist,album"
+            ]
+
+            Alamofire.request(.GET, "https://api.spotify.com/v1/search", parameters: parameters).responseJSON { response in
+
+                guard response.result.error == nil else {
+                    print("Error occurred during spotify request")
+                    print(response.result.error!)
+                    completionHandler(success: false)
+                    return
+                }
+                if let value: AnyObject = response.result.value {
+                    self.results = self.parseSpotifyTracks(JSON(value))
+                    completionHandler(success: true)
+                }
+            }
+        } else {
+            results = []
+            completionHandler(success: false)
+        }
     }
 }

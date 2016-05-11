@@ -13,16 +13,17 @@ import SwiftyJSON
 
 class LocalHandler: SearchHandler {
 
-    override func search(query: String) {
+    override func search(query: String, completionHandler: (success: Bool) -> Void) {
         if (query != ""){
             results = allLocalITunes.filter({ (song) -> Bool in
                 let title: NSString = song.title!
                 let range = title.rangeOfString(query, options: NSStringCompareOptions.CaseInsensitiveSearch)
                 return range.location != NSNotFound
             })
-        }
-        else {
+            completionHandler(success: true)
+        } else {
             results = []
+            completionHandler(success: false)
         }
     }
 }
