@@ -41,7 +41,7 @@ class Song: Equatable {
         self.trackId = suggestedSong.trackId
         self.description = suggestedSong.annotation
         self.artworkURL = NSURL(string: suggestedSong.artworkURL!)
-        self.service = Service(intValue: Int(suggestedSong.service!))
+        self.service = Service(platform: suggestedSong.service!)
     }
 
     init(favoritedSong: FavoritedSong) {
@@ -49,7 +49,7 @@ class Song: Equatable {
         self.trackId = favoritedSong.trackId
         self.description = favoritedSong.annotation
         self.artworkURL = NSURL(string: favoritedSong.artworkURL!)
-        self.service = Service(intValue: Int(favoritedSong.service!))
+        self.service = Service(platform: favoritedSong.service!)
     }
 
     func getSongDocFields() -> [String] {

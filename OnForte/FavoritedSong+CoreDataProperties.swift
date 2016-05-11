@@ -17,7 +17,7 @@ extension FavoritedSong {
     @NSManaged var title: String?
     @NSManaged var annotation: String?
     @NSManaged var artworkURL: String?
-    @NSManaged var service: NSNumber?
+    @NSManaged var service: String?
     @NSManaged var trackId: String?
 
 }

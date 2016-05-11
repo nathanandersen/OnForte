@@ -18,6 +18,6 @@ extension SuggestedSong {
     @NSManaged var annotation: String?
     @NSManaged var artworkURL: String?
     @NSManaged var trackId: String?
-    @NSManaged var service: NSNumber?
+    @NSManaged var service: String?
 
 }

@@ -18,7 +18,7 @@ class FavoritedSong: NSManagedObject {
         newItem.annotation = song.description
         newItem.artworkURL = String(song.artworkURL!)
         newItem.trackId = song.trackId
-        newItem.service = song.service?.intValue()
+        newItem.service = song.service?.asLowerCaseString()
         return newItem
     }
 

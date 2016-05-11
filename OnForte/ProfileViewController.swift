@@ -44,7 +44,8 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
 
     @IBOutlet var tableView: UITableView!
 
-    var segmentedControl: UISegmentedControl!
+    @IBOutlet var segmentedControl: UISegmentedControl!
+//    var segmentedControl: UISegmentedControl!
 
     override func viewDidLoad() {
 
@@ -74,10 +75,7 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
         tableView.rowHeight = 85.0
         tableView.allowsSelection = false
 
-        segmentedControl = UISegmentedControl(items: ["Suggestions","Favorites"])
-        segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(ProfileViewController.didToggleSegmentedControl), forControlEvents: .ValueChanged)
-        tableView.tableHeaderView = segmentedControl
     }
 
     func didToggleSegmentedControl() {

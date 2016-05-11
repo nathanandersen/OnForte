@@ -29,7 +29,7 @@
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nZz-3x-MP3">
-                                <rect key="frame" x="16" y="230" width="288" height="338"/>
+                                <rect key="frame" x="16" y="268" width="288" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Hw-uA-uby">
@@ -82,18 +82,28 @@
                                     <constraint firstItem="cwv-0c-Or1" firstAttribute="centerY" secondItem="raP-yV-Ygd" secondAttribute="centerY" id="nrh-Dc-4ta"/>
                                 </constraints>
                             </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="oxU-Uc-Ype">
+                                <rect key="frame" x="26" y="235" width="268" height="29"/>
+                                <segments>
+                                    <segment title="Suggestions"/>
+                                    <segment title="Favorites"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="d7V-oH-vVf" firstAttribute="top" secondItem="nZz-3x-MP3" secondAttribute="bottom" id="29l-MD-Q6u"/>
+                            <constraint firstItem="nZz-3x-MP3" firstAttribute="top" secondItem="oxU-Uc-Ype" secondAttribute="bottom" constant="5" id="2lC-01-Gat"/>
                             <constraint firstItem="nZz-3x-MP3" firstAttribute="leading" secondItem="9bC-k7-jeB" secondAttribute="leadingMargin" id="77B-IM-0ob"/>
+                            <constraint firstItem="oxU-Uc-Ype" firstAttribute="top" secondItem="4Hw-uA-uby" secondAttribute="bottom" constant="5" id="By8-Qh-gQQ"/>
                             <constraint firstItem="NL0-b4-hQh" firstAttribute="top" secondItem="XUQ-7P-Q7c" secondAttribute="bottom" constant="60" id="Myy-m0-nkL"/>
-                            <constraint firstItem="nZz-3x-MP3" firstAttribute="top" secondItem="4Hw-uA-uby" secondAttribute="bottom" id="O6p-I3-bvk"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="oxU-Uc-Ype" secondAttribute="trailing" constant="10" id="U8O-zm-e5l"/>
                             <constraint firstItem="4Hw-uA-uby" firstAttribute="centerY" secondItem="NL0-b4-hQh" secondAttribute="centerY" id="YY4-UH-LzP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="4Hw-uA-uby" secondAttribute="trailing" id="cSi-yq-MJp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="nZz-3x-MP3" secondAttribute="trailing" id="fEs-J4-Keg"/>
                             <constraint firstItem="4Hw-uA-uby" firstAttribute="top" secondItem="XUQ-7P-Q7c" secondAttribute="bottom" constant="10" id="hTd-KQ-q1D"/>
                             <constraint firstItem="4Hw-uA-uby" firstAttribute="leading" secondItem="NL0-b4-hQh" secondAttribute="trailing" constant="5" id="jRL-zq-rXz"/>
+                            <constraint firstItem="oxU-Uc-Ype" firstAttribute="leading" secondItem="9bC-k7-jeB" secondAttribute="leadingMargin" constant="10" id="v5o-2V-ojv"/>
                             <constraint firstItem="NL0-b4-hQh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9bC-k7-jeB" secondAttribute="leadingMargin" id="zaj-lb-JHS"/>
                         </constraints>
                     </view>
@@ -103,6 +113,7 @@
                         <outlet property="iTunesInfoView" destination="cwv-0c-Or1" id="MvC-rz-knc"/>
                         <outlet property="internalMarginBetweenImageAndLogins" destination="jRL-zq-rXz" id="5y9-H7-Ldj"/>
                         <outlet property="profileImage" destination="NL0-b4-hQh" id="ysB-CX-hce"/>
+                        <outlet property="segmentedControl" destination="oxU-Uc-Ype" id="CbK-V1-UN8"/>
                         <outlet property="showHostSettingsConstraintTop" destination="hTd-KQ-q1D" id="36n-rG-57F"/>
                         <outlet property="soundCloudImageView" destination="cId-LO-f4x" id="aef-He-tMu"/>
                         <outlet property="soundCloudInfoView" destination="K52-Iu-ok5" id="adE-Cr-BpW"/>
