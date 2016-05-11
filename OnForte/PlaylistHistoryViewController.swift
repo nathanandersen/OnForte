@@ -28,8 +28,8 @@ class PlaylistHistoryViewController: UIViewController, UITableViewDelegate, UITa
         renderTableView()
         addConstraints()
 
-        let paramObj = [playlistId!]
-        Meteor.subscribe("playedSongs",params: paramObj)
+//        let paramObj = [playlistId!]
+//        Meteor.subscribe("playedSongs",params: paramObj)
     }
 
     /**

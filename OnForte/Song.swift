@@ -60,7 +60,8 @@ class Song: Hashable {
 
     func getSongDocFields() -> [String] {
         let fields = [
-            playlistId!,
+            PlaylistHandler.playlistId,
+//            playlistId!,
             (self.title != nil) ? self.title! : "",
             (self.description != nil) ? self.description! : "",
             String(self.service!),

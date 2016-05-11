@@ -113,6 +113,9 @@ class SongHandler: NSObject {
         }
     }
 
+    /**
+     Fetch the suggestions as an array of SuggestedSong
+    */
     private static func fetchSuggestionsAsOriginalData() -> [SuggestedSong] {
         let fetchRequest = NSFetchRequest(entityName: "SuggestedSong")
         if let fetchResults = try? managedObjectContext.executeFetchRequest(fetchRequest) as? [SuggestedSong] {
@@ -121,6 +124,9 @@ class SongHandler: NSObject {
         return []
     }
 
+    /**
+     Fetch the suggestions as an array of Song
+    */
     internal static func fetchSuggestions() -> [Song] {
         let fetchResults = fetchSuggestionsAsOriginalData()
         var songs = [Song]()
@@ -128,6 +134,9 @@ class SongHandler: NSObject {
         return songs
     }
 
+    /**
+     Remove an item from suggestions
+    */
     internal static func removeItemFromSuggestions(song: Song) {
         var suggestedSong: SuggestedSong!
         for songItem in fetchSuggestionsAsOriginalData() {
@@ -144,6 +153,9 @@ class SongHandler: NSObject {
         }
     }
 
+    /**
+     Remove an item from favorites
+    */
     internal static func removeItemFromFavorites(song: Song) {
         var favoritedSong: FavoritedSong!
         for songItem in fetchFavoritesAsOriginalData() {
@@ -160,6 +172,9 @@ class SongHandler: NSObject {
         }
     }
 
+    /**
+     Fetch the favorites as an array of FavoritedSong (a Core Data item)
+    */
     private static func fetchFavoritesAsOriginalData() -> [FavoritedSong] {
         let fetchRequest = NSFetchRequest(entityName: "FavoritedSong")
 
@@ -169,6 +184,9 @@ class SongHandler: NSObject {
         return []
     }
 
+    /**
+     Fetch the favorites as an array of Song
+    */
     internal static func fetchFavorites() -> [Song] {
         let fetchResults = fetchFavoritesAsOriginalData()
         var songs = [Song]()

@@ -91,7 +91,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      setSongAsPlaying: add the song as now playing to the Playlists database
     */
     private func registerNextSongWithServer(song: Song ) {
-        let paramObj = [playlistId!,
+        let paramObj = [PlaylistHandler.playlistId,
                         (song.title != nil) ? song.title! : "",
                         (song.description != nil) ? song.description! : "",
                         String(song.service!),
@@ -101,7 +101,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
         Meteor.call("registerSongAsPlayed",params: paramObj,callback: nil)
         Meteor.call("removeSongFromQueue",params: [song.id!],callback: nil)
 
-        let songParamObj: [AnyObject] = [playlistId!,song.getSongDocFields()]
+        let songParamObj: [AnyObject] = [PlaylistHandler.playlistId,song.getSongDocFields()]
         Meteor.call("setSongAsPlaying",params: songParamObj,callback: nil)
     }
 

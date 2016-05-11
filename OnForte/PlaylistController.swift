@@ -32,8 +32,8 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
      Clear the PlaylistController for a new playlist.
     */
     func presentNewPlaylist() {
-        let paramObj = [playlistId!]
-        Meteor.subscribe("queueSongs",params: paramObj)
+//        let paramObj = [playlistId!]
+//        Meteor.subscribe("queueSongs",params: paramObj)
         self.updateTable()
         self.addNotificationsToGlobalCenter()
         self.playlistControlView.updatePlaylistInformation()
@@ -230,25 +230,25 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
             // stop on a background thread
-            if isHost {
+            if PlaylistHandler.isHost {
                 self.playlistControlView.musicPlayerView.musicPlayer.stop()
             }
         })
         (self.navigationController! as! CentralNavigationController).leavePlaylist()
-        playlistId = ""
-        playlistName = ""
+//        playlistId = ""
+//        PlaylistHandler.playlistId = ""
+//        PlaylistHandler.playlistName = ""
+        PlaylistHandler.leavePlaylist()
         nowPlaying = nil
-        isHost = false
-//        self.songs.clear()
-        SongHandler.clearForNewPlaylist()
-        Meteor.unsubscribe("queueSongs")
+//        isHost = false
+//        Meteor.unsubscribe("queueSongs")
     }
 
     /**
      Called when a user presses the cancel button.
     */
     func exitPlaylist() {
-        if isHost {
+        if PlaylistHandler.isHost {
             hostExitPlaylist()
         } else {
             guestExitPlaylist()
@@ -303,7 +303,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return SongHandler.getSongsInQueue().count
-//        return sortedSongs.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -332,7 +331,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
             if nowPlaying == nil {
-                if isHost && SongHandler.getSongsInQueue().count >= 1 {
+                if PlaylistHandler.isHost && SongHandler.getSongsInQueue().count >= 1 {
                     self.playlistControlView.showStartMusicPlayer()
                 } else {
                     self.playlistControlView.collapseNowPlayingView()

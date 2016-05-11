@@ -47,10 +47,10 @@ class PlaylistControlView: UIView {
      */
     internal func updatePlaylistInformation() {
         if idLabel != nil {
-            self.idLabel.text = playlistId
+            self.idLabel.text = PlaylistHandler.playlistId
         }
         if titleLabel != nil {
-            self.titleLabel.text = playlistName
+            self.titleLabel.text = PlaylistHandler.playlistName
         }
     }
     /**
@@ -58,7 +58,8 @@ class PlaylistControlView: UIView {
     */
     internal func setParentPlaylistController(playlistC: PlaylistController) {
         self.playlistController = playlistC
-        if isHost {
+        if PlaylistHandler.isHost {
+//        if isHost {
             musicPlayerView.setParentPlaylistController(playlistC)
         }
     }
@@ -154,7 +155,7 @@ class PlaylistControlView: UIView {
         searchButton.addTarget(self, action: #selector(PlaylistControlView.searchButtonPressed), forControlEvents: .TouchUpInside)
 
         titleLabel = Style.defaultLabel()
-        titleLabel.text = playlistName
+        titleLabel.text = PlaylistHandler.playlistName
         topMenuBar = renderMenuBar(titleLabel, leftButton: historyButton, rightButton: searchButton)
         self.addSubview(topMenuBar)
     }
@@ -187,7 +188,8 @@ class PlaylistControlView: UIView {
         leaveButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         leaveButton.addTarget(self, action: #selector(PlaylistControlView.leaveButtonPressed), forControlEvents: .TouchUpInside)
         idLabel = Style.defaultLabel()
-        idLabel.text = playlistId!
+        idLabel.text = PlaylistHandler.playlistId
+//        idLabel.text = playlistId!
         bottomMenuBar = renderMenuBar(idLabel, leftButton: leaveButton, rightButton: inviteButton)
         self.addSubview(bottomMenuBar)
 

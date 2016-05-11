@@ -11,13 +11,11 @@ import MediaPlayer
 import Contacts
 
 // Current global variables.
-var playlistId: String?
+
 var spotifySession: SPTSession?
 var nowPlaying: Song?
 var keys: NSDictionary?
 var votes = [String:VotingStatus]()
-var isHost: Bool = false
-var playlistName: String!
 
 var allLocalITunes: [Song] = []
 var allLocalITunesOriginals: [MPMediaItem]? = []

@@ -57,13 +57,13 @@ class MusicPlayerView: UIView {
         renderTitleLabel()
         renderDescriptionLabel()
         renderPlatformView()
-        if isHost {
+        if PlaylistHandler.isHost {
             renderPlayButton()
             renderMusicPlayer()
             renderForwardButton()
             renderStartButton()
         }
-        if isHost {
+        if PlaylistHandler.isHost {
             createStartConstraints()
         }
         createPlayerViewConstraints()

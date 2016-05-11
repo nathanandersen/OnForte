@@ -341,10 +341,11 @@ class RootViewController: UIViewController, UITextFieldDelegate {
             if targetPlaylistName != "" {
                 print("title:" + targetPlaylistName)
                 activityIndicator.showActivity("Creating")
-                playlistId = self.generateRandomId()
-                isHost = true
-                playlistName = targetPlaylistName
-                let playlistInfo = [targetPlaylistName,playlistId!]
+
+                PlaylistHandler.playlistId = PlaylistHandler.generateRandomId()
+                PlaylistHandler.isHost = true
+                PlaylistHandler.playlistName = targetPlaylistName
+                let playlistInfo = [targetPlaylistName,PlaylistHandler.playlistId]
                 Meteor.call("addPlaylist",params:playlistInfo,callback:{(result: AnyObject?,error:DDPError?) in
                     if error != nil {
                         print(error)
@@ -381,7 +382,7 @@ class RootViewController: UIViewController, UITextFieldDelegate {
                     self.presentViewController(alertController, animated: true, completion: nil)
                 } else if result != nil {
                     activityIndicator.showComplete("Joined")
-                    playlistId = targetPlaylistId
+                    PlaylistHandler.playlistId = targetPlaylistId
                     self.parseSongAndSendToPlaylist(result!)
 
                 } else {
@@ -412,7 +413,7 @@ class RootViewController: UIViewController, UITextFieldDelegate {
                 self.presentViewController(alertController, animated: true, completion: nil)
             } else if result != nil {
                 activityIndicator.showComplete("Joined")
-                playlistId = targetPlaylistId
+                PlaylistHandler.playlistId = targetPlaylistId
                 self.parseSongAndSendToPlaylist(result!)
 
             } else {
@@ -433,7 +434,7 @@ class RootViewController: UIViewController, UITextFieldDelegate {
     internal func parseSongAndSendToPlaylist(playlistInfo: AnyObject?) {
         if playlistInfo != nil {
             let jsonPlaylistInfo = JSON(playlistInfo!)
-            playlistName = jsonPlaylistInfo["name"].string!
+            PlaylistHandler.playlistName = jsonPlaylistInfo["name"].string!
             let songPlaying = jsonPlaylistInfo["nowPlaying"]
             if songPlaying != "" {
                 let arr: [String] = songPlaying.arrayObject as! [String]
@@ -458,19 +459,6 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         centralNavigationController.presentPlaylist()
     }
 
-    /**
-     Generate a random playlist Id
-    */
-    private func generateRandomId() -> String {
-        let _base36chars_string = "0123456789abcdefghijklmnopqrstuvwxyz"
-        let _base36chars = Array(_base36chars_string.characters)
-        var uniqueId = "";
-        for _ in 1...6 {
-            let random = Int(arc4random_uniform(36))
-            uniqueId = uniqueId + String(_base36chars[random])
-        }
-        return uniqueId;
-    }
 
 
     

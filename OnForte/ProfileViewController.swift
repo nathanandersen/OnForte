@@ -58,7 +58,7 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
         renderTableView()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileViewController.didLogInToSpotify), name: "didLogInToSpotify", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileViewController.displayHostSettings), name: "displayHostSettings", object: nil)
-        if isHost {
+        if PlaylistHandler.isHost {
             displayHostSettings()
         }
         self.navigationItem.setHidesBackButton(true, animated: true)
@@ -83,7 +83,7 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
     }
 
     func updateProfileDisplay() {
-        if isHost {
+        if PlaylistHandler.isHost {
             displayHostSettings()
         } else {
             hideHostSettings()

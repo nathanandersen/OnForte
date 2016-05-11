@@ -180,8 +180,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Meteor.connect("wss://onforte.herokuapp.com/websocket") {
             print("Connected to Forte")
             activityIndicator.showComplete("Connected")
-            if playlistId != nil {
-                Meteor.subscribe("songs",params: [playlistId!])
+            if PlaylistHandler.playlistId != "" {
+//            if playlistId != nil {
+                Meteor.subscribe("queueSongs",params: [PlaylistHandler.playlistId])
+//                Meteor.subscribe("songs",params: [playlistId!])
             }
         }
     }

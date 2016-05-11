@@ -126,7 +126,7 @@ class InvitationViewController: UIViewController, UITableViewDelegate, UITableVi
             let message = [
                 "To": digits,
                 "From" : twilioPhoneNumber,
-                "Body" : "You've been invited to join a playlist on Forte at Forte://" + playlistId! + ". Don't have the app? Join the fun at www.onforte.com/" + playlistId! + " ."
+                "Body" : "You've been invited to join a playlist on Forte at Forte://" + PlaylistHandler.playlistId + ". Don't have the app? Join the fun at www.onforte.com/" + PlaylistHandler.playlistId + " ."
             ]
              Alamofire.request(.POST, "https://\(twilioUsername):\(twilioPassword)@api.twilio.com/2010-04-01/Accounts/\(twilioUsername)/Messages", parameters: message).responseJSON { response in
                 print("sent")

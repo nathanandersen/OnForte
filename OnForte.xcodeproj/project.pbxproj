@@ -58,6 +58,7 @@
 		246232FB1CE2CCE0004C63E8 /* SongHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246232FA1CE2CCE0004C63E8 /* SongHandler.swift */; };
 		24959C2E1CC30AC2009F55B6 /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24959C2D1CC30AC2009F55B6 /* PlayButton.swift */; };
 		24A931071CD24FE4008A7F29 /* FastForwardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A931061CD24FE4008A7F29 /* FastForwardButton.swift */; };
+		24BCF48E1CE3AC96001054B7 /* PlaylistHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BCF48D1CE3AC96001054B7 /* PlaylistHandler.swift */; };
 		3330D23D6124A74940E85D23 /* Pods_OnForte.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F30BD231CB5DCD1F61B26BA /* Pods_OnForte.framework */; };
 		507BAFAE1CD1AC340059F31D /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 507BAFAD1CD1AC340059F31D /* Keys.plist */; };
 /* End PBXBuildFile section */
@@ -138,6 +139,7 @@
 		246232FA1CE2CCE0004C63E8 /* SongHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongHandler.swift; sourceTree = "<group>"; };
 		24959C2D1CC30AC2009F55B6 /* PlayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
 		24A931061CD24FE4008A7F29 /* FastForwardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FastForwardButton.swift; sourceTree = "<group>"; };
+		24BCF48D1CE3AC96001054B7 /* PlaylistHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistHandler.swift; sourceTree = "<group>"; };
 		3463E503218EC6DD66A191F2 /* Pods-OnForte.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnForte.release.xcconfig"; path = "Pods/Target Support Files/Pods-OnForte/Pods-OnForte.release.xcconfig"; sourceTree = "<group>"; };
 		3783E112FD670A5078156D43 /* Pods-OnForte.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnForte.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OnForte/Pods-OnForte.debug.xcconfig"; sourceTree = "<group>"; };
 		507BAFAD1CD1AC340059F31D /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 		240AAFC81CC08DA10061EB54 /* OnForte */ = {
 			isa = PBXGroup;
 			children = (
+				24BCF48F1CE3ACA2001054B7 /* Handlers */,
 				243481731CE23C1700402A4A /* Views */,
 				240AB0151CC093700061EB54 /* ArtworkHandler.swift */,
 				240AB0361CC094770061EB54 /* Main.storyboard */,
@@ -205,7 +208,6 @@
 				240AB0021CC091AC0061EB54 /* Globals.swift */,
 				240AB0041CC091E60061EB54 /* Style.swift */,
 				240AB0061CC092360061EB54 /* Song.swift */,
-				246232FA1CE2CCE0004C63E8 /* SongHandler.swift */,
 				240AB0081CC092670061EB54 /* Meteor */,
 				243481711CE23AD200402A4A /* CoreData */,
 				240AAFC91CC08DA10061EB54 /* AppDelegate.swift */,
@@ -255,7 +257,6 @@
 				240AB01B1CC094020061EB54 /* SpotifyHandler.swift */,
 				240AB01C1CC094020061EB54 /* LocalHandler.swift */,
 				240AB01D1CC094020061EB54 /* SearchHandler.swift */,
-				240AB0191CC094020061EB54 /* SearchViewController.swift */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -285,7 +286,7 @@
 				240AB0251CC0944D0061EB54 /* PlaylistDrawerController.swift */,
 				240AB0261CC0944D0061EB54 /* PlaylistController.swift */,
 				240AB0271CC0944D0061EB54 /* PlaylistHistoryViewController.swift */,
-				240AB0231CC094150061EB54 /* Search */,
+				240AB0191CC094020061EB54 /* SearchViewController.swift */,
 				243481761CE23C5E00402A4A /* Invitation */,
 				240AB0541CC095280061EB54 /* SongTableViewCell.swift */,
 				240AB0551CC095280061EB54 /* SongTableViewCell.xib */,
@@ -339,6 +340,16 @@
 				246232F71CE28406004C63E8 /* FavoritedSong.swift */,
 			);
 			name = Profile;
+			sourceTree = "<group>";
+		};
+		24BCF48F1CE3ACA2001054B7 /* Handlers */ = {
+			isa = PBXGroup;
+			children = (
+				246232FA1CE2CCE0004C63E8 /* SongHandler.swift */,
+				24BCF48D1CE3AC96001054B7 /* PlaylistHandler.swift */,
+				240AB0231CC094150061EB54 /* Search */,
+			);
+			name = Handlers;
 			sourceTree = "<group>";
 		};
 		5DFA7C47CA548928823401F7 /* Frameworks */ = {
@@ -568,6 +579,7 @@
 				246232F91CE28406004C63E8 /* FavoritedSong.swift in Sources */,
 				240AB04F1CC095180061EB54 /* ActivityIndicator.swift in Sources */,
 				240AB0561CC095280061EB54 /* SongTableViewCell.swift in Sources */,
+				24BCF48E1CE3AC96001054B7 /* PlaylistHandler.swift in Sources */,
 				240AB04D1CC094CD0061EB54 /* Checkbox.swift in Sources */,
 				240AB02A1CC0944D0061EB54 /* PlaylistHistoryViewController.swift in Sources */,
 				243481701CE23ACC00402A4A /* SuggestedSong.swift in Sources */,
