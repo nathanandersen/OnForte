@@ -276,7 +276,9 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
         }
 
         let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell") as! SongViewCell
-        cell.loadItem(dataSource[indexPath.row])
+        let song = dataSource[indexPath.row]
+        print(song.service!)
+        cell.loadItem(song)
         return cell;
     }
 
