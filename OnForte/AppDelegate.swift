@@ -28,39 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var launchURL: String? = nil
     var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
 
-    // iTunes: load and parse all songs from local library
-    func loadAllLocalSongs() {
-        print("Loading all items from local library")
 
-        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-        dispatch_async(backgroundQueue, {
-            allLocalITunesOriginals = MPMediaQuery.songsQuery().items
-            if allLocalITunesOriginals == nil {
-                return
-            }
-
-            var songs: [Song] = []
-            if allLocalITunesOriginals!.count > 0 {
-                for i in 0...(allLocalITunesOriginals!.count-1){
-                    let track = allLocalITunesOriginals![i]
-                    let song = Song(
-                        title: track.title,
-                        description: track.albumTitle,
-                        service: Service.iTunes,
-                        trackId: String(i),
-                        artworkURL: nil)
-                    songs += [song]
-                }
-            }
-
-
-            // track Id will be an index for the MPMediaItem
-
-            allLocalITunes = songs
-            print("Loaded all items from local library")
-        })
-    }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         NSLog("application launched")
@@ -81,7 +49,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Soundcloud.clientSecret = keys!["SoundcloudClientSecret"] as? String
 
 
-        loadAllLocalSongs()
+
+//        SongHandler.loadAllLocalSongs()
+//        loadAllLocalSongs()
 
         defaults.registerDefaults(
             [onboardingKey: false]
@@ -181,9 +151,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Connected to Forte")
             activityIndicator.showComplete("Connected")
             if PlaylistHandler.playlistId != "" {
-//            if playlistId != nil {
                 Meteor.subscribe("queueSongs",params: [PlaylistHandler.playlistId])
-//                Meteor.subscribe("songs",params: [playlistId!])
             }
         }
     }

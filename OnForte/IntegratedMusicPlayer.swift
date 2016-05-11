@@ -192,7 +192,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     */
     private func playLocalSong() -> Bool {
         let index: Int = Int(nowPlaying!.trackId!)!
-        let nowPlayingItem: MPMediaItem! = allLocalITunesOriginals![index]
+        let nowPlayingItem: MPMediaItem! = SongHandler.allLocalITunesOriginals![index]
         let itemCollection: MPMediaItemCollection = MPMediaItemCollection(items: [nowPlayingItem])
         localPlayer.setQueueWithItemCollection(itemCollection)
         localPlayer.prepareToPlay()

@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import MediaPlayer
 
 /**
  The SongHandler controls all of the songs in the application, whether in
@@ -16,6 +17,26 @@ import CoreData
 class SongHandler: NSObject {
 
     private static let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+
+
+    internal static var allLocalITunes: [Song] = {
+        var songs = [Song]()
+        if allLocalITunesOriginals!.count > 0 {
+            for i in 0...(allLocalITunesOriginals!.count-1){
+                let track = allLocalITunesOriginals![i]
+                let song = Song(
+                    title: track.title,
+                    description: track.albumTitle,
+                    service: Service.iTunes,
+                    trackId: String(i),
+                    artworkURL: nil)
+                songs += [song]
+            }
+        }
+        return songs
+    }()
+
+    internal static var allLocalITunesOriginals: [MPMediaItem]? = MPMediaQuery.songsQuery().items
 
     /**
      Manage the playlist history

@@ -35,12 +35,14 @@ class PlaylistHandler: NSObject {
     internal static var isHost: Bool = false
     internal static var playlistName: String = ""
 
+    /**
+     Leave a playlist
+    */
     internal static func leavePlaylist() {
         playlistId = ""
         playlistName = ""
         isHost = false
     }
-
 
     /**
      Generate a random playlist Id

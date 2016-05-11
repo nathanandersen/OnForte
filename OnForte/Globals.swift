@@ -17,8 +17,6 @@ var nowPlaying: Song?
 var keys: NSDictionary?
 var votes = [String:VotingStatus]()
 
-var allLocalITunes: [Song] = []
-var allLocalITunesOriginals: [MPMediaItem]? = []
 
 var activityIndicator: ActivityIndicator!
 
