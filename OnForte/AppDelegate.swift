@@ -19,7 +19,6 @@ enum Storyboard: String {
 }
 
 let onboardingKey = "onboardingShown"
-//let autoRefresh = "autoRefreshEnabled"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

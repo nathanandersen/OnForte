@@ -202,7 +202,6 @@
 			children = (
 				24BCF48F1CE3ACA2001054B7 /* Handlers */,
 				243481731CE23C1700402A4A /* Views */,
-				240AB0151CC093700061EB54 /* ArtworkHandler.swift */,
 				240AB0361CC094770061EB54 /* Main.storyboard */,
 				240AB0381CC094830061EB54 /* LaunchScreen.storyboard */,
 				240AB0021CC091AC0061EB54 /* Globals.swift */,
@@ -347,6 +346,7 @@
 			children = (
 				246232FA1CE2CCE0004C63E8 /* SongHandler.swift */,
 				24BCF48D1CE3AC96001054B7 /* PlaylistHandler.swift */,
+				240AB0151CC093700061EB54 /* ArtworkHandler.swift */,
 				240AB0231CC094150061EB54 /* Search */,
 			);
 			name = Handlers;

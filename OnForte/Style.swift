@@ -67,49 +67,6 @@ struct Style {
         button.setTitle(title, forState: .Normal)
         button.tintColor = Style.primaryColor
         button.titleLabel?.font = Style.defaultFont(15)
-        //        button.titleLabel?.font = Style.buttonFont
-        return button
-    }
-
-    static func defaultBFPaperButton(title: String) -> BFPaperButton {
-        let button = BFPaperButton()
-        button.isRaised = false
-        button.layer.borderWidth = 1
-        button.layer.cornerRadius = 5
-        button.layer.borderColor = Style.primaryColor.CGColor
-        button.tapCircleColor = Style.secondaryColor
-        button.backgroundColor = Style.whiteColor
-        button.setTitle(title, forState: .Normal)
-        button.tintColor = Style.primaryColor
-        button.titleLabel?.font = Style.defaultFont(20)
-        button.setTitleColor(Style.primaryColor, forState: .Normal)
-        button.titleFont = Style.defaultFont(17)
-        return button
-    }
-
-    static func circularButton(fontSize: Double) -> BFPaperButton {
-        let button = BFPaperButton()
-        button.tapCircleDiameter = 50.0
-        button.backgroundColor = UIColor.whiteColor()
-        button.tapCircleColor = Style.secondaryColor
-        button.rippleBeyondBounds = false
-        button.setTitleColor(Style.primaryColor, forState: .Normal)
-        button.titleFont = UIFont.systemFontOfSize(CGFloat(fontSize))
-        button.rippleFromTapLocation = false
-        button.tintColor = Style.primaryColor
-        button.cornerRadius = 25
-        button.layer.cornerRadius = 25
-        button.layer.borderWidth = 1
-        button.layer.borderColor = Style.primaryColor.CGColor
-        button.isRaised = true
-        button.liftedShadowRadius = 25.0
-        return button
-    }
-
-    static func invisibleButton() -> BFPaperButton {
-        let button = BFPaperButton()
-        button.backgroundColor = UIColor.clearColor()
-        button.isRaised = false
         return button
     }
 
@@ -175,25 +132,5 @@ struct Style {
                                multiplier: 1,
                                constant: 0)
         return [leftConstraint,rightConstraint,topConstraint,bottomConstraint]
-    }
-
-    static func constrainToHeightOfFrame(label: UIView, parentView: UIView) -> [NSLayoutConstraint] {
-        let topConstraint =
-            NSLayoutConstraint(item: label,
-                               attribute: .Top,
-                               relatedBy: .Equal,
-                               toItem: parentView,
-                               attribute: .Top,
-                               multiplier: 1,
-                               constant: 0)
-        let bottomConstraint =
-            NSLayoutConstraint(item: label,
-                               attribute: .Bottom,
-                               relatedBy: .Equal,
-                               toItem: parentView,
-                               attribute: .Bottom,
-                               multiplier: 1,
-                               constant: 0)
-        return [topConstraint,bottomConstraint]
     }
 }

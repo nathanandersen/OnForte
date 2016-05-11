@@ -15,7 +15,7 @@
         <attribute name="trackId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="SuggestedSong" positionX="-63" positionY="-18" width="128" height="120"/>
         <element name="FavoritedSong" positionX="-63" positionY="18" width="128" height="120"/>
+        <element name="SuggestedSong" positionX="-63" positionY="-18" width="128" height="120"/>
     </elements>
 </model>
