@@ -17,33 +17,55 @@ class SongHandler: NSObject {
 
     private static let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
+    /**
+     Manage the playlist history
+    */
     private static let playedSongCollection = PlaylistSongHistory(name: "playedSongs")
+    /**
+     Manage the active queue
+    */
     private static let queuedSongs = SongCollection(name: "queueSongs")
 
+    /**
+     Get the number of songs in the playlist history
+    */
     internal static func getPlaylistHistoryCount() -> Int {
         return playedSongCollection.count
     }
 
+    /**
+     Given an index into the Playlist History, return a tuple of that song's ID and the song.
+    */
     internal static func getPlayedSongByIndex(index: Int) -> (String, PlayedSongDocument) {
         let songId = playedSongCollection.keys[index]
         return (songId, playedSongCollection.findOne(songId)!)
     }
 
+    /**
+     Wipe the songs for the next playlist
+    */
     internal static func clearForNewPlaylist() {
         playedSongCollection.clear()
         queuedSongs.clear()
     }
 
+    /**
+     Get a sorted array of the songs in the queue
+    */
     internal static func getSongsInQueue() -> [SongDocument] {
         return self.queuedSongs.sortedByScore()
     }
-
+    /**
+     Given an index into the Playlist Queue, return a tuple of that song's ID and the song.
+     */
     internal static func getQueuedSongByIndex(index: Int) -> (String, SongDocument) {
         let songId = queuedSongs.keys[index]
         return (songId, queuedSongs.findOne(songId)!)
     }
 
-
+    /**
+     Get the top song according to the platform constraints
+    */
     internal static func getTopSongWithPlatformConstraints(platforms: [Service]) -> Song? {
         print(platforms)
         let filteredSongs = getSongsInQueue().filter({
@@ -57,17 +79,38 @@ class SongHandler: NSObject {
     }
 
 
-
-
-
+    /**
+     Conditionally insert into suggestions if not already there
+    */
     internal static func insertIntoSuggestions(song: Song) {
-        // if not in suggestions
-        // insert
+        var suggestedSong: SuggestedSong?
+        for songItem in fetchSuggestionsAsOriginalData() {
+            if Song(suggestedSong: songItem) == song {
+                suggestedSong = songItem
+                break
+            }
+        }
+        if suggestedSong == nil {
+            SuggestedSong.createInManagedObjectContext(managedObjectContext, song: song)
+            (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
+        }
+    }
 
-
-
-        SuggestedSong.createInManagedObjectContext(managedObjectContext, song: song)
-        (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
+    /**
+     Conditionally insert into favorties if not already there
+     */
+    internal static func insertIntoFavorites(song: Song) {
+        var favoritedSong: FavoritedSong?
+        for songItem in fetchFavoritesAsOriginalData() {
+            if Song(favoritedSong: songItem) == song {
+                favoritedSong = songItem
+                break
+            }
+        }
+        if favoritedSong == nil {
+            FavoritedSong.createInManagedObjectContext(managedObjectContext, song: song)
+            (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
+        }
     }
 
     private static func fetchSuggestionsAsOriginalData() -> [SuggestedSong] {
