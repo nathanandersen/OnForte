@@ -29,7 +29,7 @@ func isValidString(str: String?) -> Bool {
 
 /**
  MusicPlayerView displays the variable states of the Music Player:
- collapsed, started, small, and large
+ collapsed, start, small, and large
  */
 class MusicPlayerView: UIView {
 
@@ -39,10 +39,9 @@ class MusicPlayerView: UIView {
     var titleLabel: UILabel!
     var descriptionLabel: UILabel!
     var startButton: UIButton?
-//    var musicPlayer: IntegratedMusicPlayer!
     var playButton: BlurredPlayButton!
     var forwardButton: FastForwardButton!
-//    var playlistController: PlaylistController!
+
     var displayType: MusicPlayerDisplayType
 
     var expandedViewConstraints: [NSLayoutConstraint] = [NSLayoutConstraint]()
@@ -59,7 +58,6 @@ class MusicPlayerView: UIView {
         renderPlatformView()
         if PlaylistHandler.isHost {
             renderPlayButton()
-//            renderMusicPlayer()
             renderForwardButton()
             renderStartButton()
         }
@@ -84,8 +82,6 @@ class MusicPlayerView: UIView {
     */
     internal func displaySong(completionHandler: Bool -> Void) {
         if let nowPlaying = PlaylistHandler.nowPlaying {
-//            print(nowPlaying.description)
-
             ArtworkHandler.lookupArtworkAsync(nowPlaying.artworkURL, completionHandler: { (image: UIImage) in
                 dispatch_async(dispatch_get_main_queue(), {
                     self.songArtView.image = image
@@ -314,11 +310,6 @@ class MusicPlayerView: UIView {
         PlaylistHandler.fastForward() { (result) in
             self.playButton.setIsPlaying(result)
         }
-/*        PlaylistHandler.playNextSong({(result) in
-            self.playButton.setIsPlaying(result)
-            NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
-            NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
-        })*/
     }
 
     /**

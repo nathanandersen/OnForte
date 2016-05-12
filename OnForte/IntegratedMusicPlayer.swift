@@ -232,7 +232,6 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      - returns: whether playing was successful
      */
     private func playSpotify(completionHandler: Bool -> Void) {
-        print("spotify starting to play")
         if !PlaylistHandler.spotifySessionIsValid() {
             print("not logged into spotify!")
             completionHandler(false)
@@ -252,9 +251,9 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
                     print(error)
                     completionHandler(false)
                     return
-                } else {
-                    self.spotifyPlayer.setIsPlaying(true, callback: nil)
-                }
+                } //else {
+//                    self.spotifyPlayer.setIsPlaying(true, callback: nil)
+//                }
             })
         }
         completionHandler(true)

@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-//import SVGPlayButton
 
 class BlurredPlayButton: SVGPlayButton {
 
@@ -55,8 +54,6 @@ class BlurredPlayButton: SVGPlayButton {
 
     override func touchUpInsideHandler() {
         toggleFn()
-//        playing = !playing
-        // ^ temporary fix...somehow we have to correct this w/ callbacks
     }
 
 }
