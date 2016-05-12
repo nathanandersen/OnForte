@@ -85,36 +85,22 @@ class SongTableViewCell: SWTableViewCell {
     }
 
     /**
-    Reload the song table
-    */
-    func reloadTable(result: AnyObject?,error:DDPError?) {
-        NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
-    }
-
-    /**
     Upvote the song
     */
     @IBAction func upvoteClicked(sender: AnyObject) {
-        let key = song._id
-        if votes[key]! != VotingStatus.Upvote {
-            let newVotingStatus = votes[key]!.upvote()
-            displayVotingStatus(newVotingStatus)
-            votes[key] = newVotingStatus
-            Meteor.call("upvoteSong",params:[songId],callback: self.reloadTable)
-        }
-        
+        PlaylistHandler.upvote(song._id, completionHandler: { (votingStatus) in
+            self.displayVotingStatus(votingStatus)
+            self.setNeedsLayout()
+        })
     }
     /**
     Downvote the song
     */
     @IBAction func downvoteClicked(sender: AnyObject) {
-        let key = song._id
-        if votes[key]! != VotingStatus.Downvote {
-            let newVotingStatus = votes[key]!.downvote()
-            displayVotingStatus(newVotingStatus)
-            votes[key] = newVotingStatus
-            Meteor.call("downvoteSong",params:[songId],callback: self.reloadTable)
-        }
+        PlaylistHandler.downvote(song._id, completionHandler: { (votingStatus) in
+            self.displayVotingStatus(votingStatus)
+            self.setNeedsLayout()
+        })
     }
     /**
     Load a song into the song table cell.
@@ -154,8 +140,7 @@ class SongTableViewCell: SWTableViewCell {
             }
         }
         platformImage.image = UIImage(named: platformSource)
-        let key = song._id
-        displayVotingStatus(votes[key]!)
+        displayVotingStatus(PlaylistHandler.getVotingStatus(song._id))
     }
 
     /**

@@ -127,10 +127,9 @@ class SongCollection: MeteorCollection<SongDocument> {
 
         keys.append(id)
 
-        votes[id] = VotingStatus.None
-//        votes[SongVotingKey(doc: document)] = VotingStatus.None
+        PlaylistHandler.addVotingStatusForId(id)
 
-//        print("easgasgsalgkng")
+//        votes[id] = VotingStatus.None
         NSNotificationCenter.defaultCenter().postNotificationName("songWasAdded", object: nil)
     }
 

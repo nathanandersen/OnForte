@@ -15,7 +15,7 @@ import Contacts
 var spotifySession: SPTSession?
 var nowPlaying: Song?
 var keys: NSDictionary?
-var votes = [String:VotingStatus]()
+//var votes = [String:VotingStatus]()
 
 
 var activityIndicator: ActivityIndicator!

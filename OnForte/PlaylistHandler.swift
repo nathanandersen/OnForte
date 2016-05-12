@@ -35,6 +35,33 @@ class PlaylistHandler: NSObject {
     internal static var isHost: Bool = false
     internal static var playlistName: String = ""
 
+    private static var votes = [String:VotingStatus]()
+
+    internal static func getVotingStatus(id: String) -> VotingStatus {
+        return votes[id]!
+    }
+
+    internal static func downvote(id: String, completionHandler: (VotingStatus) -> Void) {
+        Meteor.call("downvoteSong",params:[id]) { (result,error) in
+            let newStatus = votes[id]!.downvote()
+            votes.updateValue(newStatus, forKey: id)
+            completionHandler(newStatus)
+        }
+    }
+
+    internal static func upvote(id: String, completionHandler: (VotingStatus) -> Void) {
+        Meteor.call("upvoteSong",params:[id]) { (result,error) in
+            let newStatus = votes[id]!.upvote()
+            votes.updateValue(newStatus, forKey: id)
+            completionHandler(newStatus)
+        }
+    }
+
+    internal static func addVotingStatusForId(id: String) {
+        votes.updateValue(VotingStatus.None, forKey: id)
+    }
+
+
     /**
      Leave a playlist
     */
