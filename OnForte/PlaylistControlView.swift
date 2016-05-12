@@ -218,8 +218,6 @@ class PlaylistControlView: UIView {
         let menuBar = UIView()
         menuBar.addSubview(leftButton)
         menuBar.addSubview(rightButton)
-//        let label = Style.defaultLabel()
-//        label.text = labelTitle
         menuBar.addSubview(label)
 
         leftButton.translatesAutoresizingMaskIntoConstraints = false
@@ -340,8 +338,6 @@ class PlaylistControlView: UIView {
         musicPlayerView.updateConstraints()
         bottomMenuBar.updateConstraints()
     }
-
-
 
     
     required init?(coder aDecoder: NSCoder) {

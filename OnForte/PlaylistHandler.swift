@@ -39,7 +39,11 @@ class PlaylistHandler: NSObject {
     }
 
     internal static func playNextSong(completionHandler: (Bool) -> ()) {
-        musicPlayer.playNextSong(completionHandler)
+        musicPlayer.playNextSong({(result) in
+            completionHandler(result)
+            NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
+        })
+//        musicPlayer.playNextSong(completionHandler)
     }
 
     internal static var nowPlaying: Song?

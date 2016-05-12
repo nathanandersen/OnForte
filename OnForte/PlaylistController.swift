@@ -198,11 +198,8 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     func displayNextSong() {
         dispatch_async(dispatch_get_main_queue(), {
             activityIndicator.showComplete("")
-            // check out this next line
+
             self.playlistControlView.musicPlayerView.displaySong()
-
-            // COME BACK TO ME
-
         })
     }
 

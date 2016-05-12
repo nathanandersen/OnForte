@@ -84,7 +84,7 @@ class MusicPlayerView: UIView {
     */
     internal func displaySong() {
         if let nowPlaying = PlaylistHandler.nowPlaying {
-            print(nowPlaying.description)
+//            print(nowPlaying.description)
 
             ArtworkHandler.lookupArtworkAsync(nowPlaying.artworkURL, completionHandler: { (image: UIImage) in
                 dispatch_async(dispatch_get_main_queue(), {
@@ -92,12 +92,12 @@ class MusicPlayerView: UIView {
                     self.setNeedsLayout()
                 })
             })
-            dispatch_async(dispatch_get_main_queue(), {
-                self.titleLabel.text = (isValidString(nowPlaying.title)) ? nowPlaying.title! : "<no title>"
-                self.descriptionLabel.text = (isValidString(nowPlaying.description)) ? nowPlaying.description! : "<no description>"
-                let platformString = (nowPlaying.service?.asLowerCaseString())!
-                self.platformView.image = UIImage(named: platformString)
-            } )
+            //            dispatch_async(dispatch_get_main_queue(), {
+            self.titleLabel.text = (isValidString(nowPlaying.title)) ? nowPlaying.title! : "<no title>"
+            self.descriptionLabel.text = (isValidString(nowPlaying.description)) ? nowPlaying.description! : "<no description>"
+            let platformString = (nowPlaying.service?.asLowerCaseString())!
+            self.platformView.image = UIImage(named: platformString)
+            //            } )
         }
     }
 
