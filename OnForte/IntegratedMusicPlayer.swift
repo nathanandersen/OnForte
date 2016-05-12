@@ -56,14 +56,13 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
                 playing ? localPlayer.pause() : localPlayer.play()
             }
             playing = !playing
-
+            completionHandler(playing)
         } else {
             playNextSong({(result) in
                 completionHandler(result)
                 self.playing = result
             })
         }
-
     }
 
 

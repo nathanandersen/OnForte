@@ -32,8 +32,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
      Clear the PlaylistController for a new playlist.
     */
     func presentNewPlaylist() {
-//        let paramObj = [playlistId!]
-//        Meteor.subscribe("queueSongs",params: paramObj)
         self.updateTable()
         self.addNotificationsToGlobalCenter()
         self.playlistControlView.updatePlaylistInformation()
@@ -209,39 +207,9 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     /*
-    func startPlaylist(sender: AnyObject){
-        playlistStarted = true
-        displayNextSong()
-    }*/
-
-    /*
      Functions related to leaving the playlist
      and other segues
      */
-
-    /**
-     Called when the leave button is pressed and confirmed.
-     Wipe the variables and boot out.
-    */
-    func leavePlaylist() {
-/*        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-        dispatch_async(backgroundQueue, {
-            // stop on a background thread
-            if PlaylistHandler.isHost {
-                self.playlistControlView.musicPlayerView.musicPlayer.stop()
-            }
-        })*/
-        PlaylistHandler.leavePlaylist()
-//        (self.navigationController! as! CentralNavigationController).leavePlaylist()
-//        playlistId = ""
-//        PlaylistHandler.playlistId = ""
-//        PlaylistHandler.playlistName = ""
-//        PlaylistHandler.leavePlaylist()
-//        nowPlaying = nil
-//        isHost = false
-//        Meteor.unsubscribe("queueSongs")
-    }
 
     /**
      Called when a user presses the cancel button.
@@ -266,7 +234,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
 
         // an 'end' action that leaves the playlist
         let endAction = UIAlertAction(title: "I'm out", style: .Destructive) {
-            (action) in self.leavePlaylist()
+            (action) in PlaylistHandler.leavePlaylist()
         }
         alertController.addAction(endAction)
 
@@ -287,7 +255,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
 
         // an 'end' action that leaves the playlist
         let endAction = UIAlertAction(title: "End", style: .Destructive) {
-            (action) in self.leavePlaylist()
+            (action) in PlaylistHandler.leavePlaylist()
         }
         alertController.addAction(endAction)
         dispatch_async(dispatch_get_main_queue(), {
@@ -330,7 +298,6 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
             if PlaylistHandler.nowPlaying == nil {
-//            if nowPlaying == nil {
                 if PlaylistHandler.isHost && SongHandler.getSongsInQueue().count >= 1 {
                     self.playlistControlView.showStartMusicPlayer()
                 } else {

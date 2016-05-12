@@ -55,7 +55,7 @@ class BlurredPlayButton: SVGPlayButton {
 
     override func touchUpInsideHandler() {
         toggleFn()
-        playing = !playing
+//        playing = !playing
         // ^ temporary fix...somehow we have to correct this w/ callbacks
     }
 

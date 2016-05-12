@@ -104,7 +104,6 @@ class MusicPlayerView: UIView {
                 self.titleLabel.text = (isValidString(nowPlaying.title)) ? nowPlaying.title! : "<no title>"
                 self.descriptionLabel.text = (isValidString(nowPlaying.description)) ? nowPlaying.description! : "<no description>"
                 let platformString = (nowPlaying.service?.asLowerCaseString())!
-//                print(platformString)
                 self.platformView.image = UIImage(named: platformString)
             } )
         }
@@ -271,7 +270,6 @@ class MusicPlayerView: UIView {
         PlaylistHandler.togglePlayingStatus({ (result) in
             self.playButton.setIsPlaying(result)
         })
-//        return musicPlayer.togglePlayingStatus()
     }
 
     /**
@@ -314,22 +312,14 @@ class MusicPlayerView: UIView {
     }
 
     /**
-    Initialize the music player
-    */
-//    private func renderMusicPlayer() {
-//        musicPlayer = IntegratedMusicPlayer()
-//        musicPlayer.control = self
-//    }
-
-    /**
     Handle the press of the fast forward button
     */
     internal func fastForward() {
         PlaylistHandler.playNextSong({(result) in
             self.playButton.setIsPlaying(result)
+            self.displaySong()
         })
-//        musicPlayer.stop()
-//        playButton.setIsPlaying(musicPlayer.playNextSong())
+
         NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
     }
 
