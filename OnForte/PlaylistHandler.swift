@@ -96,14 +96,9 @@ class PlaylistHandler: NSObject {
      Leave a playlist
     */
     internal static func leavePlaylist() {
-        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-        dispatch_async(backgroundQueue, {
-            // stop on a background thread
-            if self.isHost {
-                self.musicPlayer.stop()
-            }
-        })
+        if self.isHost {
+            self.musicPlayer.stop()
+        }
         playlistId = ""
         playlistName = ""
         nowPlaying = nil

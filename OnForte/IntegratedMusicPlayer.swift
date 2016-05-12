@@ -159,12 +159,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             // register an empty song or something
             //            self.registerNextSongWithServer(nil)
             completionHandler(false)
-            let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-            let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-            dispatch_async(backgroundQueue, {
-                // stop on a background thread
-                    self.stop()
-            })
+            self.stop()
         }
     }
 
@@ -187,16 +182,21 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      - bug: SoundCloud stopping is very slow.
     */
     internal func stop() {
-        spotifyPlayer.setIsPlaying(false,callback: nil)
-        soundcloudPlayer?.stop()
-        localPlayer.stop()
-        // ^ this line takes a long time
-        do {
-            try AVAudioSession.sharedInstance().setActive(false)
-            print("AVAudioSession is no longer active")
-        } catch let error as NSError {
-            print(error.localizedDescription)
-        }
+
+        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+        dispatch_async(backgroundQueue, {
+            self.spotifyPlayer.setIsPlaying(false,callback: nil)
+            self.soundcloudPlayer?.stop()
+            self.localPlayer.stop()
+            // ^ this line takes a long time
+            do {
+                try AVAudioSession.sharedInstance().setActive(false)
+                print("AVAudioSession is no longer active")
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+        })
     }
 
     /**
