@@ -153,7 +153,13 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             case .iTunes:
                 playLocalSong(completionHandler)
             }
-
+        } else {
+            PlaylistHandler.nowPlaying = nil
+            self.stop()
+            playing = false
+            // register an empty song or something
+            //            self.registerNextSongWithServer(nil)
+            completionHandler(false)
         }
     }
 
