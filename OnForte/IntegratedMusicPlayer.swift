@@ -155,11 +155,16 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             }
         } else {
             PlaylistHandler.nowPlaying = nil
-            self.stop()
             playing = false
             // register an empty song or something
             //            self.registerNextSongWithServer(nil)
             completionHandler(false)
+            let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+            let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+            dispatch_async(backgroundQueue, {
+                // stop on a background thread
+                    self.stop()
+            })
         }
     }
 
