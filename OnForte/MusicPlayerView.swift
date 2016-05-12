@@ -311,11 +311,14 @@ class MusicPlayerView: UIView {
     Handle the press of the fast forward button
     */
     internal func fastForward() {
-        PlaylistHandler.playNextSong({(result) in
+        PlaylistHandler.fastForward() { (result) in
+            self.playButton.setIsPlaying(result)
+        }
+/*        PlaylistHandler.playNextSong({(result) in
             self.playButton.setIsPlaying(result)
             NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
             NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
-        })
+        })*/
     }
 
     /**

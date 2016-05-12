@@ -63,18 +63,6 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
         }
     }
 
-
-    /**
-     This method hails from the AVAudioPlayerDelegate protocol. It is called when
-     the AVAudioPlayer finished playing a song.
-     
-     Inside, we simply play the next song for autoplay.
-     
-     - parameters:
-        - player: The AVAudioPlayer
-        - flag: A boolean noting whether or not the player finished successfully
- 
-    */
     internal func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
         songEnded()
     }
@@ -158,7 +146,6 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
 
     internal func songEnded() {
         PlaylistHandler.playNextSong({(result) in ()})
-        // how do I update the next song display? hmmm
     }
 
     /**
@@ -178,19 +165,17 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      
      - bug: SoundCloud stopping is very slow.
     */
-    internal func stop() {
+    internal func stopCurrentSong() {
         let qualityOfServiceClass = QOS_CLASS_BACKGROUND
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
-            self.spotifyPlayer.setIsPlaying(false,callback: nil)
-            self.soundcloudPlayer?.stop()
-            self.localPlayer.stop()
-            // ^ this line takes a long time
-            do {
-                try AVAudioSession.sharedInstance().setActive(false)
-                print("AVAudioSession is no longer active")
-            } catch let error as NSError {
-                print(error.localizedDescription)
+            switch(PlaylistHandler.nowPlaying!.service!) {
+            case .Soundcloud:
+                self.soundcloudPlayer!.pause()
+            case .iTunes:
+                self.localPlayer.pause()
+            case .Spotify:
+                self.spotifyPlayer.setIsPlaying(false, callback: nil)
             }
         })
     }
@@ -240,8 +225,6 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
         }
     }
 
-
-
     /**
      Called when we want to play a song from Spotify.
 
@@ -249,8 +232,8 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      - returns: whether playing was successful
      */
     private func playSpotify(completionHandler: Bool -> Void) {
-        if PlaylistHandler.spotifySessionIsValid() {
-            //        if spotifySession == nil || !spotifySession!.isValid() {
+        print("spotify starting to play")
+        if !PlaylistHandler.spotifySessionIsValid() {
             print("not logged into spotify!")
             completionHandler(false)
         } else {
@@ -269,6 +252,8 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
                     print(error)
                     completionHandler(false)
                     return
+                } else {
+                    self.spotifyPlayer.setIsPlaying(true, callback: nil)
                 }
             })
         }

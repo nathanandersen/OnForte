@@ -47,8 +47,18 @@ class PlaylistHandler: NSObject {
     }
 
     internal static func stop() {
-        musicPlayer.stop()
+        musicPlayer.stopCurrentSong()
         NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
+    }
+
+    internal static func fastForward(completionHandler: Bool -> Void) {
+        musicPlayer.stopCurrentSong()
+
+        musicPlayer.playNextSong({(result) in
+            completionHandler(result)
+            NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
+        })
     }
 
     internal static var nowPlaying: Song?
@@ -106,8 +116,7 @@ class PlaylistHandler: NSObject {
     */
     internal static func leavePlaylist() {
         if self.isHost {
-//            self.stop()
-            self.musicPlayer.stop()
+            self.musicPlayer.stopCurrentSong()
         }
         playlistId = ""
         playlistName = ""
