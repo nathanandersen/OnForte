@@ -42,7 +42,7 @@ class MusicPlayerView: UIView {
 //    var musicPlayer: IntegratedMusicPlayer!
     var playButton: BlurredPlayButton!
     var forwardButton: FastForwardButton!
-    var playlistController: PlaylistController!
+//    var playlistController: PlaylistController!
     var displayType: MusicPlayerDisplayType
 
     var expandedViewConstraints: [NSLayoutConstraint] = [NSLayoutConstraint]()
@@ -69,14 +69,6 @@ class MusicPlayerView: UIView {
         createPlayerViewConstraints()
         self.translatesAutoresizingMaskIntoConstraints = false
 
-    }
-
-    /**
-    Create the reference to the playlist controller, and pass it to its children
-    */
-    internal func setParentPlaylistController(playlistC: PlaylistController) {
-        self.playlistController = playlistC
-//        musicPlayer.playlistController = playlistC
     }
 
     /**

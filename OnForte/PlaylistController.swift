@@ -42,7 +42,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
      */
     private func renderPlaylistControlView() {
         playlistControlView = PlaylistControlView()
-        playlistControlView.setParentPlaylistController(self)
+        playlistControlView.playlistController = self
         self.view.addSubview(playlistControlView)
     }
 

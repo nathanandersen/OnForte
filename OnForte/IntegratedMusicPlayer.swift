@@ -79,11 +79,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     */
     internal func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
         playNextSong({(result) in ()})
-
         // how do I update the next song display? hmmm
-
-
-//        playNextSong()
     }
 
     /**
@@ -182,7 +178,6 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      - bug: SoundCloud stopping is very slow.
     */
     internal func stop() {
-
         let qualityOfServiceClass = QOS_CLASS_BACKGROUND
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {

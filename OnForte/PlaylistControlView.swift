@@ -53,16 +53,6 @@ class PlaylistControlView: UIView {
             self.titleLabel.text = PlaylistHandler.playlistName
         }
     }
-    /**
-    Set the parent PlaylistController and pass on to the children
-    */
-    internal func setParentPlaylistController(playlistC: PlaylistController) {
-        self.playlistController = playlistC
-        if PlaylistHandler.isHost {
-//        if isHost {
-            musicPlayerView.setParentPlaylistController(playlistC)
-        }
-    }
 
     /**
     Render the music player view
