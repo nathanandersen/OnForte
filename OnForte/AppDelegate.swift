@@ -149,11 +149,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // can we refresh the spotify session here?
 
         Meteor.connect("wss://onforte.herokuapp.com/websocket") {
-            print("Connected to Forte")
+            print("Connected to OnForte")
             activityIndicator.showComplete("Connected")
-            if PlaylistHandler.playlistId != "" {
-                Meteor.subscribe("queueSongs",params: [PlaylistHandler.playlistId])
-            }
+            PlaylistHandler.playlistId = PlaylistHandler.playlistId
         }
     }
 

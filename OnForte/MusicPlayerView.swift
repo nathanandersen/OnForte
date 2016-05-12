@@ -82,7 +82,7 @@ class MusicPlayerView: UIView {
     /** 
     Display the now playing song
     */
-    internal func displaySong() {
+    internal func displaySong(completionHandler: Bool -> Void) {
         if let nowPlaying = PlaylistHandler.nowPlaying {
 //            print(nowPlaying.description)
 
@@ -98,6 +98,10 @@ class MusicPlayerView: UIView {
             let platformString = (nowPlaying.service?.asLowerCaseString())!
             self.platformView.image = UIImage(named: platformString)
             //            } )
+            completionHandler(true)
+        } else {
+            completionHandler(false)
+
         }
     }
 
@@ -309,10 +313,9 @@ class MusicPlayerView: UIView {
     internal func fastForward() {
         PlaylistHandler.playNextSong({(result) in
             self.playButton.setIsPlaying(result)
-            self.displaySong()
+            NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
         })
-
-        NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
     }
 
     /**

@@ -36,13 +36,11 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
         localPlayer.beginGeneratingPlaybackNotifications()
     }
 
-    // returns the new playing status
     /**
      A function to toggle the playing status of the player.
      */
     func togglePlayingStatus(completionHandler: Bool -> Void) {
         if let currentSong = PlaylistHandler.nowPlaying {
-            //        if let currentSong = nowPlaying {
             switch(currentSong.service!) {
             case .Soundcloud:
                 if playing {
@@ -58,7 +56,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             playing = !playing
             completionHandler(playing)
         } else {
-            playNextSong({(result) in
+            PlaylistHandler.playNextSong({(result) in
                 completionHandler(result)
                 self.playing = result
             })
@@ -78,8 +76,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
  
     */
     internal func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
-        playNextSong({(result) in ()})
-        // how do I update the next song display? hmmm
+        songEnded()
     }
 
     /**
@@ -155,8 +152,13 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             // register an empty song or something
             //            self.registerNextSongWithServer(nil)
             completionHandler(false)
-            self.stop()
+            PlaylistHandler.stop()
         }
+    }
+
+    internal func songEnded() {
+        PlaylistHandler.playNextSong({(result) in ()})
+        // how do I update the next song display? hmmm
     }
 
     /**
@@ -167,8 +169,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     */
     internal func handlePlaybackStateChanged(notification: NSNotification) {
         if (self.localPlayer.playbackState == .Stopped) {
-            playNextSong({(result) in ()})
-            // how do I update the next song display? hmmm
+            songEnded()
         }
     }
 
@@ -283,8 +284,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     */
     internal func audioStreaming(audioStreaming: SPTAudioStreamingController!, didChangeToTrack trackMetadata: [NSObject : AnyObject]!) {
         if trackMetadata == nil {
-            playNextSong({(result) in ()})
-            // how do I update the next song display? hmmm
+            songEnded()
 
         }
     }

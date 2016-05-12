@@ -198,8 +198,13 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     func displayNextSong() {
         dispatch_async(dispatch_get_main_queue(), {
             activityIndicator.showComplete("")
+            print("waa")
 
-            self.playlistControlView.musicPlayerView.displaySong()
+            self.playlistControlView.musicPlayerView.displaySong({(result) in
+                if !result {
+                    self.playlistControlView.collapseNowPlayingView()
+                }
+            })
         })
     }
 
