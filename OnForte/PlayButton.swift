@@ -12,7 +12,7 @@ import UIKit
 
 class BlurredPlayButton: SVGPlayButton {
 
-    var toggleFn: (() -> Bool)!
+    var toggleFn: (() -> ())!
 
     func press() {
         touchUpInsideHandler()
@@ -54,8 +54,9 @@ class BlurredPlayButton: SVGPlayButton {
     }
 
     override func touchUpInsideHandler() {
-        let result = toggleFn()
-        playing = result
+        toggleFn()
+        playing = !playing
+        // ^ temporary fix...somehow we have to correct this w/ callbacks
     }
 
 }

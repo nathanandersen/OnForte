@@ -32,15 +32,39 @@ class PlaylistHandler: NSObject {
         }
     }
 
+    private static var musicPlayer = IntegratedMusicPlayer()
+
+    internal static func togglePlayingStatus(completionHandler: Bool -> Void) {
+        musicPlayer.togglePlayingStatus(completionHandler)
+    }
+
+    internal static func playNextSong(completionHandler: (Bool) -> ()) {
+        musicPlayer.playNextSong(completionHandler)
+    }
+
+    internal static var nowPlaying: Song?
+
+    internal static var spotifySession: SPTSession?
+
+    internal static func spotifySessionIsValid() -> Bool {
+        return (spotifySession != nil && spotifySession!.isValid())
+    }
+
     internal static var isHost: Bool = false
     internal static var playlistName: String = ""
-
     private static var votes = [String:VotingStatus]()
 
+    /**
+     Fetch the voting status for a song
+    */
     internal static func getVotingStatus(id: String) -> VotingStatus {
         return votes[id]!
     }
 
+    /**
+     Downvote a song. This involves telling the server to update the score, then
+     updating the local display of voting status.
+    */
     internal static func downvote(id: String, completionHandler: (VotingStatus) -> Void) {
         Meteor.call("downvoteSong",params:[id]) { (result,error) in
             let newStatus = votes[id]!.downvote()
@@ -49,6 +73,10 @@ class PlaylistHandler: NSObject {
         }
     }
 
+    /**
+     Upvote a song. This involves telling the server to update the score, then
+     updating the local display of voting status.
+     */
     internal static func upvote(id: String, completionHandler: (VotingStatus) -> Void) {
         Meteor.call("upvoteSong",params:[id]) { (result,error) in
             let newStatus = votes[id]!.upvote()
@@ -57,18 +85,31 @@ class PlaylistHandler: NSObject {
         }
     }
 
+    /**
+     Insert a new voting status for an inserted song.
+    */
     internal static func addVotingStatusForId(id: String) {
         votes.updateValue(VotingStatus.None, forKey: id)
     }
-
 
     /**
      Leave a playlist
     */
     internal static func leavePlaylist() {
+        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+        dispatch_async(backgroundQueue, {
+            // stop on a background thread
+            if self.isHost {
+                self.musicPlayer.stop()
+            }
+        })
         playlistId = ""
         playlistName = ""
+        nowPlaying = nil
         isHost = false
+        SongHandler.clearForNewPlaylist()
+        centralNavigationController.leavePlaylist()
     }
 
     /**

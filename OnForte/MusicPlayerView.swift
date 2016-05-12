@@ -39,7 +39,7 @@ class MusicPlayerView: UIView {
     var titleLabel: UILabel!
     var descriptionLabel: UILabel!
     var startButton: UIButton?
-    var musicPlayer: IntegratedMusicPlayer!
+//    var musicPlayer: IntegratedMusicPlayer!
     var playButton: BlurredPlayButton!
     var forwardButton: FastForwardButton!
     var playlistController: PlaylistController!
@@ -59,7 +59,7 @@ class MusicPlayerView: UIView {
         renderPlatformView()
         if PlaylistHandler.isHost {
             renderPlayButton()
-            renderMusicPlayer()
+//            renderMusicPlayer()
             renderForwardButton()
             renderStartButton()
         }
@@ -76,7 +76,7 @@ class MusicPlayerView: UIView {
     */
     internal func setParentPlaylistController(playlistC: PlaylistController) {
         self.playlistController = playlistC
-        musicPlayer.playlistController = playlistC
+//        musicPlayer.playlistController = playlistC
     }
 
     /**
@@ -91,21 +91,23 @@ class MusicPlayerView: UIView {
     Display the now playing song
     */
     internal func displaySong() {
-        print(nowPlaying!.description)
+        if let nowPlaying = PlaylistHandler.nowPlaying {
+            print(nowPlaying.description)
 
-        ArtworkHandler.lookupArtworkAsync(nowPlaying!.artworkURL, completionHandler: { (image: UIImage) in
-            dispatch_async(dispatch_get_main_queue(), {
-                self.songArtView.image = image
-                self.setNeedsLayout()
+            ArtworkHandler.lookupArtworkAsync(nowPlaying.artworkURL, completionHandler: { (image: UIImage) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.songArtView.image = image
+                    self.setNeedsLayout()
+                })
             })
-        })
-        dispatch_async(dispatch_get_main_queue(), {
-            self.titleLabel.text = (isValidString(nowPlaying!.title)) ? nowPlaying!.title! : "<no title>"
-            self.descriptionLabel.text = (isValidString(nowPlaying!.description)) ? nowPlaying!.description! : "<no description>"
-            let platformString = (nowPlaying!.service?.asLowerCaseString())!
-            print(platformString)
-            self.platformView.image = UIImage(named: platformString)
-        } )
+            dispatch_async(dispatch_get_main_queue(), {
+                self.titleLabel.text = (isValidString(nowPlaying.title)) ? nowPlaying.title! : "<no title>"
+                self.descriptionLabel.text = (isValidString(nowPlaying.description)) ? nowPlaying.description! : "<no description>"
+                let platformString = (nowPlaying.service?.asLowerCaseString())!
+//                print(platformString)
+                self.platformView.image = UIImage(named: platformString)
+            } )
+        }
     }
 
     /**
@@ -265,8 +267,11 @@ class MusicPlayerView: UIView {
      Handle the pressing of the play-pause button
      - returns: the final state of the play button
     */
-    func playPauseDidPress() -> Bool {
-        return musicPlayer.togglePlayingStatus()
+    func playPauseDidPress() {
+        PlaylistHandler.togglePlayingStatus({ (result) in
+            self.playButton.setIsPlaying(result)
+        })
+//        return musicPlayer.togglePlayingStatus()
     }
 
     /**
@@ -311,17 +316,20 @@ class MusicPlayerView: UIView {
     /**
     Initialize the music player
     */
-    private func renderMusicPlayer() {
-        musicPlayer = IntegratedMusicPlayer()
-        musicPlayer.control = self
-    }
+//    private func renderMusicPlayer() {
+//        musicPlayer = IntegratedMusicPlayer()
+//        musicPlayer.control = self
+//    }
 
     /**
     Handle the press of the fast forward button
     */
     internal func fastForward() {
-        musicPlayer.stop()
-        playButton.setIsPlaying(musicPlayer.playNextSong())
+        PlaylistHandler.playNextSong({(result) in
+            self.playButton.setIsPlaying(result)
+        })
+//        musicPlayer.stop()
+//        playButton.setIsPlaying(musicPlayer.playNextSong())
         NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
     }
 

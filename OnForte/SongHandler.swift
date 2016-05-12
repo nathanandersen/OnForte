@@ -88,7 +88,7 @@ class SongHandler: NSObject {
      Get the top song according to the platform constraints
     */
     internal static func getTopSongWithPlatformConstraints(platforms: [Service]) -> Song? {
-        print(platforms)
+//        print(platforms)
         let filteredSongs = getSongsInQueue().filter({
             platforms.contains(Service(platform: $0.platform))
         })

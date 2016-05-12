@@ -40,8 +40,9 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     /**
      A function to toggle the playing status of the player.
      */
-    func togglePlayingStatus() -> Bool {
-        if let currentSong = nowPlaying {
+    func togglePlayingStatus(completionHandler: Bool -> Void) {
+        if let currentSong = PlaylistHandler.nowPlaying {
+            //        if let currentSong = nowPlaying {
             switch(currentSong.service!) {
             case .Soundcloud:
                 if playing {
@@ -55,13 +56,16 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
                 playing ? localPlayer.pause() : localPlayer.play()
             }
             playing = !playing
-            // set paused button to target
+
         } else {
-            playing = playNextSong()
+            playNextSong({(result) in
+                completionHandler(result)
+                self.playing = result
+            })
         }
-        return playing
 
     }
+
 
     /**
      This method hails from the AVAudioPlayerDelegate protocol. It is called when
@@ -75,7 +79,12 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
  
     */
     internal func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
-        playNextSong()
+        playNextSong({(result) in ()})
+
+        // how do I update the next song display? hmmm
+
+
+//        playNextSong()
     }
 
     /**
@@ -113,9 +122,12 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      
      - returns: whether or not the music is successfully playing -> from the callbacks
     */
-    internal func playNextSong() -> Bool {
-        if let nextSong = playlistController.getNextSong() {
-            // set backgrounding
+    internal func playNextSong(completionHandler: Bool -> ()) {
+        var services: [Service] = [.Soundcloud, .iTunes]
+        if PlaylistHandler.spotifySessionIsValid() {
+            services.append(.Spotify)
+        }
+        if let nextSong = SongHandler.getTopSongWithPlatformConstraints(services) {
             do {
                 try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
                 print("AVAudioSession Category Playback OK")
@@ -128,24 +140,21 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             } catch let error as NSError {
                 print(error.localizedDescription)
             }
-            print(nextSong)
-            nowPlaying = nextSong
+
+            PlaylistHandler.nowPlaying = nextSong
 
             playing = true
-            control.displaySong()
-
             self.registerNextSongWithServer(nextSong)
-            switch(nowPlaying!.service!){
+
+            switch(nextSong.service!){
             case .Soundcloud:
-                return playSoundCloud()
+                playSoundCloud(completionHandler)
             case .Spotify:
-                return playSpotify()
+                playSpotify(completionHandler)
             case .iTunes:
-                return playLocalSong()
+                playLocalSong(completionHandler)
             }
-        } else {
-            nowPlaying = nil
-            return false
+
         }
     }
 
@@ -157,7 +166,8 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     */
     internal func handlePlaybackStateChanged(notification: NSNotification) {
         if (self.localPlayer.playbackState == .Stopped) {
-            self.playNextSong()
+            playNextSong({(result) in ()})
+            // how do I update the next song display? hmmm
         }
     }
 
@@ -168,19 +178,15 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     */
     internal func stop() {
         spotifyPlayer.setIsPlaying(false,callback: nil)
-//        print("1")
         soundcloudPlayer?.stop()
-//        print("2")
         localPlayer.stop()
         // ^ this line takes a long time
-        print("3")
         do {
             try AVAudioSession.sharedInstance().setActive(false)
             print("AVAudioSession is no longer active")
         } catch let error as NSError {
             print(error.localizedDescription)
         }
-        print("4")
     }
 
     /**
@@ -190,15 +196,15 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      
      - returns: whether playing was successful
     */
-    private func playLocalSong() -> Bool {
-        let index: Int = Int(nowPlaying!.trackId!)!
+    private func playLocalSong(completionHandler: Bool -> Void) {
+        let index: Int = Int(PlaylistHandler.nowPlaying!.trackId!)!
         let nowPlayingItem: MPMediaItem! = SongHandler.allLocalITunesOriginals![index]
         let itemCollection: MPMediaItemCollection = MPMediaItemCollection(items: [nowPlayingItem])
         localPlayer.setQueueWithItemCollection(itemCollection)
         localPlayer.prepareToPlay()
         localPlayer.repeatMode = .None
         localPlayer.play()
-        return true
+        completionHandler(true)
     }
 
     /**
@@ -207,8 +213,8 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      - precondition: `nowPlaying` must have `Service.SoundCloud`
      - returns: whether playing was successful
     */
-    private func playSoundCloud() -> Bool {
-        let url = "https://api.soundcloud.com/tracks/" + (nowPlaying?.trackId)! + "/stream?client_id=50ea1a6c977ecf3fb47ecaf6078c388b"
+    private func playSoundCloud(completionHandler: Bool -> Void) {
+        let url = "https://api.soundcloud.com/tracks/" + (PlaylistHandler.nowPlaying?.trackId)! + "/stream?client_id=50ea1a6c977ecf3fb47ecaf6078c388b"
         print(url)
         let soundData = NSData(contentsOfURL: NSURL(string: url)!)
         soundcloudPlayer = try? AVAudioPlayer(data: soundData!)
@@ -221,40 +227,46 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             p.volume = 1.0
             p.play()
             print("Soundcloud is playing track")
-            return true
+            completionHandler(true)
         } else {
             print("Soundcloud player failed.")
-            return false
+            completionHandler(false)
         }
     }
+
+
+
     /**
      Called when we want to play a song from Spotify.
 
      - precondition: `nowPlaying` must have `Service.Spotify`
      - returns: whether playing was successful
      */
-    private func playSpotify() -> Bool {
-        if spotifySession == nil || !spotifySession!.isValid() {
+    private func playSpotify(completionHandler: Bool -> Void) {
+        if PlaylistHandler.spotifySessionIsValid() {
+            //        if spotifySession == nil || !spotifySession!.isValid() {
             print("not logged into spotify!")
-            return false
+            completionHandler(false)
         } else {
-            spotifyPlayer.loginWithSession(spotifySession, callback: { (error: NSError?) in
+            spotifyPlayer.loginWithSession(PlaylistHandler.spotifySession, callback: { (error: NSError?) in
                 if (error != nil) {
                     print("Logging had error:")
                     print(error)
+                    completionHandler(false)
                     return
                 }})
-            let trackURI: NSURL = NSURL(string: ("spotify:track:"+String(nowPlaying!.trackId!)))!
+            let trackURI: NSURL = NSURL(string: ("spotify:track:"+String(PlaylistHandler.nowPlaying!.trackId!)))!
             print(trackURI)
             spotifyPlayer.playURI(trackURI, callback: {(error: NSError?) in
                 if (error != nil) {
                     print("Starting playback had error")
                     print(error)
+                    completionHandler(false)
                     return
                 }
             })
         }
-        return true
+        completionHandler(true)
     }
 
     /**
@@ -266,7 +278,9 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     */
     internal func audioStreaming(audioStreaming: SPTAudioStreamingController!, didChangeToTrack trackMetadata: [NSObject : AnyObject]!) {
         if trackMetadata == nil {
-            playNextSong()
+            playNextSong({(result) in ()})
+            // how do I update the next song display? hmmm
+
         }
     }
     

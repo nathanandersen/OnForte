@@ -12,12 +12,9 @@ import Contacts
 
 // Current global variables.
 
-var spotifySession: SPTSession?
-var nowPlaying: Song?
+//var spotifySession: SPTSession?
+//var nowPlaying: Song?
 var keys: NSDictionary?
-//var votes = [String:VotingStatus]()
-
-
 var activityIndicator: ActivityIndicator!
 
 

@@ -453,7 +453,8 @@ class RootViewController: UIViewController, UITextFieldDelegate {
                     trackId: (trackId != nil) ? trackId! : "" ,
                     artworkURL: (artworkURL != nil) ? artworkURL : NSURL(string: "")
                 )
-                nowPlaying = song
+                PlaylistHandler.nowPlaying = song
+//                nowPlaying = song
             }
         }
         centralNavigationController.presentPlaylist()

@@ -188,10 +188,8 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     */
     internal func getNextSong() -> Song? {
         var services: [Service] = [.Soundcloud, .iTunes]
-        if let session = spotifySession {
-            if session.isValid() {
+        if PlaylistHandler.spotifySessionIsValid() {
                 services.append(.Spotify)
-            }
         }
         return SongHandler.getTopSongWithPlatformConstraints(services)
     }
@@ -226,20 +224,21 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
      Wipe the variables and boot out.
     */
     func leavePlaylist() {
-        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+/*        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
             // stop on a background thread
             if PlaylistHandler.isHost {
                 self.playlistControlView.musicPlayerView.musicPlayer.stop()
             }
-        })
-        (self.navigationController! as! CentralNavigationController).leavePlaylist()
+        })*/
+        PlaylistHandler.leavePlaylist()
+//        (self.navigationController! as! CentralNavigationController).leavePlaylist()
 //        playlistId = ""
 //        PlaylistHandler.playlistId = ""
 //        PlaylistHandler.playlistName = ""
-        PlaylistHandler.leavePlaylist()
-        nowPlaying = nil
+//        PlaylistHandler.leavePlaylist()
+//        nowPlaying = nil
 //        isHost = false
 //        Meteor.unsubscribe("queueSongs")
     }
@@ -330,7 +329,8 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     func updatePlaylistDisplay() {
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
-            if nowPlaying == nil {
+            if PlaylistHandler.nowPlaying == nil {
+//            if nowPlaying == nil {
                 if PlaylistHandler.isHost && SongHandler.getSongsInQueue().count >= 1 {
                     self.playlistControlView.showStartMusicPlayer()
                 } else {

@@ -311,7 +311,6 @@
 		243481751CE23C3900402A4A /* PlaylistControl */ = {
 			isa = PBXGroup;
 			children = (
-				245789FD1CC28A5500394C17 /* IntegratedMusicPlayer.swift */,
 				24959C2D1CC30AC2009F55B6 /* PlayButton.swift */,
 				24A931061CD24FE4008A7F29 /* FastForwardButton.swift */,
 				245789EF1CC173B000394C17 /* PlaylistControlView.swift */,
@@ -347,6 +346,7 @@
 				246232FA1CE2CCE0004C63E8 /* SongHandler.swift */,
 				24BCF48D1CE3AC96001054B7 /* PlaylistHandler.swift */,
 				240AB0151CC093700061EB54 /* ArtworkHandler.swift */,
+				245789FD1CC28A5500394C17 /* IntegratedMusicPlayer.swift */,
 				240AB0231CC094150061EB54 /* Search */,
 			);
 			name = Handlers;

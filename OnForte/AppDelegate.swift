@@ -108,7 +108,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     // alert... login failed!
                     return
                 }
-                spotifySession = session
+                PlaylistHandler.spotifySession = session
+//                spotifySession = session
                 activityIndicator.showComplete("")
                 NSNotificationCenter.defaultCenter().postNotificationName("didLogInToSpotify", object: nil)
             })

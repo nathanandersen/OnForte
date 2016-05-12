@@ -94,7 +94,8 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
 
     func authenticationViewController(authenticationViewController: SPTAuthViewController!, didLoginWithSession session: SPTSession!) {
         print("Logged In")
-        spotifySession = session
+        PlaylistHandler.spotifySession = session
+//        spotifySession = session
         self.didLogInToSpotify()
 
     }
@@ -172,7 +173,8 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
 
     func renderSpotifyLogin() {
         spotifyInfoView.subviews.forEach() { $0.removeFromSuperview() }
-        if spotifySession != nil {
+        if PlaylistHandler.spotifySessionIsValid() {
+//        if spotifySession != nil {
             renderGuestButton("spotify", imageView: spotifyImageView, infoView: spotifyInfoView, text: "Enabled", textColor: UIColor.greenColor())
         }
         else {

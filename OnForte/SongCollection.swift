@@ -164,7 +164,8 @@ class SongCollection: MeteorCollection<SongDocument> {
             // is when it has started playing (or when party has been left..)
             if PlaylistHandler.playlistId != "" {
 //            if playlistId != "" {
-                nowPlaying = Song(songDoc: documents[id]!)
+                PlaylistHandler.nowPlaying = Song(songDoc: documents[id]!)
+//                nowPlaying = Song(songDoc: documents[id]!)
                 NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
                 // save it in the global nowPlaying
             }

@@ -209,7 +209,8 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
     func leavePlaylist() {
         self.popViewControllerAnimated(true)
         hideProfileButton()
-        SongHandler.clearForNewPlaylist()
+//        PlaylistHandler.leavePlaylist()
+//        SongHandler.clearForNewPlaylist()
     }
 
     func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
