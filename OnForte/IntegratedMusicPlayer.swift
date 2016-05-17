@@ -166,18 +166,21 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      - bug: SoundCloud stopping is very slow.
     */
     internal func stopCurrentSong() {
-        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-        dispatch_async(backgroundQueue, {
-            switch(PlaylistHandler.nowPlaying!.service!) {
-            case .Soundcloud:
-                self.soundcloudPlayer!.pause()
-            case .iTunes:
-                self.localPlayer.pause()
-            case .Spotify:
-                self.spotifyPlayer.setIsPlaying(false, callback: nil)
-            }
-        })
+        if playing {
+            let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+            let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+            dispatch_async(backgroundQueue, {
+                self.playing = false
+                switch(PlaylistHandler.nowPlaying!.service!) {
+                case .Soundcloud:
+                    self.soundcloudPlayer!.pause()
+                case .iTunes:
+                    self.localPlayer.pause()
+                case .Spotify:
+                    self.spotifyPlayer.setIsPlaying(false, callback: nil)
+                }
+            })
+        }
     }
 
     /**
