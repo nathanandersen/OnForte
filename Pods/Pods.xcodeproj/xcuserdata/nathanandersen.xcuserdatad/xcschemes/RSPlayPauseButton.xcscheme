@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '77D7B86913EBF82C2704D0E2'
+               BlueprintIdentifier = '641FC2DC49FA7A8100036DA3'
                BlueprintName = 'RSPlayPauseButton'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'RSPlayPauseButton.framework'>
