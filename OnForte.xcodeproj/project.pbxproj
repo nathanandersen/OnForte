@@ -56,6 +56,7 @@
 		246232F81CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246232F61CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift */; };
 		246232F91CE28406004C63E8 /* FavoritedSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246232F71CE28406004C63E8 /* FavoritedSong.swift */; };
 		246232FB1CE2CCE0004C63E8 /* SongHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246232FA1CE2CCE0004C63E8 /* SongHandler.swift */; };
+		248575AE1CF4BD4B003F683C /* SongViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 248575AD1CF4BD4B003F683C /* SongViewCell.xib */; };
 		24959C2E1CC30AC2009F55B6 /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24959C2D1CC30AC2009F55B6 /* PlayButton.swift */; };
 		24A931071CD24FE4008A7F29 /* FastForwardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A931061CD24FE4008A7F29 /* FastForwardButton.swift */; };
 		24BCF48E1CE3AC96001054B7 /* PlaylistHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BCF48D1CE3AC96001054B7 /* PlaylistHandler.swift */; };
@@ -137,6 +138,7 @@
 		246232F61CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FavoritedSong+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		246232F71CE28406004C63E8 /* FavoritedSong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritedSong.swift; sourceTree = "<group>"; };
 		246232FA1CE2CCE0004C63E8 /* SongHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongHandler.swift; sourceTree = "<group>"; };
+		248575AD1CF4BD4B003F683C /* SongViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SongViewCell.xib; sourceTree = "<group>"; };
 		24959C2D1CC30AC2009F55B6 /* PlayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
 		24A931061CD24FE4008A7F29 /* FastForwardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FastForwardButton.swift; sourceTree = "<group>"; };
 		24BCF48D1CE3AC96001054B7 /* PlaylistHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistHandler.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				240AB0541CC095280061EB54 /* SongTableViewCell.swift */,
 				240AB0551CC095280061EB54 /* SongTableViewCell.xib */,
 				240AB0631CC0989A0061EB54 /* SongViewCell.swift */,
+				248575AD1CF4BD4B003F683C /* SongViewCell.xib */,
 				243481751CE23C3900402A4A /* PlaylistControl */,
 			);
 			name = Playlist;
@@ -482,6 +485,7 @@
 				507BAFAE1CD1AC340059F31D /* Keys.plist in Resources */,
 				240AB0571CC095280061EB54 /* SongTableViewCell.xib in Resources */,
 				240AB03B1CC094870061EB54 /* Onboarding.storyboard in Resources */,
+				248575AE1CF4BD4B003F683C /* SongViewCell.xib in Resources */,
 				240AB0391CC094830061EB54 /* LaunchScreen.storyboard in Resources */,
 				240AAFD11CC08DA10061EB54 /* Assets.xcassets in Resources */,
 				240AB0371CC094770061EB54 /* Main.storyboard in Resources */,

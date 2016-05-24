@@ -59,7 +59,11 @@ class PlaylistHistoryViewController: UIViewController, UITableViewDelegate, UITa
         tableView.dataSource = self
         tableView.delegate = self
         tableView.allowsSelection = false
-        tableView.registerClass(SongViewCell.self, forCellReuseIdentifier: "SongViewCell")
+
+        let nib = UINib(nibName: "SongViewCell", bundle: nil)
+        tableView.registerNib(nib,forCellReuseIdentifier: "SongViewCell")
+
+//        tableView.registerClass(SongViewCell.self, forCellReuseIdentifier: "SongViewCell")
         tableView.rowHeight = 85.0
         tableView.tableHeaderView = nil;
         tableView.tableFooterView = UIView(frame: CGRectZero)

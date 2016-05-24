@@ -69,7 +69,12 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
     }
 
     func renderTableView() {
-        tableView.registerClass(SongViewCell.self, forCellReuseIdentifier: "SongViewCell")
+
+
+        let nib = UINib(nibName: "SongViewCell", bundle: nil)
+        tableView.registerNib(nib,forCellReuseIdentifier: "SongViewCell")
+
+//        tableView.registerClass(SongViewCell.self, forCellReuseIdentifier: "SongViewCell")
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = 85.0

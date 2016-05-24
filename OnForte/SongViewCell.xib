@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SongViewCell" rowHeight="106" id="WE6-Iv-9IB" customClass="SongViewCell" customModule="OnForte" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="296" height="106"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WE6-Iv-9IB" id="wKu-yA-vAN">
+                <rect key="frame" x="0.0" y="0.0" width="296" height="105.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qcv-xv-qmc">
+                        <rect key="frame" x="-2" y="18" width="70" height="70"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="Qcv-xv-qmc" secondAttribute="height" multiplier="1:1" id="B7a-Hz-xG0"/>
+                            <constraint firstAttribute="width" constant="70" id="sF2-ro-yKy"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPP-9A-dLW">
+                        <rect key="frame" x="73" y="32.5" width="170" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fos-V9-q2z">
+                        <rect key="frame" x="73" y="52.5" width="170" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uDC-eg-31C">
+                        <rect key="frame" x="248" y="38" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="edG-EH-UoX"/>
+                            <constraint firstAttribute="width" secondItem="uDC-eg-31C" secondAttribute="height" multiplier="1:1" id="gxC-NN-9eV"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="fos-V9-q2z" firstAttribute="leading" secondItem="Qcv-xv-qmc" secondAttribute="trailing" constant="5" id="1D1-hQ-Eam"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="Qcv-xv-qmc" secondAttribute="leading" constant="10" id="42Q-NI-xT6"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="uDC-eg-31C" secondAttribute="trailing" constant="10" id="8nr-Kw-nnr"/>
+                    <constraint firstItem="uDC-eg-31C" firstAttribute="centerY" secondItem="wKu-yA-vAN" secondAttribute="centerY" id="BhL-By-rxe"/>
+                    <constraint firstItem="uDC-eg-31C" firstAttribute="leading" secondItem="fos-V9-q2z" secondAttribute="trailing" constant="5" id="FbN-YQ-fqA"/>
+                    <constraint firstItem="vPP-9A-dLW" firstAttribute="centerY" secondItem="wKu-yA-vAN" secondAttribute="centerY" constant="-10" id="LPV-rz-AkD"/>
+                    <constraint firstItem="Qcv-xv-qmc" firstAttribute="centerY" secondItem="wKu-yA-vAN" secondAttribute="centerY" id="UTt-F5-6nB"/>
+                    <constraint firstItem="uDC-eg-31C" firstAttribute="leading" secondItem="vPP-9A-dLW" secondAttribute="trailing" constant="5" id="XlP-yH-G4q"/>
+                    <constraint firstItem="vPP-9A-dLW" firstAttribute="leading" secondItem="Qcv-xv-qmc" secondAttribute="trailing" constant="5" id="gbS-JZ-eQB"/>
+                    <constraint firstItem="fos-V9-q2z" firstAttribute="centerY" secondItem="wKu-yA-vAN" secondAttribute="centerY" constant="10" id="u9V-X3-y5b"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="artworkView" destination="Qcv-xv-qmc" id="aul-y7-LXS"/>
+                <outlet property="platformImageView" destination="uDC-eg-31C" id="FUp-r1-nPO"/>
+                <outlet property="songDescriptionLabel" destination="fos-V9-q2z" id="Dvn-O8-YSa"/>
+                <outlet property="songTitleLabel" destination="vPP-9A-dLW" id="b40-vT-FaS"/>
+            </connections>
+            <point key="canvasLocation" x="471" y="220"/>
+        </tableViewCell>
+    </objects>
+</document>

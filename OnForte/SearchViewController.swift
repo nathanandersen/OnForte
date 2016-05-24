@@ -136,7 +136,12 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
         tableView.keyboardDismissMode = .OnDrag
         tableView.delegate = orderedSearchHandlers[0]
         tableView.dataSource = orderedSearchHandlers[0]
-        tableView.registerClass(SongViewCell.self, forCellReuseIdentifier: "SongViewCell")
+
+
+        let nib = UINib(nibName: "SongViewCell", bundle: nil)
+        tableView.registerNib(nib,forCellReuseIdentifier: "SongViewCell")
+
+//        tableView.registerClass(SongViewCell.self, forCellReuseIdentifier: "SongViewCell")
         self.view.addSubview(tableView)
     }
 
