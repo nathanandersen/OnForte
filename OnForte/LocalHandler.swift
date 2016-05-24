@@ -14,6 +14,20 @@ import SwiftyJSON
 class LocalHandler: SearchHandler {
 
     override func search(query: String, completionHandler: (success: Bool) -> Void) {
+        let localResults = SongHandler.getLocalSongsByQuery(query)
+        if localResults == nil {
+            results = []
+            completionHandler(success: false)
+        } else {
+            results = localResults!
+            completionHandler(success: true)
+        }
+
+//        results = SongHandler.getLocalSongsByQuery(query)
+//        completionHandler(success: self.results != nil)
+        return
+
+/*
         if (query != ""){
             results = SongHandler.allLocalITunes.filter({ (song) -> Bool in
                 let title: NSString = song.title!
@@ -25,5 +39,6 @@ class LocalHandler: SearchHandler {
             results = []
             completionHandler(success: false)
         }
+ */
     }
 }

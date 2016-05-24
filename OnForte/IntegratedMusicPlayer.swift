@@ -191,9 +191,12 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      - returns: whether playing was successful
     */
     private func playLocalSong(completionHandler: Bool -> Void) {
-        let index: Int = Int(PlaylistHandler.nowPlaying!.trackId!)!
-        let nowPlayingItem: MPMediaItem! = SongHandler.allLocalITunesOriginals![index]
-        let itemCollection: MPMediaItemCollection = MPMediaItemCollection(items: [nowPlayingItem])
+        let song = SongHandler.getLocalSongByTitleAndAlbumTitle(PlaylistHandler.nowPlaying!.title!, albumTitle: PlaylistHandler.nowPlaying!.description!)
+        let itemCollection: MPMediaItemCollection = MPMediaItemCollection(items: [song])
+
+//        let index: Int = Int(PlaylistHandler.nowPlaying!.trackId!)!
+//        let nowPlayingItem: MPMediaItem! = SongHandler.allLocalITunesOriginals![index]
+//        let itemCollection: MPMediaItemCollection = MPMediaItemCollection(items: [nowPlayingItem])
         localPlayer.setQueueWithItemCollection(itemCollection)
         localPlayer.prepareToPlay()
         localPlayer.repeatMode = .None

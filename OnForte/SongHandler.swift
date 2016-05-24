@@ -19,7 +19,7 @@ class SongHandler: NSObject {
     private static let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
 
-    internal static var allLocalITunes: [Song] = {
+/*    internal static var allLocalITunes: [Song] = {
         var songs = [Song]()
         if allLocalITunesOriginals!.count > 0 {
             for i in 0...(allLocalITunesOriginals!.count-1){
@@ -34,9 +34,38 @@ class SongHandler: NSObject {
             }
         }
         return songs
-    }()
+    }()*/
 
-    internal static var allLocalITunesOriginals: [MPMediaItem]? = MPMediaQuery.songsQuery().items
+    private static var appleMusicSongs = MPMediaQuery.songsQuery().items
+//    private static var allLocalItunesOriginals: [MPMediaItem]? = MPMediaQuery.songsQuery().items
+//    internal static var allLocalITunesOriginals: [MPMediaItem]? = MPMediaQuery.songsQuery().items
+
+
+    internal static func getLocalSongByTitleAndAlbumTitle(title: String,albumTitle: String) -> MPMediaItem {
+        return appleMusicSongs!.filter({
+            $0.title == title && $0.albumTitle == albumTitle
+        })[0] // we know there will only be one. perhaps try and make this more subtly correct.
+    }
+
+    internal static func getLocalSongsByQuery(query: String) -> [Song]? {
+        let selectedSongs = appleMusicSongs?.filter({
+            return (($0.title! as NSString).rangeOfString(query,options: NSStringCompareOptions.CaseInsensitiveSearch).location != NSNotFound ||
+                    ($0.albumTitle! as NSString).rangeOfString(query,options: NSStringCompareOptions.CaseInsensitiveSearch).location != NSNotFound ||
+                    ($0.artist! as NSString).rangeOfString(query,options: NSStringCompareOptions.CaseInsensitiveSearch).location != NSNotFound )
+            // check title, album title, or artist for a match
+        })
+
+        return selectedSongs?.map({(track: MPMediaItem) -> Song in
+            return Song(
+                title: track.title,
+                description: track.albumTitle,
+                service: Service.iTunes,
+                trackId: "0", // we have to look this up later
+                artworkURL: nil)
+        })
+
+//        return nil
+    }
 
     /**
      Manage the playlist history
