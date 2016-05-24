@@ -48,13 +48,23 @@ class SongHandler: NSObject {
     }
 
     internal static func getLocalSongsByQuery(query: String) -> [Song]? {
+        if query == "" {
+            return nil
+        }
+        print("Hello, world.")
         let selectedSongs = appleMusicSongs?.filter({
-            return (($0.title! as NSString).rangeOfString(query,options: NSStringCompareOptions.CaseInsensitiveSearch).location != NSNotFound ||
-                    ($0.albumTitle! as NSString).rangeOfString(query,options: NSStringCompareOptions.CaseInsensitiveSearch).location != NSNotFound ||
-                    ($0.artist! as NSString).rangeOfString(query,options: NSStringCompareOptions.CaseInsensitiveSearch).location != NSNotFound )
+            return (
+                (($0.title != nil) ?
+                    ($0.title! as NSString).rangeOfString(query,options: NSStringCompareOptions.CaseInsensitiveSearch).location != NSNotFound :
+                    false) ||
+                (($0.albumTitle != nil) ?
+                    ($0.albumTitle! as NSString).rangeOfString(query,options: NSStringCompareOptions.CaseInsensitiveSearch).location != NSNotFound  :
+                    false) ||
+                (($0.artist != nil) ?
+                    ($0.artist! as NSString).rangeOfString(query,options: NSStringCompareOptions.CaseInsensitiveSearch).location != NSNotFound :
+                    false))
             // check title, album title, or artist for a match
         })
-
         return selectedSongs?.map({(track: MPMediaItem) -> Song in
             return Song(
                 title: track.title,
@@ -63,8 +73,6 @@ class SongHandler: NSObject {
                 trackId: "0", // we have to look this up later
                 artworkURL: nil)
         })
-
-//        return nil
     }
 
     /**

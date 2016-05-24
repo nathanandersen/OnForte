@@ -14,6 +14,7 @@ import SwiftyJSON
 class LocalHandler: SearchHandler {
 
     override func search(query: String, completionHandler: (success: Bool) -> Void) {
+        print(query)
         let localResults = SongHandler.getLocalSongsByQuery(query)
         if localResults == nil {
             results = []
