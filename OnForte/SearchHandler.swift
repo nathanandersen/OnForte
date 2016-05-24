@@ -48,8 +48,6 @@ class SearchHandler: NSObject, UITableViewDelegate, UITableViewDataSource {
             activityIndicator.showComplete("")
             NSNotificationCenter.defaultCenter().postNotificationName("completeSearch", object: nil)
         })
-
-//        SearchHandler.addSongToSuggestions(song)
         SongHandler.insertIntoSuggestions(song)
     }
 

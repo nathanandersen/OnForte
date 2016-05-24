@@ -17,13 +17,12 @@ import MediaPlayer
 class SongHandler: NSObject {
 
     private static let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-
-
-/*    internal static var allLocalITunes: [Song] = {
+    private static var appleMusicSongs = MPMediaQuery.songsQuery().items
+    private static var mappedAppleMusicSongs: [Song] = {
         var songs = [Song]()
-        if allLocalITunesOriginals!.count > 0 {
-            for i in 0...(allLocalITunesOriginals!.count-1){
-                let track = allLocalITunesOriginals![i]
+        if appleMusicSongs!.count > 0 {
+            for i in 0...(appleMusicSongs!.count-1){
+                let track = appleMusicSongs![i]
                 let song = Song(
                     title: track.title,
                     description: track.albumTitle,
@@ -34,44 +33,28 @@ class SongHandler: NSObject {
             }
         }
         return songs
-    }()*/
-
-    private static var appleMusicSongs = MPMediaQuery.songsQuery().items
-//    private static var allLocalItunesOriginals: [MPMediaItem]? = MPMediaQuery.songsQuery().items
-//    internal static var allLocalITunesOriginals: [MPMediaItem]? = MPMediaQuery.songsQuery().items
+    }()
 
 
-    internal static func getLocalSongByTitleAndAlbumTitle(title: String,albumTitle: String) -> MPMediaItem {
-        return appleMusicSongs!.filter({
-            $0.title == title && $0.albumTitle == albumTitle
-        })[0] // we know there will only be one. perhaps try and make this more subtly correct.
+    internal static func getSongByArrayIndex(index: Int) -> MPMediaItem? {
+        if appleMusicSongs == nil {
+            return nil
+        }
+        return appleMusicSongs![index]
     }
 
     internal static func getLocalSongsByQuery(query: String) -> [Song]? {
         if query == "" {
             return nil
         }
-        print("Hello, world.")
-        let selectedSongs = appleMusicSongs?.filter({
+        return mappedAppleMusicSongs.filter({
             return (
                 (($0.title != nil) ?
                     ($0.title! as NSString).rangeOfString(query,options: NSStringCompareOptions.CaseInsensitiveSearch).location != NSNotFound :
                     false) ||
-                (($0.albumTitle != nil) ?
-                    ($0.albumTitle! as NSString).rangeOfString(query,options: NSStringCompareOptions.CaseInsensitiveSearch).location != NSNotFound  :
-                    false) ||
-                (($0.artist != nil) ?
-                    ($0.artist! as NSString).rangeOfString(query,options: NSStringCompareOptions.CaseInsensitiveSearch).location != NSNotFound :
+                (($0.description != nil) ?
+                    ($0.description! as NSString).rangeOfString(query,options: NSStringCompareOptions.CaseInsensitiveSearch).location != NSNotFound  :
                     false))
-            // check title, album title, or artist for a match
-        })
-        return selectedSongs?.map({(track: MPMediaItem) -> Song in
-            return Song(
-                title: track.title,
-                description: track.albumTitle,
-                service: Service.iTunes,
-                trackId: "0", // we have to look this up later
-                artworkURL: nil)
         })
     }
 
@@ -141,6 +124,10 @@ class SongHandler: NSObject {
      Conditionally insert into suggestions if not already there
     */
     internal static func insertIntoSuggestions(song: Song) {
+        if song.service! == .iTunes {
+            // currently, we don't save local music suggestions.
+            return
+        }
         var suggestedSong: SuggestedSong?
         for songItem in fetchSuggestionsAsOriginalData() {
             if Song(suggestedSong: songItem) == song {
@@ -148,10 +135,11 @@ class SongHandler: NSObject {
                 break
             }
         }
-        if suggestedSong == nil {
-            SuggestedSong.createInManagedObjectContext(managedObjectContext, song: song)
-            (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
+        if suggestedSong != nil {
+            return
         }
+        SuggestedSong.createInManagedObjectContext(managedObjectContext, song: song)
+        (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
     }
 
     /**

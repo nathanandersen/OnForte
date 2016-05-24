@@ -103,13 +103,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if SPTAuth.defaultInstance().canHandleURL(url) {
             SPTAuth.defaultInstance().handleAuthCallbackWithTriggeredAuthURL(url, callback: {(error:NSError?,session: SPTSession?) in
                 if error != nil {
-                    print("was error!!")
+                    print("Error in handling Spotify callback.")
                     print(error)
-                    // alert... login failed!
                     return
                 }
                 PlaylistHandler.spotifySession = session
-//                spotifySession = session
                 activityIndicator.showComplete("")
                 NSNotificationCenter.defaultCenter().postNotificationName("didLogInToSpotify", object: nil)
             })

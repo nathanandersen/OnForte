@@ -23,23 +23,5 @@ class LocalHandler: SearchHandler {
             results = localResults!
             completionHandler(success: true)
         }
-
-//        results = SongHandler.getLocalSongsByQuery(query)
-//        completionHandler(success: self.results != nil)
-        return
-
-/*
-        if (query != ""){
-            results = SongHandler.allLocalITunes.filter({ (song) -> Bool in
-                let title: NSString = song.title!
-                let range = title.rangeOfString(query, options: NSStringCompareOptions.CaseInsensitiveSearch)
-                return range.location != NSNotFound
-            })
-            completionHandler(success: true)
-        } else {
-            results = []
-            completionHandler(success: false)
-        }
- */
     }
 }
