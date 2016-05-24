@@ -21,11 +21,6 @@ class SongViewCell: UITableViewCell {
     @IBOutlet var songDescriptionLabel: UILabel!
     @IBOutlet var platformImageView: UIImageView!
 
-/*    override func awakeFromNib() {
-        super.awakeFromNib()
-        // add a long tap recognizer
-    }*/
-
     /**
      The shared load item: set the title, description, etc.
     */
