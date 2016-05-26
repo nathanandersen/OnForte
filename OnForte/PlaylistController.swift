@@ -18,7 +18,8 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
 
     var tableView: UITableView!
     var playlistStarted = false
-    var playlistControlView: PlaylistControlView!
+    var playlistControlView: UIView!
+//    var playlistControlView: PlaylistControlView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,15 +35,15 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     func presentNewPlaylist() {
         self.updateTable()
         self.addNotificationsToGlobalCenter()
-        self.playlistControlView.updatePlaylistInformation()
+//        self.playlistControlView.updatePlaylistInformation()
     }
 
     /**
      Initialize the playlist control view
      */
     private func renderPlaylistControlView() {
-        playlistControlView = PlaylistControlView()
-        playlistControlView.playlistController = self
+//        playlistControlView = PlaylistControlView()
+//        playlistControlView.playlistController = self
         self.view.addSubview(playlistControlView)
     }
 
@@ -200,11 +201,11 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
             activityIndicator.showComplete("")
             print("waa")
 
-            self.playlistControlView.musicPlayerView.displaySong({(result) in
+/*            self.playlistControlView.musicPlayerView.displaySong({(result) in
                 if !result {
                     self.playlistControlView.collapseNowPlayingView()
                 }
-            })
+            })*/
         })
     }
 
@@ -299,7 +300,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     func updatePlaylistDisplay() {
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
-            if PlaylistHandler.nowPlaying == nil {
+ /*           if PlaylistHandler.nowPlaying == nil {
                 if PlaylistHandler.isHost && SongHandler.getSongsInQueue().count >= 1 {
                     self.playlistControlView.showStartMusicPlayer()
                 } else {
@@ -307,7 +308,7 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
                 }
             } else {
                 self.playlistControlView.showANowPlayingView()
-            }
+            }*/
         })
     }
 

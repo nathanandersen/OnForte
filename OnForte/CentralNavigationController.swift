@@ -16,7 +16,9 @@ var centralNavigationController: CentralNavigationController!
  */
 class CentralNavigationController: UINavigationController, UINavigationControllerDelegate {
 
-    let playlistController: PlaylistDrawerController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistDrawerController") as! PlaylistDrawerController
+//    let playlistController: PlaylistDrawerController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistDrawerController") as! PlaylistDrawerController
+    let playlistController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistViewController") as! PlaylistViewController
+
     let profileController: ProfileViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
 
     var profileButton: UIButton!
@@ -146,13 +148,13 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
     func presentPlaylist() {
         dispatch_async(dispatch_get_main_queue(), {
             self.pushViewController(self.playlistController, animated: true)
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+/*            dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 // completion block
                 self.playlistController.updatePlaylistViewController()
                 self.showProfileButton()
-            })
+            })*/
         })
-        activityIndicator.showComplete("")
+//        activityIndicator.showComplete("")
     }
 
     /**
