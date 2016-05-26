@@ -37,7 +37,6 @@ class HomeViewController: HiddenBackButtonViewController {
     }
 
     func keyboardWillBeHidden(notification: NSNotification) {
-        print("hiding..")
         self.view.window!.frame = UIScreen.mainScreen().bounds
         createTextField.hidden = true
         joinTextField.hidden = true
@@ -46,7 +45,6 @@ class HomeViewController: HiddenBackButtonViewController {
     }
 
     @IBAction func buttonDidPress(sender: UIButton) {
-        print("hello, world")
         createTextField.hidden = (sender != createButton)
         joinTextField.hidden = (sender != joinButton)
         createButton.hidden = (sender == createButton)
@@ -92,7 +90,8 @@ extension HomeViewController: UITextFieldDelegate {
 
     func textFieldShouldClear(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        return true
+        textField.text = ""
+        return false
     }
 
 
