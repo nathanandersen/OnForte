@@ -323,27 +323,31 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hpy-IR-3Wg">
                                 <rect key="frame" x="-4" y="40" width="328" height="40"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ubu-oI-aUo">
-                                        <rect key="frame" x="116" y="5" width="98" height="30"/>
-                                        <state key="normal" title="START MUSIC"/>
-                                        <connections>
-                                            <action selector="startButtonDidPress:" destination="8NC-aR-KKV" eventType="touchUpInside" id="vqE-nf-GDl"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="Ubu-oI-aUo" firstAttribute="centerX" secondItem="Hpy-IR-3Wg" secondAttribute="centerX" id="4ce-wZ-kJf"/>
-                                    <constraint firstItem="Ubu-oI-aUo" firstAttribute="centerY" secondItem="Hpy-IR-3Wg" secondAttribute="centerY" id="Tpa-Z0-AhC"/>
                                     <constraint firstAttribute="height" constant="40" id="kfD-oP-ftf"/>
                                 </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ubu-oI-aUo">
+                                <rect key="frame" x="111" y="45" width="98" height="30"/>
+                                <state key="normal" title="START MUSIC"/>
+                                <connections>
+                                    <action selector="startButtonDidPress:" destination="8NC-aR-KKV" eventType="touchUpInside" id="vqE-nf-GDl"/>
+                                </connections>
+                            </button>
+                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OHM-oB-4og" customClass="SmallMusicPlayerController" customModule="OnForte" customModuleProvider="target">
+                                <rect key="frame" x="160" y="60" width="0.0" height="0.0"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="OHM-oB-4og" firstAttribute="top" secondItem="Hpy-IR-3Wg" secondAttribute="top" id="244-kV-xC2"/>
+                            <constraint firstItem="Ubu-oI-aUo" firstAttribute="centerY" secondItem="Hpy-IR-3Wg" secondAttribute="centerY" id="4AO-In-fOp"/>
                             <constraint firstItem="Lkq-M8-TZu" firstAttribute="height" secondItem="xef-o9-UWe" secondAttribute="height" id="7kE-Da-qfP"/>
+                            <constraint firstItem="OHM-oB-4og" firstAttribute="bottom" secondItem="Hpy-IR-3Wg" secondAttribute="bottom" id="H3e-8y-Sh4"/>
+                            <constraint firstItem="Ubu-oI-aUo" firstAttribute="centerX" secondItem="Hpy-IR-3Wg" secondAttribute="centerX" id="NxV-Eg-4xJ"/>
                             <constraint firstItem="xef-o9-UWe" firstAttribute="top" secondItem="zdv-wz-eqw" secondAttribute="bottom" id="QgU-gK-WyG"/>
+                            <constraint firstItem="OHM-oB-4og" firstAttribute="leading" secondItem="Hpy-IR-3Wg" secondAttribute="leading" id="V0g-QX-nn9"/>
                             <constraint firstItem="JGe-IN-mS5" firstAttribute="leading" secondItem="rJD-1t-RVG" secondAttribute="leadingMargin" constant="-20" id="Y5M-zY-Mde"/>
                             <constraint firstAttribute="trailingMargin" secondItem="JGe-IN-mS5" secondAttribute="trailing" constant="-20" id="cST-lC-9Fy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Lkq-M8-TZu" secondAttribute="trailing" constant="-20" id="gZf-57-xMf"/>
@@ -353,6 +357,7 @@
                             <constraint firstItem="n45-Sb-oYs" firstAttribute="top" secondItem="JGe-IN-mS5" secondAttribute="bottom" id="lB3-57-LgO"/>
                             <constraint firstItem="Lkq-M8-TZu" firstAttribute="leading" secondItem="rJD-1t-RVG" secondAttribute="leadingMargin" constant="-20" id="mE2-wq-YTG"/>
                             <constraint firstItem="xef-o9-UWe" firstAttribute="leading" secondItem="rJD-1t-RVG" secondAttribute="leadingMargin" constant="-20" id="q0M-JI-klG"/>
+                            <constraint firstItem="OHM-oB-4og" firstAttribute="trailing" secondItem="Hpy-IR-3Wg" secondAttribute="trailing" id="rbc-ZE-ssg"/>
                             <constraint firstItem="Hpy-IR-3Wg" firstAttribute="top" secondItem="xef-o9-UWe" secondAttribute="bottom" id="rll-dD-0TN"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xef-o9-UWe" secondAttribute="trailing" constant="-20" id="w33-dH-IwO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Hpy-IR-3Wg" secondAttribute="trailing" constant="-20" id="w6e-wb-xF8"/>
@@ -365,9 +370,10 @@
                         <outlet property="inviteButton" destination="tlo-3Z-Hvr" id="hNI-LG-KD1"/>
                         <outlet property="leaveButton" destination="xBp-nu-UAv" id="0LL-nZ-VWU"/>
                         <outlet property="nameLabel" destination="68F-79-Rcd" id="Zo4-qR-z5g"/>
-                        <outlet property="playerContainer" destination="Hpy-IR-3Wg" id="nDa-ud-i9z"/>
+                        <outlet property="playerContainer" destination="Hpy-IR-3Wg" id="8gP-8x-jVt"/>
                         <outlet property="playerContainerHeightConstraint" destination="kfD-oP-ftf" id="Qna-lF-dam"/>
                         <outlet property="searchButton" destination="H1B-SG-r1O" id="1nO-3Q-jLi"/>
+                        <outlet property="smallMusicPlayer" destination="OHM-oB-4og" id="EbM-9q-p5B"/>
                         <outlet property="startButton" destination="Ubu-oI-aUo" id="pYB-HV-edv"/>
                         <outlet property="tableView" destination="JGe-IN-mS5" id="nYz-tC-PQ8"/>
                     </connections>

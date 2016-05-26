@@ -38,21 +38,18 @@ class PlaylistViewController: UIViewController {
     @IBOutlet var inviteButton: UIButton!
     @IBOutlet var idLabel: UILabel!
     @IBOutlet var tableView: UITableView!
+
+    /**
+     The player container is just a placeholder for the height of the contents.
+     It can contain nothing, a start button, or a small/large player.
+    */
     @IBOutlet var playerContainer: UIView!
     @IBOutlet var playerContainerHeightConstraint: NSLayoutConstraint!
 
-    private var playerDisplayType: PlayerDisplayType = .StartButton
-
     @IBOutlet var startButton: UIButton!
-    private var smallPlayer: SmallMusicPlayerView!
 //    private var largePlayer: UIView = UIView()
+    @IBOutlet var smallMusicPlayer: SmallMusicPlayerController!
 
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-//        startButton = ....
-//        smallPlayer = NSBundle.mainBundle().loadNibNamed("SmallMusicPlayerView", owner: self, options: nil).first as! SmallMusicPlayerView
-
-    }
 
 //    override func viewDidLoad() {
 //        super.viewDidLoad()
@@ -61,50 +58,11 @@ class PlaylistViewController: UIViewController {
 //        tableView.registerNib(nib,forCellReuseIdentifier: "songCell")
 //    }
 
-    internal func updatePlayerDisplay(newDisplayType: PlayerDisplayType) {
-        if playerDisplayType != newDisplayType {
-            playerDisplayType = newDisplayType
-            playerContainer.subviews.forEach({
-                // disable all constraints, remove from views
-                $0.constraints.forEach({$0.active = false})
-                $0.removeFromSuperview()
-            })
-            // switch on the type, add appropriate one
-            playerContainerHeightConstraint.constant = playerDisplayType.heightValue()
-
-            if playerDisplayType == .StartButton {
-                // this should be sufficient?
-                playerContainer.addSubview(startButton)
-                playerContainer.bringSubviewToFront(startButton)
-                print(playerContainer.subviews)
-                startButton.constraints.forEach({$0.active = true})
-//                startButton.center = playerContainer.center
-//                startButton.setNeedsLayout()
-//                startButton.setNeedsDisplay()
-                startButton.updateConstraints()
-                // add a start button
-                // constraints
-
-            } else if playerDisplayType == .Small {
-                // add a small player
-                smallPlayer = NSBundle.mainBundle().loadNibNamed("SmallMusicPlayerView", owner: self, options: nil).first as! SmallMusicPlayerView
-                playerContainer.addSubview(smallPlayer)
-                // constraints
-
-            } else if playerDisplayType == .Large {
-                // add a large player
-                // constraints
-
-                // to be implemented later
-            }
-            playerContainer.updateConstraints()
-
-            playerContainer.setNeedsDisplay()
-            playerContainer.setNeedsLayout()
-            self.view.setNeedsDisplay()
-            self.view.setNeedsLayout()
-            // is this line correct? I'm not sure.
-        }
+    internal func updatePlayerDisplay(newDisplayType: PlayerDisplayType) {            playerContainerHeightConstraint.constant = newDisplayType.heightValue()
+        startButton.hidden = (newDisplayType != .StartButton)
+        smallMusicPlayer.hidden = (newDisplayType != .Small)
+//        smallMusicPlayer.hidden = false
+        // a similar one for large, if-when we get there
     }
 
 
