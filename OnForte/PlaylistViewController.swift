@@ -29,7 +29,7 @@ enum PlayerDisplayType {
     }
 }
 
-class PlaylistViewController: UIViewController {
+class PlaylistViewController: HiddenBackButtonViewController {
 
     @IBOutlet var historyButton: UIButton!
     @IBOutlet var searchButton: UIButton!
@@ -43,6 +43,7 @@ class PlaylistViewController: UIViewController {
      The player container is just a placeholder for the height of the contents.
      It can contain nothing, a start button, or a small/large player.
     */
+    private var playerDisplayType: PlayerDisplayType = .None
     @IBOutlet var playerContainer: UIView!
     @IBOutlet var playerContainerHeightConstraint: NSLayoutConstraint!
 
@@ -51,18 +52,13 @@ class PlaylistViewController: UIViewController {
     @IBOutlet var smallMusicPlayer: SmallMusicPlayerController!
 
 
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-        // register the table view cells
-//        let nib = UINib(nibName: "SongTableViewCell", bundle: nil)
-//        tableView.registerNib(nib,forCellReuseIdentifier: "songCell")
-//    }
-
-    internal func updatePlayerDisplay(newDisplayType: PlayerDisplayType) {            playerContainerHeightConstraint.constant = newDisplayType.heightValue()
-        startButton.hidden = (newDisplayType != .StartButton)
-        smallMusicPlayer.hidden = (newDisplayType != .Small)
-//        smallMusicPlayer.hidden = false
-        // a similar one for large, if-when we get there
+    internal func updatePlayerDisplay(newDisplayType: PlayerDisplayType) {
+        if playerDisplayType != newDisplayType {
+            playerDisplayType = newDisplayType
+            playerContainerHeightConstraint.constant = newDisplayType.heightValue()
+            startButton.hidden = (newDisplayType != .StartButton)
+            smallMusicPlayer.hidden = (newDisplayType != .Small)
+        }
     }
 
 
@@ -97,11 +93,15 @@ class PlaylistViewController: UIViewController {
 
 extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return SongHandler.getSongsInQueue().count
+
+        return 1
+//        return SongHandler.getSongsInQueue().count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("PlaylistTableViewCell") as! PlaylistTableViewCell
+        return cell
+        /*
         let cell = self.tableView.dequeueReusableCellWithIdentifier("songCell")! as! SongTableViewCell
         cell.selectionStyle = .None
 
@@ -109,7 +109,7 @@ extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
 
         let (songId, song) = SongHandler.getQueuedSongByIndex(indexPath.row)
         cell.loadItem(songId, song: song)
-        return cell
+        return cell*/
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
