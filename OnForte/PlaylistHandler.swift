@@ -123,13 +123,14 @@ class PlaylistHandler: NSObject {
         nowPlaying = nil
         isHost = false
         SongHandler.clearForNewPlaylist()
-        centralNavigationController.leavePlaylist()
+        appNavigationController.popPlaylist()
+//        centralNavigationController.leavePlaylist()
     }
 
     /**
      Generate a random playlist Id
      */
-    internal static func generateRandomId() -> String {
+    private static func generateRandomId() -> String {
         let _base36chars_string = "0123456789abcdefghijklmnopqrstuvwxyz"
         let _base36chars = Array(_base36chars_string.characters)
         var uniqueId = "";
@@ -138,6 +139,41 @@ class PlaylistHandler: NSObject {
             uniqueId = uniqueId + String(_base36chars[random])
         }
         return uniqueId;
+    }
+
+    /**
+     Try to create a playlist. CompletionHandler is called with the result
+     of the creation.
+    */
+    internal static func createPlaylist(name: String, completionHandler: Bool -> ()) {
+        let createdPlaylistId = self.generateRandomId()
+        let playlistInfo = [name,createdPlaylistId]
+        Meteor.call("addPlaylist",params:playlistInfo,callback:{(result: AnyObject?,error:DDPError?) in
+            if error != nil {
+                print(error)
+                completionHandler(false)
+            } else {
+                self.playlistId = createdPlaylistId
+                print(createdPlaylistId)
+                self.playlistName = name
+                self.isHost = true
+                completionHandler(true)
+            }
+        })
+    }
+
+    internal static func joinPlaylist(targetPlaylistId: String, completionHandler: (Bool,AnyObject?) -> Void) {
+        Meteor.call("getInitialPlaylistInfo",params:[targetPlaylistId],callback: {(result: AnyObject?,error: DDPError?) in
+            if error != nil {
+                print(error)
+                completionHandler(false,nil)
+            } else if let data = result {
+                self.playlistId = targetPlaylistId
+                completionHandler(true,data)
+            } else {
+                completionHandler(true,nil)
+            }
+        })
     }
 
 }

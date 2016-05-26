@@ -53,7 +53,8 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
     private func addConstraintsToPlaylistControlView() {
         playlistControlView.translatesAutoresizingMaskIntoConstraints = false
 
-        let navHeight = centralNavigationController.navigationBar.frame.height + UIApplication.sharedApplication().statusBarFrame.height
+        let navHeight: CGFloat = 0
+//        let navHeight = centralNavigationController.navigationBar.frame.height + UIApplication.sharedApplication().statusBarFrame.height
         let pcviewleft = NSLayoutConstraint(item: playlistControlView, attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 0)
         pcviewleft.active = true
         pcviewleft.identifier = "PC view leading"

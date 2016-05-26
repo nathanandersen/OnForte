@@ -5,7 +5,7 @@
 //  Created by Nathan Andersen on 4/14/16.
 //  Copyright © 2016 Forte Labs. All rights reserved.
 //
-
+/*
 import Foundation
 import UIKit
 
@@ -228,8 +228,8 @@ class CentralNavigationController: UINavigationController, UINavigationControlle
     }
     
 }
-
-
+*/
+/*
 /**
  The animator for the push animation of CentralNavigationController
  */
@@ -293,4 +293,4 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                 fromViewController.view.alpha = 1.0
         })
     }
-}
+}*/

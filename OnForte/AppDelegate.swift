@@ -66,12 +66,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    private func instantiateNavigationController() {
+        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("NavigationController") as! NavigationController
+        appNavigationController = controller
+        self.window?.rootViewController = controller
+
+    }
+
 
     func launchStoryboard(storyboardChoice: Storyboard) {
         let storyboard = UIStoryboard(name: storyboardChoice.rawValue, bundle: nil)
         if storyboardChoice == .Main {
-            let controller = storyboard.instantiateViewControllerWithIdentifier("CentralNavigationController")
-            self.window?.rootViewController = controller
+            instantiateNavigationController()
         } else {
             let controller = storyboard.instantiateViewControllerWithIdentifier("OnboardingInitialViewController")
             self.window?.rootViewController = controller
@@ -79,12 +85,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func launchPlaylist(playlistID: String) {
-
-        let storyboard = UIStoryboard(name: Storyboard.Main.rawValue, bundle: nil)
-        let controller = storyboard.instantiateViewControllerWithIdentifier("CentralNavigationController")
-        self.window?.rootViewController = controller
-
-        ((controller as! CentralNavigationController).presentedViewController as! RootViewController).joinPlaylistFromURL(playlistID)
+        instantiateNavigationController()
+        (appNavigationController.presentedViewController as! RootViewController).joinPlaylistFromURL(playlistID)
     }
 
     func application(application: UIApplication,openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {

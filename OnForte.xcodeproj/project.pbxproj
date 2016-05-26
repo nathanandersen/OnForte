@@ -61,6 +61,7 @@
 		248575BE1CF657AE003F683C /* SmallMusicPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248575BD1CF657AE003F683C /* SmallMusicPlayerView.swift */; };
 		248653471CF767D700F0F78B /* PlaylistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248653461CF767D700F0F78B /* PlaylistTableViewCell.swift */; };
 		2486534B1CF76C2500F0F78B /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486534A1CF76C2500F0F78B /* NavigationController.swift */; };
+		2486534F1CF7732100F0F78B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486534E1CF7732100F0F78B /* HomeViewController.swift */; };
 		24959C2E1CC30AC2009F55B6 /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24959C2D1CC30AC2009F55B6 /* PlayButton.swift */; };
 		24A931071CD24FE4008A7F29 /* FastForwardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A931061CD24FE4008A7F29 /* FastForwardButton.swift */; };
 		24BCF48E1CE3AC96001054B7 /* PlaylistHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BCF48D1CE3AC96001054B7 /* PlaylistHandler.swift */; };
@@ -147,6 +148,7 @@
 		248575BD1CF657AE003F683C /* SmallMusicPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallMusicPlayerView.swift; sourceTree = "<group>"; };
 		248653461CF767D700F0F78B /* PlaylistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewCell.swift; sourceTree = "<group>"; };
 		2486534A1CF76C2500F0F78B /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		2486534E1CF7732100F0F78B /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		24959C2D1CC30AC2009F55B6 /* PlayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
 		24A931061CD24FE4008A7F29 /* FastForwardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FastForwardButton.swift; sourceTree = "<group>"; };
 		24BCF48D1CE3AC96001054B7 /* PlaylistHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistHandler.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 				240AB02B1CC0945B0061EB54 /* Onboarding */,
 				243481721CE23BF900402A4A /* Playlist */,
 				2486534A1CF76C2500F0F78B /* NavigationController.swift */,
+				2486534E1CF7732100F0F78B /* HomeViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 				240AB00C1CC0929F0061EB54 /* SongDocument.swift in Sources */,
 				240AB05E1CC095300061EB54 /* ContactTableViewCell.swift in Sources */,
 				246232FB1CE2CCE0004C63E8 /* SongHandler.swift in Sources */,
+				2486534F1CF7732100F0F78B /* HomeViewController.swift in Sources */,
 				246232F81CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift in Sources */,
 				240AAFCA1CC08DA10061EB54 /* AppDelegate.swift in Sources */,
 				240AB02F1CC094630061EB54 /* OnboardingInitialViewController.swift in Sources */,

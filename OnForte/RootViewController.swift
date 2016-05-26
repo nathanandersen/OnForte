@@ -277,7 +277,8 @@ class RootViewController: UIViewController, UITextFieldDelegate {
                                                    constant: -15)
         alignBottomConstraint.active = true
 
-        let navHeight = centralNavigationController.navigationBar.frame.height
+        let navHeight: CGFloat = 0
+//        let navHeight = centralNavigationController.navigationBar.frame.height
         let statusHeight = UIApplication.sharedApplication().statusBarFrame.height
 
         alignTopConstraint = NSLayoutConstraint(item: createSectionView,
@@ -339,26 +340,15 @@ class RootViewController: UIViewController, UITextFieldDelegate {
     internal func createButtonPressed(sender: AnyObject?){
         if let targetPlaylistName = self.createField.text {
             if targetPlaylistName != "" {
-                print("title:" + targetPlaylistName)
-                activityIndicator.showActivity("Creating")
-
-                PlaylistHandler.playlistId = PlaylistHandler.generateRandomId()
-                PlaylistHandler.isHost = true
-                PlaylistHandler.playlistName = targetPlaylistName
-                let playlistInfo = [targetPlaylistName,PlaylistHandler.playlistId]
-                Meteor.call("addPlaylist",params:playlistInfo,callback:{(result: AnyObject?,error:DDPError?) in
-                    if error != nil {
-                        print(error)
-                        exit(1)
-                    } else {
+                PlaylistHandler.createPlaylist(targetPlaylistName) {
+                    (success: Bool) in
+                    if success {
                         self.parseSongAndSendToPlaylist(nil)
+                    } else {
+                        print("it failed")
+                        // handle the error
                     }
-                })
-            } else {
-                let alertController = UIAlertController(title: "Sorry!", message:
-                    "Please give your playlist a name.", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
+                }
             }
         }
     }
@@ -368,31 +358,17 @@ class RootViewController: UIViewController, UITextFieldDelegate {
      Checks for existence of the playlist then joins
     */
     internal func joinButtonPressed(sender: AnyObject?) {
-
-        activityIndicator.showActivity("Joining Playlist")
         if let targetPlaylistId = self.joinField.text?.lowercaseString {
-            Meteor.call("getInitialPlaylistInfo",params:[targetPlaylistId],callback: {(result: AnyObject?,error: DDPError?) in
-                if (error != nil) {
-                    activityIndicator.showComplete("Failed")
-                    print(error)
-                    let alertController = UIAlertController(title: "Uh oh!", message:
-                        "An error occurred.", preferredStyle: UIAlertControllerStyle.Alert)
-                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-
-                    self.presentViewController(alertController, animated: true, completion: nil)
-                } else if result != nil {
-                    activityIndicator.showComplete("Joined")
-                    PlaylistHandler.playlistId = targetPlaylistId
-                    self.parseSongAndSendToPlaylist(result!)
-
+            PlaylistHandler.joinPlaylist(targetPlaylistId, completionHandler: {
+                (success: Bool, result: AnyObject?) in
+                if success {
+                    if let data = result {
+                        self.parseSongAndSendToPlaylist(data)
+                    } else {
+                        // invalid ID
+                    }
                 } else {
-                    activityIndicator.showComplete("Invalid ID")
-                    print("Not valid...")
-                    let alertController = UIAlertController(title: "Sorry!", message:
-                        "Playlist ID was not valid.", preferredStyle: UIAlertControllerStyle.Alert)
-                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    // a Meteor error occurred
                 }
             })
         }
@@ -402,6 +378,20 @@ class RootViewController: UIViewController, UITextFieldDelegate {
      Join a playlist from deep-linking.
     */
     internal func joinPlaylistFromURL(targetPlaylistId: String) {
+        PlaylistHandler.joinPlaylist(targetPlaylistId, completionHandler: {
+            (success: Bool, result: AnyObject?) in
+            if success {
+                if let data = result {
+                    self.parseSongAndSendToPlaylist(data)
+                } else {
+                    // invalid ID
+                }
+            } else {
+                // a Meteor error occurred
+            }
+        })
+        /*
+
         Meteor.call("getInitialPlaylistInfo",params:[targetPlaylistId],callback: {(result: AnyObject?,error: DDPError?) in
             if (error != nil) {
                 activityIndicator.showComplete("Failed")
@@ -425,7 +415,7 @@ class RootViewController: UIViewController, UITextFieldDelegate {
 
                 self.presentViewController(alertController, animated: true, completion: nil)
             }
-        })
+        })*/
     }
 
     /**
@@ -457,7 +447,8 @@ class RootViewController: UIViewController, UITextFieldDelegate {
 //                nowPlaying = song
             }
         }
-        centralNavigationController.presentPlaylist()
+        appNavigationController.pushPlaylist()
+//        centralNavigationController.presentPlaylist()
     }
 
 

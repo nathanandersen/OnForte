@@ -34,7 +34,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UISearchBarDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let navHeight = centralNavigationController.navigationBar.bounds.maxY + UIApplication.sharedApplication().statusBarFrame.height
+        let navHeight: CGFloat = 0
+//        let navHeight = centralNavigationController.navigationBar.bounds.maxY + UIApplication.sharedApplication().statusBarFrame.height
         self.view.frame = CGRectMake(UIScreen.mainScreen().bounds.width-drawerWidth, navHeight, drawerWidth, drawerHeight-navHeight)
 
         self.view.backgroundColor = Style.whiteColor
