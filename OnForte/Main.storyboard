@@ -135,7 +135,7 @@
                         <viewControllerLayoutGuide type="bottom" id="nvH-ee-sAw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4y7-e6-Rt2">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -210,42 +210,48 @@
                         <viewControllerLayoutGuide type="bottom" id="fjA-pE-CgU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="LQK-9S-zbR">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u1p-Om-tdD">
-                                <rect key="frame" x="31" y="413" width="258" height="50"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DCg-XK-TOH">
-                                <rect key="frame" x="31" y="413" width="258" height="50"/>
+                                <rect key="frame" x="31" y="349" width="258" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="VCe-nc-QcS"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xwx-97-Uaf">
+                                <rect key="frame" x="31" y="414" width="258" height="50"/>
+                            </view>
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="W7d-YF-V9e">
+                                <rect key="frame" x="31" y="414" width="258" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vLE-w9-c3I" id="2Ur-ei-rH9"/>
+                                </connections>
+                            </textField>
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="u1p-Om-tdD">
+                                <rect key="frame" x="31" y="349" width="258" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vLE-w9-c3I" id="QXL-BO-rg8"/>
+                                </connections>
+                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2EL-Vf-X0J">
-                                <rect key="frame" x="31" y="413" width="258" height="50"/>
+                                <rect key="frame" x="31" y="349" width="258" height="50"/>
                                 <state key="normal" title="Create"/>
                                 <connections>
-                                    <action selector="createButtonDidPress:" destination="vLE-w9-c3I" eventType="touchUpInside" id="Vq5-rK-OMn"/>
+                                    <action selector="buttonDidPress:" destination="vLE-w9-c3I" eventType="touchUpInside" id="dqS-wz-eoH"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d1A-sO-fQg">
-                                <rect key="frame" x="31" y="478" width="258" height="50"/>
+                                <rect key="frame" x="31" y="414" width="258" height="50"/>
                                 <state key="normal" title="Join"/>
                                 <connections>
-                                    <action selector="joinButtonDidPress:" destination="vLE-w9-c3I" eventType="touchUpInside" id="v9a-hm-p34"/>
+                                    <action selector="buttonDidPress:" destination="vLE-w9-c3I" eventType="touchUpInside" id="z5G-HO-Lek"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xwx-97-Uaf">
-                                <rect key="frame" x="31" y="478" width="258" height="50"/>
-                            </view>
-                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W7d-YF-V9e">
-                                <rect key="frame" x="31" y="478" width="258" height="50"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -276,6 +282,7 @@
                             <constraint firstItem="u1p-Om-tdD" firstAttribute="bottom" secondItem="DCg-XK-TOH" secondAttribute="bottom" id="zwJ-oE-OkV"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="vWL-2Y-c4T"/>
                     <connections>
                         <outlet property="createButton" destination="2EL-Vf-X0J" id="e8M-Xs-Xyn"/>
                         <outlet property="createTextField" destination="u1p-Om-tdD" id="e0x-zT-f0f"/>
@@ -551,8 +558,8 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="eUg-VH-F0r" kind="relationship" relationship="rootViewController" id="CUc-Am-Bw0"/>
                         <segue destination="8NC-aR-KKV" kind="push" id="edK-11-pqx"/>
+                        <segue destination="vLE-w9-c3I" kind="relationship" relationship="rootViewController" id="DIu-XA-hCy"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N1Q-IE-zvk" userLabel="First Responder" sceneMemberID="firstResponder"/>

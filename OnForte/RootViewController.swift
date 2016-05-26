@@ -390,32 +390,6 @@ class RootViewController: UIViewController, UITextFieldDelegate {
                 // a Meteor error occurred
             }
         })
-        /*
-
-        Meteor.call("getInitialPlaylistInfo",params:[targetPlaylistId],callback: {(result: AnyObject?,error: DDPError?) in
-            if (error != nil) {
-                activityIndicator.showComplete("Failed")
-                print(error)
-                let alertController = UIAlertController(title: "Uh oh!", message:
-                    "An error occurred.", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-
-                self.presentViewController(alertController, animated: true, completion: nil)
-            } else if result != nil {
-                activityIndicator.showComplete("Joined")
-                PlaylistHandler.playlistId = targetPlaylistId
-                self.parseSongAndSendToPlaylist(result!)
-
-            } else {
-                activityIndicator.showComplete("Invalid ID")
-                print("Not valid...")
-                let alertController = UIAlertController(title: "Sorry!", message:
-                    "Playlist ID was not valid.", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-
-                self.presentViewController(alertController, animated: true, completion: nil)
-            }
-        })*/
     }
 
     /**
@@ -444,14 +418,9 @@ class RootViewController: UIViewController, UITextFieldDelegate {
                     artworkURL: (artworkURL != nil) ? artworkURL : NSURL(string: "")
                 )
                 PlaylistHandler.nowPlaying = song
-//                nowPlaying = song
             }
         }
         appNavigationController.pushPlaylist()
-//        centralNavigationController.presentPlaylist()
     }
-
-
-
     
 }
