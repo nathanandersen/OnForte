@@ -214,7 +214,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lkq-M8-TZu">
-                                <rect key="frame" x="-4" y="80" width="328" height="40"/>
+                                <rect key="frame" x="-4" y="40" width="328" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tlo-3Z-Hvr">
                                         <rect key="frame" x="277" y="2" width="36" height="36"/>
@@ -258,7 +258,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JGe-IN-mS5">
-                                <rect key="frame" x="-4" y="120" width="328" height="384"/>
+                                <rect key="frame" x="-4" y="80" width="328" height="424"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SongTableViewCell" rowHeight="85" id="mJp-4c-nDo" customClass="SongTableViewCell" customModule="OnForte" customModuleProvider="target">
@@ -322,13 +322,13 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hpy-IR-3Wg">
-                                <rect key="frame" x="-4" y="40" width="328" height="40"/>
+                                <rect key="frame" x="-4" y="40" width="328" height="0.0"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="kfD-oP-ftf"/>
+                                    <constraint firstAttribute="height" id="kfD-oP-ftf"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ubu-oI-aUo">
-                                <rect key="frame" x="111" y="45" width="98" height="30"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ubu-oI-aUo">
+                                <rect key="frame" x="111" y="25" width="98" height="30"/>
                                 <state key="normal" title="START MUSIC"/>
                                 <connections>
                                     <action selector="startButtonDidPress:" destination="8NC-aR-KKV" eventType="touchUpInside" id="vqE-nf-GDl"/>
