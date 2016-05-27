@@ -42,13 +42,13 @@ class PlaylistHandler: NSObject {
         musicPlayer.playNextSong({(result) in
             completionHandler(result)
             print("ho hum")
-            NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
+//            NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
         })
     }
 
     internal static func stop() {
         musicPlayer.stopCurrentSong()
-        NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
+//        NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
     }
 
     internal static func fastForward(completionHandler: Bool -> Void) {
@@ -56,12 +56,22 @@ class PlaylistHandler: NSObject {
 
         musicPlayer.playNextSong({(result) in
             completionHandler(result)
-            NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
+//            NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
             NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
         })
     }
 
-    internal static var nowPlaying: Song?
+    private static var _nowPlaying: Song?
+
+    internal static var nowPlaying: Song? {
+        get {
+            return self._nowPlaying
+        }
+        set {
+            self._nowPlaying = newValue
+            NSNotificationCenter.defaultCenter().postNotificationName(updateSmallMusicPlayerKey, object: nil)
+        }
+    }
 
     internal static var spotifySession: SPTSession?
 

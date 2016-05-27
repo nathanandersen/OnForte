@@ -25,29 +25,12 @@ class SearchHandler: NSObject/*, UITableViewDelegate, UITableViewDataSource*/ {
         fatalError("cannot search on an abstract SearchHandler")
     }
 
-    /*
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return results.count
-    }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell") as! SongViewCell
-        cell.loadItem(results[indexPath.row])
-        return cell;
-    }
-
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        activityIndicator.showActivity("Adding Song")
-        SearchHandler.addSongToPlaylist(results[indexPath.row])
-    }*/
-
     /**
      Add the song to the database and the user-stored favorites
     */
     internal static func addSongToPlaylist(song: Song) {
         addSongToDatabase(song, completionHandler: {
-            activityIndicator.showComplete("")
-            NSNotificationCenter.defaultCenter().postNotificationName("completeSearch", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(closeSearchKey, object: nil)
         })
         SongHandler.insertIntoSuggestions(song)
     }
@@ -60,19 +43,6 @@ class SearchHandler: NSObject/*, UITableViewDelegate, UITableViewDataSource*/ {
             completionHandler()
         })
     }
-
-    /*
-    /**
-     Add the song to the user-stored favorites
-     */
-    internal static func addSongToSuggestions(song: Song) {
-//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-//        let managedObjectContext = appDelegate.managedObjectContext
-        SongHandler.insertIntoSuggestions(song)
-
-//        SuggestedSong.createInManagedObjectContext(managedObjectContext, song: song)
-//        appDelegate.saveContext()
-    }*/
 
     /**
      Clear the search

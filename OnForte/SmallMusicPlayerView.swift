@@ -13,6 +13,8 @@ import Foundation
  use the XIB file to define the SmallMusicPlayerView, then
  import it into the storyboard.
 */
+let updateSmallMusicPlayerKey = "updateSmallMusicPlayer"
+
 class SmallMusicPlayerController: UIView {
     private var smallMusicPlayer: SmallMusicPlayerView!
 
@@ -44,6 +46,8 @@ class SmallMusicPlayerController: UIView {
         NSLayoutConstraint(item: self, attribute: .Bottom, relatedBy: .Equal, toItem: smallMusicPlayer, attribute: .Bottom, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: self, attribute: .Trailing, relatedBy: .Equal, toItem: smallMusicPlayer, attribute: .Trailing, multiplier: 1, constant: 0).active = true
         smallMusicPlayer.updateConstraints()
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SmallMusicPlayerController.updateMusicPlayerDisplay), name: updateSmallMusicPlayerKey, object: nil)
     }
 }
 

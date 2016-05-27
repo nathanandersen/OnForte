@@ -29,6 +29,11 @@ enum PlayerDisplayType {
     }
 }
 
+
+let leaveAlertTitle = "Leave Playlist"
+let guestLeaveMessage = "Are you sure you want to leave this playlist?"
+let hostLeaveMessage = "You're the host, so leaving this playlist will end it for everyone."
+
 class PlaylistViewController: DefaultViewController {
 
     @IBOutlet var historyButton: UIButton!
@@ -51,7 +56,7 @@ class PlaylistViewController: DefaultViewController {
 //    private var largePlayer: UIView = UIView()
     @IBOutlet var smallMusicPlayer: SmallMusicPlayerController!
 
-
+    private var alertController: UIAlertController?
 
 
     internal func updatePlayerDisplay(newDisplayType: PlayerDisplayType) {
@@ -63,6 +68,11 @@ class PlaylistViewController: DefaultViewController {
         }
     }
 
+    internal func showAPlayer(currentDisplayType: PlayerDisplayType) {
+        if playerDisplayType != .Small || playerDisplayType != .Large {
+            updatePlayerDisplay(.Small)
+        }
+    }
 
     internal func setPlaylistInfo(playlistName: String, playlistId: String) {
         nameLabel.text = playlistName
@@ -74,18 +84,39 @@ class PlaylistViewController: DefaultViewController {
 
     @IBAction func historyButtonDidPress(sender: AnyObject) {
         print("history button pressed")
-        updatePlayerDisplay(.StartButton)
+//        updatePlayerDisplay(.StartButton)
     }
     @IBAction func searchButtonDidPress(sender: AnyObject) {
         print("search button pressed")
-        updatePlayerDisplay(.Small)
+//        updatePlayerDisplay(.Small)
     }
     @IBAction func leaveButtonDidPress(sender: AnyObject) {
         print("leave button pressed")
-        updatePlayerDisplay(.None)
+
+
+        if alertController == nil {
+            alertController = UIAlertController(title: leaveAlertTitle, message: guestLeaveMessage, preferredStyle: .Alert)
+            alertController?.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+
+            alertController?.addAction(UIAlertAction(title: "Leave", style: .Destructive, handler: {
+                _ in
+                PlaylistHandler.leavePlaylist()
+                (self.navigationController as? NavigationController)?.popPlaylist()
+            }))
+        }
+
+        if PlaylistHandler.isHost {
+            alertController?.message = hostLeaveMessage
+        } else {
+            alertController?.message = guestLeaveMessage
+        }
+
+        self.presentViewController(alertController!, animated: true, completion: nil)
     }
+
     @IBAction func inviteButtonDidPress(sender: AnyObject) {
         print("invite button pressed")
+        //        updatePlayerDisplay(.None)
     }
 
 }
@@ -106,7 +137,22 @@ extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func reloadTable() {
+        var playerTypeToDisplay: PlayerDisplayType!
+        if PlaylistHandler.nowPlaying == nil {
+            if PlaylistHandler.isHost && SongHandler.getSongsInQueue().count >= 1 {
+                playerTypeToDisplay = .StartButton
+            } else {
+                playerTypeToDisplay = .None
+            }
+        } else if playerDisplayType != .Small || playerTypeToDisplay != .Large {
+            playerTypeToDisplay = .Small
+        } else {
+            playerTypeToDisplay = playerDisplayType
+        }
+
         dispatch_async(dispatch_get_main_queue(), {
+            self.updatePlayerDisplay(playerTypeToDisplay)
+//            self.smallMusicPlayer.updateMusicPlayerDisplay()
             self.tableView.reloadData()
         })
     }

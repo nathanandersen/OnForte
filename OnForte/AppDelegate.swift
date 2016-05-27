@@ -81,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func launchPlaylist(playlistID: String) {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("NavigationController") as! NavigationController
         self.window?.rootViewController = controller
-        (controller.presentedViewController as! RootViewController).joinPlaylistFromURL(playlistID)
+        (controller.presentedViewController as! HomeViewController).joinPlaylistFromURL(playlistID)
     }
 
     func application(application: UIApplication,openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {

@@ -302,7 +302,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xwx-97-Uaf">
                                 <rect key="frame" x="31" y="414" width="258" height="50"/>
                             </view>
-                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="W7d-YF-V9e">
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Playlist Code" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="W7d-YF-V9e">
                                 <rect key="frame" x="31" y="414" width="258" height="50"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="join"/>
@@ -310,7 +310,7 @@
                                     <outlet property="delegate" destination="vLE-w9-c3I" id="2Ur-ei-rH9"/>
                                 </connections>
                             </textField>
-                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="u1p-Om-tdD">
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Playlist Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="u1p-Om-tdD">
                                 <rect key="frame" x="31" y="349" width="258" height="50"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="yes" returnKeyType="go"/>
@@ -320,14 +320,14 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2EL-Vf-X0J">
                                 <rect key="frame" x="31" y="349" width="258" height="50"/>
-                                <state key="normal" title="Create"/>
+                                <state key="normal" title="Create a playlist"/>
                                 <connections>
                                     <action selector="buttonDidPress:" destination="vLE-w9-c3I" eventType="touchUpInside" id="dqS-wz-eoH"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d1A-sO-fQg">
                                 <rect key="frame" x="31" y="414" width="258" height="50"/>
-                                <state key="normal" title="Join"/>
+                                <state key="normal" title="Join a playlist"/>
                                 <connections>
                                     <action selector="buttonDidPress:" destination="vLE-w9-c3I" eventType="touchUpInside" id="z5G-HO-Lek"/>
                                 </connections>
@@ -654,7 +654,7 @@
                                 </connections>
                             </searchBar>
                             <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="JzV-Yu-KIS">
-                                <rect key="frame" x="284" y="-1" width="20" height="42"/>
+                                <rect key="frame" x="284" y="-1" width="20" height="41"/>
                             </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="85" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HfC-mq-6Ic">
                                 <rect key="frame" x="-4" y="90" width="328" height="414"/>
@@ -678,7 +678,7 @@
                             <constraint firstItem="c4m-SY-0O4" firstAttribute="trailing" secondItem="z0t-Zr-Jtj" secondAttribute="trailing" id="a8i-Xo-hjD"/>
                             <constraint firstItem="JzV-Yu-KIS" firstAttribute="height" secondItem="z0t-Zr-Jtj" secondAttribute="height" constant="1" id="feo-ZV-mrh"/>
                             <constraint firstItem="c4m-SY-0O4" firstAttribute="leading" secondItem="z0t-Zr-Jtj" secondAttribute="leading" id="gSa-Gq-rYW"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="JzV-Yu-KIS" secondAttribute="trailing" id="i04-Ng-5GV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="JzV-Yu-KIS" secondAttribute="trailing" constant="60" id="i04-Ng-5GV"/>
                             <constraint firstItem="HfC-mq-6Ic" firstAttribute="top" secondItem="c4m-SY-0O4" secondAttribute="bottom" constant="5" id="jxm-KF-2oW"/>
                             <constraint firstItem="z0t-Zr-Jtj" firstAttribute="leading" secondItem="QBg-kI-adN" secondAttribute="leadingMargin" id="oeI-ek-Wvu"/>
                             <constraint firstItem="c4m-SY-0O4" firstAttribute="height" secondItem="z0t-Zr-Jtj" secondAttribute="height" id="rZg-Vd-Hmz"/>

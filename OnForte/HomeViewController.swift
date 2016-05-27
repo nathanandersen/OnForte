@@ -14,6 +14,16 @@ import SwiftyJSON
  */
 class HomeViewController: DefaultViewController {
 
+    // TODO:
+
+    // add a headline
+    // stylize...
+    // JOIN BUTTON
+    // CREATE BUTTON
+    // JOIN FIELD
+    // CREATE FIELD
+
+
     @IBOutlet var createButton: UIButton!
     @IBOutlet var joinButton: UIButton!
     @IBOutlet var createTextField: UITextField!
@@ -129,5 +139,26 @@ extension HomeViewController: UITextFieldDelegate {
         (navigationController as! NavigationController).pushPlaylist()
 //        appNavigationController.pushPlaylist()
     }
+
+    /**
+     Join a playlist from deep-linking.
+     
+     Idk?
+     */
+    internal func joinPlaylistFromURL(targetPlaylistId: String) {
+        PlaylistHandler.joinPlaylist(targetPlaylistId, completionHandler: {
+            (success: Bool, result: AnyObject?) in
+            if success {
+                if let data = result {
+                    self.parseSongAndSendToPlaylist(data)
+                } else {
+                    // invalid ID
+                }
+            } else {
+                // a Meteor error occurred
+            }
+        })
+    }
+
 }
 

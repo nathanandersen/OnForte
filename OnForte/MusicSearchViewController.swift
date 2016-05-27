@@ -8,6 +8,8 @@
 
 import Foundation
 
+let closeSearchKey = "closeSearch"
+
 class MusicSearchViewController: DefaultViewController {
 
     let orderedSearchHandlers: [SearchHandler] = [SpotifyHandler(),SoundCloudHandler(),LocalHandler()]
@@ -34,12 +36,30 @@ class MusicSearchViewController: DefaultViewController {
         customizeSegmentedControl()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MusicSearchViewController.closeSearch), name: closeSearchKey, object: nil)
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: closeSearchKey, object: nil)
+    }
+
     internal func enableSearchBar() {
         searchBar.becomeFirstResponder()
     }
 
     private func customizeSegmentedControl() {
-        // the colors and stuff
+        segmentedControl.setImage(UIImage(named: "spotify_gray")!, forSegmentAtIndex: 0)
+        segmentedControl.setImage(UIImage(named: "soundcloud_gray")!, forSegmentAtIndex: 1)
+        segmentedControl.setImage(UIImage(named: "itunes_gray")!, forSegmentAtIndex: 2)
+        // not sure why this is inverted, but.. ok
+        segmentedControl.subviews[2].tintColor = Style.spotifyGreen
+        segmentedControl.subviews[1].tintColor = Style.orangeColor
+        segmentedControl.subviews[0].tintColor = Style.redColor
+
+
     }
     @IBAction func segmentedControlChangedValue(sender: UISegmentedControl) {
         tableView.reloadData()
@@ -69,13 +89,12 @@ extension MusicSearchViewController: UISearchBarDelegate {
 
     internal func searchAllHandlers() {
         searchActivityIndicator.startAnimating()
-        var counter = 3
         orderedSearchHandlers.forEach() {
-            $0.search(searchBar.text!) { (success: Bool) in
-                self.tableView.reloadData()
-                counter -= 1
-                if counter == 0 {
+            let s = $0
+            s.search(searchBar.text!) { (success: Bool) in
+                if self.orderedSearchHandlers.indexOf(s)! == self.segmentedControl.selectedSegmentIndex {
                     self.searchActivityIndicator.stopAnimating()
+                    self.tableView.reloadData()
                 }
             }
         }
