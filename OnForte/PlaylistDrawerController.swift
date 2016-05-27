@@ -21,11 +21,11 @@ class PlaylistDrawerController: MMDrawerController {
         self.openDrawerGestureModeMask = .PanningCenterView
         self.closeDrawerGestureModeMask = .PanningCenterView
 
-/*        self.setGestureCompletionBlock({(drawerController, gestureRecognizer) in
+        self.setGestureCompletionBlock({(drawerController, gestureRecognizer) in
             if drawerController.openSide == .Right {
-                (self.rightDrawerViewController as! SearchViewController).enableSearchBar()
+                (self.rightDrawerViewController as! MusicSearchViewController).enableSearchBar()
             }
-        })*/
+        })
 
         self.setDrawerVisualStateBlock(MMDrawerVisualState.parallaxVisualStateBlockWithParallaxFactor(2))
 
@@ -39,6 +39,10 @@ class PlaylistDrawerController: MMDrawerController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistDrawerController.closeOpenDrawer), name: "closeOpenDrawer", object: nil)
     }
 
+    @IBAction func settingsButtonDidPress(sender: AnyObject) {
+        (navigationController as! NavigationController).pushSettings()
+    }
+    
     internal func closeOpenDrawer() {
         self.closeDrawerAnimated(true, completion: nil)
     }

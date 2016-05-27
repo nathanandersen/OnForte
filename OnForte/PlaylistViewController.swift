@@ -88,11 +88,6 @@ class PlaylistViewController: DefaultViewController {
         print("invite button pressed")
     }
 
-    @IBAction func profileButtonDidPress(sender: UIBarButtonItem) {
-        (navigationController as! NavigationController).pushSettings()
-    }
-
-
 }
 
 let reloadTableKey: String = "reloadTable"

@@ -159,7 +159,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="0Im-RA-2VC">
-                        <barButtonItem key="rightBarButtonItem" systemItem="organize" id="lo8-VW-BQh"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="organize" id="lo8-VW-BQh">
+                            <connections>
+                                <action selector="settingsButtonDidPress:" destination="jLw-EU-cAX" id="UaB-QE-Kh8"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gpl-ch-TVG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -490,7 +494,7 @@
                                         <rect key="frame" x="0.0" y="28" width="328" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Ym-O8-F8u" id="UfS-uJ-VoF">
-                                            <rect key="frame" x="0.0" y="0.0" width="328" height="84.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="328" height="85"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spotify" translatesAutoresizingMaskIntoConstraints="NO" id="b3g-Og-jOa">
@@ -590,13 +594,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Hpy-IR-3Wg" secondAttribute="trailing" constant="-20" id="w6e-wb-xF8"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="A4n-xM-RdL">
-                        <barButtonItem key="rightBarButtonItem" systemItem="organize" id="Lnf-MN-JrP">
-                            <connections>
-                                <action selector="profileButtonDidPress:" destination="8NC-aR-KKV" id="clx-W5-qvR"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="A4n-xM-RdL"/>
                     <connections>
                         <outlet property="historyButton" destination="MJa-hV-edM" id="aBd-Wb-5It"/>
                         <outlet property="idLabel" destination="Gb1-jD-KBC" id="XP2-s0-9eI"/>
@@ -683,10 +681,7 @@
                             <outletCollection property="gestureRecognizers" destination="Axb-2Y-K0l" appends="YES" id="S4U-1u-9da"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" id="jrw-Zb-IN5">
-                        <barButtonItem key="backBarButtonItem" title="Close" id="QO8-Xs-gf8"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="organize" id="pqc-nX-f62"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="jrw-Zb-IN5"/>
                     <connections>
                         <outlet property="searchActivityIndicator" destination="JzV-Yu-KIS" id="8y8-YG-yhK"/>
                         <outlet property="searchBar" destination="z0t-Zr-Jtj" id="uut-Bm-eqm"/>
