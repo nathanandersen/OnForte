@@ -2,8 +2,8 @@
 //  ActivityIndicator.swift
 //  Forte
 //
-//  Created by Noah Grumman on 4/8/16.
-//  Copyright © 2016 Noah Grumman. All rights reserved.
+//  Created by Nathan Andersen on 4/8/16.
+//  Copyright © 2016 Nathan Andersen. All rights reserved.
 //
 
 import UIKit

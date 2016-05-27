@@ -3,7 +3,7 @@
 //  Forte
 //
 //  Created by Nathan Andersen on 3/29/16.
-//  Copyright © 2016 Noah Grumman. All rights reserved.
+//  Copyright © 2016 Nathan Andersen. All rights reserved.
 //
 
 import Foundation
