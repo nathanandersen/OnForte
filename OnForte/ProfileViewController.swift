@@ -12,7 +12,7 @@ import SafariServices
 /**
  The ProfileViewController controls the user profile
  */
-class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewDataSource, UITableViewDelegate {
+class ProfileViewController: UIViewController {
 
     @IBOutlet var hostSettingsView: UIView!
 
@@ -97,27 +97,6 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
     }
 
 
-    func authenticationViewController(authenticationViewController: SPTAuthViewController!, didLoginWithSession session: SPTSession!) {
-        print("Logged In")
-        PlaylistHandler.spotifySession = session
-//        spotifySession = session
-        self.didLogInToSpotify()
-
-    }
-
-    func authenticationViewController(authenticationViewController: SPTAuthViewController!, didFailToLogin error: NSError!) {
-        print("Failed to Log In")
-        print(error)
-        authenticationViewController.clearCookies(nil)
-    }
-
-    func authenticationViewControllerDidCancelLogin(authenticationViewController: SPTAuthViewController!) {
-        print("User Canceled Log In")
-
-        // VISUAL CONFIRMATION
-
-        authenticationViewController.clearCookies(nil)
-    }
 
     func updateLogins() {
         renderSpotifyLogin()
@@ -158,6 +137,45 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
         self.updateViewConstraints()
     }
 
+
+    func renderSoundCloudLogin() {
+        soundCloudInfoView.subviews.forEach() { $0.removeFromSuperview() }
+        // yes, this is unnecessary, but leaving the structure for future development
+//        if true {
+            renderGuestButton("soundcloud",imageView: soundCloudImageView,infoView: soundCloudInfoView, text: "Enabled", textColor: UIColor.orangeColor())
+//        } else {
+//            renderGuestButton("soundcloud_gray",imageView: soundCloudImageView,infoView: soundCloudInfoView, text: "Disabled", textColor: UIColor.grayColor())
+//        }
+    }
+
+    func renderiTunesLogin() {
+        iTunesInfoView.subviews.forEach() { $0.removeFromSuperview() }
+        // yes, this is unnecessary, but leaving the structure for future development
+//        if true {
+            renderGuestButton("itunes", imageView: iTunesImageView, infoView: iTunesInfoView, text: "Enabled", textColor: UIColor.redColor())
+//        } else {
+//            renderGuestButton("itunes_gray", imageView: iTunesImageView, infoView: iTunesInfoView, text: "Disabled", textColor: UIColor.grayColor())
+//        }
+    }
+
+    func renderGuestButton(imageName: String, imageView: UIImageView, infoView: UIView, text: String, textColor: UIColor) {
+        imageView.image = UIImage(named: imageName)
+        let label = Style.defaultLabel()
+        label.textAlignment = .Left
+        label.text = text
+        label.textColor = textColor
+        infoView.addSubview(label)
+        let constraints = Style.constrainToBoundsOfFrame(label, parentView: infoView)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activateConstraints(constraints)
+    }
+
+
+
+
+}
+
+extension ProfileViewController: SPTAuthViewDelegate {
     func loginWithSpotify() {
         let spotifyAuthenticationViewController = SPTAuthViewController.authenticationViewController()
         spotifyAuthenticationViewController.delegate = self
@@ -179,7 +197,7 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
     func renderSpotifyLogin() {
         spotifyInfoView.subviews.forEach() { $0.removeFromSuperview() }
         if PlaylistHandler.spotifySessionIsValid() {
-//        if spotifySession != nil {
+            //        if spotifySession != nil {
             renderGuestButton("spotify", imageView: spotifyImageView, infoView: spotifyInfoView, text: "Enabled", textColor: UIColor.greenColor())
         }
         else {
@@ -240,40 +258,32 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
         }
     }
 
-    func renderSoundCloudLogin() {
-        soundCloudInfoView.subviews.forEach() { $0.removeFromSuperview() }
-        // yes, this is unnecessary, but leaving the structure for future development
-//        if true {
-            renderGuestButton("soundcloud",imageView: soundCloudImageView,infoView: soundCloudInfoView, text: "Enabled", textColor: UIColor.orangeColor())
-//        } else {
-//            renderGuestButton("soundcloud_gray",imageView: soundCloudImageView,infoView: soundCloudInfoView, text: "Disabled", textColor: UIColor.grayColor())
-//        }
+
+    func authenticationViewController(authenticationViewController: SPTAuthViewController!, didLoginWithSession session: SPTSession!) {
+        print("Logged In")
+        PlaylistHandler.spotifySession = session
+        //        spotifySession = session
+        self.didLogInToSpotify()
+
     }
 
-    func renderiTunesLogin() {
-        iTunesInfoView.subviews.forEach() { $0.removeFromSuperview() }
-        // yes, this is unnecessary, but leaving the structure for future development
-//        if true {
-            renderGuestButton("itunes", imageView: iTunesImageView, infoView: iTunesInfoView, text: "Enabled", textColor: UIColor.redColor())
-//        } else {
-//            renderGuestButton("itunes_gray", imageView: iTunesImageView, infoView: iTunesInfoView, text: "Disabled", textColor: UIColor.grayColor())
-//        }
+    func authenticationViewController(authenticationViewController: SPTAuthViewController!, didFailToLogin error: NSError!) {
+        print("Failed to Log In")
+        print(error)
+        authenticationViewController.clearCookies(nil)
     }
 
-    func renderGuestButton(imageName: String, imageView: UIImageView, infoView: UIView, text: String, textColor: UIColor) {
-        imageView.image = UIImage(named: imageName)
-        let label = Style.defaultLabel()
-        label.textAlignment = .Left
-        label.text = text
-        label.textColor = textColor
-        infoView.addSubview(label)
-        let constraints = Style.constrainToBoundsOfFrame(label, parentView: infoView)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activateConstraints(constraints)
+    func authenticationViewControllerDidCancelLogin(authenticationViewController: SPTAuthViewController!) {
+        print("User Canceled Log In")
+
+        // VISUAL CONFIRMATION
+
+        authenticationViewController.clearCookies(nil)
     }
 
+}
 
-
+extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var dataSource: [Song]!
         if segmentedControl.selectedSegmentIndex == 0 {
@@ -300,7 +310,7 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
     }
 
     func suggestSong(action: UITableViewRowAction, indexPath: NSIndexPath) {
-        activityIndicator.showActivity("Adding song..")
+        //        activityIndicator.showActivity("Adding song..")
         var song: Song!
         if segmentedControl.selectedSegmentIndex == 0 {
             song = SongHandler.fetchSuggestions()[indexPath.row]
@@ -308,11 +318,11 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
             song = SongHandler.fetchFavorites()[indexPath.row]
         }
 
+        // CLOSE THE EDITING THING
+
         SearchHandler.addSongToDatabase(song, completionHandler: {
-            activityIndicator.showComplete("")
+            // confirm activity indicator
             (self.navigationController as! NavigationController).popSettings()
-//            appNavigationController.popProfile()
-//            centralNavigationController.leaveProfile()
         })
     }
 

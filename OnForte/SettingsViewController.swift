@@ -28,6 +28,9 @@ class SettingsViewController: DefaultViewController {
 }
 
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
+    @IBAction func didToggleSegmentedControl(sender: UISegmentedControl) {
+        tableView.reloadData()
+    }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var dataSource: [Song]!
         if segmentedControl.selectedSegmentIndex == 0 {

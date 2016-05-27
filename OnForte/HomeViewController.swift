@@ -9,6 +9,9 @@
 import Foundation
 import SwiftyJSON
 
+/**
+ HomeViewController is the first view that a user sees when they open the application.
+ */
 class HomeViewController: DefaultViewController {
 
     @IBOutlet var createButton: UIButton!
