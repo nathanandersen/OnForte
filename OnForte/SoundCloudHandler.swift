@@ -17,7 +17,6 @@ class SoundCloudHandler: SearchHandler {
 
     override func search(query: String, completionHandler: (success: Bool) -> Void) {
         if (query != ""){
-            print("Searching soundcloud for:" + query)
             let apiQuery: [SearchQueryOptions] = [
                 .QueryString(query)
             ]

@@ -210,6 +210,7 @@
 		240AAFC81CC08DA10061EB54 /* OnForte */ = {
 			isa = PBXGroup;
 			children = (
+				243AD19C1CF8EB470031A763 /* Custom Views */,
 				243AD19B1CF8D40E0031A763 /* New */,
 				243AD19A1CF8D40A0031A763 /* Old */,
 				24BCF48F1CE3ACA2001054B7 /* Handlers */,
@@ -221,15 +222,8 @@
 				240AB05A1CC095300061EB54 /* ContactTableViewCell.swift */,
 				240AB0541CC095280061EB54 /* SongTableViewCell.swift */,
 				240AB0551CC095280061EB54 /* SongTableViewCell.xib */,
-				240AB0631CC0989A0061EB54 /* SongViewCell.swift */,
-				248575AD1CF4BD4B003F683C /* SongViewCell.xib */,
-				24959C2D1CC30AC2009F55B6 /* PlayButton.swift */,
-				24A931061CD24FE4008A7F29 /* FastForwardButton.swift */,
 				245789F71CC1C59600394C17 /* MusicPlayerView.swift */,
-				248653461CF767D700F0F78B /* PlaylistTableViewCell.swift */,
-				2486534A1CF76C2500F0F78B /* NavigationController.swift */,
 				248653501CF7CD5B00F0F78B /* SettingsViewController.swift */,
-				240AB0361CC094770061EB54 /* Main.storyboard */,
 				240AB0381CC094830061EB54 /* LaunchScreen.storyboard */,
 				240AB0021CC091AC0061EB54 /* Globals.swift */,
 				240AB0041CC091E60061EB54 /* Style.swift */,
@@ -329,14 +323,28 @@
 		243AD19B1CF8D40E0031A763 /* New */ = {
 			isa = PBXGroup;
 			children = (
+				240AB0361CC094770061EB54 /* Main.storyboard */,
 				2486534E1CF7732100F0F78B /* HomeViewController.swift */,
 				248575BB1CF64AD5003F683C /* PlaylistViewController.swift */,
-				248575BD1CF657AE003F683C /* SmallMusicPlayerView.swift */,
-				248575AF1CF4C41B003F683C /* SmallMusicPlayerView.xib */,
 				243AD1981CF88AE50031A763 /* MusicSearchViewController.swift */,
 				240AB0251CC0944D0061EB54 /* PlaylistDrawerController.swift */,
+				2486534A1CF76C2500F0F78B /* NavigationController.swift */,
+				248653461CF767D700F0F78B /* PlaylistTableViewCell.swift */,
 			);
 			name = New;
+			sourceTree = "<group>";
+		};
+		243AD19C1CF8EB470031A763 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				248575BD1CF657AE003F683C /* SmallMusicPlayerView.swift */,
+				248575AF1CF4C41B003F683C /* SmallMusicPlayerView.xib */,
+				240AB0631CC0989A0061EB54 /* SongViewCell.swift */,
+				248575AD1CF4BD4B003F683C /* SongViewCell.xib */,
+				24959C2D1CC30AC2009F55B6 /* PlayButton.swift */,
+				24A931061CD24FE4008A7F29 /* FastForwardButton.swift */,
+			);
+			name = "Custom Views";
 			sourceTree = "<group>";
 		};
 		24BCF48F1CE3ACA2001054B7 /* Handlers */ = {

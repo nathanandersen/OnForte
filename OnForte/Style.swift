@@ -45,6 +45,8 @@ struct Style {
 
     static var spotifyGreen = UIColor(red:0.14, green:0.81, blue:0.37, alpha:1.0)
     // #23CF5F
+    static var soundcloudOrange = UIColor.orangeColor()
+    static var itunesRed = UIColor.redColor()
 //    static var soundcloudOrange = UIColor(red: 255, green: 119, blue: 0, alpha: 1)
     
     static var primaryColor = primaryBlue

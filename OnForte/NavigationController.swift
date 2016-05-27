@@ -8,8 +8,6 @@
 
 import Foundation
 
-//var appNavigationController: NavigationController!
-
 /**
  This is a UIViewController that never displays a back button. Simple extension,
  written to pair with the custom NavigationController.
@@ -24,7 +22,6 @@ class DefaultViewController: UIViewController {
 
 class NavigationController: UINavigationController {
     private let playlistController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistDrawerController") as! PlaylistDrawerController
-//    private let playlistController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistViewController") as! PlaylistViewController
     private let settingsController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsViewController
 
     internal func pushSettings() {

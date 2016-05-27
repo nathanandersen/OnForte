@@ -32,7 +32,6 @@ class SpotifyHandler: SearchHandler {
 
     override func search(query: String, completionHandler: (success: Bool) -> Void) {
         if (query != ""){
-            print("Searching spotify for:" + query)
             let parameters = [
                 "q": query,
                 "type": "track,artist,album"

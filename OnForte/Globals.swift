@@ -61,6 +61,18 @@ enum Service {
         }
     }
 
+    func tintColor() -> UIColor {
+        if self == .Spotify {
+            return Style.spotifyGreen
+        } else if self == .Soundcloud {
+            return Style.soundcloudOrange
+        } else if self == .iTunes {
+            return Style.itunesRed
+        } else {
+            fatalError()
+        }
+    }
+
     func intValue() -> Int {
         if self == .Spotify {
             return 0

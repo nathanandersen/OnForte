@@ -14,13 +14,8 @@ class SettingsViewController: DefaultViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var segmentedControl: UISegmentedControl!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        let nib = UINib(nibName: "SongViewCell", bundle: nil)
-        tableView.registerNib(nib,forCellReuseIdentifier: "SongViewCell")
-        // this must be done here
-    }
-
+    // have to do custom displaying of the
+    // top settings panel in the yellow area
     
     @IBAction func leaveSettingsDidPress(sender: UIBarButtonItem) {
         (navigationController as! NavigationController).popSettings()
@@ -28,6 +23,13 @@ class SettingsViewController: DefaultViewController {
 }
 
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let nib = UINib(nibName: "SongViewCell", bundle: nil)
+        tableView.registerNib(nib,forCellReuseIdentifier: "SongViewCell")
+        // this must be done here
+    }
+
     @IBAction func didToggleSegmentedControl(sender: UISegmentedControl) {
         tableView.reloadData()
     }
