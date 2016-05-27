@@ -62,6 +62,7 @@
 		248653471CF767D700F0F78B /* PlaylistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248653461CF767D700F0F78B /* PlaylistTableViewCell.swift */; };
 		2486534B1CF76C2500F0F78B /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486534A1CF76C2500F0F78B /* NavigationController.swift */; };
 		2486534F1CF7732100F0F78B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486534E1CF7732100F0F78B /* HomeViewController.swift */; };
+		248653511CF7CD5B00F0F78B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248653501CF7CD5B00F0F78B /* SettingsViewController.swift */; };
 		24959C2E1CC30AC2009F55B6 /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24959C2D1CC30AC2009F55B6 /* PlayButton.swift */; };
 		24A931071CD24FE4008A7F29 /* FastForwardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A931061CD24FE4008A7F29 /* FastForwardButton.swift */; };
 		24BCF48E1CE3AC96001054B7 /* PlaylistHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BCF48D1CE3AC96001054B7 /* PlaylistHandler.swift */; };
@@ -149,6 +150,7 @@
 		248653461CF767D700F0F78B /* PlaylistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewCell.swift; sourceTree = "<group>"; };
 		2486534A1CF76C2500F0F78B /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		2486534E1CF7732100F0F78B /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		248653501CF7CD5B00F0F78B /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		24959C2D1CC30AC2009F55B6 /* PlayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
 		24A931061CD24FE4008A7F29 /* FastForwardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FastForwardButton.swift; sourceTree = "<group>"; };
 		24BCF48D1CE3AC96001054B7 /* PlaylistHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistHandler.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				243481721CE23BF900402A4A /* Playlist */,
 				2486534A1CF76C2500F0F78B /* NavigationController.swift */,
 				2486534E1CF7732100F0F78B /* HomeViewController.swift */,
+				248653501CF7CD5B00F0F78B /* SettingsViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -593,6 +596,7 @@
 				248575BC1CF64AD5003F683C /* PlaylistViewController.swift in Sources */,
 				240AB02E1CC094630061EB54 /* OnboardingViewController.swift in Sources */,
 				240AB0341CC0946F0061EB54 /* ProfileViewController.swift in Sources */,
+				248653511CF7CD5B00F0F78B /* SettingsViewController.swift in Sources */,
 				240AB0291CC0944D0061EB54 /* PlaylistController.swift in Sources */,
 				240AB0031CC091AC0061EB54 /* Globals.swift in Sources */,
 				240AB0101CC092DF0061EB54 /* PlayedSongDocument.swift in Sources */,

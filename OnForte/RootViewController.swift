@@ -420,7 +420,8 @@ class RootViewController: UIViewController, UITextFieldDelegate {
                 PlaylistHandler.nowPlaying = song
             }
         }
-        appNavigationController.pushPlaylist()
+        (navigationController as! NavigationController).pushPlaylist()
+//        appNavigationController.pushPlaylist()
     }
     
 }

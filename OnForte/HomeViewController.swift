@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class HomeViewController: HiddenBackButtonViewController {
+class HomeViewController: DefaultViewController {
 
     @IBOutlet var createButton: UIButton!
     @IBOutlet var joinButton: UIButton!
@@ -123,7 +123,8 @@ extension HomeViewController: UITextFieldDelegate {
                 PlaylistHandler.nowPlaying = song
             }
         }
-        appNavigationController.pushPlaylist()
+        (navigationController as! NavigationController).pushPlaylist()
+//        appNavigationController.pushPlaylist()
     }
 }
 

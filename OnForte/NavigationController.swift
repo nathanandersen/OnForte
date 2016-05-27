@@ -8,32 +8,33 @@
 
 import Foundation
 
-var appNavigationController: NavigationController!
+//var appNavigationController: NavigationController!
 
 /**
  This is a UIViewController that never displays a back button. Simple extension,
  written to pair with the custom NavigationController.
  */
-class HiddenBackButtonViewController: UIViewController {
+class DefaultViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.hidesBackButton = true
+        self.navigationItem.title = "onforte"
     }
 }
 
 class NavigationController: UINavigationController {
     private let playlistController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistViewController") as! PlaylistViewController
-    private let profileController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
+    private let settingsController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsViewController
 
-    internal func pushProfile() {
-        self.pushViewController(profileController, animated: true)
+    internal func pushSettings() {
+        self.pushViewController(settingsController, animated: true)
     }
 
     internal func pushPlaylist() {
         self.pushViewController(playlistController, animated: true)
     }
 
-    internal func popProfile() {
+    internal func popSettings() {
         self.popViewControllerAnimated(true)
         // do some other things
     }
@@ -51,6 +52,12 @@ class NavigationController: UINavigationController {
  Implementation of custom animations.
  */
 extension NavigationController: UINavigationControllerDelegate {
+
+    override func viewDidAppear(animated: Bool) {
+        delegate = self
+//        navigationItem.title = "onforte"
+    }
+
     func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 
         if operation == UINavigationControllerOperation.Push {

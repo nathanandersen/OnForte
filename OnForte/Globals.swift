@@ -7,13 +7,9 @@
 //
 
 import Foundation
-import MediaPlayer
 import Contacts
 
 // Current global variables.
-
-//var spotifySession: SPTSession?
-//var nowPlaying: Song?
 var keys: NSDictionary?
 var activityIndicator: ActivityIndicator!
 
@@ -94,6 +90,18 @@ enum VotingStatus {
     case Upvote
     case Downvote
     case None
+
+    func intValue() -> Int {
+        if self == .Upvote {
+            return 1
+        } else if self == .None {
+            return 0
+        } else if self == .Downvote {
+            return -1
+        } else {
+            fatalError()
+        }
+    }
 
     func upvote() -> VotingStatus {
         switch(self) {

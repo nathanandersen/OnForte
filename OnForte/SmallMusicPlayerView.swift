@@ -15,6 +15,14 @@ import Foundation
 */
 class SmallMusicPlayerController: UIView {
     private var smallMusicPlayer: SmallMusicPlayerView!
+
+    /**
+     Exposes the delegated small music player's update method.
+    */
+    internal func updateMusicPlayerDisplay() {
+        smallMusicPlayer.displaySongInformation()
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         sharedInit()
@@ -29,6 +37,7 @@ class SmallMusicPlayerController: UIView {
         smallMusicPlayer = NSBundle.mainBundle().loadNibNamed("SmallMusicPlayerView", owner: self, options: nil).first as! SmallMusicPlayerView
         self.addSubview(smallMusicPlayer)
 
+        // constrain the music player to this view
         smallMusicPlayer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: self, attribute: .Leading, relatedBy: .Equal, toItem: smallMusicPlayer, attribute: .Leading, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: self, attribute: .Top, relatedBy: .Equal, toItem: smallMusicPlayer, attribute: .Top, multiplier: 1, constant: 0).active = true

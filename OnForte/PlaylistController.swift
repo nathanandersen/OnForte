@@ -238,7 +238,9 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
 
         // an 'end' action that leaves the playlist
         let endAction = UIAlertAction(title: "I'm out", style: .Destructive) {
-            (action) in PlaylistHandler.leavePlaylist()
+            (action) in
+            PlaylistHandler.leavePlaylist()
+            (self.navigationController as! NavigationController).popPlaylist()
         }
         alertController.addAction(endAction)
 
@@ -259,7 +261,9 @@ class PlaylistController: UIViewController, UITableViewDelegate, UITableViewData
 
         // an 'end' action that leaves the playlist
         let endAction = UIAlertAction(title: "End", style: .Destructive) {
-            (action) in PlaylistHandler.leavePlaylist()
+            (action) in
+            PlaylistHandler.leavePlaylist()
+            (self.navigationController as! NavigationController).popPlaylist()
         }
         alertController.addAction(endAction)
         dispatch_async(dispatch_get_main_queue(), {

@@ -123,7 +123,7 @@ class PlaylistHandler: NSObject {
         nowPlaying = nil
         isHost = false
         SongHandler.clearForNewPlaylist()
-        appNavigationController.popPlaylist()
+//        appNavigationController.popPlaylist()
 //        centralNavigationController.leavePlaylist()
     }
 

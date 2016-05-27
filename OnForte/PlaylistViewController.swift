@@ -29,7 +29,7 @@ enum PlayerDisplayType {
     }
 }
 
-class PlaylistViewController: HiddenBackButtonViewController {
+class PlaylistViewController: DefaultViewController {
 
     @IBOutlet var historyButton: UIButton!
     @IBOutlet var searchButton: UIButton!
@@ -50,6 +50,7 @@ class PlaylistViewController: HiddenBackButtonViewController {
     @IBOutlet var startButton: UIButton!
 //    private var largePlayer: UIView = UIView()
     @IBOutlet var smallMusicPlayer: SmallMusicPlayerController!
+
 
 
     internal func updatePlayerDisplay(newDisplayType: PlayerDisplayType) {
@@ -86,30 +87,44 @@ class PlaylistViewController: HiddenBackButtonViewController {
         print("invite button pressed")
     }
 
+    @IBAction func profileButtonDidPress(sender: UIBarButtonItem) {
+        (navigationController as! NavigationController).pushSettings()
+    }
 
 
 }
 
-
+let songWasAddedKey: String = "songWasAdded"
 extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return 1
-//        return SongHandler.getSongsInQueue().count
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistViewController.reloadTable), name: songWasAddedKey, object: nil)
+        // register for table load notifications
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: songWasAddedKey, object: nil)
+        // deregister
+    }
+
+    func reloadTable() {
+        tableView.reloadData()
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return SongHandler.getSongsInQueue().count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PlaylistTableViewCell") as! PlaylistTableViewCell
-        return cell
-        /*
-        let cell = self.tableView.dequeueReusableCellWithIdentifier("songCell")! as! SongTableViewCell
         cell.selectionStyle = .None
-
         // add a long press action
 
         let (songId, song) = SongHandler.getQueuedSongByIndex(indexPath.row)
-        cell.loadItem(songId, song: song)
-        return cell*/
+        cell.loadItem(songId,song: song)
+        return cell
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

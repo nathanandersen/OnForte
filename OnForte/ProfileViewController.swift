@@ -310,7 +310,8 @@ class ProfileViewController: UIViewController, SPTAuthViewDelegate, UITableViewD
 
         SearchHandler.addSongToDatabase(song, completionHandler: {
             activityIndicator.showComplete("")
-            appNavigationController.popProfile()
+            (self.navigationController as! NavigationController).popSettings()
+//            appNavigationController.popProfile()
 //            centralNavigationController.leaveProfile()
         })
     }
