@@ -85,6 +85,8 @@ class PlaylistViewController: DefaultViewController {
     }
     @IBAction func inviteButtonDidPress(sender: AnyObject) {
         print("invite button pressed")
+//        print(tableView.frame)
+//        print(view.frame)
     }
 
     @IBAction func profileButtonDidPress(sender: UIBarButtonItem) {

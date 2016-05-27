@@ -21,6 +21,9 @@ class PlaylistTableViewCell: UITableViewCell {
 
     @IBOutlet var stepper: UIStepper!
 
+//    override func awakeFromNib() {
+//        super.awakeFromNib()
+//    }
 
     internal func loadItem(songId: String, song: MeteorSong) {
         self.songId = songId
@@ -40,6 +43,7 @@ class PlaylistTableViewCell: UITableViewCell {
             ArtworkHandler.lookupArtworkAsync(NSURL(string: url)!, completionHandler: { (image: UIImage) in
                 self.songArtworkView.image = image
                 self.setNeedsLayout()
+                // is this potentially the problem
             })
         } else {
             switch(displayedSong.platform.lowercaseString){
@@ -53,11 +57,13 @@ class PlaylistTableViewCell: UITableViewCell {
                 fatalError()
             }
         }
+//        print(self.frame)
+//        print(stepper.frame)
     }
 
     @IBAction func stepperValueChanged(sender: UIStepper) {
-        print("value changed")
-/*        let votingStatus = PlaylistHandler.getVotingStatus(songId)
+//        print("value changed")
+        let votingStatus = PlaylistHandler.getVotingStatus(songId)
         if Int(sender.value) > votingStatus.intValue() {
             PlaylistHandler.upvote(songId, completionHandler: { _ in
                 self.displaySong()
@@ -68,7 +74,7 @@ class PlaylistTableViewCell: UITableViewCell {
             })
         } else {
             fatalError()
-        }*/
+        }
     }
     
 }
