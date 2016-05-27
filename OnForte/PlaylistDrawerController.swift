@@ -21,17 +21,17 @@ class PlaylistDrawerController: MMDrawerController {
         self.openDrawerGestureModeMask = .PanningCenterView
         self.closeDrawerGestureModeMask = .PanningCenterView
 
-        self.setGestureCompletionBlock({(drawerController, gestureRecognizer) in
+/*        self.setGestureCompletionBlock({(drawerController, gestureRecognizer) in
             if drawerController.openSide == .Right {
                 (self.rightDrawerViewController as! SearchViewController).enableSearchBar()
             }
-        })
+        })*/
 
         self.setDrawerVisualStateBlock(MMDrawerVisualState.parallaxVisualStateBlockWithParallaxFactor(2))
 
         self.leftDrawerViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistHistoryViewController")
-        self.rightDrawerViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SearchViewController")
-        self.centerViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistController")
+        self.rightDrawerViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MusicSearchViewController")
+        self.centerViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistViewController")
 
         self.setMaximumLeftDrawerWidth(drawerWidth, animated: true, completion: nil)
         self.setMaximumRightDrawerWidth(totalScreenWidth, animated: true, completion: nil)

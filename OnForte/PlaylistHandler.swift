@@ -84,7 +84,15 @@ class PlaylistHandler: NSObject {
      Downvote a song. This involves telling the server to update the score, then
      updating the local display of voting status.
     */
-    internal static func downvote(id: String, completionHandler: (VotingStatus) -> Void) {
+    internal static func downvote(id: String) {
+        Meteor.call("downvoteSong",params:[id]) { (result,error) in
+            let newStatus = votes[id]!.downvote()
+            votes.updateValue(newStatus, forKey: id)
+//            completionHandler(newStatus)
+        }
+    }
+
+    internal static func downvote(id: String, completionHandler: (VotingStatus) -> ()) {
         Meteor.call("downvoteSong",params:[id]) { (result,error) in
             let newStatus = votes[id]!.downvote()
             votes.updateValue(newStatus, forKey: id)
@@ -96,7 +104,14 @@ class PlaylistHandler: NSObject {
      Upvote a song. This involves telling the server to update the score, then
      updating the local display of voting status.
      */
-    internal static func upvote(id: String, completionHandler: (VotingStatus) -> Void) {
+    internal static func upvote(id: String) {
+        Meteor.call("upvoteSong",params:[id]) { (result,error) in
+            let newStatus = votes[id]!.upvote()
+            votes.updateValue(newStatus, forKey: id)
+        }
+    }
+
+    internal static func upvote(id: String, completionHandler: (VotingStatus) -> ()) {
         Meteor.call("upvoteSong",params:[id]) { (result,error) in
             let newStatus = votes[id]!.upvote()
             votes.updateValue(newStatus, forKey: id)
@@ -162,7 +177,7 @@ class PlaylistHandler: NSObject {
         })
     }
 
-    internal static func joinPlaylist(targetPlaylistId: String, completionHandler: (Bool,AnyObject?) -> Void) {
+    internal static func joinPlaylist(targetPlaylistId: String, completionHandler: (Bool,AnyObject?) -> ()) {
         Meteor.call("getInitialPlaylistInfo",params:[targetPlaylistId],callback: {(result: AnyObject?,error: DDPError?) in
             if error != nil {
                 print(error)

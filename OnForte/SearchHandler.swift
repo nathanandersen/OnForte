@@ -12,7 +12,7 @@ import SwiftDDP
 /**
  SearchHandler is a abstract class for working with music search tables. Has to be implemented and have search overriden.
  */
-class SearchHandler: NSObject, UITableViewDelegate, UITableViewDataSource {
+class SearchHandler: NSObject/*, UITableViewDelegate, UITableViewDataSource*/ {
     var results: [Song] = [Song]()
 
     /**
@@ -25,6 +25,7 @@ class SearchHandler: NSObject, UITableViewDelegate, UITableViewDataSource {
         fatalError("cannot search on an abstract SearchHandler")
     }
 
+    /*
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return results.count
     }
@@ -37,14 +38,14 @@ class SearchHandler: NSObject, UITableViewDelegate, UITableViewDataSource {
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         activityIndicator.showActivity("Adding Song")
-        addSongToPlaylist(results[indexPath.row])
-    }
+        SearchHandler.addSongToPlaylist(results[indexPath.row])
+    }*/
 
     /**
      Add the song to the database and the user-stored favorites
     */
-    internal func addSongToPlaylist(song: Song) {
-        SearchHandler.addSongToDatabase(song, completionHandler: {
+    internal static func addSongToPlaylist(song: Song) {
+        addSongToDatabase(song, completionHandler: {
             activityIndicator.showComplete("")
             NSNotificationCenter.defaultCenter().postNotificationName("completeSearch", object: nil)
         })

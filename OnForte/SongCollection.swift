@@ -128,7 +128,7 @@ class SongCollection: MeteorCollection<SongDocument> {
         keys.append(id)
 
         PlaylistHandler.addVotingStatusForId(id)
-        NSNotificationCenter.defaultCenter().postNotificationName(songWasAddedKey, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(reloadTableKey, object: nil)
     }
 
     /**
@@ -145,7 +145,7 @@ class SongCollection: MeteorCollection<SongDocument> {
             document.update(fields, cleared: cleared)
             self.documents[id] = document
             collectionSetDidChange()
-            NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(reloadTableKey, object: nil)
         }
     }
 
@@ -170,7 +170,7 @@ class SongCollection: MeteorCollection<SongDocument> {
             self.documents[id] = nil
             collectionSetDidChange()
             keys.removeAtIndex(keys.indexOf(id)!)
-            NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(reloadTableKey, object: nil)
         }
     }
 

@@ -53,6 +53,7 @@ class PlaylistViewController: DefaultViewController {
 
 
 
+
     internal func updatePlayerDisplay(newDisplayType: PlayerDisplayType) {
         if playerDisplayType != newDisplayType {
             playerDisplayType = newDisplayType
@@ -85,8 +86,6 @@ class PlaylistViewController: DefaultViewController {
     }
     @IBAction func inviteButtonDidPress(sender: AnyObject) {
         print("invite button pressed")
-//        print(tableView.frame)
-//        print(view.frame)
     }
 
     @IBAction func profileButtonDidPress(sender: UIBarButtonItem) {
@@ -96,23 +95,25 @@ class PlaylistViewController: DefaultViewController {
 
 }
 
-let songWasAddedKey: String = "songWasAdded"
+let reloadTableKey: String = "reloadTable"
 extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistViewController.reloadTable), name: songWasAddedKey, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistViewController.reloadTable), name: reloadTableKey, object: nil)
         // register for table load notifications
     }
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: songWasAddedKey, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: reloadTableKey, object: nil)
         // deregister
     }
 
     func reloadTable() {
-        tableView.reloadData()
+        dispatch_async(dispatch_get_main_queue(), {
+            self.tableView.reloadData()
+        })
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

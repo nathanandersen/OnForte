@@ -11,7 +11,7 @@ import Foundation
 class PlaylistTableViewCell: UITableViewCell {
 
     private var songId: String!
-    private var displayedSong: MeteorSong!
+//    private var score: Int = 0
 
     @IBOutlet var songArtworkView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
@@ -27,26 +27,21 @@ class PlaylistTableViewCell: UITableViewCell {
 
     internal func loadItem(songId: String, song: MeteorSong) {
         self.songId = songId
-        self.displayedSong = song
-        displaySong()
 
         // initialize a long-press action, here? I'm not sure.
-    }
 
-    internal func displaySong() {
-        titleLabel.text = displayedSong.title
-        descriptionLabel.text = displayedSong.annotation
-        platformImageView.image = UIImage(named: displayedSong.platform.lowercaseString)
+        titleLabel.text = song.title
+        descriptionLabel.text = song.annotation
+        platformImageView.image = UIImage(named: song.platform.lowercaseString)
         stepper.value = Double(PlaylistHandler.getVotingStatus(songId).intValue())
-        scoreLabel.text = String(displayedSong.score)
-        if let url = displayedSong.artworkURL {
+        scoreLabel.text = String(song.score)
+        if let url = song.artworkURL {
             ArtworkHandler.lookupArtworkAsync(NSURL(string: url)!, completionHandler: { (image: UIImage) in
                 self.songArtworkView.image = image
                 self.setNeedsLayout()
-                // is this potentially the problem
             })
         } else {
-            switch(displayedSong.platform.lowercaseString){
+            switch(song.platform.lowercaseString){
             case "spotify":
                 songArtworkView.image = UIImage(named: "spotify")
             case "soundcloud":
@@ -57,21 +52,15 @@ class PlaylistTableViewCell: UITableViewCell {
                 fatalError()
             }
         }
-//        print(self.frame)
-//        print(stepper.frame)
     }
 
+
     @IBAction func stepperValueChanged(sender: UIStepper) {
-//        print("value changed")
         let votingStatus = PlaylistHandler.getVotingStatus(songId)
         if Int(sender.value) > votingStatus.intValue() {
-            PlaylistHandler.upvote(songId, completionHandler: { _ in
-                self.displaySong()
-            })
+            PlaylistHandler.upvote(songId)
         } else if Int(sender.value) < votingStatus.intValue() {
-            PlaylistHandler.downvote(songId, completionHandler: { _ in
-                self.displaySong()
-            })
+            PlaylistHandler.downvote(songId)
         } else {
             fatalError()
         }

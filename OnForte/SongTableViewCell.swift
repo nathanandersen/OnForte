@@ -13,7 +13,8 @@ import SWTableViewCell
 /**
  A viewing cell for the SongTable, including voting.
  */
-class SongTableViewCell: SWTableViewCell {
+class SongTableViewCell: UITableViewCell {
+//class SongTableViewCell: SWTableViewCell {
 
     @IBOutlet var titleLabelView: UIView!
     @IBOutlet var descriptionLabelView: UIView!
