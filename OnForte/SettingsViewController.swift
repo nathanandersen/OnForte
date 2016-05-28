@@ -62,7 +62,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func suggestSong(action: UITableViewRowAction, indexPath: NSIndexPath) {
-        activityIndicator.showActivity("Adding song..")
+//        activityIndicator.showActivity("Adding song..")
         var song: Song!
         if segmentedControl.selectedSegmentIndex == 0 {
             song = SongHandler.fetchSuggestions()[indexPath.row]
@@ -71,7 +71,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         }
 
         SearchHandler.addSongToDatabase(song, completionHandler: {
-            activityIndicator.showComplete("")
+//            activityIndicator.showComplete("")
             (self.navigationController as! NavigationController).popSettings()
         })
     }

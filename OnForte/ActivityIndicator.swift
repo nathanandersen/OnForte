@@ -6,6 +6,7 @@
 //  Copyright © 2016 Nathan Andersen. All rights reserved.
 //
 
+
 import UIKit
 import NVActivityIndicatorView
 
@@ -13,7 +14,7 @@ import NVActivityIndicatorView
  This is an extension of the NVActivityIndicatorView pod.
  */
 class ActivityIndicator: UIView {
-    
+/*
     var activityIndicator: NVActivityIndicatorView!
     var completeIndicator: UIImageView!
     var label: UILabel!
@@ -36,7 +37,7 @@ class ActivityIndicator: UIView {
     private func renderCompleteIndicator() {
         completeIndicator = UIImageView(frame: CGRectMake(10, 5, 20, 20))
         completeIndicator.image = UIImage(named: "check")
-        completeIndicator.tintColor = Style.primaryColor
+//        completeIndicator.tintColor = Style.primaryColor
         self.addSubview(completeIndicator)
     }
 
@@ -44,7 +45,7 @@ class ActivityIndicator: UIView {
      Render the normal activity indicator
     */
     private func renderActivityIndicator() {
-        activityIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40), type: NVActivityIndicatorType.LineScaleParty, color: Style.primaryColor, padding: CGFloat(15))
+//        activityIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40), type: NVActivityIndicatorType.LineScaleParty, color: Style.primaryColor, padding: CGFloat(15))
         self.addSubview(activityIndicator)
     }
 
@@ -54,9 +55,9 @@ class ActivityIndicator: UIView {
     private func renderLabel(){
         label = UILabel(frame: CGRectMake(0, 28, 40, 10))
         label.text = ""
-        label.textColor = Style.primaryColor
+//        label.textColor = Style.primaryColor
         label.textAlignment = .Center
-        label.font = Style.defaultFont(7)
+//        label.font = Style.defaultFont(7)
         self.addSubview(label)
     }
 
@@ -90,5 +91,5 @@ class ActivityIndicator: UIView {
         activityIndicator.hidden = true
         completeIndicator.hidden = true
         label.hidden = true
-    }
+    }*/
 }

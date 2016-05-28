@@ -9,7 +9,7 @@
 import Foundation
 
 
-var activityIndicator: ActivityIndicator!
+//var activityIndicator: ActivityIndicator!
 /**
  This is a UIViewController that never displays a back button. Simple extension,
  written to pair with the custom NavigationController.

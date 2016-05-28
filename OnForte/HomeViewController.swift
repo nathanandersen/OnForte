@@ -23,7 +23,7 @@ class HomePageButton: UIButton {
     private func sharedInit() {
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 5
-        self.layer.borderColor = Style.primaryColor.CGColor
+        self.layer.borderColor = tintColor.CGColor
     }
 }
 
