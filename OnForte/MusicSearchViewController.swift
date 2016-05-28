@@ -70,7 +70,8 @@ class MusicSearchViewController: DefaultViewController {
         orderedSearchHandlers.forEach() { $0.clearSearch() } // clear all SearchHandlers
         tableView.reloadData() // clear the table views
         self.view.endEditing(true)
-        self.mm_drawerController.closeDrawerAnimated(true, completion: nil)
+        (tabBarController as! PlaylistTabBarController).displayViewController(.Main)
+//        self.mm_drawerController.closeDrawerAnimated(true, completion: nil)
     }
 }
 

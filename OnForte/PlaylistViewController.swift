@@ -96,9 +96,9 @@ class PlaylistViewController: DefaultViewController {
      - parameter playlistId
     */
     internal func setPlaylistInfo(playlistName: String, playlistId: String) {
-        nameLabel.text = playlistName
+//        nameLabel.text = playlistName
         self.title = playlistName
-
+        navigationItem.title = playlistName
         idLabel.text = playlistId
     }
     @IBAction func startButtonDidPress(sender: AnyObject) {
@@ -114,7 +114,8 @@ class PlaylistViewController: DefaultViewController {
         #if DEBUG
             print("history button pressed")
         #endif
-        mm_drawerController.openDrawerSide(.Left, animated: true, completion: nil)
+        (tabBarController as! PlaylistTabBarController).displayViewController(.History)
+//        mm_drawerController.openDrawerSide(.Left, animated: true, completion: nil)
     }
     @IBAction func searchButtonDidPress(sender: AnyObject) {
         #if DEBUG

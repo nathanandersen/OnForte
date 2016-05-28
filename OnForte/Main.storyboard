@@ -70,7 +70,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gpl-ch-TVG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="911" y="1229"/>
+            <point key="canvasLocation" x="887" y="1229"/>
         </scene>
         <!--History View Controller-->
         <scene sceneID="WcW-De-zgB">
@@ -113,6 +113,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="history" id="kOM-dV-emG"/>
+                    <navigationItem key="navigationItem" id="nLd-eo-OP5"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="Vgg-1I-rCu" id="vKJ-Zs-PwW"/>
@@ -120,7 +121,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cye-wT-9Yy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1441" y="437"/>
+            <point key="canvasLocation" x="1271" y="456"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="hfG-Ye-DRE">
