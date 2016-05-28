@@ -187,7 +187,55 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LGf-C0-0ys" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2361" y="1094"/>
+            <point key="canvasLocation" x="2712" y="1094"/>
+        </scene>
+        <!--History View Controller-->
+        <scene sceneID="WcW-De-zgB">
+            <objects>
+                <viewController storyboardIdentifier="HistoryViewController" id="inE-hA-7gj" customClass="HistoryViewController" customModule="OnForte" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CHf-xg-O99"/>
+                        <viewControllerLayoutGuide type="bottom" id="NI8-E9-OnJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="d9c-8w-amO">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="85" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="Vgg-1I-rCu">
+                                <rect key="frame" x="-4" y="70" width="328" height="498"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="inE-hA-7gj" id="oXN-q0-3fw"/>
+                                    <outlet property="delegate" destination="inE-hA-7gj" id="okg-EJ-Mo8"/>
+                                </connections>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Playlist History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EY4-Mc-2k0">
+                                <rect key="frame" x="104" y="25" width="113" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="h2v-VN-iUe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="EY4-Mc-2k0" firstAttribute="centerX" secondItem="d9c-8w-amO" secondAttribute="centerX" id="Hkw-u2-oHa"/>
+                            <constraint firstItem="EY4-Mc-2k0" firstAttribute="top" secondItem="CHf-xg-O99" secondAttribute="bottom" constant="5" id="SAS-N6-NCW"/>
+                            <constraint firstItem="Vgg-1I-rCu" firstAttribute="top" secondItem="EY4-Mc-2k0" secondAttribute="bottom" constant="5" id="oFk-IH-mab"/>
+                            <constraint firstItem="NI8-E9-OnJ" firstAttribute="top" secondItem="Vgg-1I-rCu" secondAttribute="bottom" id="pw8-AT-iC8"/>
+                            <constraint firstItem="Vgg-1I-rCu" firstAttribute="leading" secondItem="d9c-8w-amO" secondAttribute="leadingMargin" constant="-20" id="qOT-lf-4El"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Vgg-1I-rCu" secondAttribute="trailing" constant="-20" id="sdn-HE-iGf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="Vgg-1I-rCu" id="vKJ-Zs-PwW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cye-wT-9Yy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2373" y="1094"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="hfG-Ye-DRE">
@@ -202,7 +250,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="w9b-gw-E2H">
-                                <rect key="frame" x="16" y="85" width="288" height="29"/>
+                                <rect key="frame" x="16" y="125" width="288" height="29"/>
                                 <segments>
                                     <segment title="Suggestions"/>
                                     <segment title="Favorites"/>
@@ -211,15 +259,15 @@
                                     <action selector="didToggleSegmentedControl:" destination="cbx-Do-H5H" eventType="valueChanged" id="z18-nK-3ey"/>
                                 </connections>
                             </segmentedControl>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="85F-dx-rad">
-                                <rect key="frame" x="16" y="0.0" width="288" height="80"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="85F-dx-rad" customClass="SettingsController" customModule="OnForte" customModuleProvider="target">
+                                <rect key="frame" x="16" y="0.0" width="288" height="120"/>
                                 <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="CCx-cv-A0v"/>
+                                    <constraint firstAttribute="height" constant="120" id="CCx-cv-A0v"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="85" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Npq-cT-OA5">
-                                <rect key="frame" x="16" y="118" width="288" height="386"/>
+                                <rect key="frame" x="16" y="158" width="288" height="346"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="uj5-Vn-rNR"/>
@@ -253,6 +301,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="segmentedControl" destination="w9b-gw-E2H" id="ym9-hR-CCx"/>
+                        <outlet property="settingsControllerView" destination="85F-dx-rad" id="Ant-ts-oda"/>
                         <outlet property="tableView" destination="Npq-cT-OA5" id="Ckc-am-0qx"/>
                         <outlet property="topAreaHeightConstraint" destination="CCx-cv-A0v" id="6Se-Hn-NTf"/>
                     </connections>

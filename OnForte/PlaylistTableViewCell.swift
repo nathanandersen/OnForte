@@ -43,12 +43,12 @@ class PlaylistTableViewCell: UITableViewCell {
                 self.setNeedsLayout()
             })
         } else {
-            switch(song.platform.lowercaseString){
-            case "spotify":
+            switch(Service(platform: song.platform.lowercaseString)) {
+            case .Spotify:
                 songArtworkView.image = UIImage(named: "spotify")
-            case "soundcloud":
+            case .Soundcloud:
                 songArtworkView.image = UIImage(named: "soundcloud")
-            case "itunes":
+            case .iTunes:
                 songArtworkView.image = UIImage(named: "itunes")
             default:
                 fatalError()

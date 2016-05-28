@@ -14,11 +14,16 @@ class SettingsViewController: DefaultViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var segmentedControl: UISegmentedControl!
 
+    @IBOutlet var settingsControllerView: SettingsController!
     // have to do custom displaying of the
     // top settings panel in the yellow area
     
     @IBAction func leaveSettingsDidPress(sender: UIBarButtonItem) {
         (navigationController as! NavigationController).popSettings()
+    }
+
+    internal func showSettings(settingsDisplay: SettingsDisplay) {
+        settingsControllerView.showSettings(settingsDisplay)
     }
 }
 
@@ -34,16 +39,14 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.reloadData()
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var dataSource: [Song]!
+        var song: Song!
         if segmentedControl.selectedSegmentIndex == 0 {
-            dataSource = SongHandler.fetchSuggestions()
+            song = SongHandler.fetchSuggestions()[indexPath.row]
         } else {
-            dataSource = SongHandler.fetchFavorites()
+            song = SongHandler.fetchFavorites()[indexPath.row]
         }
 
         let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell") as! SongViewCell
-        let song = dataSource[indexPath.row]
-        print(song.service!)
         cell.loadItem(song)
         return cell;
     }

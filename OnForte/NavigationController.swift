@@ -25,7 +25,12 @@ class NavigationController: UINavigationController {
     private let settingsController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsViewController
 
     internal func pushSettings() {
+        CATransaction.begin()
         self.pushViewController(settingsController, animated: true)
+        CATransaction.setCompletionBlock({
+            (PlaylistHandler.isHost) ? self.settingsController.showSettings(.Host) : self.settingsController.showSettings(.Guest)
+        })
+        CATransaction.commit()
     }
 
     internal func pushPlaylist() {
