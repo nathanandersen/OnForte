@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import BFPaperButton
+//import BFPaperButton
 
 /**
  Style encapsulates the global style of the app
@@ -30,8 +30,8 @@ struct Style {
     )
     
     static var blackColor = UIColor.blackColor()
-    static var clearColor = UIColor.clearColor()
-    static var grayColor = UIColor.grayColor()
+//    static var clearColor = UIColor.clearColor()
+//    static var grayColor = UIColor.grayColor()
     static var translucentColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.3)
     static var whiteColor = UIColor.whiteColor()
     static var greenColor = UIColor.greenColor()
@@ -58,18 +58,6 @@ struct Style {
 
     static func defaultFont(fontsize: CGFloat) -> UIFont {
         return UIFont.systemFontOfSize(fontsize)
-    }
-
-    static func defaultButton(title: String) -> UIButton {
-        let button = UIButton(type: .System)
-        button.layer.borderWidth = 1
-        button.layer.cornerRadius = 5
-        button.layer.borderColor = Style.primaryColor.CGColor
-        button.backgroundColor = Style.whiteColor
-        button.setTitle(title, forState: .Normal)
-        button.tintColor = Style.primaryColor
-        button.titleLabel?.font = Style.defaultFont(15)
-        return button
     }
 
     static func iconButton() -> UIButton {

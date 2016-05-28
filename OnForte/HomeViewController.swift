@@ -9,6 +9,57 @@
 import Foundation
 import SwiftyJSON
 
+class HomePageButton: UIButton {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        sharedInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        sharedInit()
+    }
+
+    private func sharedInit() {
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 5
+        self.layer.borderColor = Style.primaryColor.CGColor
+    }
+}
+
+class HomePageTextField: UITextField {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        sharedInit()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        sharedInit()
+    }
+
+    private func sharedInit() {
+        self.layer.borderWidth = 1
+        self.layer.borderColor = tintColor.CGColor
+        self.layer.cornerRadius = 5
+
+
+        let button = UIButton(type: .System)
+        button.layer.cornerRadius = 5
+        button.layer.borderColor = tintColor.CGColor
+        button.tintColor = tintColor
+        button.setTitle("Go",forState: .Normal)
+        button.layer.borderWidth = 0
+        button.frame = CGRectMake(0, 0, 90, 50) // i am hesitant about this
+        self.rightView = button
+        self.rightViewMode = .Always
+
+        let line = UIView(frame: CGRectMake(0,0,1,50))
+        line.backgroundColor = tintColor
+        self.rightView?.addSubview(line)
+    }
+}
+
 /**
  HomeViewController is the first view that a user sees when they open the application.
  */
@@ -16,10 +67,7 @@ class HomeViewController: DefaultViewController {
 
     // TODO:
 
-    // add a headline
     // stylize...
-    // JOIN BUTTON
-    // CREATE BUTTON
     // JOIN FIELD
     // CREATE FIELD
 
@@ -29,14 +77,25 @@ class HomeViewController: DefaultViewController {
     @IBOutlet var createTextField: UITextField!
     @IBOutlet var joinTextField: UITextField!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        super.viewWillAppear(animated)
         // register for keyboard notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.keyboardWasShown(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+
+    }
+
+    @IBAction func userDidTap(sender: UITapGestureRecognizer) {
+        if createTextField.isFirstResponder() {
+            createTextField.resignFirstResponder()
+        } else if joinTextField.isFirstResponder() {
+            joinTextField.resignFirstResponder()
+        }
     }
 
     override func viewWillDisappear(animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillDisappear(animated)
         // unregister from keyboard notifications
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)

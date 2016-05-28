@@ -14,7 +14,6 @@
 		240AAFF81CC08F980061EB54 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 240AAFF71CC08F980061EB54 /* Spotify.framework */; };
 		240AAFFA1CC08FC80061EB54 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 240AAFF91CC08FC80061EB54 /* AVFoundation.framework */; };
 		240AAFFC1CC08FD10061EB54 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 240AAFFB1CC08FD10061EB54 /* SystemConfiguration.framework */; };
-		240AB0031CC091AC0061EB54 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0021CC091AC0061EB54 /* Globals.swift */; };
 		240AB0051CC091E60061EB54 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0041CC091E60061EB54 /* Style.swift */; };
 		240AB0071CC092360061EB54 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0061CC092360061EB54 /* Song.swift */; };
 		240AB00A1CC092790061EB54 /* SongCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0091CC092790061EB54 /* SongCollection.swift */; };
@@ -27,10 +26,8 @@
 		240AB0201CC094020061EB54 /* SpotifyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB01B1CC094020061EB54 /* SpotifyHandler.swift */; };
 		240AB0211CC094020061EB54 /* LocalHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB01C1CC094020061EB54 /* LocalHandler.swift */; };
 		240AB0221CC094020061EB54 /* SearchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB01D1CC094020061EB54 /* SearchHandler.swift */; };
-		240AB0281CC0944D0061EB54 /* PlaylistDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0251CC0944D0061EB54 /* PlaylistDrawerController.swift */; };
 		240AB02E1CC094630061EB54 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB02C1CC094630061EB54 /* OnboardingViewController.swift */; };
 		240AB02F1CC094630061EB54 /* OnboardingInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB02D1CC094630061EB54 /* OnboardingInitialViewController.swift */; };
-		240AB0351CC0946F0061EB54 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0321CC0946F0061EB54 /* RootViewController.swift */; };
 		240AB0371CC094770061EB54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240AB0361CC094770061EB54 /* Main.storyboard */; };
 		240AB0391CC094830061EB54 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240AB0381CC094830061EB54 /* LaunchScreen.storyboard */; };
 		240AB03B1CC094870061EB54 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240AB03A1CC094870061EB54 /* Onboarding.storyboard */; };
@@ -46,7 +43,6 @@
 		243AD1A21CF929950031A763 /* HostSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 243AD1A11CF929950031A763 /* HostSettingsView.xib */; };
 		243AD1A41CF93E330031A763 /* GuestSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 243AD1A31CF93E330031A763 /* GuestSettingsView.xib */; };
 		243AD1A81CF9F0320031A763 /* PlaylistTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243AD1A71CF9F0320031A763 /* PlaylistTabBarController.swift */; };
-		245789F81CC1C59600394C17 /* MusicPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245789F71CC1C59600394C17 /* MusicPlayerView.swift */; };
 		245789FE1CC28A5500394C17 /* IntegratedMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245789FD1CC28A5500394C17 /* IntegratedMusicPlayer.swift */; };
 		246232F81CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246232F61CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift */; };
 		246232F91CE28406004C63E8 /* FavoritedSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246232F71CE28406004C63E8 /* FavoritedSong.swift */; };
@@ -97,7 +93,6 @@
 		240AAFF71CC08F980061EB54 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
 		240AAFF91CC08FC80061EB54 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		240AAFFB1CC08FD10061EB54 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		240AB0021CC091AC0061EB54 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		240AB0041CC091E60061EB54 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		240AB0061CC092360061EB54 /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		240AB0091CC092790061EB54 /* SongCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongCollection.swift; sourceTree = "<group>"; };
@@ -110,10 +105,8 @@
 		240AB01B1CC094020061EB54 /* SpotifyHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SpotifyHandler.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		240AB01C1CC094020061EB54 /* LocalHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = LocalHandler.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		240AB01D1CC094020061EB54 /* SearchHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SearchHandler.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		240AB0251CC0944D0061EB54 /* PlaylistDrawerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlaylistDrawerController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		240AB02C1CC094630061EB54 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = OnboardingViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		240AB02D1CC094630061EB54 /* OnboardingInitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = OnboardingInitialViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		240AB0321CC0946F0061EB54 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RootViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		240AB0361CC094770061EB54 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		240AB0381CC094830061EB54 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		240AB03A1CC094870061EB54 /* Onboarding.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
@@ -130,7 +123,6 @@
 		243AD1A11CF929950031A763 /* HostSettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HostSettingsView.xib; sourceTree = "<group>"; };
 		243AD1A31CF93E330031A763 /* GuestSettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuestSettingsView.xib; sourceTree = "<group>"; };
 		243AD1A71CF9F0320031A763 /* PlaylistTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTabBarController.swift; sourceTree = "<group>"; };
-		245789F71CC1C59600394C17 /* MusicPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayerView.swift; sourceTree = "<group>"; };
 		245789FD1CC28A5500394C17 /* IntegratedMusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegratedMusicPlayer.swift; sourceTree = "<group>"; };
 		246232F61CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FavoritedSong+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		246232F71CE28406004C63E8 /* FavoritedSong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritedSong.swift; sourceTree = "<group>"; };
@@ -208,13 +200,10 @@
 			children = (
 				243AD19C1CF8EB470031A763 /* Custom Views */,
 				243AD19B1CF8D40E0031A763 /* New */,
-				243AD19A1CF8D40A0031A763 /* Old */,
 				24BCF48F1CE3ACA2001054B7 /* Handlers */,
 				240AB02B1CC0945B0061EB54 /* Onboarding */,
 				240AB04E1CC095180061EB54 /* ActivityIndicator.swift */,
-				245789F71CC1C59600394C17 /* MusicPlayerView.swift */,
 				240AB0381CC094830061EB54 /* LaunchScreen.storyboard */,
-				240AB0021CC091AC0061EB54 /* Globals.swift */,
 				240AB0041CC091E60061EB54 /* Style.swift */,
 				240AB0061CC092360061EB54 /* Song.swift */,
 				240AB0081CC092670061EB54 /* Meteor */,
@@ -300,14 +289,6 @@
 			name = Profile;
 			sourceTree = "<group>";
 		};
-		243AD19A1CF8D40A0031A763 /* Old */ = {
-			isa = PBXGroup;
-			children = (
-				240AB0321CC0946F0061EB54 /* RootViewController.swift */,
-			);
-			name = Old;
-			sourceTree = "<group>";
-		};
 		243AD19B1CF8D40E0031A763 /* New */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,7 +296,6 @@
 				2486534E1CF7732100F0F78B /* HomeViewController.swift */,
 				248575BB1CF64AD5003F683C /* PlaylistViewController.swift */,
 				243AD1981CF88AE50031A763 /* MusicSearchViewController.swift */,
-				240AB0251CC0944D0061EB54 /* PlaylistDrawerController.swift */,
 				2486534A1CF76C2500F0F78B /* NavigationController.swift */,
 				248653461CF767D700F0F78B /* PlaylistTableViewCell.swift */,
 				243AD19D1CF9052C0031A763 /* HistoryViewController.swift */,
@@ -563,7 +543,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				240AB0641CC0989A0061EB54 /* SongViewCell.swift in Sources */,
-				245789F81CC1C59600394C17 /* MusicPlayerView.swift in Sources */,
 				240AB00C1CC0929F0061EB54 /* SongDocument.swift in Sources */,
 				246232FB1CE2CCE0004C63E8 /* SongHandler.swift in Sources */,
 				2486534F1CF7732100F0F78B /* HomeViewController.swift in Sources */,
@@ -576,9 +555,7 @@
 				248575BC1CF64AD5003F683C /* PlaylistViewController.swift in Sources */,
 				240AB02E1CC094630061EB54 /* OnboardingViewController.swift in Sources */,
 				248653511CF7CD5B00F0F78B /* SettingsViewController.swift in Sources */,
-				240AB0031CC091AC0061EB54 /* Globals.swift in Sources */,
 				240AB0101CC092DF0061EB54 /* PlayedSongDocument.swift in Sources */,
-				240AB0281CC0944D0061EB54 /* PlaylistDrawerController.swift in Sources */,
 				240AB0211CC094020061EB54 /* LocalHandler.swift in Sources */,
 				246232F91CE28406004C63E8 /* FavoritedSong.swift in Sources */,
 				243AD1991CF88AE50031A763 /* MusicSearchViewController.swift in Sources */,
@@ -593,7 +570,6 @@
 				240AB0201CC094020061EB54 /* SpotifyHandler.swift in Sources */,
 				243AD1A01CF9298B0031A763 /* SettingsView.swift in Sources */,
 				243AD19E1CF9052C0031A763 /* HistoryViewController.swift in Sources */,
-				240AB0351CC0946F0061EB54 /* RootViewController.swift in Sources */,
 				240AB00A1CC092790061EB54 /* SongCollection.swift in Sources */,
 				24A931071CD24FE4008A7F29 /* FastForwardButton.swift in Sources */,
 				240AB00E1CC092BA0061EB54 /* MeteorSong.swift in Sources */,

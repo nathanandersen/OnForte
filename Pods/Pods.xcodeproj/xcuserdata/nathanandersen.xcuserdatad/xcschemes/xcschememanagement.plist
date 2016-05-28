@@ -24,17 +24,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>BFPaperButton.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>CryptoSwift.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>MMDrawerController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -74,11 +64,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>UIColor+BFPaperColors.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>XCGLogger.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -87,27 +72,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>03B15615889710FDACFA6CB29AFBBDF0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>05094CC4A047119F7ADC14EE74C4881C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2D7CBAF1150BEC996900A499D300AB46</key>
+		<key>15CF08D013A0F32C94394D15E788C7E2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3C4CAAD8DEB14780C95826ECD1F50A7C</key>
+		<key>211FF54725C3FF4858D96298321E235A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3F1461859DD17B183F5065193C2BD6AE</key>
+		<key>365685F17D4FC7A0B06D214C4EC27233</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>50DF0865C3FAB18FB18DD091D508BB59</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -117,27 +102,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>706AB03FE41758CFEE22EAE751398A53</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7D03510197D07203EE47B8AA3AA6FC49</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>96D3562E47E4792B0A6093A0323EB398</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>99CADFE69A7E494B256A79CC7E9026C1</key>
+		<key>80BF94A2229EBD53C6ADFB0A5E610D78</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -147,12 +117,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D6A76DDD0D0EEDD6A5C37E5320B7C6DB</key>
+		<key>B1D65BA19178C5FFB7236F90EF89F21A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D7F1AED84ACE8141F8BFFEB2C475DC02</key>
+		<key>CBD638E129CF8EF97F1ED10D4183FF09</key>
 		<dict>
 			<key>primary</key>
 			<true/>

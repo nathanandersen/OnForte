@@ -9,6 +9,44 @@
 import Foundation
 import SwiftDDP
 
+
+
+enum VotingStatus {
+    case Upvote
+    case Downvote
+    case None
+
+    func intValue() -> Int {
+        if self == .Upvote {
+            return 1
+        } else if self == .None {
+            return 0
+        } else if self == .Downvote {
+            return -1
+        } else {
+            fatalError()
+        }
+    }
+
+    func upvote() -> VotingStatus {
+        switch(self) {
+        case .Downvote:
+            return .None
+        case _:
+            return .Upvote
+        }
+    }
+
+    func downvote() -> VotingStatus {
+        switch(self) {
+        case .Upvote:
+            return .None
+        case _:
+            return .Downvote
+        }
+    }
+}
+
 class PlaylistHandler: NSObject {
     private static var _playlistId: String = ""
     internal static var playlistId: String {

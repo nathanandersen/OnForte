@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+var activityIndicator: ActivityIndicator!
 /**
  This is a UIViewController that never displays a back button. Simple extension,
  written to pair with the custom NavigationController.
@@ -21,7 +23,6 @@ class DefaultViewController: UIViewController {
 }
 
 class NavigationController: UINavigationController {
-//    private let playlistController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistDrawerController") as! PlaylistDrawerController
     private let playlistController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistTabBarController") as! PlaylistTabBarController
     private let settingsController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsViewController
 
@@ -38,8 +39,6 @@ class NavigationController: UINavigationController {
         CATransaction.begin()
         self.pushViewController(playlistController, animated: true)
         CATransaction.setCompletionBlock({
-//            NSNotificationCenter.defaultCenter().postNotificationName(updatePlaylistInfoKey, object: nil)
-//            NSNotificationCenter.defaultCenter().postNotificationName(updateHistoryTableKey, object: nil)
             self.playlistController.presentNewPlaylist()
         })
         CATransaction.commit()

@@ -39,15 +39,12 @@ class MusicSearchViewController: DefaultViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MusicSearchViewController.closeSearch), name: closeSearchKey, object: nil)
+        searchBar.becomeFirstResponder()
     }
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: closeSearchKey, object: nil)
-    }
-
-    internal func enableSearchBar() {
-        searchBar.becomeFirstResponder()
     }
 
     private func customizeSegmentedControl() {
@@ -71,7 +68,6 @@ class MusicSearchViewController: DefaultViewController {
         tableView.reloadData() // clear the table views
         self.view.endEditing(true)
         (tabBarController as! PlaylistTabBarController).displayViewController(.Main)
-//        self.mm_drawerController.closeDrawerAnimated(true, completion: nil)
     }
 }
 

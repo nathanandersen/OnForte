@@ -9,8 +9,6 @@ target 'OnForte' do
   pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
   pod 'Alamofire', '~> 3.0'
   pod 'AlamofireImage', '~> 2.0'
-  pod 'BFPaperButton', '~> 2.0'
-  pod 'MMDrawerController', '~> 0.5.7'
   pod 'NVActivityIndicatorView', '~> 2.3'
 end
 

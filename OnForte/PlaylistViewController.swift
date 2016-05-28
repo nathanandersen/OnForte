@@ -31,19 +31,9 @@ enum PlayerDisplayType {
 }
 
 
-let leaveAlertTitle = "Leave Playlist"
-let guestLeaveMessage = "Are you sure you want to leave this playlist?"
-let hostLeaveMessage = "You're the host, so leaving this playlist will end it for everyone."
 let updatePlaylistInfoKey = "updatePlaylistInformation"
 
 class PlaylistViewController: DefaultViewController {
-
-    @IBOutlet var historyButton: UIButton!
-    @IBOutlet var searchButton: UIButton!
-    @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var leaveButton: UIButton!
-    @IBOutlet var inviteButton: UIButton!
-    @IBOutlet var idLabel: UILabel!
     @IBOutlet var tableView: UITableView!
 
     @IBOutlet var playlistTabBarItem: UITabBarItem!
@@ -82,25 +72,12 @@ class PlaylistViewController: DefaultViewController {
             updatePlayerDisplay(.Small)
         }
     }
-
-    /**
-     Sets the playlist name and the playlist ID, from the PlaylistHandler
-    */
     internal func presentNewPlaylist() {
-        setPlaylistInfo(PlaylistHandler.playlistName, playlistId: PlaylistHandler.playlistId)
+        tableView.reloadData()
+        self.title = PlaylistHandler.playlistName
     }
 
-    /**
-     Sets the playlist name and ID from parameters.
-     - parameter playlistName
-     - parameter playlistId
-    */
-    internal func setPlaylistInfo(playlistName: String, playlistId: String) {
-//        nameLabel.text = playlistName
-        self.title = playlistName
-        navigationItem.title = playlistName
-        idLabel.text = playlistId
-    }
+
     @IBAction func startButtonDidPress(sender: AnyObject) {
         #if DEBUG
             print("start button pressed")
@@ -110,78 +87,6 @@ class PlaylistViewController: DefaultViewController {
         })
     }
 
-    @IBAction func historyButtonDidPress(sender: AnyObject) {
-        #if DEBUG
-            print("history button pressed")
-        #endif
-        (tabBarController as! PlaylistTabBarController).displayViewController(.History)
-//        mm_drawerController.openDrawerSide(.Left, animated: true, completion: nil)
-    }
-    @IBAction func searchButtonDidPress(sender: AnyObject) {
-        #if DEBUG
-            print("search button pressed")
-        #endif
-        mm_drawerController.openDrawerSide(.Right, animated: true, completion: nil)
-    }
-    @IBAction func leaveButtonDidPress(sender: AnyObject) {
-        #if DEBUG
-            print("leave button pressed")
-        #endif
-        if alertController == nil {
-            alertController = UIAlertController(title: leaveAlertTitle, message: guestLeaveMessage, preferredStyle: .Alert)
-            alertController?.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-
-            alertController?.addAction(UIAlertAction(title: "Leave", style: .Destructive, handler: {
-                _ in
-                PlaylistHandler.leavePlaylist()
-                (self.navigationController as? NavigationController)?.popPlaylist()
-            }))
-        }
-
-        if PlaylistHandler.isHost {
-            alertController?.message = hostLeaveMessage
-        } else {
-            alertController?.message = guestLeaveMessage
-        }
-
-        self.presentViewController(alertController!, animated: true, completion: nil)
-    }
-
-    @IBAction func inviteButtonDidPress(sender: AnyObject) {
-        print("invite button pressed")
-        sendInvitations()
-    }
-
-}
-
-extension PlaylistViewController: MFMessageComposeViewControllerDelegate, UINavigationControllerDelegate {
-
-    internal func sendInvitations() {
-        if MFMessageComposeViewController.canSendText() {
-            if iMessageController == nil {
-                iMessageController = MFMessageComposeViewController()
-                iMessageController!.messageComposeDelegate = self
-                iMessageController!.body = "You've been invited to join a playlist on Forte at Forte://" + PlaylistHandler.playlistId + ". Don't have the app? Join the fun at www.onforte.com/" + PlaylistHandler.playlistId + " ."
-            }
-            iMessageController!.recipients = nil
-            presentViewController(iMessageController!, animated: true, completion: nil)
-        } else {
-            let alertController = UIAlertController(title: "iMessage unavailable", message: "We're sorry, iMessage seems to be unavailable at the moment. Try again later?", preferredStyle: .Alert)
-            alertController.addAction(UIAlertAction(title: "Close", style: .Cancel, handler: nil))
-            presentViewController(alertController, animated: true, completion: nil)
-        }
-    }
-
-    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
-        print("some sort of result happened")
-        // this hasn't been debugged yet
-        if result == MessageComposeResultFailed {
-            // alert the user that it failed
-            let alertController = UIAlertController(title: "Message failed", message: "We're sorry, iMessage did not deliver your messages. Try again?", preferredStyle: .Alert)
-            alertController.addAction(UIAlertAction(title: "Close", style: .Cancel, handler: nil))
-        }
-        controller.dismissViewControllerAnimated(true, completion: nil)
-    }
 }
 
 let reloadTableKey: String = "reloadTable"

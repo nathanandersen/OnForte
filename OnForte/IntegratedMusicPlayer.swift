@@ -22,7 +22,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     var soundcloudPlayer: AVAudioPlayer?
     var localPlayer: MPMusicPlayerController
 //    var playlistController: PlaylistController!
-    var control: MusicPlayerView!
+//    var control: MusicPlayerView!
 
     var playing: Bool
 

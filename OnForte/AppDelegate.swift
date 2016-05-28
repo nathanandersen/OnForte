@@ -19,6 +19,7 @@ enum Storyboard: String {
 }
 
 let onboardingKey = "onboardingShown"
+var keys: NSDictionary?
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

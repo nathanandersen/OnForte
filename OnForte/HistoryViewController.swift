@@ -31,6 +31,7 @@ class HistoryViewController: DefaultViewController, UITableViewDataSource, UITab
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("this happened")
         return SongHandler.getPlaylistHistoryCount()
     }
 
