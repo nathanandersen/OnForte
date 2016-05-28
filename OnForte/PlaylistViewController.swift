@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MessageUI
 
 enum PlayerDisplayType {
     case None
@@ -57,6 +58,7 @@ class PlaylistViewController: DefaultViewController {
     @IBOutlet var smallMusicPlayer: SmallMusicPlayerController!
 
     private var alertController: UIAlertController?
+    private var iMessageController: MFMessageComposeViewController?
 
 
     internal func updatePlayerDisplay(newDisplayType: PlayerDisplayType) {
@@ -116,9 +118,39 @@ class PlaylistViewController: DefaultViewController {
 
     @IBAction func inviteButtonDidPress(sender: AnyObject) {
         print("invite button pressed")
-        //        updatePlayerDisplay(.None)
+        sendInvitations()
     }
 
+}
+
+extension PlaylistViewController: MFMessageComposeViewControllerDelegate, UINavigationControllerDelegate {
+
+    internal func sendInvitations() {
+        if MFMessageComposeViewController.canSendText() {
+            if iMessageController == nil {
+                iMessageController = MFMessageComposeViewController()
+                iMessageController!.messageComposeDelegate = self
+                iMessageController!.body = "You've been invited to join a playlist on Forte at Forte://" + PlaylistHandler.playlistId + ". Don't have the app? Join the fun at www.onforte.com/" + PlaylistHandler.playlistId + " ."
+            }
+            iMessageController!.recipients = nil
+            presentViewController(iMessageController!, animated: true, completion: nil)
+        } else {
+            let alertController = UIAlertController(title: "iMessage unavailable", message: "We're sorry, iMessage seems to be unavailable at the moment. Try again later?", preferredStyle: .Alert)
+            alertController.addAction(UIAlertAction(title: "Close", style: .Cancel, handler: nil))
+            presentViewController(alertController, animated: true, completion: nil)
+        }
+    }
+
+    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+        print("some sort of result happened")
+        // this hasn't been debugged yet
+        if result == MessageComposeResultFailed {
+            // alert the user that it failed
+            let alertController = UIAlertController(title: "Message failed", message: "We're sorry, iMessage did not deliver your messages. Try again?", preferredStyle: .Alert)
+            alertController.addAction(UIAlertAction(title: "Close", style: .Cancel, handler: nil))
+        }
+        controller.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
 
 let reloadTableKey: String = "reloadTable"

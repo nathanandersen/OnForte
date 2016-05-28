@@ -30,14 +30,11 @@
 		240AB0281CC0944D0061EB54 /* PlaylistDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0251CC0944D0061EB54 /* PlaylistDrawerController.swift */; };
 		240AB02E1CC094630061EB54 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB02C1CC094630061EB54 /* OnboardingViewController.swift */; };
 		240AB02F1CC094630061EB54 /* OnboardingInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB02D1CC094630061EB54 /* OnboardingInitialViewController.swift */; };
-		240AB0331CC0946F0061EB54 /* InvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0301CC0946F0061EB54 /* InvitationViewController.swift */; };
 		240AB0351CC0946F0061EB54 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0321CC0946F0061EB54 /* RootViewController.swift */; };
 		240AB0371CC094770061EB54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240AB0361CC094770061EB54 /* Main.storyboard */; };
 		240AB0391CC094830061EB54 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240AB0381CC094830061EB54 /* LaunchScreen.storyboard */; };
 		240AB03B1CC094870061EB54 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240AB03A1CC094870061EB54 /* Onboarding.storyboard */; };
-		240AB04D1CC094CD0061EB54 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB04B1CC094CD0061EB54 /* Checkbox.swift */; };
 		240AB04F1CC095180061EB54 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB04E1CC095180061EB54 /* ActivityIndicator.swift */; };
-		240AB05E1CC095300061EB54 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB05A1CC095300061EB54 /* ContactTableViewCell.swift */; };
 		240AB0611CC0955B0061EB54 /* frontpage_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 240AB0601CC0955B0061EB54 /* frontpage_gif.gif */; };
 		240AB0641CC0989A0061EB54 /* SongViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0631CC0989A0061EB54 /* SongViewCell.swift */; };
 		2434816C1CE239F900402A4A /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2434816A1CE239F900402A4A /* DataModel.xcdatamodeld */; };
@@ -115,15 +112,12 @@
 		240AB0251CC0944D0061EB54 /* PlaylistDrawerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlaylistDrawerController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		240AB02C1CC094630061EB54 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = OnboardingViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		240AB02D1CC094630061EB54 /* OnboardingInitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = OnboardingInitialViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		240AB0301CC0946F0061EB54 /* InvitationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InvitationViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		240AB0321CC0946F0061EB54 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RootViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		240AB0361CC094770061EB54 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		240AB0381CC094830061EB54 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		240AB03A1CC094870061EB54 /* Onboarding.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		240AB03C1CC094900061EB54 /* Forte-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Forte-Bridging-Header.h"; sourceTree = "<group>"; };
-		240AB04B1CC094CD0061EB54 /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		240AB04E1CC095180061EB54 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ActivityIndicator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		240AB05A1CC095300061EB54 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ContactTableViewCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		240AB0601CC0955B0061EB54 /* frontpage_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = frontpage_gif.gif; sourceTree = "<group>"; };
 		240AB0631CC0989A0061EB54 /* SongViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongViewCell.swift; sourceTree = "<group>"; };
 		2434816B1CE239F900402A4A /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -216,8 +210,6 @@
 				24BCF48F1CE3ACA2001054B7 /* Handlers */,
 				240AB02B1CC0945B0061EB54 /* Onboarding */,
 				240AB04E1CC095180061EB54 /* ActivityIndicator.swift */,
-				240AB0301CC0946F0061EB54 /* InvitationViewController.swift */,
-				240AB05A1CC095300061EB54 /* ContactTableViewCell.swift */,
 				245789F71CC1C59600394C17 /* MusicPlayerView.swift */,
 				240AB0381CC094830061EB54 /* LaunchScreen.storyboard */,
 				240AB0021CC091AC0061EB54 /* Globals.swift */,
@@ -309,7 +301,6 @@
 		243AD19A1CF8D40A0031A763 /* Old */ = {
 			isa = PBXGroup;
 			children = (
-				240AB04B1CC094CD0061EB54 /* Checkbox.swift */,
 				240AB0321CC0946F0061EB54 /* RootViewController.swift */,
 			);
 			name = Old;
@@ -571,7 +562,6 @@
 				240AB0641CC0989A0061EB54 /* SongViewCell.swift in Sources */,
 				245789F81CC1C59600394C17 /* MusicPlayerView.swift in Sources */,
 				240AB00C1CC0929F0061EB54 /* SongDocument.swift in Sources */,
-				240AB05E1CC095300061EB54 /* ContactTableViewCell.swift in Sources */,
 				246232FB1CE2CCE0004C63E8 /* SongHandler.swift in Sources */,
 				2486534F1CF7732100F0F78B /* HomeViewController.swift in Sources */,
 				246232F81CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift in Sources */,
@@ -592,7 +582,6 @@
 				2486534B1CF76C2500F0F78B /* NavigationController.swift in Sources */,
 				240AB04F1CC095180061EB54 /* ActivityIndicator.swift in Sources */,
 				24BCF48E1CE3AC96001054B7 /* PlaylistHandler.swift in Sources */,
-				240AB04D1CC094CD0061EB54 /* Checkbox.swift in Sources */,
 				243481701CE23ACC00402A4A /* SuggestedSong.swift in Sources */,
 				2434816F1CE23ACC00402A4A /* SuggestedSong+CoreDataProperties.swift in Sources */,
 				24959C2E1CC30AC2009F55B6 /* PlayButton.swift in Sources */,
@@ -609,7 +598,6 @@
 				240AB0221CC094020061EB54 /* SearchHandler.swift in Sources */,
 				240AB0071CC092360061EB54 /* Song.swift in Sources */,
 				2434816C1CE239F900402A4A /* DataModel.xcdatamodeld in Sources */,
-				240AB0331CC0946F0061EB54 /* InvitationViewController.swift in Sources */,
 				240AB0161CC093700061EB54 /* ArtworkHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

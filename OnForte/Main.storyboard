@@ -6,126 +6,6 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Profile View Controller-->
-        <scene sceneID="GVt-fL-nhb">
-            <objects>
-                <viewController storyboardIdentifier="ProfileViewController" id="owX-QR-dLV" customClass="ProfileViewController" customModule="OnForte" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="XUQ-7P-Q7c"/>
-                        <viewControllerLayoutGuide type="bottom" id="d7V-oH-vVf"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="9bC-k7-jeB">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="NL0-b4-hQh">
-                                <rect key="frame" x="16" y="80" width="100" height="100"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="X8x-8R-ewc"/>
-                                    <constraint firstAttribute="width" secondItem="NL0-b4-hQh" secondAttribute="height" multiplier="1:1" id="ufx-xp-6xs"/>
-                                    <constraint firstAttribute="height" constant="100" id="yAe-6d-Dyk"/>
-                                </constraints>
-                            </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nZz-3x-MP3">
-                                <rect key="frame" x="16" y="268" width="288" height="300"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Hw-uA-uby">
-                                <rect key="frame" x="121" y="30" width="183" height="200"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cwv-0c-Or1">
-                                        <rect key="frame" x="65" y="155" width="0.0" height="0.0"/>
-                                    </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="itunes" translatesAutoresizingMaskIntoConstraints="NO" id="raP-yV-Ygd">
-                                        <rect key="frame" x="10" y="135" width="40" height="40"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="soundcloud" translatesAutoresizingMaskIntoConstraints="NO" id="cId-LO-f4x">
-                                        <rect key="frame" x="10" y="80" width="40" height="40"/>
-                                    </imageView>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rin-h6-uvc">
-                                        <rect key="frame" x="65" y="45" width="0.0" height="0.0"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="Rin-h6-uvc" secondAttribute="height" multiplier="488:88" id="pyZ-zh-LAJ"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K52-Iu-ok5">
-                                        <rect key="frame" x="65" y="100" width="0.0" height="0.0"/>
-                                    </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="spotify" translatesAutoresizingMaskIntoConstraints="NO" id="uY1-l7-xdr">
-                                        <rect key="frame" x="10" y="25" width="40" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="Dch-iV-g4N"/>
-                                            <constraint firstAttribute="height" constant="40" id="NNL-Y8-WMU"/>
-                                            <constraint firstAttribute="width" secondItem="uY1-l7-xdr" secondAttribute="height" multiplier="75:75" id="eIT-vr-XJs"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="cId-LO-f4x" firstAttribute="top" secondItem="uY1-l7-xdr" secondAttribute="bottom" constant="15" id="0Da-Si-VWP"/>
-                                    <constraint firstItem="raP-yV-Ygd" firstAttribute="height" secondItem="cId-LO-f4x" secondAttribute="height" id="9wZ-Jw-xXj"/>
-                                    <constraint firstItem="cId-LO-f4x" firstAttribute="centerY" secondItem="4Hw-uA-uby" secondAttribute="centerY" id="EIa-zw-fmQ"/>
-                                    <constraint firstItem="Rin-h6-uvc" firstAttribute="centerY" secondItem="uY1-l7-xdr" secondAttribute="centerY" id="Gcq-xl-njS"/>
-                                    <constraint firstItem="uY1-l7-xdr" firstAttribute="leading" secondItem="4Hw-uA-uby" secondAttribute="leading" constant="10" id="Glk-ec-7ww"/>
-                                    <constraint firstItem="raP-yV-Ygd" firstAttribute="leading" secondItem="cId-LO-f4x" secondAttribute="leading" id="H0J-4F-nPG"/>
-                                    <constraint firstItem="cId-LO-f4x" firstAttribute="leading" secondItem="uY1-l7-xdr" secondAttribute="leading" id="Lsf-X6-iXL"/>
-                                    <constraint firstItem="raP-yV-Ygd" firstAttribute="top" secondItem="cId-LO-f4x" secondAttribute="bottom" constant="15" id="Nld-r5-i2l"/>
-                                    <constraint firstItem="cwv-0c-Or1" firstAttribute="leading" secondItem="K52-Iu-ok5" secondAttribute="leading" id="PGl-Ng-XcN"/>
-                                    <constraint firstItem="Rin-h6-uvc" firstAttribute="leading" secondItem="uY1-l7-xdr" secondAttribute="trailing" constant="15" id="UVe-PG-SdG"/>
-                                    <constraint firstItem="cId-LO-f4x" firstAttribute="height" secondItem="uY1-l7-xdr" secondAttribute="height" id="a97-Ro-IKy"/>
-                                    <constraint firstItem="K52-Iu-ok5" firstAttribute="leading" secondItem="Rin-h6-uvc" secondAttribute="leading" id="dW8-oU-evf"/>
-                                    <constraint firstItem="raP-yV-Ygd" firstAttribute="width" secondItem="cId-LO-f4x" secondAttribute="width" id="f1k-rj-gK8"/>
-                                    <constraint firstAttribute="height" constant="200" id="flv-iz-Pwf"/>
-                                    <constraint firstItem="K52-Iu-ok5" firstAttribute="centerY" secondItem="cId-LO-f4x" secondAttribute="centerY" id="hKr-gE-Plt"/>
-                                    <constraint firstItem="cId-LO-f4x" firstAttribute="width" secondItem="uY1-l7-xdr" secondAttribute="width" id="hy8-2U-obL"/>
-                                    <constraint firstItem="cwv-0c-Or1" firstAttribute="centerY" secondItem="raP-yV-Ygd" secondAttribute="centerY" id="nrh-Dc-4ta"/>
-                                </constraints>
-                            </view>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="oxU-Uc-Ype">
-                                <rect key="frame" x="26" y="235" width="268" height="29"/>
-                                <segments>
-                                    <segment title="Suggestions"/>
-                                    <segment title="Favorites"/>
-                                </segments>
-                            </segmentedControl>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="d7V-oH-vVf" firstAttribute="top" secondItem="nZz-3x-MP3" secondAttribute="bottom" id="29l-MD-Q6u"/>
-                            <constraint firstItem="nZz-3x-MP3" firstAttribute="top" secondItem="oxU-Uc-Ype" secondAttribute="bottom" constant="5" id="2lC-01-Gat"/>
-                            <constraint firstItem="nZz-3x-MP3" firstAttribute="leading" secondItem="9bC-k7-jeB" secondAttribute="leadingMargin" id="77B-IM-0ob"/>
-                            <constraint firstItem="oxU-Uc-Ype" firstAttribute="top" secondItem="4Hw-uA-uby" secondAttribute="bottom" constant="5" id="By8-Qh-gQQ"/>
-                            <constraint firstItem="NL0-b4-hQh" firstAttribute="top" secondItem="XUQ-7P-Q7c" secondAttribute="bottom" constant="60" id="Myy-m0-nkL"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="oxU-Uc-Ype" secondAttribute="trailing" constant="10" id="U8O-zm-e5l"/>
-                            <constraint firstItem="4Hw-uA-uby" firstAttribute="centerY" secondItem="NL0-b4-hQh" secondAttribute="centerY" id="YY4-UH-LzP"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="4Hw-uA-uby" secondAttribute="trailing" id="cSi-yq-MJp"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="nZz-3x-MP3" secondAttribute="trailing" id="fEs-J4-Keg"/>
-                            <constraint firstItem="4Hw-uA-uby" firstAttribute="top" secondItem="XUQ-7P-Q7c" secondAttribute="bottom" constant="10" id="hTd-KQ-q1D"/>
-                            <constraint firstItem="4Hw-uA-uby" firstAttribute="leading" secondItem="NL0-b4-hQh" secondAttribute="trailing" constant="5" id="jRL-zq-rXz"/>
-                            <constraint firstItem="oxU-Uc-Ype" firstAttribute="leading" secondItem="9bC-k7-jeB" secondAttribute="leadingMargin" constant="10" id="v5o-2V-ojv"/>
-                            <constraint firstItem="NL0-b4-hQh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9bC-k7-jeB" secondAttribute="leadingMargin" id="zaj-lb-JHS"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="hostSettingsView" destination="4Hw-uA-uby" id="W8M-PJ-lQj"/>
-                        <outlet property="iTunesImageView" destination="raP-yV-Ygd" id="iGr-BU-AIc"/>
-                        <outlet property="iTunesInfoView" destination="cwv-0c-Or1" id="MvC-rz-knc"/>
-                        <outlet property="internalMarginBetweenImageAndLogins" destination="jRL-zq-rXz" id="5y9-H7-Ldj"/>
-                        <outlet property="profileImage" destination="NL0-b4-hQh" id="ysB-CX-hce"/>
-                        <outlet property="segmentedControl" destination="oxU-Uc-Ype" id="CbK-V1-UN8"/>
-                        <outlet property="showHostSettingsConstraintTop" destination="hTd-KQ-q1D" id="36n-rG-57F"/>
-                        <outlet property="soundCloudImageView" destination="cId-LO-f4x" id="aef-He-tMu"/>
-                        <outlet property="soundCloudInfoView" destination="K52-Iu-ok5" id="adE-Cr-BpW"/>
-                        <outlet property="spotifyImageView" destination="uY1-l7-xdr" id="Zzw-U4-Yjb"/>
-                        <outlet property="spotifyInfoView" destination="Rin-h6-uvc" id="2sp-5S-2BM"/>
-                        <outlet property="tableView" destination="nZz-3x-MP3" id="uqO-df-QcB"/>
-                        <outlet property="trailingMarginOfLogins" destination="cSi-yq-MJp" id="aXQ-US-upj"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eDE-Ew-Q27" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1648" y="1816"/>
-        </scene>
         <!--Root View Controller-->
         <scene sceneID="2pK-zL-tDM">
             <objects>
@@ -143,7 +23,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fKF-Qs-S0h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2028" y="1816"/>
+            <point key="canvasLocation" x="1653" y="1824"/>
         </scene>
         <!--Playlist Drawer Controller-->
         <scene sceneID="B8N-6l-oKw">
@@ -169,25 +49,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gpl-ch-TVG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1222" y="1094"/>
-        </scene>
-        <!--Playlist History View Controller-->
-        <scene sceneID="QHP-fC-Rpw">
-            <objects>
-                <viewController storyboardIdentifier="PlaylistHistoryViewController" id="Y1r-I7-e2U" customClass="PlaylistHistoryViewController" customModule="OnForte" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="9EP-Ho-Ti4"/>
-                        <viewControllerLayoutGuide type="bottom" id="ivx-VQ-lpX"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="vpe-cw-MfH">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <nil key="simulatedTopBarMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LGf-C0-0ys" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2712" y="1094"/>
         </scene>
         <!--History View Controller-->
         <scene sceneID="WcW-De-zgB">
@@ -763,7 +624,6 @@
         <image name="invite" width="35" height="35"/>
         <image name="itunes" width="122" height="115"/>
         <image name="menu-alt-256" width="256" height="256"/>
-        <image name="profile" width="50" height="50"/>
         <image name="search" width="32" height="32"/>
         <image name="soundcloud" width="35" height="35"/>
         <image name="spotify" width="101" height="101"/>
