@@ -3,7 +3,7 @@
 //  OnForte
 //
 //  Created by Nathan Andersen on 4/16/16.
-//  Copyright © 2016 Forte Labs. All rights reserved.
+//  Copyright © 2016 Nathan Andersen. All rights reserved.
 //
 
 import Foundation

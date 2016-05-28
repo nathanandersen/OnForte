@@ -53,6 +53,7 @@
                     </constraints>
                 </button>
             </subviews>
+            <color key="backgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="aDQ-2D-wNC" secondAttribute="trailing" constant="20" id="0iq-aA-pHC"/>
                 <constraint firstItem="QjN-UA-mPw" firstAttribute="centerY" secondItem="HaQ-9T-1p8" secondAttribute="centerY" id="4Rw-xx-7f6"/>

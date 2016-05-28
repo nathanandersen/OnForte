@@ -37,8 +37,8 @@
                     </tabBar>
                     <connections>
                         <outlet property="bottomTabBar" destination="QrI-y7-1p6" id="Kmh-VN-akk"/>
-                        <segue destination="8NC-aR-KKV" kind="relationship" relationship="viewControllers" id="Yv3-fP-Pko"/>
                         <segue destination="inE-hA-7gj" kind="relationship" relationship="viewControllers" id="wi7-Bs-YVb"/>
+                        <segue destination="8NC-aR-KKV" kind="relationship" relationship="viewControllers" id="Yv3-fP-Pko"/>
                         <segue destination="M9i-VU-GwZ" kind="relationship" relationship="viewControllers" id="7Ds-V5-FQe"/>
                     </connections>
                 </tabBarController>
@@ -302,7 +302,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xef-o9-UWe">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xef-o9-UWe">
                                 <rect key="frame" x="-4" y="20" width="328" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MJa-hV-edM">
@@ -349,20 +349,21 @@
                                     <constraint firstItem="MJa-hV-edM" firstAttribute="centerY" secondItem="xef-o9-UWe" secondAttribute="centerY" id="his-yS-1sa"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hpy-IR-3Wg">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hpy-IR-3Wg">
                                 <rect key="frame" x="-4" y="60" width="328" height="0.0"/>
+                                <color key="backgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="kfD-oP-ftf"/>
                                 </constraints>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ubu-oI-aUo">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ubu-oI-aUo">
                                 <rect key="frame" x="111" y="45" width="98" height="30"/>
                                 <state key="normal" title="START MUSIC"/>
                                 <connections>
                                     <action selector="startButtonDidPress:" destination="8NC-aR-KKV" eventType="touchUpInside" id="vqE-nf-GDl"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OHM-oB-4og" customClass="SmallMusicPlayerController" customModule="OnForte" customModuleProvider="target">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OHM-oB-4og" customClass="SmallMusicPlayerController" customModule="OnForte" customModuleProvider="target">
                                 <rect key="frame" x="-4" y="60" width="328" height="0.0"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -453,7 +454,7 @@
                                     <outlet property="delegate" destination="8NC-aR-KKV" id="hgT-ox-MN7"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lkq-M8-TZu">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lkq-M8-TZu">
                                 <rect key="frame" x="-4" y="60" width="328" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tlo-3Z-Hvr">
