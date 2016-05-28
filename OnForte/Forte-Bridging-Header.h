@@ -3,4 +3,3 @@
 //
 
 #import <Spotify/Spotify.h>
-#import <RSPlayPauseButton/RSPlayPauseButton.h>

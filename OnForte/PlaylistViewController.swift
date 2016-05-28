@@ -34,6 +34,7 @@ enum PlayerDisplayType {
 let leaveAlertTitle = "Leave Playlist"
 let guestLeaveMessage = "Are you sure you want to leave this playlist?"
 let hostLeaveMessage = "You're the host, so leaving this playlist will end it for everyone."
+let updatePlaylistInfoKey = "updatePlaylistInformation"
 
 class PlaylistViewController: DefaultViewController {
 
@@ -45,6 +46,7 @@ class PlaylistViewController: DefaultViewController {
     @IBOutlet var idLabel: UILabel!
     @IBOutlet var tableView: UITableView!
 
+    @IBOutlet var playlistTabBarItem: UITabBarItem!
     /**
      The player container is just a placeholder for the height of the contents.
      It can contain nothing, a start button, or a small/large player.
@@ -61,6 +63,11 @@ class PlaylistViewController: DefaultViewController {
     private var iMessageController: MFMessageComposeViewController?
 
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistViewController.presentNewPlaylist), name: updatePlaylistInfoKey, object: nil)
+    }
+
     internal func updatePlayerDisplay(newDisplayType: PlayerDisplayType) {
         if playerDisplayType != newDisplayType {
             playerDisplayType = newDisplayType
@@ -76,26 +83,49 @@ class PlaylistViewController: DefaultViewController {
         }
     }
 
+    /**
+     Sets the playlist name and the playlist ID, from the PlaylistHandler
+    */
+    internal func presentNewPlaylist() {
+        setPlaylistInfo(PlaylistHandler.playlistName, playlistId: PlaylistHandler.playlistId)
+    }
+
+    /**
+     Sets the playlist name and ID from parameters.
+     - parameter playlistName
+     - parameter playlistId
+    */
     internal func setPlaylistInfo(playlistName: String, playlistId: String) {
         nameLabel.text = playlistName
+        self.title = playlistName
+
         idLabel.text = playlistId
     }
     @IBAction func startButtonDidPress(sender: AnyObject) {
-        print("start button pressed")
+        #if DEBUG
+            print("start button pressed")
+        #endif
+        PlaylistHandler.togglePlayingStatus({ (result) in
+            self.smallMusicPlayer.setIsPlaying(result)
+        })
     }
 
     @IBAction func historyButtonDidPress(sender: AnyObject) {
-        print("history button pressed")
-//        updatePlayerDisplay(.StartButton)
+        #if DEBUG
+            print("history button pressed")
+        #endif
+        mm_drawerController.openDrawerSide(.Left, animated: true, completion: nil)
     }
     @IBAction func searchButtonDidPress(sender: AnyObject) {
-        print("search button pressed")
-//        updatePlayerDisplay(.Small)
+        #if DEBUG
+            print("search button pressed")
+        #endif
+        mm_drawerController.openDrawerSide(.Right, animated: true, completion: nil)
     }
     @IBAction func leaveButtonDidPress(sender: AnyObject) {
-        print("leave button pressed")
-
-
+        #if DEBUG
+            print("leave button pressed")
+        #endif
         if alertController == nil {
             alertController = UIAlertController(title: leaveAlertTitle, message: guestLeaveMessage, preferredStyle: .Alert)
             alertController?.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
@@ -176,7 +206,7 @@ extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
             } else {
                 playerTypeToDisplay = .None
             }
-        } else if playerDisplayType != .Small || playerTypeToDisplay != .Large {
+        } else if playerDisplayType != .Small || playerDisplayType != .Large {
             playerTypeToDisplay = .Small
         } else {
             playerTypeToDisplay = playerDisplayType
@@ -184,7 +214,6 @@ extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
 
         dispatch_async(dispatch_get_main_queue(), {
             self.updatePlayerDisplay(playerTypeToDisplay)
-//            self.smallMusicPlayer.updateMusicPlayerDisplay()
             self.tableView.reloadData()
         })
     }

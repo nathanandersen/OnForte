@@ -20,7 +20,7 @@ class HistoryViewController: DefaultViewController, UITableViewDataSource, UITab
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HistoryViewController.updateTable), name: updateHistoryTableKey, object: nil)
     }
 
-    func clearForNewPlaylist() {
+    func presentNewPlaylist() {
         updateTable()
     }
 

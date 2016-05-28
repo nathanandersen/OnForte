@@ -21,7 +21,8 @@ class DefaultViewController: UIViewController {
 }
 
 class NavigationController: UINavigationController {
-    private let playlistController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistDrawerController") as! PlaylistDrawerController
+//    private let playlistController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistDrawerController") as! PlaylistDrawerController
+    private let playlistController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistTabBarController") as! PlaylistTabBarController
     private let settingsController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsViewController
 
     internal func pushSettings() {
@@ -34,7 +35,14 @@ class NavigationController: UINavigationController {
     }
 
     internal func pushPlaylist() {
+        CATransaction.begin()
         self.pushViewController(playlistController, animated: true)
+        CATransaction.setCompletionBlock({
+//            NSNotificationCenter.defaultCenter().postNotificationName(updatePlaylistInfoKey, object: nil)
+//            NSNotificationCenter.defaultCenter().postNotificationName(updateHistoryTableKey, object: nil)
+            self.playlistController.presentNewPlaylist()
+        })
+        CATransaction.commit()
     }
 
     internal func popSettings() {
@@ -58,7 +66,6 @@ extension NavigationController: UINavigationControllerDelegate {
 
     override func viewDidAppear(animated: Bool) {
         delegate = self
-//        navigationItem.title = "onforte"
     }
 
     func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {

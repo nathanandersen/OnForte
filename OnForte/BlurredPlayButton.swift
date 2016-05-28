@@ -17,6 +17,15 @@ class BlurredPlayButton: SVGPlayButton {
         touchUpInsideHandler()
     }
 
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required internal init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+//        fatalError("init(coder:) has not been implemented")
+    }
+
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
 

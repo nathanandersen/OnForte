@@ -25,7 +25,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spotify" translatesAutoresizingMaskIntoConstraints="NO" id="aDQ-2D-wNC">
-                    <rect key="frame" x="315" y="21" width="40" height="40"/>
+                    <rect key="frame" x="275" y="21" width="40" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="HyS-hY-LLA"/>
                         <constraint firstAttribute="width" secondItem="aDQ-2D-wNC" secondAttribute="height" multiplier="1:1" id="gtN-5A-UeU"/>
@@ -37,23 +37,52 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aj3-d7-b6m" customClass="FastForwardButton" customModule="OnForte" customModuleProvider="target">
+                    <rect key="frame" x="325" y="21" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Aj3-d7-b6m" secondAttribute="height" multiplier="1:1" id="VRD-Da-BS8"/>
+                    </constraints>
+                    <connections>
+                        <action selector="fastForwardDidPress:" destination="HaQ-9T-1p8" eventType="touchUpInside" id="t9E-zK-pAL"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3b5-y7-qF9" customClass="BlurredPlayButton" customModule="OnForte" customModuleProvider="target">
+                    <rect key="frame" x="20" y="11" width="61" height="61"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="3b5-y7-qF9" secondAttribute="height" multiplier="1:1" id="dKh-bO-bkC"/>
+                    </constraints>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="aDQ-2D-wNC" secondAttribute="trailing" constant="20" id="0iq-aA-pHC"/>
                 <constraint firstItem="QjN-UA-mPw" firstAttribute="centerY" secondItem="HaQ-9T-1p8" secondAttribute="centerY" id="4Rw-xx-7f6"/>
                 <constraint firstItem="yaM-av-q1Z" firstAttribute="centerY" secondItem="HaQ-9T-1p8" secondAttribute="centerY" constant="10" id="4hg-gc-6E0"/>
+                <constraint firstAttribute="trailing" secondItem="Aj3-d7-b6m" secondAttribute="trailing" constant="10" id="7rP-fS-otI"/>
+                <constraint firstItem="Aj3-d7-b6m" firstAttribute="centerY" secondItem="aDQ-2D-wNC" secondAttribute="centerY" id="Akb-37-4pd"/>
+                <constraint firstItem="3b5-y7-qF9" firstAttribute="height" secondItem="QjN-UA-mPw" secondAttribute="height" constant="1" id="CGK-VI-2FT"/>
                 <constraint firstItem="aDQ-2D-wNC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="blw-ME-gop" secondAttribute="trailing" constant="5" id="GSf-Yg-HmI"/>
                 <constraint firstItem="yaM-av-q1Z" firstAttribute="leading" secondItem="QjN-UA-mPw" secondAttribute="trailing" constant="10" id="JPz-BL-sWB"/>
                 <constraint firstItem="QjN-UA-mPw" firstAttribute="leading" secondItem="HaQ-9T-1p8" secondAttribute="leading" constant="20" id="Qh2-yv-9VV"/>
+                <constraint firstItem="Aj3-d7-b6m" firstAttribute="height" secondItem="aDQ-2D-wNC" secondAttribute="height" id="SDN-cB-2WO"/>
+                <constraint firstItem="3b5-y7-qF9" firstAttribute="centerX" secondItem="QjN-UA-mPw" secondAttribute="centerX" id="V7G-3c-YGT"/>
                 <constraint firstItem="blw-ME-gop" firstAttribute="centerY" secondItem="HaQ-9T-1p8" secondAttribute="centerY" constant="-10" id="cKP-6H-3la"/>
                 <constraint firstItem="aDQ-2D-wNC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yaM-av-q1Z" secondAttribute="trailing" constant="5" id="jTR-Ub-eqw"/>
+                <constraint firstItem="Aj3-d7-b6m" firstAttribute="leading" secondItem="aDQ-2D-wNC" secondAttribute="trailing" constant="10" id="jXj-D9-9bg"/>
                 <constraint firstItem="aDQ-2D-wNC" firstAttribute="centerY" secondItem="HaQ-9T-1p8" secondAttribute="centerY" id="m9a-Iq-HWD"/>
+                <constraint firstItem="3b5-y7-qF9" firstAttribute="centerY" secondItem="QjN-UA-mPw" secondAttribute="centerY" id="mHW-5h-NWZ"/>
                 <constraint firstItem="blw-ME-gop" firstAttribute="leading" secondItem="QjN-UA-mPw" secondAttribute="trailing" constant="10" id="rHo-VX-fji"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="0iq-aA-pHC"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="descriptionLabel" destination="yaM-av-q1Z" id="RKa-b5-KJf"/>
+                <outlet property="fastForwardButton" destination="Aj3-d7-b6m" id="VGC-iv-x0y"/>
                 <outlet property="platformImageView" destination="aDQ-2D-wNC" id="Udb-YV-nVr"/>
+                <outlet property="playButton" destination="3b5-y7-qF9" id="KLC-qq-cuK"/>
                 <outlet property="songImageView" destination="QjN-UA-mPw" id="JXn-9H-vnz"/>
                 <outlet property="titleLabel" destination="blw-ME-gop" id="YTu-6L-ef2"/>
             </connections>

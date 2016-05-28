@@ -12,7 +12,6 @@ import MMDrawerController
 let totalWidth: CGFloat = UIScreen.mainScreen().bounds.width
 let leftDrawerOverlap: CGFloat = 60
 let rightDrawerOverlap: CGFloat = 0
-let closeOpenDrawerKey = "closeOpenDrawer"
 
 class PlaylistDrawerController: MMDrawerController {
 
@@ -36,22 +35,21 @@ class PlaylistDrawerController: MMDrawerController {
 
         setMaximumLeftDrawerWidth(totalWidth - leftDrawerOverlap, animated: true, completion: nil)
         self.setMaximumRightDrawerWidth(totalWidth - rightDrawerOverlap, animated: true, completion: nil)
-
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistDrawerController.closeOpenDrawer), name: closeOpenDrawerKey, object: nil)
     }
 
     @IBAction func settingsButtonDidPress(sender: AnyObject) {
         (navigationController as! NavigationController).pushSettings()
     }
     
-/*    internal func closeOpenDrawer() {
-        self.closeDrawerAnimated(true, completion: nil)
-    }*/
+    override func openDrawerSide(drawerSide: MMDrawerSide, animated: Bool, completion: ((Bool) -> Void)!) {
+        super.openDrawerSide(drawerSide, animated: animated, completion: completion)
+        if drawerSide == .Right {
+            (self.rightDrawerViewController as! MusicSearchViewController).enableSearchBar()
+        }
+    }
 
-    /*
-    // why is this called update?
-    internal func updatePlaylistViewController() {
-        (self.centerViewController as! PlaylistController).presentNewPlaylist()
-        (self.leftDrawerViewController as! PlaylistHistoryViewController).presentNewPlaylist()
-    }*/
+    internal func presentNewPlaylist() {
+        (self.centerViewController as! PlaylistViewController).presentNewPlaylist()
+        (self.leftDrawerViewController as! HistoryViewController).presentNewPlaylist()
+    }
 }

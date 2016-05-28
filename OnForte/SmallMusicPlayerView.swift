@@ -25,6 +25,10 @@ class SmallMusicPlayerController: UIView {
         smallMusicPlayer.displaySongInformation()
     }
 
+    internal func setIsPlaying(result: Bool) {
+        smallMusicPlayer.setIsPlaying(result)
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         sharedInit()
@@ -37,6 +41,7 @@ class SmallMusicPlayerController: UIView {
 
     private func sharedInit() {
         smallMusicPlayer = NSBundle.mainBundle().loadNibNamed("SmallMusicPlayerView", owner: self, options: nil).first as! SmallMusicPlayerView
+        smallMusicPlayer.initializePlayButtonFn()
         self.addSubview(smallMusicPlayer)
 
         // constrain the music player to this view
@@ -58,6 +63,25 @@ class SmallMusicPlayerView: UIView {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var platformImageView: UIImageView!
+    @IBOutlet var fastForwardButton: FastForwardButton!
+    @IBOutlet var playButton: BlurredPlayButton!
+
+    internal func setIsPlaying(result: Bool) {
+        playButton.setIsPlaying(result)
+    }
+    @IBAction func fastForwardDidPress(sender: AnyObject) {
+        PlaylistHandler.fastForward() { (result) in
+            self.playButton.setIsPlaying(result)
+        }
+    }
+
+    internal func initializePlayButtonFn() {
+        playButton.toggleFn = {
+            PlaylistHandler.togglePlayingStatus({ (result) in
+                self.playButton.setIsPlaying(result)
+            })
+        }
+    }
 
     internal func displaySongInformation() {
         if let song = PlaylistHandler.nowPlaying {

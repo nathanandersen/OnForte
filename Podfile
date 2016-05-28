@@ -6,15 +6,12 @@
 target 'OnForte' do
   pod "SwiftDDP", "~> 0.2.1"
   pod 'Soundcloud'
-  pod 'RSPlayPauseButton', '~> 1.0'
   pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
   pod 'Alamofire', '~> 3.0'
   pod 'AlamofireImage', '~> 2.0'
   pod 'BFPaperButton', '~> 2.0'
-  pod 'SWTableViewCell', '~> 0.3.7'
   pod 'MMDrawerController', '~> 0.5.7'
   pod 'NVActivityIndicatorView', '~> 2.3'
-  pod 'SVGPlayButton', '~> 0.2.3'
 end
 
 target 'OnForteTests' do

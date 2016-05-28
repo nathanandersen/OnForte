@@ -49,26 +49,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>RSPlayPauseButton.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SVGPlayButton-SVGPlayButton.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SVGPlayButton.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SWTableViewCell.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Soundcloud.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -117,32 +97,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0EA001B0A9BF3A5C146855717E74127D</key>
+		<key>2D7CBAF1150BEC996900A499D300AB46</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1CCF622CE56CA83EC6BA8E4684BC59E8</key>
+		<key>3C4CAAD8DEB14780C95826ECD1F50A7C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3F186012D62C0DD269ACFDCCA7E40317</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>48A68CC102EF60002EF0F2ECA6D572C6</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4D5B7F860EB5EE598CF95FE895D7E1E8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4F8B8B0EEB63B329248A27E58729185E</key>
+		<key>3F1461859DD17B183F5065193C2BD6AE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,12 +117,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6A46D9CB9CAB0B8BC35658FA6053AB26</key>
+		<key>706AB03FE41758CFEE22EAE751398A53</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7D03510197D07203EE47B8AA3AA6FC49</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -177,12 +147,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B81313E35D48ADE618E9792DFE285CCC</key>
+		<key>D6A76DDD0D0EEDD6A5C37E5320B7C6DB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C1C2E0DBFEBE51B835D749E3019F94BC</key>
+		<key>D7F1AED84ACE8141F8BFFEB2C475DC02</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -193,16 +163,6 @@
 			<true/>
 		</dict>
 		<key>E53A0EDE10B8ECF7496B295E2673EF86</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EB4CE749414422AC7DFBCAB9CB1E0114</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F282A6A6026E420E1203FE06D7F6E724</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -42,13 +42,13 @@ class PlaylistHandler: NSObject {
         musicPlayer.playNextSong({(result) in
             completionHandler(result)
             print("ho hum")
-//            NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
+//            NSNotificationCenter.defaultCenter().postNotificationName(updateSmallMusicPlayerKey, object: nil)
         })
     }
 
     internal static func stop() {
         musicPlayer.stopCurrentSong()
-//        NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
+//        NSNotificationCenter.defaultCenter().postNotificationName(updateSmallMusicPlayerKey, object: nil)
     }
 
     internal static func fastForward(completionHandler: Bool -> Void) {
@@ -56,8 +56,6 @@ class PlaylistHandler: NSObject {
 
         musicPlayer.playNextSong({(result) in
             completionHandler(result)
-//            NSNotificationCenter.defaultCenter().postNotificationName("displayNextSong", object: nil)
-            NSNotificationCenter.defaultCenter().postNotificationName("updateTable", object: nil)
         })
     }
 
@@ -98,17 +96,16 @@ class PlaylistHandler: NSObject {
         Meteor.call("downvoteSong",params:[id]) { (result,error) in
             let newStatus = votes[id]!.downvote()
             votes.updateValue(newStatus, forKey: id)
-//            completionHandler(newStatus)
         }
     }
 
-    internal static func downvote(id: String, completionHandler: (VotingStatus) -> ()) {
+/*    internal static func downvote(id: String, completionHandler: (VotingStatus) -> ()) {
         Meteor.call("downvoteSong",params:[id]) { (result,error) in
             let newStatus = votes[id]!.downvote()
             votes.updateValue(newStatus, forKey: id)
             completionHandler(newStatus)
         }
-    }
+    }*/
 
     /**
      Upvote a song. This involves telling the server to update the score, then
@@ -121,13 +118,13 @@ class PlaylistHandler: NSObject {
         }
     }
 
-    internal static func upvote(id: String, completionHandler: (VotingStatus) -> ()) {
+/*    internal static func upvote(id: String, completionHandler: (VotingStatus) -> ()) {
         Meteor.call("upvoteSong",params:[id]) { (result,error) in
             let newStatus = votes[id]!.upvote()
             votes.updateValue(newStatus, forKey: id)
             completionHandler(newStatus)
         }
-    }
+    }*/
 
     /**
      Insert a new voting status for an inserted song.
