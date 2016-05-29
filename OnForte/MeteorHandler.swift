@@ -68,24 +68,27 @@ class MeteorHandler: NSObject {
                     completionHandler(true,createdPlaylistId)
                 }
             })
-            print("I executed")
         })
     }
 
     internal static func addSongToDatabase(song: Song, completionHandler: () -> Void) {
-        Meteor.call("addSongWithAlbumArtURL",params: song.getSongDocFields(),callback: {(result: AnyObject?, error: DDPError?) in
-            completionHandler()
+        addOperationToQueue({
+            Meteor.call("addSongWithAlbumArtURL",params: song.getSongDocFields(),callback: {(result: AnyObject?, error: DDPError?) in
+                completionHandler()
+            })
         })
     }
 
     internal static func joinPlaylist(targetPlaylistId: String, completionHandler: (Bool,AnyObject?) -> ()) {
-        Meteor.call("getInitialPlaylistInfo",params:[targetPlaylistId],callback: {(result: AnyObject?,error: DDPError?) in
-            if error != nil {
-                print(error)
-                completionHandler(false,nil)
-            } else {
-                completionHandler(true,result)
-            }
+        addOperationToQueue({
+            Meteor.call("getInitialPlaylistInfo",params:[targetPlaylistId],callback: {(result: AnyObject?,error: DDPError?) in
+                if error != nil {
+                    print(error)
+                    completionHandler(false,nil)
+                } else {
+                    completionHandler(true,result)
+                }
+            })
         })
     }
 
@@ -96,49 +99,63 @@ class MeteorHandler: NSObject {
                         String(song.service!),
                         (song.trackId != nil) ? song.trackId! : "",
                         (song.artworkURL != nil) ? String(song.artworkURL!) : ""]
-        Meteor.call("registerSongAsPlayed",params: paramObj,callback: nil)
+        addOperationToQueue({
+            Meteor.call("registerSongAsPlayed",params: paramObj,callback: nil)
+        })
     }
 
     internal static func removeSongFromQueue(songId: String) {
-        Meteor.call("removeSongFromQueue",params: [songId],callback: nil)
+        addOperationToQueue({
+            Meteor.call("removeSongFromQueue",params: [songId],callback: nil)
+        })
     }
 
     internal static func setSongAsPlaying(song: Song) {
-        Meteor.call("setSongAsPlaying",params: [PlaylistHandler.playlistId,song.getSongDocFields()],callback: nil)
+        addOperationToQueue({
+            Meteor.call("setSongAsPlaying",params: [PlaylistHandler.playlistId,song.getSongDocFields()],callback: nil)
+        })
     }
 
     internal static func subscribeToPublications(playlistId: String) {
         let paramObj = [playlistId]
-        Meteor.subscribe("playedSongs",params: paramObj)
-        Meteor.subscribe("queueSongs",params: paramObj)
+        addOperationToQueue({
+            Meteor.subscribe("playedSongs",params: paramObj)
+            Meteor.subscribe("queueSongs",params: paramObj)
+        })
     }
 
     internal static func unsubscribeFromPublications() {
-        Meteor.unsubscribe("queueSongs")
-        Meteor.unsubscribe("playedSongs")
+        addOperationToQueue({
+            Meteor.unsubscribe("queueSongs")
+            Meteor.unsubscribe("playedSongs")
+        })
     }
 
     internal static func upvoteSong(songId: String, completionHandler: (Bool) -> ()) {
-        Meteor.call("upvoteSong",params:[songId]) { (result,error) in
-            if error != nil {
-                print(error)
-                completionHandler(false)
-                // handle error
-            } else {
-                completionHandler(true)
+        addOperationToQueue({
+            Meteor.call("upvoteSong",params:[songId]) { (result,error) in
+                if error != nil {
+                    print(error)
+                    completionHandler(false)
+                    // handle error
+                } else {
+                    completionHandler(true)
+                }
             }
-        }
+        })
     }
 
     internal static func downvoteSong(songId: String, completionHandler: (Bool) -> ()) {
-        Meteor.call("downvoteSong",params:[songId]) { (result,error) in
-            if error != nil {
-                print(error)
-                completionHandler(false)
-                // handle error
-            } else {
-                completionHandler(true)
+        addOperationToQueue({
+            Meteor.call("downvoteSong",params:[songId]) { (result,error) in
+                if error != nil {
+                    print(error)
+                    completionHandler(false)
+                    // handle error
+                } else {
+                    completionHandler(true)
+                }
             }
-        }
+        })
     }
 }
