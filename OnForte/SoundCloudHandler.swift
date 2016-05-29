@@ -36,10 +36,10 @@ class SoundCloudHandler: SearchHandler {
         }
     }
 
-    func parseSoundcloudTracks(tracks: [Track]) -> [Song] {
-        var songs: [Song] = []
+    func parseSoundcloudTracks(tracks: [Track]) -> [InternalSong] {
+        var songs: [InternalSong] = []
         for track in tracks {
-            let song = Song(
+            let song = InternalSong(
                 title: track.title,
                 description: track.description,
                 service: Service.Soundcloud,

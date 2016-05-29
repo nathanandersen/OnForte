@@ -12,7 +12,7 @@ import CoreData
 
 class FavoritedSong: NSManagedObject {
 
-    class func createInManagedObjectContext(moc: NSManagedObjectContext, song: Song) -> FavoritedSong {
+    class func createInManagedObjectContext(moc: NSManagedObjectContext, song: InternalSong) -> FavoritedSong {
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("FavoritedSong", inManagedObjectContext: moc) as! FavoritedSong
         newItem.title = song.title
         newItem.annotation = song.description

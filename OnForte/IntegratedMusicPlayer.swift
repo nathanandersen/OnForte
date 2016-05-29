@@ -79,7 +79,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      removeSongFromQueue: remove the song from the QueueSongs database
      setSongAsPlaying: add the song as now playing to the Playlists database
     */
-    private func registerNextSongWithServer(song: Song ) {
+    private func registerNextSongWithServer(song: InternalSong ) {
         MeteorHandler.registerSongAsPlayed(song)
         MeteorHandler.removeSongFromQueue(song.id!)
         MeteorHandler.setSongAsPlaying(song)

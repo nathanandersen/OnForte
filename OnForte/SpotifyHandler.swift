@@ -13,11 +13,11 @@ import SwiftDDP
 
 class SpotifyHandler: SearchHandler {
 
-    func parseSpotifyTracks(json: JSON) -> [Song] {
-        var songs: [Song] = []
+    func parseSpotifyTracks(json: JSON) -> [InternalSong] {
+        var songs: [InternalSong] = []
         let tracks = json["tracks"]["items"]
         for (_,subJson):(String, JSON) in tracks {
-            let song = Song(
+            let song = InternalSong(
                 title: subJson["name"].string,
                 description: subJson["artists"][0]["name"].string,
                 service: Service.Spotify,

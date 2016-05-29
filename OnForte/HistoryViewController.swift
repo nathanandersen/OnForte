@@ -39,7 +39,7 @@ class HistoryViewController: DefaultViewController, UITableViewDataSource, UITab
         cell.selectionStyle = .None
 
         let (_, song) = SongHandler.getPlayedSongByIndex(indexPath.row)
-        cell.loadItem(Song(songDoc: song))
+        cell.loadItem(InternalSong(songDoc: song))
 //        cell.loadItem(songId, song: song)
         return cell
     }
@@ -51,7 +51,7 @@ class HistoryViewController: DefaultViewController, UITableViewDataSource, UITab
 
     func addToFavorites(action: UITableViewRowAction, indexPath: NSIndexPath) {
         let (_, songDoc) = SongHandler.getQueuedSongByIndex(indexPath.row)
-        SongHandler.insertIntoFavorites(Song(songDoc: songDoc))
+        SongHandler.insertIntoFavorites(InternalSong(songDoc: songDoc))
         tableView.reloadData()
     }
 }

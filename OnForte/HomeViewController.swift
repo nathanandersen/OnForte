@@ -217,7 +217,7 @@ extension HomeViewController: UITextFieldDelegate {
                 let artworkURL: NSURL? = NSURL(string: arr[5])
 
 
-                let song = Song(
+                let song = InternalSong(
                     title: (title != nil) ? title! : "",
                     description: (description != nil) ? description! : "",
                     service: (service != nil) ? service! : Service.Soundcloud ,

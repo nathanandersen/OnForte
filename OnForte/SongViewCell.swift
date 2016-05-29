@@ -26,7 +26,7 @@ class SongViewCell: UITableViewCell {
     /**
     Load a song into the cell.
      */
-    internal func loadItem(song: Song) {
+    internal func loadItem(song: InternalSong) {
         self.songTitleLabel.text = song.title
         self.songDescriptionLabel.text = song.description
         if let url = song.artworkURL {

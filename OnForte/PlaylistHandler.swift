@@ -89,9 +89,9 @@ class PlaylistHandler: NSObject {
         })
     }
 
-    private static var _nowPlaying: Song?
+    private static var _nowPlaying: InternalSong?
 
-    internal static var nowPlaying: Song? {
+    internal static var nowPlaying: InternalSong? {
         get {
             return self._nowPlaying
         }

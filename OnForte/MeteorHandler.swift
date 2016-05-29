@@ -30,6 +30,16 @@ class MeteorHandler: NSObject {
 
 
     internal static func connectToServer() {
+        APIHandler.fetchAllPlaylists({
+            (results: [Playlist]?) in
+            if let playlists = results {
+                for playlist in playlists {
+                    print(playlist)
+                }
+            }
+        })
+
+
         Meteor.connect("wss://onforte.herokuapp.com/websocket") {
             isConnected = true
             operationQueue.suspended = false
@@ -71,7 +81,7 @@ class MeteorHandler: NSObject {
         })
     }
 
-    internal static func addSongToDatabase(song: Song, completionHandler: (() -> Void)?) {
+    internal static func addSongToDatabase(song: InternalSong, completionHandler: (() -> Void)?) {
         addOperationToQueue({
             Meteor.call("addSongWithAlbumArtURL",params: song.getSongDocFields(),callback: {(result: AnyObject?, error: DDPError?) in
 //                completionHandler()
@@ -93,7 +103,7 @@ class MeteorHandler: NSObject {
         })
     }
 
-    internal static func registerSongAsPlayed(song: Song) {
+    internal static func registerSongAsPlayed(song: InternalSong) {
         let paramObj = [PlaylistHandler.playlistId,
                         (song.title != nil) ? song.title! : "",
                         (song.description != nil) ? song.description! : "",
@@ -111,7 +121,7 @@ class MeteorHandler: NSObject {
         })
     }
 
-    internal static func setSongAsPlaying(song: Song) {
+    internal static func setSongAsPlaying(song: InternalSong) {
         addOperationToQueue({
             Meteor.call("setSongAsPlaying",params: [PlaylistHandler.playlistId,song.getSongDocFields()],callback: nil)
         })

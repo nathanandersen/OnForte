@@ -28,7 +28,6 @@ class PlaylistTableViewCell: UITableViewCell {
         descriptionLabel.text = song.annotation
         let service = Service(platform: song.platform)
         platformImageView.image = service.getImage()
-//        platformImageView.image = UIImage(named: song.platform.lowercaseString)
         scoreLabel.text = String(song.score)
 
         if PlaylistHandler.getVotingStatus(songId) == .Upvote {
@@ -43,19 +42,9 @@ class PlaylistTableViewCell: UITableViewCell {
             })
         } else {
             songArtworkView.image = service.getImage()
-/*            switch(Service(platform: song.platform.lowercaseString)) {
-            case .Spotify:
-                songArtworkView.image = UIImage(named: "spotify")
-            case .Soundcloud:
-                songArtworkView.image = UIImage(named: "soundcloud")
-            case .iTunes:
-                songArtworkView.image = UIImage(named: "itunes")
-            default:
-                fatalError()
-            }*/
         }
 
-        let songValue = Song(songDoc: song)
+        let songValue = InternalSong(songDoc: song)
         if SongHandler.isSuggestion(songValue) || SongHandler.isFavorite(songValue) {
             favoritesStar.hidden = false
         } else {

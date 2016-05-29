@@ -89,7 +89,7 @@ enum Service {
 /**
  A basic class to encapsulate a song
  */
-class Song: Hashable {
+class InternalSong: Hashable {
     var title: String?
     var description: String?
     var artworkURL: NSURL?
@@ -102,6 +102,7 @@ class Song: Hashable {
             return "\(self.title)+\(self.description)+\(self.artworkURL)+\(self.service?.asLowerCaseString())+\(self.trackId))".hashValue
         }
     }
+
 
     init(title: String?, description: String?, service: Service?, trackId: String?, artworkURL: NSURL?) {
         self.title = title
@@ -151,6 +152,6 @@ class Song: Hashable {
 
 }
 
-func ==(lhs: Song, rhs: Song) -> Bool {
+func ==(lhs: InternalSong, rhs: InternalSong) -> Bool {
     return lhs.hashValue == rhs.hashValue
 }

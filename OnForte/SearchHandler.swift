@@ -13,7 +13,7 @@ import SwiftDDP
  SearchHandler is a abstract class for working with music search tables. Has to be implemented and have search overriden.
  */
 class SearchHandler: NSObject/*, UITableViewDelegate, UITableViewDataSource*/ {
-    var results: [Song] = [Song]()
+    var results: [InternalSong] = [InternalSong]()
 
     /**
      Search the service for the query. Must be overriden.
@@ -28,7 +28,7 @@ class SearchHandler: NSObject/*, UITableViewDelegate, UITableViewDataSource*/ {
     /**
      Add the song to the database and the user-stored favorites
     */
-    internal static func addSongToPlaylist(song: Song) {
+    internal static func addSongToPlaylist(song: InternalSong) {
         NSNotificationCenter.defaultCenter().postNotificationName(closeSearchKey, object: nil)
 /*        MeteorHandler.addSongToDatabase(song, completionHandler: {
             NSNotificationCenter.defaultCenter().postNotificationName(closeSearchKey, object: nil)
@@ -44,6 +44,6 @@ class SearchHandler: NSObject/*, UITableViewDelegate, UITableViewDataSource*/ {
      Clear the search
      */
     func clearSearch() {
-        results = [Song]()
+        results = [InternalSong]()
     }
 }

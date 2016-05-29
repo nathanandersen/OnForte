@@ -143,7 +143,7 @@ extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
 
     func addToFavorites(action: UITableViewRowAction, indexPath: NSIndexPath) {
         let (_, songDoc) = SongHandler.getQueuedSongByIndex(indexPath.row)
-        SongHandler.insertIntoFavorites(Song(songDoc: songDoc))
+        SongHandler.insertIntoFavorites(InternalSong(songDoc: songDoc))
         tableView.reloadData()
     }
 }

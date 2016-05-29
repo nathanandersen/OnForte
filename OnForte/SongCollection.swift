@@ -161,7 +161,7 @@ class SongCollection: MeteorCollection<SongDocument> {
             // the only time we can remove a document from the local collection
             // is when it has started playing (or when party has been left..)
             if PlaylistHandler.playlistId != "" {
-                PlaylistHandler.nowPlaying = Song(songDoc: documents[id]!)
+                PlaylistHandler.nowPlaying = InternalSong(songDoc: documents[id]!)
             }
             self.documents[id] = nil
             collectionSetDidChange()

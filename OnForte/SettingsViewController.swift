@@ -39,7 +39,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.reloadData()
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var song: Song!
+        var song: InternalSong!
         if segmentedControl.selectedSegmentIndex == 0 {
             song = SongHandler.fetchSuggestions()[indexPath.row]
         } else {
@@ -63,7 +63,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func suggestSong(action: UITableViewRowAction, indexPath: NSIndexPath) {
 //        activityIndicator.showActivity("Adding song..")
-        var song: Song!
+        var song: InternalSong!
         if segmentedControl.selectedSegmentIndex == 0 {
             song = SongHandler.fetchSuggestions()[indexPath.row]
         } else {
@@ -77,7 +77,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func deleteSong(action: UITableViewRowAction, indexPath: NSIndexPath) {
-        var song: Song!
+        var song: InternalSong!
         if segmentedControl.selectedSegmentIndex == 0 {
             song = SongHandler.fetchSuggestions()[indexPath.row]
             SongHandler.removeItemFromSuggestions(song)
@@ -89,7 +89,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var dataSource: [Song]!
+        var dataSource: [InternalSong]!
         if segmentedControl.selectedSegmentIndex == 0 {
             dataSource = SongHandler.fetchSuggestions()
         } else {
