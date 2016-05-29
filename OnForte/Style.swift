@@ -30,6 +30,7 @@ struct Style {
     // #23CF5F
     static var soundcloudOrange = UIColor.orangeColor()
     static var itunesRed = UIColor.redColor()
+    static var appleMusicRed = UIColor.redColor()
 
 
     static func constrainToBoundsOfFrame(label: UIView, parentView: UIView) -> [NSLayoutConstraint] {
