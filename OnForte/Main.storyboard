@@ -219,7 +219,7 @@
                                 <rect key="frame" x="31" y="478" width="258" height="50"/>
                                 <color key="textColor" red="0.0" green="0.45098039220000002" blue="0.74117647060000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="go"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="join"/>
                                 <connections>
                                     <outlet property="delegate" destination="vLE-w9-c3I" id="2Ur-ei-rH9"/>
                                 </connections>

@@ -48,7 +48,6 @@ class HomePageTextField: UITextField {
         button.layer.cornerRadius = 5
         button.layer.borderColor = tintColor.CGColor
         button.tintColor = tintColor
-        button.setTitle("Go",forState: .Normal)
         button.layer.borderWidth = 0
         button.frame = CGRectMake(0, 0, 90, 50) // i am hesitant about this
         self.rightView = button
@@ -65,17 +64,35 @@ class HomePageTextField: UITextField {
  */
 class HomeViewController: DefaultViewController {
 
-    // TODO:
-
-    // stylize...
-    // JOIN FIELD
-    // CREATE FIELD
-
+    enum HomeViewTextField {
+        case Create
+        case Join
+    }
 
     @IBOutlet var createButton: UIButton!
     @IBOutlet var joinButton: UIButton!
     @IBOutlet var createTextField: UITextField!
     @IBOutlet var joinTextField: UITextField!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addLabelAndTargetToTextFieldButton(.Create)
+        addLabelAndTargetToTextFieldButton(.Join)
+    }
+
+    private func addLabelAndTargetToTextFieldButton(textField: HomeViewTextField) {
+        if textField == .Create {
+            let button = createTextField.rightView as! UIButton
+            button.setTitle("Create",forState: .Normal)
+            button.addTarget(self, action: #selector(HomeViewController.handleCreateFieldSubmit), forControlEvents: .TouchUpInside)
+        } else if textField == .Join {
+            let button = joinTextField.rightView as! UIButton
+            button.setTitle("Join",forState: .Normal)
+            button.addTarget(self, action: #selector(HomeViewController.handleJoinFieldSubmit), forControlEvents: .TouchUpInside)
+        } /*else {
+            fatalError()
+        }*/
+    }
 
     override func viewWillAppear(animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -126,37 +143,52 @@ class HomeViewController: DefaultViewController {
 }
 
 extension HomeViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        if let targetText = textField.text {
+
+    func handleJoinFieldSubmit() {
+        if let targetText = joinTextField.text {
             if targetText != "" {
-                if textField == joinTextField {
-                    PlaylistHandler.joinPlaylist(targetText, completionHandler: {
-                        (success: Bool, result: AnyObject?) in
-                        if success {
-                            if let data = result {
-                                self.parseSongAndSendToPlaylist(data)
-                            } else {
-                                // invalid ID
-                            }
+                PlaylistHandler.joinPlaylist(targetText, completionHandler: {
+                    (success: Bool, result: AnyObject?) in
+                    if success {
+                        if let data = result {
+                            self.parseSongAndSendToPlaylist(data)
                         } else {
-                            // a Meteor error occurred
+                            // invalid ID
                         }
-                    })
-                } else if textField == createTextField {
-                    PlaylistHandler.createPlaylist(targetText) {
-                        (success: Bool) in
-                        if success {
-                            self.parseSongAndSendToPlaylist(nil)
-                        } else {
-                            print("it failed")
-                            // handle the error
-                        }
+                    } else {
+                        // a Meteor error occurred
+                    }
+                })
+            }
+        }
+    }
+
+    func handleCreateFieldSubmit() {
+        if let targetText = createTextField.text {
+            if targetText != "" {
+                PlaylistHandler.createPlaylist(targetText) {
+                    (success: Bool) in
+                    if success {
+                        self.parseSongAndSendToPlaylist(nil)
+                    } else {
+                        print("it failed")
+                        // handle the error
                     }
                 }
             }
         }
+    }
 
+
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        if textField == joinTextField {
+            handleJoinFieldSubmit()
+        } else if textField == createTextField {
+            handleCreateFieldSubmit()
+        } else {
+            fatalError()
+        }
         return true
     }
 
@@ -196,7 +228,6 @@ extension HomeViewController: UITextFieldDelegate {
             }
         }
         (navigationController as! NavigationController).pushPlaylist()
-//        appNavigationController.pushPlaylist()
     }
 
     /**

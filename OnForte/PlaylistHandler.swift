@@ -59,15 +59,8 @@ class PlaylistHandler: NSObject {
 
             if newValue == "" {
                 MeteorHandler.unsubscribeFromPublications()
-//                Meteor.unsubscribe("queueSongs")
-//                Meteor.unsubscribe("playedSongs")
-                // unsubscribe
             } else {
-//                let paramObj = [newValue]
                 MeteorHandler.subscribeToPublications(newValue)
-//                Meteor.subscribe("playedSongs",params: paramObj)
-//                Meteor.subscribe("queueSongs",params: paramObj)
-                // subscribe
             }
         }
     }
@@ -172,8 +165,6 @@ class PlaylistHandler: NSObject {
         nowPlaying = nil
         isHost = false
         SongHandler.clearForNewPlaylist()
-//        appNavigationController.popPlaylist()
-//        centralNavigationController.leavePlaylist()
     }
 
     /**
@@ -195,33 +186,25 @@ class PlaylistHandler: NSObject {
      of the creation.
     */
     internal static func createPlaylist(name: String, completionHandler: Bool -> ()) {
-        let createdPlaylistId = self.generateRandomId()
-        let playlistInfo = [name,createdPlaylistId]
-        Meteor.call("addPlaylist",params:playlistInfo,callback:{(result: AnyObject?,error:DDPError?) in
-            if error != nil {
-                print(error)
-                completionHandler(false)
-            } else {
-                self.playlistId = createdPlaylistId
-                print(createdPlaylistId)
+        MeteorHandler.createPlaylist(name, completionHandler: {
+            (result: Bool, playlistId: String) in
+            if result {
+                self.playlistId = playlistId
+                print(playlistId)
                 self.playlistName = name
                 self.isHost = true
-                completionHandler(true)
             }
+            completionHandler(result)
         })
     }
 
     internal static func joinPlaylist(targetPlaylistId: String, completionHandler: (Bool,AnyObject?) -> ()) {
-        Meteor.call("getInitialPlaylistInfo",params:[targetPlaylistId],callback: {(result: AnyObject?,error: DDPError?) in
-            if error != nil {
-                print(error)
-                completionHandler(false,nil)
-            } else if let data = result {
+        MeteorHandler.joinPlaylist(targetPlaylistId, completionHandler: {
+            (result: Bool, data: AnyObject?) in
+            if data != nil {
                 self.playlistId = targetPlaylistId
-                completionHandler(true,data)
-            } else {
-                completionHandler(true,nil)
             }
+            completionHandler(result,data)
         })
     }
 

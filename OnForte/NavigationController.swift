@@ -36,12 +36,16 @@ class NavigationController: UINavigationController {
     }
 
     internal func pushPlaylist() {
-        CATransaction.begin()
-        self.pushViewController(playlistController, animated: true)
-        CATransaction.setCompletionBlock({
-            self.playlistController.presentNewPlaylist()
+        dispatch_async(dispatch_get_main_queue(), {
+
+            CATransaction.begin()
+            self.pushViewController(self.playlistController, animated: true)
+            CATransaction.setCompletionBlock({
+                self.playlistController.presentNewPlaylist()
+            })
+            CATransaction.commit()
+
         })
-        CATransaction.commit()
     }
 
     internal func popSettings() {

@@ -29,19 +29,10 @@ class SearchHandler: NSObject/*, UITableViewDelegate, UITableViewDataSource*/ {
      Add the song to the database and the user-stored favorites
     */
     internal static func addSongToPlaylist(song: Song) {
-        addSongToDatabase(song, completionHandler: {
+        MeteorHandler.addSongToDatabase(song, completionHandler: {
             NSNotificationCenter.defaultCenter().postNotificationName(closeSearchKey, object: nil)
         })
         SongHandler.insertIntoSuggestions(song)
-    }
-
-    /**
-     Add the song to the Meteor database
-     */
-    internal static func addSongToDatabase(song: Song, completionHandler: () -> Void) {
-        Meteor.call("addSongWithAlbumArtURL",params: song.getSongDocFields(),callback: {(result: AnyObject?, error: DDPError?) in
-            completionHandler()
-        })
     }
 
     /**

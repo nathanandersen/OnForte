@@ -70,7 +70,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             song = SongHandler.fetchFavorites()[indexPath.row]
         }
 
-        SearchHandler.addSongToDatabase(song, completionHandler: {
+        MeteorHandler.addSongToDatabase(song, completionHandler: {
 //            activityIndicator.showComplete("")
             (self.navigationController as! NavigationController).popSettings()
         })

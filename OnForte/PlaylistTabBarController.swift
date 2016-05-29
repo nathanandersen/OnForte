@@ -9,13 +9,6 @@
 import Foundation
 import MessageUI
 
-
-enum PlaylistControllerType {
-    case History
-    case Search
-    case Main
-}
-
 class PlaylistTabBarController: UITabBarController {
 
     private var alertController: UIAlertController?
@@ -25,7 +18,7 @@ class PlaylistTabBarController: UITabBarController {
     @IBOutlet var bottomTabBar: UITabBar!
     override func viewDidLoad() {
         super.viewDidLoad()
-        displayViewController(PlaylistControllerType.Main)
+        displayViewController(PlaylistViewController)
     }
 
     @IBAction func inviteButtonDidPress(sender: UIBarButtonItem) {
@@ -54,38 +47,19 @@ class PlaylistTabBarController: UITabBarController {
         selectedViewController?.presentViewController(alertController!, animated: true, completion: nil)
     }
 
-    internal func displayViewController(playlistControllerType: PlaylistControllerType) {
-        if playlistControllerType == .History {
-            displayHistoryViewController()
-        } else if playlistControllerType == .Search {
-            displayMusicSearchViewController()
-        } else if playlistControllerType == .Main {
-            displayPlaylistViewController()
-        } else {
+    /**
+     Display a view controller of type T
+    */
+    internal func displayViewController<T>(type: T.Type) {
+        // Guarantee that it is one of 3 acceptable types
+        guard (T.self == PlaylistViewController.self) || (T.self == HistoryViewController.self) || (T.self == MusicSearchViewController.self) else {
             fatalError()
         }
-    }
 
-    private func displayHistoryViewController() {
         for i in 0..<self.viewControllers!.count {
-            if let _ = self.viewControllers?[i] as? HistoryViewController {
+            if let _ = self.viewControllers?[i] as? T {
                 self.selectedIndex = i
-            }
-        }
-    }
-
-    private func displayMusicSearchViewController() {
-        for i in 0..<self.viewControllers!.count {
-            if let _ = self.viewControllers?[i] as? MusicSearchViewController {
-                self.selectedIndex = i
-            }
-        }
-    }
-
-    private func displayPlaylistViewController() {
-        for i in 0..<self.viewControllers!.count {
-            if let _ = self.viewControllers?[i] as? PlaylistViewController {
-                self.selectedIndex = i
+                return
             }
         }
     }
