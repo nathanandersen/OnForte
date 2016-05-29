@@ -23,40 +23,56 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPP-9A-dLW">
-                        <rect key="frame" x="73" y="32.5" width="170" height="21"/>
+                        <rect key="frame" x="73" y="33" width="135" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fos-V9-q2z">
-                        <rect key="frame" x="73" y="52.5" width="170" height="21"/>
+                        <rect key="frame" x="73" y="53" width="135" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uDC-eg-31C">
-                        <rect key="frame" x="248" y="38" width="30" height="30"/>
+                        <rect key="frame" x="213" y="38" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="edG-EH-UoX"/>
                             <constraint firstAttribute="width" secondItem="uDC-eg-31C" secondAttribute="height" multiplier="1:1" id="gxC-NN-9eV"/>
                         </constraints>
                     </imageView>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star-1" translatesAutoresizingMaskIntoConstraints="NO" id="kdq-uX-NbE">
+                        <rect key="frame" x="248" y="38" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="kdq-uX-NbE" secondAttribute="height" multiplier="1:1" id="2Z7-TH-JF0"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="fos-V9-q2z" firstAttribute="leading" secondItem="Qcv-xv-qmc" secondAttribute="trailing" constant="5" id="1D1-hQ-Eam"/>
+                    <constraint firstItem="kdq-uX-NbE" firstAttribute="leading" secondItem="uDC-eg-31C" secondAttribute="trailing" constant="5" id="1XN-MX-HLL"/>
                     <constraint firstAttribute="leadingMargin" secondItem="Qcv-xv-qmc" secondAttribute="leading" constant="10" id="42Q-NI-xT6"/>
                     <constraint firstAttribute="trailingMargin" secondItem="uDC-eg-31C" secondAttribute="trailing" constant="10" id="8nr-Kw-nnr"/>
                     <constraint firstItem="uDC-eg-31C" firstAttribute="centerY" secondItem="wKu-yA-vAN" secondAttribute="centerY" id="BhL-By-rxe"/>
                     <constraint firstItem="uDC-eg-31C" firstAttribute="leading" secondItem="fos-V9-q2z" secondAttribute="trailing" constant="5" id="FbN-YQ-fqA"/>
                     <constraint firstItem="vPP-9A-dLW" firstAttribute="centerY" secondItem="wKu-yA-vAN" secondAttribute="centerY" constant="-10" id="LPV-rz-AkD"/>
+                    <constraint firstItem="kdq-uX-NbE" firstAttribute="centerY" secondItem="uDC-eg-31C" secondAttribute="centerY" id="Stt-Es-YSo"/>
                     <constraint firstItem="Qcv-xv-qmc" firstAttribute="centerY" secondItem="wKu-yA-vAN" secondAttribute="centerY" id="UTt-F5-6nB"/>
                     <constraint firstItem="uDC-eg-31C" firstAttribute="leading" secondItem="vPP-9A-dLW" secondAttribute="trailing" constant="5" id="XlP-yH-G4q"/>
+                    <constraint firstItem="kdq-uX-NbE" firstAttribute="height" secondItem="uDC-eg-31C" secondAttribute="height" id="eoW-cf-asN"/>
                     <constraint firstItem="vPP-9A-dLW" firstAttribute="leading" secondItem="Qcv-xv-qmc" secondAttribute="trailing" constant="5" id="gbS-JZ-eQB"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="kdq-uX-NbE" secondAttribute="trailing" constant="10" id="lF0-zQ-vZ2"/>
                     <constraint firstItem="fos-V9-q2z" firstAttribute="centerY" secondItem="wKu-yA-vAN" secondAttribute="centerY" constant="10" id="u9V-X3-y5b"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="8nr-Kw-nnr"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="artworkView" destination="Qcv-xv-qmc" id="aul-y7-LXS"/>
+                <outlet property="favoritesStar" destination="kdq-uX-NbE" id="R9r-k1-dLo"/>
                 <outlet property="platformImageView" destination="uDC-eg-31C" id="FUp-r1-nPO"/>
                 <outlet property="songDescriptionLabel" destination="fos-V9-q2z" id="Dvn-O8-YSa"/>
                 <outlet property="songTitleLabel" destination="vPP-9A-dLW" id="b40-vT-FaS"/>
@@ -64,4 +80,7 @@
             <point key="canvasLocation" x="471" y="220"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="star-1" width="32" height="30"/>
+    </resources>
 </document>

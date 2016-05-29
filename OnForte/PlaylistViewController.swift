@@ -131,14 +131,20 @@ extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PlaylistTableViewCell") as! PlaylistTableViewCell
         cell.selectionStyle = .None
-        // add a long press action
 
         let (songId, song) = SongHandler.getQueuedSongByIndex(indexPath.row)
         cell.loadItem(songId,song: song)
         return cell
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("You selected cell #\(indexPath.row)!")
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let favoriteAction = UITableViewRowAction(style: .Normal, title: "Save", handler: self.addToFavorites)
+        return [favoriteAction]
+    }
+
+    func addToFavorites(action: UITableViewRowAction, indexPath: NSIndexPath) {
+        let (_, songDoc) = SongHandler.getQueuedSongByIndex(indexPath.row)
+        SongHandler.insertIntoFavorites(Song(songDoc: songDoc))
+        tableView.reloadData()
     }
 }

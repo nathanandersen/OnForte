@@ -120,6 +120,24 @@ class SongHandler: NSObject {
         }
     }
 
+    internal static func isFavorite(song: Song) -> Bool {
+        for favorite in fetchFavorites() {
+            if song == favorite {
+                return true
+            }
+        }
+        return false
+    }
+
+    internal static func isSuggestion(song: Song) -> Bool {
+        for suggestion in fetchSuggestions() {
+            if song == suggestion {
+                return true
+            }
+        }
+        return false
+    }
+
 
     /**
      Conditionally insert into suggestions if not already there

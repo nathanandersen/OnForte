@@ -31,7 +31,6 @@ class HistoryViewController: DefaultViewController, UITableViewDataSource, UITab
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("this happened")
         return SongHandler.getPlaylistHistoryCount()
     }
 
@@ -39,15 +38,20 @@ class HistoryViewController: DefaultViewController, UITableViewDataSource, UITab
         let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell")! as! SongViewCell
         cell.selectionStyle = .None
 
-        // a long press?
-
-        let (songId, song) = SongHandler.getPlayedSongByIndex(indexPath.row)
-        cell.loadItem(songId, song: song)
+        let (_, song) = SongHandler.getPlayedSongByIndex(indexPath.row)
+        cell.loadItem(Song(songDoc: song))
+//        cell.loadItem(songId, song: song)
         return cell
     }
 
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let favoriteAction = UITableViewRowAction(style: .Destructive, title: "Save", handler: self.addToFavorites)
+        return [favoriteAction]
+    }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("You selected cell #\(indexPath.row)!")
+    func addToFavorites(action: UITableViewRowAction, indexPath: NSIndexPath) {
+        let (_, songDoc) = SongHandler.getQueuedSongByIndex(indexPath.row)
+        SongHandler.insertIntoFavorites(Song(songDoc: songDoc))
+        tableView.reloadData()
     }
 }

@@ -62,6 +62,18 @@ enum Service {
         }
     }
 
+    func getImage() -> UIImage {
+        if self == .Spotify {
+            return UIImage(named: "spotify")!
+        } else if self == .Soundcloud {
+            return UIImage(named: "soundcloud")!
+        } else if self == .iTunes {
+            return UIImage(named: "itunes")!
+        } else {
+            fatalError()
+        }
+    }
+
     func asLowerCaseString() -> String {
         if self == .Spotify {
             return "spotify"
@@ -99,7 +111,7 @@ class Song: Hashable {
         self.artworkURL = artworkURL
     }
 
-    init(songDoc: SongDocument) {
+    init(songDoc: MeteorSong) {
         self.title = songDoc.title
         self.trackId = String(songDoc.trackId)
         self.description = songDoc.annotation

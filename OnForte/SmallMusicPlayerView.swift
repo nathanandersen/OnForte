@@ -91,7 +91,8 @@ class SmallMusicPlayerView: UIView {
             })
             titleLabel.text = song.title
             descriptionLabel.text = song.description
-            platformImageView.image = UIImage(named: (song.service?.asLowerCaseString())!)
+            platformImageView.image = song.service!.getImage()
+//            platformImageView.image = UIImage(named: (song.service?.asLowerCaseString())!)
         }
     }
 }

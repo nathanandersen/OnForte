@@ -18,18 +18,17 @@ class PlaylistTableViewCell: UITableViewCell {
     @IBOutlet var scoreLabel: UILabel!
     @IBOutlet var votingSwitch: UISwitch!
 
-    //    override func awakeFromNib() {
-//        super.awakeFromNib()
-//    }
+    @IBOutlet var favoritesStar: UIImageView!
+    // want: a favorites star
 
     internal func loadItem(songId: String, song: MeteorSong) {
         self.songId = songId
 
-        // initialize a long-press action, here? I'm not sure.
-
         titleLabel.text = song.title
         descriptionLabel.text = song.annotation
-        platformImageView.image = UIImage(named: song.platform.lowercaseString)
+        let service = Service(platform: song.platform)
+        platformImageView.image = service.getImage()
+//        platformImageView.image = UIImage(named: song.platform.lowercaseString)
         scoreLabel.text = String(song.score)
 
         if PlaylistHandler.getVotingStatus(songId) == .Upvote {
@@ -43,7 +42,8 @@ class PlaylistTableViewCell: UITableViewCell {
                 self.setNeedsLayout()
             })
         } else {
-            switch(Service(platform: song.platform.lowercaseString)) {
+            songArtworkView.image = service.getImage()
+/*            switch(Service(platform: song.platform.lowercaseString)) {
             case .Spotify:
                 songArtworkView.image = UIImage(named: "spotify")
             case .Soundcloud:
@@ -52,7 +52,14 @@ class PlaylistTableViewCell: UITableViewCell {
                 songArtworkView.image = UIImage(named: "itunes")
             default:
                 fatalError()
-            }
+            }*/
+        }
+
+        let songValue = Song(songDoc: song)
+        if SongHandler.isSuggestion(songValue) || SongHandler.isFavorite(songValue) {
+            favoritesStar.hidden = false
+        } else {
+            favoritesStar.hidden = true
         }
     }
 

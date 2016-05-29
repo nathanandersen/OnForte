@@ -21,15 +21,17 @@ class SongViewCell: UITableViewCell {
     @IBOutlet var songDescriptionLabel: UILabel!
     @IBOutlet var platformImageView: UIImageView!
 
+    @IBOutlet var favoritesStar: UIImageView!
+
     /**
-     The shared load item: set the title, description, etc.
-    */
-    private func sharedLoadItem(title: String?, description: String?, serviceString: String, artworkURL: NSURL?) {
-        self.songTitleLabel.text = title
-        self.songDescriptionLabel.text = description
-        if let url = artworkURL {
+    Load a song into the cell.
+     */
+    internal func loadItem(song: Song) {
+        self.songTitleLabel.text = song.title
+        self.songDescriptionLabel.text = song.description
+        if let url = song.artworkURL {
             if url == "" {
-                artworkView.image = UIImage(named: serviceString)
+                artworkView.image = song.service!.getImage()
             } else {
                 ArtworkHandler.lookupArtworkAsync(url, completionHandler: { (image: UIImage) in
                     self.artworkView.image = image
@@ -37,22 +39,14 @@ class SongViewCell: UITableViewCell {
                 })
             }
         }
-        platformImageView.image = UIImage(named: serviceString)
-    }
+        platformImageView.image = song.service!.getImage()
 
+        if SongHandler.isSuggestion(song) || SongHandler.isFavorite(song) {
+            favoritesStar.hidden = false
+        } else {
+            favoritesStar.hidden = true
+        }
 
-    /**
-    Load a song into the cell.
-     */
-    internal func loadItem(song: Song) {
-        self.sharedLoadItem(song.title, description: song.description, serviceString: String(song.service!).lowercaseString, artworkURL: song.artworkURL)
-    }
-
-    /**
-     Load a MeteorSong into the cell
-    */
-    internal func loadItem(songId: String, song: MeteorSong) {
-        self.sharedLoadItem(song.title, description: song.annotation, serviceString: song.platform.lowercaseString, artworkURL: NSURL(string: song.artworkURL!))
     }
     
 }
