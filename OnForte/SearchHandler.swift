@@ -29,8 +29,13 @@ class SearchHandler: NSObject/*, UITableViewDelegate, UITableViewDataSource*/ {
      Add the song to the database and the user-stored favorites
     */
     internal static func addSongToPlaylist(song: Song) {
-        MeteorHandler.addSongToDatabase(song, completionHandler: {
+        NSNotificationCenter.defaultCenter().postNotificationName(closeSearchKey, object: nil)
+/*        MeteorHandler.addSongToDatabase(song, completionHandler: {
             NSNotificationCenter.defaultCenter().postNotificationName(closeSearchKey, object: nil)
+        })*/
+        MeteorHandler.addSongToDatabase(song, completionHandler: {
+            NSNotificationCenter.defaultCenter().postNotificationName(reloadTableKey, object: nil)
+            // hide the activity indicator -> or some sort of visual confirmation
         })
         SongHandler.insertIntoSuggestions(song)
     }

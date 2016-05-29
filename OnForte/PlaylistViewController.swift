@@ -105,7 +105,7 @@ extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func reloadTable() {
-        var playerTypeToDisplay: PlayerDisplayType!
+        var playerTypeToDisplay: PlayerDisplayType
         if PlaylistHandler.nowPlaying == nil {
             if PlaylistHandler.isHost && SongHandler.getSongsInQueue().count >= 1 {
                 playerTypeToDisplay = .StartButton
@@ -117,7 +117,6 @@ extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             playerTypeToDisplay = playerDisplayType
         }
-
         dispatch_async(dispatch_get_main_queue(), {
             self.updatePlayerDisplay(playerTypeToDisplay)
             self.tableView.reloadData()

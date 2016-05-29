@@ -71,12 +71,13 @@ class MeteorHandler: NSObject {
         })
     }
 
-    internal static func addSongToDatabase(song: Song, completionHandler: () -> Void) {
+    internal static func addSongToDatabase(song: Song, completionHandler: (() -> Void)?) {
         addOperationToQueue({
             Meteor.call("addSongWithAlbumArtURL",params: song.getSongDocFields(),callback: {(result: AnyObject?, error: DDPError?) in
-                completionHandler()
+//                completionHandler()
             })
         })
+        completionHandler?()
     }
 
     internal static func joinPlaylist(targetPlaylistId: String, completionHandler: (Bool,AnyObject?) -> ()) {
@@ -121,6 +122,7 @@ class MeteorHandler: NSObject {
         addOperationToQueue({
             Meteor.subscribe("playedSongs",params: paramObj)
             Meteor.subscribe("queueSongs",params: paramObj)
+            print("Re-subscribed.")
         })
     }
 
