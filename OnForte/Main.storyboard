@@ -435,7 +435,6 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="OHM-oB-4og" firstAttribute="top" secondItem="Hpy-IR-3Wg" secondAttribute="top" id="244-kV-xC2"/>
                             <constraint firstItem="Ubu-oI-aUo" firstAttribute="centerY" secondItem="Hpy-IR-3Wg" secondAttribute="centerY" id="4AO-In-fOp"/>
