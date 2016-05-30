@@ -67,9 +67,6 @@ class SongHandler: NSObject {
     internal static func updateScoreValue(songId: NSManagedObjectID, score: Int) {
         var item = managedObjectContext.objectWithID(songId)
         item.setValue(score, forKey: scoreKey)
-        // hmmm...
-        //        managedObjectContext.objectWithID() 
-        //this looks interesting
     }
 
 

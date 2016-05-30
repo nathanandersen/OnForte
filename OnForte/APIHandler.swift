@@ -49,7 +49,9 @@ class APIHandler {
                         SongHandler.insertIntoQueue(song)
                     }
                 })
-
+                
+                // save all core data
+                (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
                 // reload the playlist data table
                 NSNotificationCenter.defaultCenter().postNotificationName(reloadTableKey, object: nil)
             })

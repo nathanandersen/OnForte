@@ -13,7 +13,6 @@ import CoreData
 class QueuedSong: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
-
     class func createInManagedObjectContext(moc: NSManagedObjectContext, song: Song) -> QueuedSong {
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("QueuedSong", inManagedObjectContext: moc) as! QueuedSong
         newItem.title = song.title
@@ -21,6 +20,7 @@ class QueuedSong: NSManagedObject {
         newItem.artworkURL = String(song.artworkURL!)
         newItem.trackId = song.trackId
         newItem.musicPlatform = song.musicPlatform.asLowercaseString()
+        newItem.score = song.score
         return newItem
     }
 }

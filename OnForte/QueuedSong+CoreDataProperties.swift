@@ -19,5 +19,6 @@ extension QueuedSong {
     @NSManaged var musicPlatform: String?
     @NSManaged var artworkURL: String?
     @NSManaged var trackId: String?
+    @NSManaged var score: NSNumber?
 
 }
