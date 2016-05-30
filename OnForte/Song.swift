@@ -86,9 +86,11 @@ enum Service {
         }
     }
 }
+
 /**
  A basic class to encapsulate a song
  */
+
 class InternalSong: Hashable {
     var title: String?
     var description: String?
@@ -137,7 +139,7 @@ class InternalSong: Hashable {
         self.service = Service(platform: favoritedSong.service!)
     }
 
-    func getSongDocFields() -> [String] {
+/*    func getSongDocFields() -> [String] {
         let fields = [
             PlaylistHandler.playlistId,
             (self.title != nil) ? self.title! : "",
@@ -147,7 +149,7 @@ class InternalSong: Hashable {
             (self.artworkURL != nil) ? self.artworkURL!.URLString : ""
         ]
         return fields
-    }
+    }*/
 
 
 }

@@ -74,7 +74,9 @@ class PlaylistViewController: DefaultViewController {
     }
     internal func presentNewPlaylist() {
         tableView.reloadData()
-        self.title = PlaylistHandler.playlistName
+
+        self.title = PlaylistHandler.playlist!.name
+//        self.title = PlaylistHandler.playlistName
     }
 
 
@@ -107,7 +109,7 @@ extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
     func reloadTable() {
         var playerTypeToDisplay: PlayerDisplayType
         if PlaylistHandler.nowPlaying == nil {
-            if PlaylistHandler.isHost && SongHandler.getSongsInQueue().count >= 1 {
+            if PlaylistHandler.isHost() && SongHandler.getQueuedSongs().count >= 1 {
                 playerTypeToDisplay = .StartButton
             } else {
                 playerTypeToDisplay = .None
@@ -124,23 +126,23 @@ extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return SongHandler.getQueuedSongs().count
+        return SongHandler.getQueuedSongs().count
 
-        return SongHandler.getSongsInQueue().count
+//        return SongHandler.getSongsInQueue().count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PlaylistTableViewCell") as! PlaylistTableViewCell
         cell.selectionStyle = .None
 
-//        cell.loadItem(SongHandler.getQueuedSongs()[indexPath.row])
+        cell.loadItem(SongHandler.getQueuedSongs()[indexPath.row])
 
-        let (songId, song) = SongHandler.getQueuedSongByIndex(indexPath.row)
-        cell.loadItem(songId,song: song)
+//        let (songId, song) = SongHandler.getQueuedSongByIndex(indexPath.row)
+//        cell.loadItem(songId,song: song)
         return cell
     }
 
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+/*    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let favoriteAction = UITableViewRowAction(style: .Normal, title: "Save", handler: self.addToFavorites)
         return [favoriteAction]
     }
@@ -149,5 +151,5 @@ extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
         let (_, songDoc) = SongHandler.getQueuedSongByIndex(indexPath.row)
         SongHandler.insertIntoFavorites(InternalSong(songDoc: songDoc))
         tableView.reloadData()
-    }
+    }*/
 }

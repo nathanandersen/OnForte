@@ -1,5 +1,5 @@
 //
-//  iTunesSearchController.swift
+//  AppleMusicHandler.swift
 //  Forte
 //
 //  Created by Nathan Andersen on 4/13/16.
@@ -11,7 +11,7 @@ import Alamofire
 import SwiftDDP
 import SwiftyJSON
 
-class LocalHandler: SearchHandler {
+class AppleMusicHandler: SearchHandler {
 
     override func search(query: String, completionHandler: (success: Bool) -> Void) {
         print(query)

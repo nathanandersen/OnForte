@@ -39,7 +39,7 @@ class PlaylistTabBarController: UITabBarController {
             }))
         }
 
-        if PlaylistHandler.isHost {
+        if PlaylistHandler.isHost() {
             alertController?.message = hostLeaveMessage
         } else {
             alertController?.message = guestLeaveMessage
@@ -65,7 +65,9 @@ class PlaylistTabBarController: UITabBarController {
     }
 
     internal func presentNewPlaylist() {
-        self.title = PlaylistHandler.playlistId
+        self.title = PlaylistHandler.playlist!.playlistId
+
+//        self.title = PlaylistHandler.playlistId
 
         self.viewControllers?.forEach({
             // if loaded, reset both the PVC and HVC
@@ -86,13 +88,17 @@ class PlaylistTabBarController: UITabBarController {
 let leaveAlertTitle = "Leave Playlist"
 let guestLeaveMessage = "Are you sure you want to leave this playlist?"
 let hostLeaveMessage = "You're the host, so leaving this playlist will end it for everyone."
+
 extension PlaylistTabBarController: MFMessageComposeViewControllerDelegate {
     internal func sendInvitations() {
         if MFMessageComposeViewController.canSendText() {
             if iMessageController == nil {
                 iMessageController = MFMessageComposeViewController()
                 iMessageController!.messageComposeDelegate = self
-                iMessageController!.body = "You've been invited to join a playlist on Forte at Forte://" + PlaylistHandler.playlistId + ". Don't have the app? Join the fun at www.onforte.com/" + PlaylistHandler.playlistId + " ."
+                iMessageController!.body = "You've been invited to join a playlist on Forte at Forte://" + PlaylistHandler.playlist!.playlistId + ". Don't have the app? Join the fun at www.onforte.com/" + PlaylistHandler.playlist!.playlistId + " ."
+
+
+//                iMessageController!.body = "You've been invited to join a playlist on Forte at Forte://" + PlaylistHandler.playlist!.playlistId + ". Don't have the app? Join the fun at www.onforte.com/" + PlaylistHandler.playlist!.playlistId + " ."
             }
             iMessageController!.recipients = nil
             selectedViewController?.presentViewController(iMessageController!, animated: true, completion: nil)

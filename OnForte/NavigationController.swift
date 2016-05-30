@@ -30,7 +30,7 @@ class NavigationController: UINavigationController {
         CATransaction.begin()
         self.pushViewController(settingsController, animated: true)
         CATransaction.setCompletionBlock({
-            (PlaylistHandler.isHost) ? self.settingsController.showSettings(.Host) : self.settingsController.showSettings(.Guest)
+            (PlaylistHandler.isHost()) ? self.settingsController.showSettings(.Host) : self.settingsController.showSettings(.Guest)
         })
         CATransaction.commit()
     }

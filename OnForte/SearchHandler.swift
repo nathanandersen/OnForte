@@ -12,8 +12,8 @@ import SwiftDDP
 /**
  SearchHandler is a abstract class for working with music search tables. Has to be implemented and have search overriden.
  */
-class SearchHandler: NSObject/*, UITableViewDelegate, UITableViewDataSource*/ {
-    var results: [InternalSong] = [InternalSong]()
+class SearchHandler: NSObject {
+    var results: [SearchSong] = [SearchSong]()
 
     /**
      Search the service for the query. Must be overriden.
@@ -28,11 +28,11 @@ class SearchHandler: NSObject/*, UITableViewDelegate, UITableViewDataSource*/ {
     /**
      Add the song to the database and the user-stored favorites
     */
-    internal static func addSongToPlaylist(song: InternalSong) {
+    internal static func addSongToPlaylist(song: SearchSong) {
         NSNotificationCenter.defaultCenter().postNotificationName(closeSearchKey, object: nil)
 
 
-        var platform: MusicPlatform
+/*        var platform: MusicPlatform
         if song.service == .Spotify {
             platform = .Spotify
         } else if song.service == .iTunes {
@@ -42,17 +42,17 @@ class SearchHandler: NSObject/*, UITableViewDelegate, UITableViewDataSource*/ {
         } else {
             fatalError()
         }
-        let searchSong = SearchSong(title: song.title, annotation: song.description, playlistId: PlaylistHandler.playlistId, musicPlatform: platform, artworkURL: song.artworkURL, trackId: song.trackId!)
+        let searchSong = SearchSong(title: song.title, annotation: song.description, musicPlatform: platform, artworkURL: song.artworkURL, trackId: song.trackId!)*/
 
-        APIHandler.addSongToDatabase(searchSong, completion: {
+        APIHandler.addSongToDatabase(song, completion: {
             (result: Song?) in
             APIHandler.updateSongs() // a full data pull
         })
 
-        MeteorHandler.addSongToDatabase(song, completionHandler: {
+/*        MeteorHandler.addSongToDatabase(song, completionHandler: {
             NSNotificationCenter.defaultCenter().postNotificationName(reloadTableKey, object: nil)
             // hide the activity indicator -> or some sort of visual confirmation
-        })
+        })*/
         SongHandler.insertIntoSuggestions(song)
     }
 
@@ -60,6 +60,6 @@ class SearchHandler: NSObject/*, UITableViewDelegate, UITableViewDataSource*/ {
      Clear the search
      */
     func clearSearch() {
-        results = [InternalSong]()
+        results = [SearchSong]()
     }
 }

@@ -19,11 +19,28 @@ let songsByPlaylistIdPath = "/playlistsongs"
 
 class APIHandler {
 
-    internal static func createPlaylist(playlist: PlaylistToInsert, completion: Bool -> ()) {
+    internal static func createPlaylist(playlist: PlaylistToInsert, completion: Playlist? -> ()) {
 
-        let request = NSMutableURLRequest(URL: NSURL(string: apiServer + songsPath)!)
+        let request = NSMutableURLRequest(URL: NSURL(string: apiServer + playlistsPath)!)
         request.HTTPMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = playlist.toJSON()
+        Alamofire.request(request).validate()
+            .responseJSON(completionHandler: {
+                response in
+                guard response.result.isSuccess else {
+                    print("Error while adding playlist: \(response.result.error)")
+                    completion(nil)
+                    return
+                }
+                if let obj = response.result.value {
+                    // comes back as a full Playlist
+
+                    completion(Playlist(jsonData: obj))
+                } else {
+                    completion(nil)
+                }
+            })
     }
 
 
@@ -44,15 +61,14 @@ class APIHandler {
 
     internal static func updateSongs() {
         print("Update songs was called.")
-        fetchAllSongs() {
+        fetchAllSongsInPlaylist() {
             (result: [Song]?) in
             if let results = result {
                 results.forEach({
-                    let song = Song(jsonData: $0)
-                    if let coreDataId = SongHandler.managedObjectIDForMongoID(song._id) {
-                        SongHandler.updateScoreValue(coreDataId, score: song.score)
+                    if let coreDataId = SongHandler.managedObjectIDForMongoID($0._id) {
+                        SongHandler.updateScoreValue(coreDataId, score: $0.score)
                     } else {
-                        SongHandler.insertIntoQueue(song)
+                        SongHandler.insertIntoQueue($0)
                     }
                 })
             }
@@ -62,39 +78,6 @@ class APIHandler {
             // reload the playlist data table
             NSNotificationCenter.defaultCenter().postNotificationName(reloadTableKey, object: nil)
         }
-
-
-/*
-        Alamofire.request(
-            .GET,
-            apiServer + songsPath,
-            parameters: nil,
-            encoding: .URL,
-            headers: nil).validate().responseJSON(completionHandler: {
-                (response) -> () in
-                guard response.result.isSuccess else {
-                    print("Error while fetching songs: \(response.result.error)")
-                    return
-                }
-
-                guard let results = response.result.value as? [AnyObject] else {
-                    print("Malformed data received from fetchAllSongs service")
-                    return
-                }
-                results.forEach({
-                    let song = Song(jsonData: $0)
-                    if let coreDataId = SongHandler.managedObjectIDForMongoID(song._id) {
-                        SongHandler.updateScoreValue(coreDataId, score: song.score)
-                    } else {
-                        SongHandler.insertIntoQueue(song)
-                    }
-                })
-
-                // save all core data
-                (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
-                // reload the playlist data table
-                NSNotificationCenter.defaultCenter().postNotificationName(reloadTableKey, object: nil)
-            })*/
     }
 
     internal static func addSongToDatabase(song: SearchSong, completion: Song? -> ()) {
@@ -119,11 +102,10 @@ class APIHandler {
                     // comes back as a full Song
 
                     // insert the song to CoreData
-                    // give it a new VotingStatus object, intialized to None
-
                     completion(Song(jsonData: obj))
+                } else {
+                    completion(nil)
                 }
-                completion(nil)
 
         })
     }
@@ -152,8 +134,33 @@ class APIHandler {
             })
     }
 
+    private static func fetchAllSongsInPlaylist(completion: [Song]? -> ()) {
+        Alamofire.request(
+            .GET,
+            apiServer + songsByPlaylistIdPath + "/" + PlaylistHandler.playlist!.playlistId,
+            parameters: nil,
+            encoding: .URL,
+            headers: nil).validate().responseJSON(completionHandler: {
+                (response) -> () in
+                guard response.result.isSuccess else {
+                    print("Error while fetching songs: \(response.result.error)")
+                    completion(nil)
+                    return
+                }
 
-    private static func fetchAllSongs(completion: [Song]? -> ()) {
+                guard let results = response.result.value as? [AnyObject] else {
+                    print("Malformed data received from fetchAllSongs service")
+                    completion(nil)
+                    return
+                }
+                var songs = [Song]()
+                results.forEach({songs.append(Song( jsonData: $0))})
+                completion(songs)
+            })
+    }
+
+
+/*    private static func fetchAllSongs(completion: [Song]? -> ()) {
         Alamofire.request(
             .GET,
             apiServer + songsPath,
@@ -176,5 +183,5 @@ class APIHandler {
                 results.forEach({songs.append(Song( jsonData: $0))})
                 completion(songs)
             })
-    }
+    }*/
 }

@@ -31,15 +31,17 @@ class HistoryViewController: DefaultViewController, UITableViewDataSource, UITab
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return SongHandler.getPlaylistHistoryCount()
+        print("Have to completely re-handle playlist history.")
+        return 0
+//        return SongHandler.getPlaylistHistoryCount()
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell")! as! SongViewCell
         cell.selectionStyle = .None
 
-        let (_, song) = SongHandler.getPlayedSongByIndex(indexPath.row)
-        cell.loadItem(InternalSong(songDoc: song))
+//        let (_, song) = SongHandler.getPlayedSongByIndex(indexPath.row)
+//        cell.loadItem(InternalSong(songDoc: song))
 //        cell.loadItem(songId, song: song)
         return cell
     }
@@ -50,8 +52,9 @@ class HistoryViewController: DefaultViewController, UITableViewDataSource, UITab
     }
 
     func addToFavorites(action: UITableViewRowAction, indexPath: NSIndexPath) {
-        let (_, songDoc) = SongHandler.getQueuedSongByIndex(indexPath.row)
+        print("re-implement add to favorites")
+        /*        let (_, songDoc) = SongHandler.getQueuedSongByIndex(indexPath.row)
         SongHandler.insertIntoFavorites(InternalSong(songDoc: songDoc))
-        tableView.reloadData()
+        tableView.reloadData()*/
     }
 }

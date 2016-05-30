@@ -5,7 +5,7 @@
 //  Created by Nathan Andersen on 4/14/16.
 //  Copyright © 2016 Nathan Andersen. All rights reserved.
 //
-
+/*
 import Foundation
 import SwiftDDP
 
@@ -159,3 +159,4 @@ class PlaylistSongHistory: MeteorCollection<PlayedSongDocument> {
      }
      }*/
 }
+ */

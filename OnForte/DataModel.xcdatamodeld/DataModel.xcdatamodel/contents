@@ -10,10 +10,14 @@
     <entity name="QueuedSong" representedClassName=".QueuedSong" syncable="YES">
         <attribute name="annotation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="artworkURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="musicPlatform" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="playlistId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="score" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="trackId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="SuggestedSong" representedClassName=".SuggestedSong" syncable="YES">
         <attribute name="annotation" optional="YES" attributeType="String" syncable="YES"/>
@@ -25,6 +29,6 @@
     <elements>
         <element name="FavoritedSong" positionX="-63" positionY="18" width="128" height="120"/>
         <element name="SuggestedSong" positionX="-63" positionY="-18" width="128" height="120"/>
-        <element name="QueuedSong" positionX="-63" positionY="36" width="128" height="135"/>
+        <element name="QueuedSong" positionX="-63" positionY="36" width="128" height="195"/>
     </elements>
 </model>

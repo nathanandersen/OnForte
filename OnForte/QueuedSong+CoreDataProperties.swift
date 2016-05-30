@@ -2,7 +2,7 @@
 //  QueuedSong+CoreDataProperties.swift
 //  OnForte
 //
-//  Created by Nathan Andersen on 5/29/16.
+//  Created by Nathan Andersen on 5/30/16.
 //  Copyright © 2016 Forte Labs. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -20,5 +20,9 @@ extension QueuedSong {
     @NSManaged var artworkURL: String?
     @NSManaged var trackId: String?
     @NSManaged var score: NSNumber?
+    @NSManaged var id: String?
+    @NSManaged var playlistId: String?
+    @NSManaged var createDate: NSDate?
+    @NSManaged var userId: String?
 
 }

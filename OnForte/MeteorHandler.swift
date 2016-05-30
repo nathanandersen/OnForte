@@ -30,17 +30,17 @@ class MeteorHandler: NSObject {
 
 
     internal static func connectToServer() {
-        APIHandler.fetchAllPlaylists({
+/*        APIHandler.fetchAllPlaylists({
             (results: [Playlist]?) in
             if let playlists = results {
                 for playlist in playlists {
                     print(playlist)
                 }
             }
-        })
+        })*/
 
 
-        Meteor.connect("wss://onforte.herokuapp.com/websocket") {
+/*        Meteor.connect("wss://onforte.herokuapp.com/websocket") {
             isConnected = true
             operationQueue.suspended = false
             print(operationQueue.operations)
@@ -51,22 +51,12 @@ class MeteorHandler: NSObject {
 //            activityIndicator.showComplete("Connected")
             PlaylistHandler.playlistId = PlaylistHandler.playlistId
             // this handles the subscriptions
-        }
+        }*/
     }
 
-    private static func generateRandomId() -> String {
-        let _base36chars_string = "0123456789abcdefghijklmnopqrstuvwxyz"
-        let _base36chars = Array(_base36chars_string.characters)
-        var uniqueId = "";
-        for _ in 1...6 {
-            let random = Int(arc4random_uniform(36))
-            uniqueId = uniqueId + String(_base36chars[random])
-        }
-        return uniqueId;
-    }
 
     internal static func createPlaylist(name: String, completionHandler: (Bool,String) -> ()) {
-        let createdPlaylistId = generateRandomId()
+/*        let createdPlaylistId = PlaylistToInsert.generateRandomId()
         let playlistInfo = [name,createdPlaylistId]
 
         addOperationToQueue({
@@ -78,20 +68,20 @@ class MeteorHandler: NSObject {
                     completionHandler(true,createdPlaylistId)
                 }
             })
-        })
+        })*/
     }
 
     internal static func addSongToDatabase(song: InternalSong, completionHandler: (() -> Void)?) {
-        addOperationToQueue({
+/*        addOperationToQueue({
             Meteor.call("addSongWithAlbumArtURL",params: song.getSongDocFields(),callback: {(result: AnyObject?, error: DDPError?) in
 //                completionHandler()
             })
         })
-        completionHandler?()
+        completionHandler?()*/
     }
 
     internal static func joinPlaylist(targetPlaylistId: String, completionHandler: (Bool,AnyObject?) -> ()) {
-        addOperationToQueue({
+/*        addOperationToQueue({
             Meteor.call("getInitialPlaylistInfo",params:[targetPlaylistId],callback: {(result: AnyObject?,error: DDPError?) in
                 if error != nil {
                     print(error)
@@ -100,11 +90,11 @@ class MeteorHandler: NSObject {
                     completionHandler(true,result)
                 }
             })
-        })
+        })*/
     }
 
     internal static func registerSongAsPlayed(song: InternalSong) {
-        let paramObj = [PlaylistHandler.playlistId,
+/*        let paramObj = [PlaylistHandler.playlistId,
                         (song.title != nil) ? song.title! : "",
                         (song.description != nil) ? song.description! : "",
                         String(song.service!),
@@ -112,39 +102,39 @@ class MeteorHandler: NSObject {
                         (song.artworkURL != nil) ? String(song.artworkURL!) : ""]
         addOperationToQueue({
             Meteor.call("registerSongAsPlayed",params: paramObj,callback: nil)
-        })
+        })*/
     }
 
     internal static func removeSongFromQueue(songId: String) {
-        addOperationToQueue({
+/*        addOperationToQueue({
             Meteor.call("removeSongFromQueue",params: [songId],callback: nil)
-        })
+        })*/
     }
 
     internal static func setSongAsPlaying(song: InternalSong) {
-        addOperationToQueue({
+/*        addOperationToQueue({
             Meteor.call("setSongAsPlaying",params: [PlaylistHandler.playlistId,song.getSongDocFields()],callback: nil)
-        })
+        })*/
     }
 
     internal static func subscribeToPublications(playlistId: String) {
-        let paramObj = [playlistId]
+/*        let paramObj = [playlistId]
         addOperationToQueue({
             Meteor.subscribe("playedSongs",params: paramObj)
             Meteor.subscribe("queueSongs",params: paramObj)
             print("Re-subscribed.")
-        })
+        })*/
     }
 
     internal static func unsubscribeFromPublications() {
-        addOperationToQueue({
+/*        addOperationToQueue({
             Meteor.unsubscribe("queueSongs")
             Meteor.unsubscribe("playedSongs")
-        })
+        })*/
     }
 
     internal static func upvoteSong(songId: String, completionHandler: (Bool) -> ()) {
-        addOperationToQueue({
+/*        addOperationToQueue({
             Meteor.call("upvoteSong",params:[songId]) { (result,error) in
                 if error != nil {
                     print(error)
@@ -154,11 +144,11 @@ class MeteorHandler: NSObject {
                     completionHandler(true)
                 }
             }
-        })
+        })*/
     }
 
     internal static func downvoteSong(songId: String, completionHandler: (Bool) -> ()) {
-        addOperationToQueue({
+/*        addOperationToQueue({
             Meteor.call("downvoteSong",params:[songId]) { (result,error) in
                 if error != nil {
                     print(error)
@@ -168,6 +158,6 @@ class MeteorHandler: NSObject {
                     completionHandler(true)
                 }
             }
-        })
+        })*/
     }
 }

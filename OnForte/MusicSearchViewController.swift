@@ -12,7 +12,7 @@ let closeSearchKey = "closeSearch"
 
 class MusicSearchViewController: DefaultViewController {
 
-    let orderedSearchHandlers: [SearchHandler] = [SpotifyHandler(),SoundCloudHandler(),LocalHandler()]
+    let orderedSearchHandlers: [SearchHandler] = [SpotifyHandler(),SoundcloudHandler(),AppleMusicHandler()]
 
     @IBOutlet var searchActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var segmentedControl: UISegmentedControl!

@@ -1,5 +1,5 @@
 //
-//  SpotifySearchController.swift
+//  SpotifyHandler.swift
 //  Forte
 //
 //  Created by Nathan Andersen on 4/13/16.
@@ -21,20 +21,18 @@ let spotifyIdKey = "id"
 
 class SpotifyHandler: SearchHandler {
 
-    func parseSpotifyTracks(json: JSON) -> [InternalSong] {
-        var songs: [InternalSong] = []
+
+    func parseSpotifyTracks(json: JSON) -> [SearchSong] {
+        var songs: [SearchSong] = []
         let tracks = json[tracksKey][itemsKey]
         for (_,subJson):(String, JSON) in tracks {
-            let song = InternalSong(
+            songs.append(SearchSong(
                 title: subJson[nameKey].string,
-                description: subJson[artistsKey][0][nameKey].string,
-                service: Service.Spotify,
-                trackId: subJson[spotifyIdKey].string!,
-                artworkURL: NSURL(string: subJson[albumKey][imagesKey][1][urlKey].string!))
-
-            songs += [song]
+                annotation: subJson[artistsKey][0][nameKey].string,
+                musicPlatform: .Spotify,
+                artworkURL: NSURL(string: subJson[albumKey][imagesKey][1][urlKey].string!),
+                trackId: subJson[spotifyIdKey].string!))
         }
-
         return songs
     }
 

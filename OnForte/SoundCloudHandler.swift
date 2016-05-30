@@ -1,5 +1,5 @@
 //
-//  SoundcloudSearchController.swift
+//  SoundcloudHandler.swift
 //  Forte
 //
 //  Created by Nathan Andersen on 4/13/16.
@@ -11,9 +11,9 @@ import SwiftDDP
 import Soundcloud
 
 /**
- SoundCloudHandler is a SearchHandler to search SoundCloud music.
+ SoundcloudHandler is a SearchHandler to search SoundCloud music.
  */
-class SoundCloudHandler: SearchHandler {
+class SoundcloudHandler: SearchHandler {
 
     override func search(query: String, completionHandler: (success: Bool) -> Void) {
         if (query != ""){
@@ -36,7 +36,16 @@ class SoundCloudHandler: SearchHandler {
         }
     }
 
-    func parseSoundcloudTracks(tracks: [Track]) -> [InternalSong] {
+    func parseSoundcloudTracks(tracks: [Track]) -> [SearchSong] {
+        var songs: [SearchSong] = []
+        for track in tracks {
+            songs.append(SearchSong(title: track.title, annotation: track.description, musicPlatform: MusicPlatform.Soundcloud, artworkURL: track.artworkImageURL.largeURL, trackId: String(track.identifier)))
+        }
+        return songs
+    }
+
+
+/*    func parseSoundcloudTracks(tracks: [Track]) -> [InternalSong] {
         var songs: [InternalSong] = []
         for track in tracks {
             let song = InternalSong(
@@ -49,5 +58,5 @@ class SoundCloudHandler: SearchHandler {
             songs += [song]
         }
         return songs
-    }
+    }*/
 }

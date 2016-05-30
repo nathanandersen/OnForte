@@ -149,7 +149,8 @@ extension HomeViewController: UITextFieldDelegate {
     func handleJoinFieldSubmit() {
         if let targetText = joinTextField.text {
             if targetText != "" {
-                PlaylistHandler.joinPlaylist(targetText, completionHandler: {
+                print("Joining playlists not yet implemented.")
+/*                PlaylistHandler.joinPlaylist(targetText, completionHandler: {
                     (success: Bool, result: AnyObject?) in
                     if success {
                         if let data = result {
@@ -160,7 +161,7 @@ extension HomeViewController: UITextFieldDelegate {
                     } else {
                         // a Meteor error occurred
                     }
-                })
+                })*/
             }
         }
     }
@@ -168,7 +169,31 @@ extension HomeViewController: UITextFieldDelegate {
     func handleCreateFieldSubmit() {
         if let targetText = createTextField.text {
             if targetText != "" {
-                PlaylistHandler.createPlaylist(targetText) {
+/*                APIHandler.createPlaylist(PlaylistToInsert(name: targetText), completion: {
+                    (result: Playlist?) in
+                    if let playlist = result {
+//                        print(playlist.playlistId)
+                        PlaylistHandler.playlist = playlist
+                        (self.navigationController as! NavigationController).pushPlaylist()
+
+                    } else {
+                        // display some sort of error,
+                        // playlist creation failed
+                    }
+                })*/
+
+                PlaylistHandler.createPlaylist(targetText, completionHandler: {
+                    (result: Bool) in
+                        if result {
+                            (self.navigationController as! NavigationController).pushPlaylist()
+                        } else {
+                            // display some sort of error
+                        }
+                })
+
+
+
+/*                PlaylistHandler.createPlaylist(targetText) {
                     (success: Bool) in
                     if success {
                         self.parseSongAndSendToPlaylist(nil)
@@ -176,7 +201,7 @@ extension HomeViewController: UITextFieldDelegate {
                         print("it failed")
                         // handle the error
                     }
-                }
+                }*/
             }
         }
     }
@@ -204,7 +229,7 @@ extension HomeViewController: UITextFieldDelegate {
     /**
      Parse the now-playing song if joining
      */
-    internal func parseSongAndSendToPlaylist(playlistInfo: AnyObject?) {
+/*    internal func parseSongAndSendToPlaylist(playlistInfo: AnyObject?) {
         if playlistInfo != nil {
 
             // improve this.
@@ -233,7 +258,7 @@ extension HomeViewController: UITextFieldDelegate {
             }
         }
         (navigationController as! NavigationController).pushPlaylist()
-    }
+    }*/
 
     /**
      Join a playlist from deep-linking.
@@ -241,7 +266,8 @@ extension HomeViewController: UITextFieldDelegate {
      Idk?
      */
     internal func joinPlaylistFromURL(targetPlaylistId: String) {
-        PlaylistHandler.joinPlaylist(targetPlaylistId, completionHandler: {
+        print("Joining playlist from URL not yet reimplemented.")
+/*        PlaylistHandler.joinPlaylist(targetPlaylistId, completionHandler: {
             (success: Bool, result: AnyObject?) in
             if success {
                 if let data = result {
@@ -252,7 +278,7 @@ extension HomeViewController: UITextFieldDelegate {
             } else {
                 // a Meteor error occurred
             }
-        })
+        })*/
     }
 
 }

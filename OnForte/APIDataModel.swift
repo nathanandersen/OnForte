@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import CoreData
+
 
 
 let nameKey = "name"
@@ -22,22 +24,31 @@ let createDateKey = "createDate"
 
 class PlaylistToInsert {
     var name: String
-    var playlistId: String
 
-    init(name: String, playlistId: String) {
-        self.name = name
-        self.playlistId = playlistId
+    internal static func generateRandomId() -> String {
+        let _base36chars_string = "0123456789abcdefghijklmnopqrstuvwxyz"
+        let _base36chars = Array(_base36chars_string.characters)
+        var uniqueId = "";
+        for _ in 1...6 {
+            let random = Int(arc4random_uniform(36))
+            uniqueId = uniqueId + String(_base36chars[random])
+        }
+        return uniqueId;
     }
 
-    func toDictionary() -> NSDictionary {
+    init(name: String) {
+        self.name = name
+    }
+
+    private func toDictionary() -> NSDictionary {
         return [
             nameKey: self.name,
-            playlistIdKey: self.playlistId,
+            playlistIdKey: PlaylistToInsert.generateRandomId(),
             userIdKey: NSUserDefaults.standardUserDefaults().stringForKey(userIdKey)!
         ]
     }
 
-    func toJSON() -> NSData {
+    internal func toJSON() -> NSData {
         return try! NSJSONSerialization.dataWithJSONObject(self.toDictionary(), options: [])
     }
 }
@@ -72,28 +83,32 @@ func ==(lhs: Playlist, rhs: Playlist) -> Bool {
     return lhs.hashValue == rhs.hashValue
 }
 
-class SearchSong {
+class SearchSong: Hashable {
     var title: String?
     var annotation: String?
-    var playlistId: String
     var musicPlatform: MusicPlatform
     var artworkURL: NSURL?
     var trackId: String
 
-    init(title: String?, annotation: String?, playlistId: String, musicPlatform: MusicPlatform, artworkURL: NSURL?, trackId: String) {
+    var hashValue: Int {
+        get {
+            return "\(self.title)+\(self.annotation)+\(self.artworkURL)+\(self.musicPlatform.asLowercaseString())+\(self.trackId))".hashValue
+        }
+    }
+
+    init(title: String?, annotation: String?, musicPlatform: MusicPlatform, artworkURL: NSURL?, trackId: String) {
         self.title = title
         self.annotation = annotation
-        self.playlistId = playlistId
         self.musicPlatform = musicPlatform
         self.artworkURL = artworkURL
         self.trackId = trackId
     }
 
-    func toDictionary() -> NSDictionary {
+    private func toDictionary() -> NSDictionary {
         return [
             titleKey: (self.title != nil) ? self.title! : "",
             annotationKey: (self.annotation != nil) ? self.annotation! : "",
-            playlistIdKey: self.playlistId,
+            playlistIdKey: PlaylistHandler.playlist!.playlistId,
             musicPlatformKey: self.musicPlatform.asLowercaseString(),
             artworkURLKey: (self.artworkURL != nil) ? self.artworkURL!.URLString : "",
             trackIdKey: self.trackId,
@@ -102,9 +117,13 @@ class SearchSong {
         ]
     }
 
-    func toJSON() -> NSData {
+    internal func toJSON() -> NSData {
         return try! NSJSONSerialization.dataWithJSONObject(self.toDictionary(), options: [])
     }
+}
+
+func ==(lhs: SearchSong, rhs: SearchSong) -> Bool {
+    return lhs.hashValue == rhs.hashValue
 }
 
 class Song: Hashable {
@@ -117,6 +136,7 @@ class Song: Hashable {
     var artworkURL: NSURL?
     var trackId: String
     var score: Int
+    var userId: String
 
     init(jsonData: AnyObject) {
         self._id = jsonData[mongoIdKey] as! String
@@ -128,6 +148,7 @@ class Song: Hashable {
         self.artworkURL = NSURL(string: jsonData[artworkURLKey] as! String) // how are we going to catch this optional?
         self.trackId = jsonData[trackIdKey] as! String
         self.score = jsonData[scoreKey] as! Int
+        self.userId = jsonData[userIdKey] as! String
     }
 
     var hashValue: Int {

@@ -9,7 +9,28 @@
 import Foundation
 
 class PlaylistHandler: NSObject {
-    private static var _playlistId: String = ""
+
+    private static var _playlist: Playlist?
+
+    internal static var playlist: Playlist? {
+        get {
+            return self._playlist
+        }
+        set {
+            self._playlist = newValue
+        }
+    }
+
+    internal static func isHost() -> Bool {
+        if let p = playlist {
+            return p.hostId == NSUserDefaults.standardUserDefaults().stringForKey(userIdKey)
+        }
+        return false
+    }
+
+
+
+/*    private static var _playlistId: String = ""
     internal static var playlistId: String {
         get {
             return self._playlistId
@@ -24,7 +45,7 @@ class PlaylistHandler: NSObject {
                 MeteorHandler.subscribeToPublications(newValue)
             }
         }
-    }
+    }*/
 
     private static var musicPlayer = IntegratedMusicPlayer()
 
@@ -68,8 +89,8 @@ class PlaylistHandler: NSObject {
         return (spotifySession != nil && spotifySession!.isValid())
     }
 
-    internal static var isHost: Bool = false
-    internal static var playlistName: String = ""
+//    internal static var isHost: Bool = false
+//    internal static var playlistName: String = ""
 
     private static var votes = Set<String>()
 
@@ -107,13 +128,17 @@ class PlaylistHandler: NSObject {
      Leave a playlist
     */
     internal static func leavePlaylist() {
-        if self.isHost {
+        if isHost() {
             self.musicPlayer.stopCurrentSong()
         }
-        playlistId = ""
-        playlistName = ""
+/*        if self.isHost {
+            self.musicPlayer.stopCurrentSong()
+        }*/
+        self.playlist = nil
+        //        playlistId = ""
+//        playlistName = ""
         nowPlaying = nil
-        isHost = false
+//        isHost = false
         SongHandler.clearForNewPlaylist()
     }
 
@@ -136,7 +161,18 @@ class PlaylistHandler: NSObject {
      of the creation.
     */
     internal static func createPlaylist(name: String, completionHandler: Bool -> ()) {
-        MeteorHandler.createPlaylist(name, completionHandler: {
+        APIHandler.createPlaylist(PlaylistToInsert(name: name), completion: {
+            (result: Playlist?) in
+            if let playlist = result {
+                self.playlist = playlist
+                completionHandler(true)
+            } else {
+                completionHandler(false)
+            }
+        })
+
+
+/*        MeteorHandler.createPlaylist(name, completionHandler: {
             (result: Bool, playlistId: String) in
             if result {
                 self.playlistId = playlistId
@@ -145,17 +181,21 @@ class PlaylistHandler: NSObject {
                 self.isHost = true
             }
             completionHandler(result)
-        })
+        })*/
     }
 
     internal static func joinPlaylist(targetPlaylistId: String, completionHandler: (Bool,AnyObject?) -> ()) {
-        MeteorHandler.joinPlaylist(targetPlaylistId, completionHandler: {
+        print("implement join playlist non-meteor.")
+        // this should be a call to APIHandler, an HTTP Get
+
+
+        /*        MeteorHandler.joinPlaylist(targetPlaylistId, completionHandler: {
             (result: Bool, data: AnyObject?) in
             if data != nil {
                 self.playlistId = targetPlaylistId
             }
             completionHandler(result,data)
-        })
+        })*/
     }
 
 }

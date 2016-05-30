@@ -19,18 +19,17 @@ class SongHandler: NSObject {
 
     private static let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     private static var appleMusicSongs = MPMediaQuery.songsQuery().items
-    private static var mappedAppleMusicSongs: [InternalSong] = {
-        var songs = [InternalSong]()
+    private static var mappedAppleMusicSongs: [SearchSong] = {
+        var songs = [SearchSong]()
         if appleMusicSongs!.count > 0 {
             for i in 0...(appleMusicSongs!.count-1){
                 let track = appleMusicSongs![i]
-                let song = InternalSong(
+                songs.append(SearchSong(
                     title: track.title,
-                    description: track.albumTitle,
-                    service: Service.iTunes,
-                    trackId: String(i),
-                    artworkURL: nil)
-                songs += [song]
+                    annotation: track.albumTitle,
+                    musicPlatform: .AppleMusic,
+                    artworkURL: nil,
+                    trackId: String(i)))
             }
         }
         return songs
@@ -43,16 +42,16 @@ class SongHandler: NSObject {
         return idDictionary[songId]
     }
 
-    internal static func getQueuedSongs() -> [Song] {
+    internal static func getQueuedSongs() -> [QueuedSong] {
         let fetchRequest = NSFetchRequest(entityName: "QueuedSong")
-        if let fetchResults = try? managedObjectContext.executeFetchRequest(fetchRequest) as? [Song] {
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", "playlistId", PlaylistHandler.playlist!.playlistId)
+        if let fetchResults = try? managedObjectContext.executeFetchRequest(fetchRequest) as? [QueuedSong] {
             return fetchResults!
         }
         return []
     }
 
     internal static func insertIntoQueue(song: Song) {
-//        PlaylistHandler.addVotingStatusForId(song._id)
         let item = QueuedSong.createInManagedObjectContext(managedObjectContext, song: song)
         (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
         idDictionary[song._id] = item.objectID
@@ -74,7 +73,7 @@ class SongHandler: NSObject {
         return appleMusicSongs![index]
     }
 
-    internal static func getLocalSongsByQuery(query: String) -> [InternalSong]? {
+    internal static func getLocalSongsByQuery(query: String) -> [SearchSong]? {
         if query == "" {
             return nil
         }
@@ -83,8 +82,8 @@ class SongHandler: NSObject {
                 (($0.title != nil) ?
                     ($0.title! as NSString).rangeOfString(query,options: NSStringCompareOptions.CaseInsensitiveSearch).location != NSNotFound :
                     false) ||
-                (($0.description != nil) ?
-                    ($0.description! as NSString).rangeOfString(query,options: NSStringCompareOptions.CaseInsensitiveSearch).location != NSNotFound  :
+                (($0.annotation != nil) ?
+                    ($0.annotation! as NSString).rangeOfString(query,options: NSStringCompareOptions.CaseInsensitiveSearch).location != NSNotFound  :
                     false))
         })
     }
@@ -92,66 +91,67 @@ class SongHandler: NSObject {
     /**
      Manage the playlist history
     */
-    private static let playedSongCollection = PlaylistSongHistory(name: "playedSongs")
+//    private static let playedSongCollection = PlaylistSongHistory(name: "playedSongs")
     /**
      Manage the active queue
     */
-    private static let queuedSongs = SongCollection(name: "queueSongs")
+//    private static let queuedSongs = SongCollection(name: "queueSongs")
 
     /**
      Get the number of songs in the playlist history
     */
-    internal static func getPlaylistHistoryCount() -> Int {
+/*    internal static func getPlaylistHistoryCount() -> Int {
         return playedSongCollection.count
-    }
+    }*/
 
     /**
      Given an index into the Playlist History, return a tuple of that song's ID and the song.
     */
-    internal static func getPlayedSongByIndex(index: Int) -> (String, PlayedSongDocument) {
+/*    internal static func getPlayedSongByIndex(index: Int) -> (String, PlayedSongDocument) {
         let songId = playedSongCollection.keys[index]
         return (songId, playedSongCollection.findOne(songId)!)
-    }
+    }*/
 
     /**
      Wipe the songs for the next playlist
     */
     internal static func clearForNewPlaylist() {
-        playedSongCollection.clear()
-        queuedSongs.clear()
+        print("Have to re-implement clear.")
+        /*playedSongCollection.clear()
+        queuedSongs.clear()*/
     }
 
     /**
      Get a sorted array of the songs in the queue
     */
-    internal static func getSongsInQueue() -> [SongDocument] {
+/*    internal static func getSongsInQueue() -> [SongDocument] {
         return self.queuedSongs.sortedByScore()
-    }
+    }*/
     /**
      Given an index into the Playlist Queue, return a tuple of that song's ID and the song.
      */
-    internal static func getQueuedSongByIndex(index: Int) -> (String, SongDocument) {
+/*    internal static func getQueuedSongByIndex(index: Int) -> (String, SongDocument) {
         let songId = queuedSongs.keys[index]
         return (songId, queuedSongs.findOne(songId)!)
-    }
+    }*/
 
     /**
      Get the top song according to the platform constraints
     */
     internal static func getTopSongWithPlatformConstraints(platforms: [Service]) -> InternalSong? {
-        let filteredSongs = getSongsInQueue().filter({
+        print("have to re-implement top song")
+/*        let filteredSongs = getSongsInQueue().filter({
             platforms.contains(Service(platform: $0.platform))
         })
         if filteredSongs.count > 0 {
             return InternalSong(songDoc: filteredSongs[0])
         } else {
             return nil
-        }
+        }*/
+        return nil
     }
 
-    internal static func isFavorite(song: InternalSong) -> Bool {
-//        return Set(fetchFavorites()).contains(song)
-
+    internal static func isFavorite(song: SearchSong) -> Bool {
         for favorite in fetchFavorites() {
             if song == favorite {
                 return true
@@ -160,8 +160,7 @@ class SongHandler: NSObject {
         return false
     }
 
-    internal static func isSuggestion(song: InternalSong) -> Bool {
-//        return Set(fetchSuggestions()).contains(song)
+    internal static func isSuggestion(song: SearchSong) -> Bool {
         for suggestion in fetchSuggestions() {
             if song == suggestion {
                 return true
@@ -174,14 +173,14 @@ class SongHandler: NSObject {
     /**
      Conditionally insert into suggestions if not already there
     */
-    internal static func insertIntoSuggestions(song: InternalSong) {
-        if song.service! == .iTunes {
-            // currently, we don't save local music suggestions.
+    internal static func insertIntoSuggestions(song: SearchSong) {
+        if song.musicPlatform == .AppleMusic {
             return
         }
+            // currently, we don't save local music suggestions.
         var suggestedSong: SuggestedSong?
         for songItem in fetchSuggestionsAsOriginalData() {
-            if InternalSong(suggestedSong: songItem) == song {
+            if SearchSong(title: songItem.title, annotation: songItem.annotation, musicPlatform: MusicPlatform(str: (songItem.service?.lowercaseString)!), artworkURL: NSURL(string: songItem.artworkURL!), trackId: songItem.trackId!) == song {
                 suggestedSong = songItem
                 break
             }
@@ -196,10 +195,11 @@ class SongHandler: NSObject {
     /**
      Conditionally insert into favorties if not already there
      */
-    internal static func insertIntoFavorites(song: InternalSong) {
+    internal static func insertIntoFavorites(song: SearchSong) {
         var favoritedSong: FavoritedSong?
         for songItem in fetchFavoritesAsOriginalData() {
-            if InternalSong(favoritedSong: songItem) == song {
+
+            if SearchSong(title: songItem.title, annotation: songItem.annotation, musicPlatform: MusicPlatform(str: (songItem.service?.lowercaseString)!), artworkURL: NSURL(string: songItem.artworkURL!), trackId: songItem.trackId!) == song {
                 favoritedSong = songItem
                 break
             }
@@ -222,12 +222,14 @@ class SongHandler: NSObject {
     }
 
     /**
-     Fetch the suggestions as an array of Song
+     Fetch the suggestions as an array of SearchSong
     */
-    internal static func fetchSuggestions() -> [InternalSong] {
+    internal static func fetchSuggestions() -> [SearchSong] {
         let fetchResults = fetchSuggestionsAsOriginalData()
-        var songs = [InternalSong]()
-        fetchResults.forEach({songs.append(InternalSong(suggestedSong: $0))})
+        var songs = [SearchSong]()
+        fetchResults.forEach({
+            songs.append(SearchSong(title: $0.title, annotation: $0.annotation, musicPlatform: MusicPlatform(str: $0.service!), artworkURL: NSURL(string: $0.artworkURL!), trackId: $0.trackId!))
+        })
         return songs
     }
 
@@ -282,12 +284,14 @@ class SongHandler: NSObject {
     }
 
     /**
-     Fetch the favorites as an array of Song
+     Fetch the favorites as an array of SearchSong
     */
-    internal static func fetchFavorites() -> [InternalSong] {
+    internal static func fetchFavorites() -> [SearchSong] {
         let fetchResults = fetchFavoritesAsOriginalData()
-        var songs = [InternalSong]()
-        fetchResults.forEach({songs.append(InternalSong(favoritedSong: $0))})
+        var songs = [SearchSong]()
+        fetchResults.forEach({
+            songs.append(SearchSong(title: $0.title, annotation: $0.annotation, musicPlatform: MusicPlatform(str: $0.service!), artworkURL: NSURL(string: $0.artworkURL!), trackId: $0.trackId!))
+        })
         return songs
     }
 }

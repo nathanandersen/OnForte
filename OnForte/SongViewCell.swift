@@ -41,7 +41,7 @@ class SongViewCell: UITableViewCell {
         favoritesStar.hidden = true
     }
 
-    internal func loadItem(song: Song) {
+/*    internal func loadItem(song: Song) {
         self.songTitleLabel.text = song.title
         self.songDescriptionLabel.text = song.annotation
         if let url = song.artworkURL {
@@ -64,12 +64,12 @@ class SongViewCell: UITableViewCell {
             favoritesStar.hidden = true
         }*/
 
-    }
+    }*/
 
     /**
     Load a song into the cell.
      */
-    internal func loadItem(song: InternalSong) {
+/*    internal func loadItem(song: InternalSong) {
         self.songTitleLabel.text = song.title
         self.songDescriptionLabel.text = song.description
         if let url = song.artworkURL {
@@ -90,6 +90,6 @@ class SongViewCell: UITableViewCell {
             favoritesStar.hidden = true
         }
 
-    }
+    }*/
     
 }

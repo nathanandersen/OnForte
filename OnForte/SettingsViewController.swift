@@ -39,7 +39,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.reloadData()
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var song: InternalSong!
+        var song: SearchSong!
         if segmentedControl.selectedSegmentIndex == 0 {
             song = SongHandler.fetchSuggestions()[indexPath.row]
         } else {
@@ -63,21 +63,28 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func suggestSong(action: UITableViewRowAction, indexPath: NSIndexPath) {
 //        activityIndicator.showActivity("Adding song..")
-        var song: InternalSong!
+        var song: SearchSong!
         if segmentedControl.selectedSegmentIndex == 0 {
             song = SongHandler.fetchSuggestions()[indexPath.row]
         } else {
             song = SongHandler.fetchFavorites()[indexPath.row]
         }
 
-        MeteorHandler.addSongToDatabase(song, completionHandler: {
+        APIHandler.addSongToDatabase(song, completion: {
+            (result: Song?) in
+            (self.navigationController as! NavigationController).popSettings()
+            APIHandler.updateSongs() // a full data pull
+        })
+
+/*        MeteorHandler.addSongToDatabase(song, completionHandler: {
 //            activityIndicator.showComplete("")
             (self.navigationController as! NavigationController).popSettings()
-        })
+        })*/
     }
 
     func deleteSong(action: UITableViewRowAction, indexPath: NSIndexPath) {
-        var song: InternalSong!
+        print("re-implement me")
+        /*        var song: InternalSong!
         if segmentedControl.selectedSegmentIndex == 0 {
             song = SongHandler.fetchSuggestions()[indexPath.row]
             SongHandler.removeItemFromSuggestions(song)
@@ -85,11 +92,11 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             song = SongHandler.fetchFavorites()[indexPath.row]
             SongHandler.removeItemFromFavorites(song)
         }
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)*/
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var dataSource: [InternalSong]!
+        var dataSource: [SearchSong]!
         if segmentedControl.selectedSegmentIndex == 0 {
             dataSource = SongHandler.fetchSuggestions()
         } else {
