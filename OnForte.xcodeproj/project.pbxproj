@@ -46,7 +46,6 @@
 		246232F91CE28406004C63E8 /* FavoritedSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246232F71CE28406004C63E8 /* FavoritedSong.swift */; };
 		246232FB1CE2CCE0004C63E8 /* SongHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246232FA1CE2CCE0004C63E8 /* SongHandler.swift */; };
 		24757F351CFCC43300752CB1 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24757F341CFCC43300752CB1 /* Playlist.swift */; };
-		247D27E81CFA433400A5E8AF /* MeteorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247D27E71CFA433400A5E8AF /* MeteorHandler.swift */; };
 		247D27EC1CFB5D0E00A5E8AF /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247D27EB1CFB5D0E00A5E8AF /* APIHandler.swift */; };
 		247D27EE1CFB789800A5E8AF /* APIDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247D27ED1CFB789800A5E8AF /* APIDataModel.swift */; };
 		247D27F91CFC9A3200A5E8AF /* QueuedSong+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247D27F71CFC9A3200A5E8AF /* QueuedSong+CoreDataProperties.swift */; };
@@ -130,7 +129,6 @@
 		246232F71CE28406004C63E8 /* FavoritedSong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritedSong.swift; sourceTree = "<group>"; };
 		246232FA1CE2CCE0004C63E8 /* SongHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongHandler.swift; sourceTree = "<group>"; };
 		24757F341CFCC43300752CB1 /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
-		247D27E71CFA433400A5E8AF /* MeteorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorHandler.swift; sourceTree = "<group>"; };
 		247D27EB1CFB5D0E00A5E8AF /* APIHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
 		247D27ED1CFB789800A5E8AF /* APIDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIDataModel.swift; sourceTree = "<group>"; };
 		247D27F71CFC9A3200A5E8AF /* QueuedSong+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "QueuedSong+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -320,7 +318,6 @@
 			children = (
 				246232FA1CE2CCE0004C63E8 /* SongHandler.swift */,
 				24BCF48D1CE3AC96001054B7 /* PlaylistHandler.swift */,
-				247D27E71CFA433400A5E8AF /* MeteorHandler.swift */,
 				240AB0151CC093700061EB54 /* ArtworkHandler.swift */,
 				245789FD1CC28A5500394C17 /* IntegratedMusicPlayer.swift */,
 				247D27EB1CFB5D0E00A5E8AF /* APIHandler.swift */,
@@ -568,7 +565,6 @@
 				240AB0201CC094020061EB54 /* SpotifyHandler.swift in Sources */,
 				243AD1A01CF9298B0031A763 /* SettingsView.swift in Sources */,
 				243AD19E1CF9052C0031A763 /* HistoryViewController.swift in Sources */,
-				247D27E81CFA433400A5E8AF /* MeteorHandler.swift in Sources */,
 				240AB00A1CC092790061EB54 /* SongCollection.swift in Sources */,
 				247D27F91CFC9A3200A5E8AF /* QueuedSong+CoreDataProperties.swift in Sources */,
 				24A931071CD24FE4008A7F29 /* FastForwardButton.swift in Sources */,

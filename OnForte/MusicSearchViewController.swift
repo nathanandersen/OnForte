@@ -52,9 +52,9 @@ class MusicSearchViewController: DefaultViewController {
         segmentedControl.setImage(UIImage(named: "soundcloud_gray")!, forSegmentAtIndex: 1)
         segmentedControl.setImage(UIImage(named: "itunes_gray")!, forSegmentAtIndex: 2)
         // not sure why this is inverted, but.. ok
-        segmentedControl.subviews[2].tintColor = Service.Spotify.tintColor()
-        segmentedControl.subviews[1].tintColor = Service.Soundcloud.tintColor()
-        segmentedControl.subviews[0].tintColor = Service.iTunes.tintColor()
+        segmentedControl.subviews[2].tintColor = MusicPlatform.Spotify.tintColor()
+        segmentedControl.subviews[1].tintColor = MusicPlatform.Soundcloud.tintColor()
+        segmentedControl.subviews[0].tintColor = MusicPlatform.AppleMusic.tintColor()
 
 
     }

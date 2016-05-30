@@ -121,30 +121,6 @@ class SongHandler: NSObject {
     }
 
     /**
-     Manage the playlist history
-    */
-//    private static let playedSongCollection = PlaylistSongHistory(name: "playedSongs")
-    /**
-     Manage the active queue
-    */
-//    private static let queuedSongs = SongCollection(name: "queueSongs")
-
-    /**
-     Get the number of songs in the playlist history
-    */
-/*    internal static func getPlaylistHistoryCount() -> Int {
-        return playedSongCollection.count
-    }*/
-
-    /**
-     Given an index into the Playlist History, return a tuple of that song's ID and the song.
-    */
-/*    internal static func getPlayedSongByIndex(index: Int) -> (String, PlayedSongDocument) {
-        let songId = playedSongCollection.keys[index]
-        return (songId, playedSongCollection.findOne(songId)!)
-    }*/
-
-    /**
      Wipe the songs for the next playlist
     */
     internal static func clearForNewPlaylist() {
@@ -245,10 +221,10 @@ class SongHandler: NSObject {
     /**
      Remove an item from suggestions
     */
-    internal static func removeItemFromSuggestions(song: InternalSong) {
+    internal static func removeItemFromSuggestions(song: SearchSong) {
         var suggestedSong: SuggestedSong!
         for songItem in fetchSuggestionsAsOriginalData() {
-            if InternalSong(suggestedSong: songItem) == song {
+            if song == SearchSong(title: songItem.title, annotation: songItem.annotation, musicPlatform: MusicPlatform(str: songItem.service!), artworkURL: NSURL(string: songItem.artworkURL!), trackId: songItem.trackId!) {
                 suggestedSong = songItem
                 break
             }
@@ -264,10 +240,10 @@ class SongHandler: NSObject {
     /**
      Remove an item from favorites
     */
-    internal static func removeItemFromFavorites(song: InternalSong) {
+    internal static func removeItemFromFavorites(song: SearchSong) {
         var favoritedSong: FavoritedSong!
         for songItem in fetchFavoritesAsOriginalData() {
-            if InternalSong(favoritedSong: songItem) == song {
+            if song == SearchSong(title: songItem.title, annotation: songItem.annotation, musicPlatform: MusicPlatform(str: songItem.service!), artworkURL: NSURL(string: songItem.artworkURL!), trackId: songItem.trackId!) {
                 favoritedSong = songItem
                 break
             }

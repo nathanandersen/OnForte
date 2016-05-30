@@ -5,6 +5,7 @@
 //  Created by Nathan Andersen on 4/14/16.
 //  Copyright © 2016 Nathan Andersen. All rights reserved.
 //
+/*
 import Foundation
 import UIKit
 
@@ -85,12 +86,12 @@ enum Service {
             fatalError()
         }
     }
-}
+}*/
 
 /**
  A basic class to encapsulate a song
  */
-
+/*
 class InternalSong: Hashable {
     var title: String?
     var description: String?
@@ -156,4 +157,4 @@ class InternalSong: Hashable {
 
 func ==(lhs: InternalSong, rhs: InternalSong) -> Bool {
     return lhs.hashValue == rhs.hashValue
-}
+}*/

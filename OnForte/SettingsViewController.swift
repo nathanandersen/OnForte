@@ -78,16 +78,15 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func deleteSong(action: UITableViewRowAction, indexPath: NSIndexPath) {
-        print("re-implement me")
         var song: SearchSong
-/*        if segmentedControl.selectedSegmentIndex == 0 {
+        if segmentedControl.selectedSegmentIndex == 0 {
             song = SongHandler.fetchSuggestions()[indexPath.row]
             SongHandler.removeItemFromSuggestions(song)
         } else {
             song = SongHandler.fetchFavorites()[indexPath.row]
             SongHandler.removeItemFromFavorites(song)
         }
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)*/
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
