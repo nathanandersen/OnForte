@@ -8,25 +8,6 @@
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
-        <scene sceneID="2pK-zL-tDM">
-            <objects>
-                <viewController storyboardIdentifier="RootViewController" id="eUg-VH-F0r" customClass="RootViewController" customModule="OnForte" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Eql-7u-mbf"/>
-                        <viewControllerLayoutGuide type="bottom" id="nvH-ee-sAw"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="4y7-e6-Rt2">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="L9n-48-W4v"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fKF-Qs-S0h" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1746" y="1098"/>
-        </scene>
         <!--Playlist Tab Bar Controller-->
         <scene sceneID="N5Z-V5-fB8">
             <objects>
