@@ -11,6 +11,11 @@ import Foundation
 class PlaylistHandler: NSObject {
 
     internal static var playlist: Playlist?
+    private static var musicPlayer = IntegratedMusicPlayer()
+    internal static var nowPlaying: QueuedSong?
+    internal static var spotifySession: SPTSession?
+    private static var votes = Set<String>()
+
 
     internal static func isHost() -> Bool {
         if let p = playlist {
@@ -19,7 +24,6 @@ class PlaylistHandler: NSObject {
         return false
     }
 
-    private static var musicPlayer = IntegratedMusicPlayer()
 
     internal static func togglePlayingStatus(completionHandler: Bool -> Void) {
         musicPlayer.togglePlayingStatus(completionHandler)
@@ -43,25 +47,11 @@ class PlaylistHandler: NSObject {
         })
     }
 
-    private static var _nowPlaying: InternalSong?
-
-    internal static var nowPlaying: InternalSong? {
-        get {
-            return self._nowPlaying
-        }
-        set {
-            self._nowPlaying = newValue
-            NSNotificationCenter.defaultCenter().postNotificationName(updateSmallMusicPlayerKey, object: nil)
-        }
-    }
-
-    internal static var spotifySession: SPTSession?
 
     internal static func spotifySessionIsValid() -> Bool {
         return (spotifySession != nil && spotifySession!.isValid())
     }
 
-    private static var votes = Set<String>()
 
     internal static func hasBeenUpvoted(id: String) -> Bool {
         return votes.contains(id)
@@ -106,20 +96,6 @@ class PlaylistHandler: NSObject {
         nowPlaying = nil
         SongHandler.clearForNewPlaylist()
     }
-
-    /**
-     Generate a random playlist Id
-     */
-/*    private static func generateRandomId() -> String {
-        let _base36chars_string = "0123456789abcdefghijklmnopqrstuvwxyz"
-        let _base36chars = Array(_base36chars_string.characters)
-        var uniqueId = "";
-        for _ in 1...6 {
-            let random = Int(arc4random_uniform(36))
-            uniqueId = uniqueId + String(_base36chars[random])
-        }
-        return uniqueId;
-    }*/
 
     /**
      Try to create a playlist. CompletionHandler is called with the result

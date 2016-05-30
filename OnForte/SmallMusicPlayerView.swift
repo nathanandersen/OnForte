@@ -85,14 +85,13 @@ class SmallMusicPlayerView: UIView {
 
     internal func displaySongInformation() {
         if let song = PlaylistHandler.nowPlaying {
-            ArtworkHandler.lookupArtworkAsync(song.artworkURL, completionHandler: {(image: UIImage) in
+            ArtworkHandler.lookupArtworkAsync(NSURL(string: song.artworkURL!), completionHandler: {(image: UIImage) in
                 self.songImageView.image = image
                 self.setNeedsLayout()
             })
             titleLabel.text = song.title
-            descriptionLabel.text = song.description
-            platformImageView.image = song.service!.getImage()
-//            platformImageView.image = UIImage(named: (song.service?.asLowerCaseString())!)
+            descriptionLabel.text = song.annotation
+            platformImageView.image = MusicPlatform(str: song.musicPlatform!).getImage()
         }
     }
 }

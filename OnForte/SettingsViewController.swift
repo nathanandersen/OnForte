@@ -79,8 +79,8 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func deleteSong(action: UITableViewRowAction, indexPath: NSIndexPath) {
         print("re-implement me")
-        /*        var song: InternalSong!
-        if segmentedControl.selectedSegmentIndex == 0 {
+        var song: SearchSong
+/*        if segmentedControl.selectedSegmentIndex == 0 {
             song = SongHandler.fetchSuggestions()[indexPath.row]
             SongHandler.removeItemFromSuggestions(song)
         } else {

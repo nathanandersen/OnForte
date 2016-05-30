@@ -21,8 +21,6 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     var spotifyPlayer: SPTAudioStreamingController
     var soundcloudPlayer: AVAudioPlayer?
     var localPlayer: MPMusicPlayerController
-//    var playlistController: PlaylistController!
-//    var control: MusicPlayerView!
 
     var playing: Bool
 
@@ -41,7 +39,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      */
     func togglePlayingStatus(completionHandler: Bool -> Void) {
         if let currentSong = PlaylistHandler.nowPlaying {
-            switch(currentSong.service!) {
+            switch MusicPlatform(str: currentSong.musicPlatform!) {
             case .Soundcloud:
                 if playing {
                     soundcloudPlayer?.pause()
@@ -50,7 +48,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
                 }
             case .Spotify:
                 spotifyPlayer.setIsPlaying(!playing,callback: nil)
-            case .iTunes:
+            case .AppleMusic:
                 playing ? localPlayer.pause() : localPlayer.play()
             }
             playing = !playing
@@ -64,6 +62,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     }
 
     internal func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+        print("soundcloud finished playing")
         songEnded()
     }
 
@@ -79,10 +78,19 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      removeSongFromQueue: remove the song from the QueueSongs database
      setSongAsPlaying: add the song as now playing to the Playlists database
     */
-    private func registerNextSongWithServer(song: InternalSong ) {
-        MeteorHandler.registerSongAsPlayed(song)
-        MeteorHandler.removeSongFromQueue(song.id!)
-        MeteorHandler.setSongAsPlaying(song)
+    private func registerNextSongWithServer(song: QueuedSong ) {
+        // At song end, the previous song was pushed forward (PRE)
+
+
+        // 1) Push forward the active status of this song
+        APIHandler.updateSongActiveStatus(song.id!, activeStatus: .NowPlaying, completion: {
+            (result: Bool) in
+            if result {
+                // good
+            } else {
+                // was error in server communication
+            }
+        })
     }
 
     /**
@@ -94,48 +102,37 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      - returns: whether or not the music is successfully playing -> from the callbacks
     */
     internal func playNextSong(completionHandler: Bool -> ()) {
-        var services: [Service] = [.Soundcloud, .iTunes]
+        var musicPlatforms: Set<MusicPlatform> = Set([.Soundcloud, .AppleMusic])
         if PlaylistHandler.spotifySessionIsValid() {
-            services.append(.Spotify)
+            musicPlatforms.insert(.Spotify)
         }
-        if let nextSong = SongHandler.getTopSongWithPlatformConstraints(services) {
-            do {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-                print("AVAudioSession Category Playback OK")
-                do {
-                    try AVAudioSession.sharedInstance().setActive(true)
-                    print("AVAudioSession is Active")
-                } catch let error as NSError {
-                    print(error.localizedDescription)
-                }
-            } catch let error as NSError {
-                print(error.localizedDescription)
-            }
+        if let nextSong = SongHandler.getTopSongWithPlatformConstraints(musicPlatforms) {
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try? AVAudioSession.sharedInstance().setActive(true)
 
             PlaylistHandler.nowPlaying = nextSong
-
             playing = true
-            self.registerNextSongWithServer(nextSong)
-
-            switch(nextSong.service!){
+            registerNextSongWithServer(nextSong)
+            switch MusicPlatform(str: nextSong.musicPlatform!) {
             case .Soundcloud:
                 playSoundCloud(completionHandler)
             case .Spotify:
                 playSpotify(completionHandler)
-            case .iTunes:
+            case .AppleMusic:
                 playLocalSong(completionHandler)
             }
+
         } else {
             PlaylistHandler.nowPlaying = nil
             playing = false
-            // register an empty song or something
-            //            self.registerNextSongWithServer(nil)
             completionHandler(false)
             PlaylistHandler.stop()
         }
+        APIHandler.updateSongs()
     }
 
     internal func songEnded() {
+        print("songEnded() was called")
         PlaylistHandler.playNextSong({(result) in ()})
     }
 
@@ -147,8 +144,20 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     */
     internal func handlePlaybackStateChanged(notification: NSNotification) {
         if (self.localPlayer.playbackState == .Stopped) {
+            print("mp music player ended 'naturally' ")
             songEnded()
         }
+    }
+
+    internal func markCurrentSongAsCompleted() {
+        APIHandler.updateSongActiveStatus(PlaylistHandler.nowPlaying!.id!, activeStatus: .History, completion: {
+            (result: Bool) in
+            if result {
+                // it worked
+            } else {
+                // error
+            }
+        })
     }
 
     /**
@@ -158,19 +167,16 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     */
     internal func stopCurrentSong() {
         if playing {
-            let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-            let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-            dispatch_async(backgroundQueue, {
-                self.playing = false
-                switch(PlaylistHandler.nowPlaying!.service!) {
-                case .Soundcloud:
-                    self.soundcloudPlayer!.pause()
-                case .iTunes:
-                    self.localPlayer.pause()
-                case .Spotify:
-                    self.spotifyPlayer.setIsPlaying(false, callback: nil)
-                }
-            })
+            self.markCurrentSongAsCompleted()
+            self.playing = false
+            switch MusicPlatform(str: (PlaylistHandler.nowPlaying?.musicPlatform!)!) {
+            case .Soundcloud:
+                self.soundcloudPlayer!.pause()
+            case .AppleMusic:
+                self.localPlayer.pause()
+            case .Spotify:
+                self.spotifyPlayer.setIsPlaying(false, callback: nil)
+            }
         }
     }
 
@@ -244,9 +250,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
                     print(error)
                     completionHandler(false)
                     return
-                } //else {
-//                    self.spotifyPlayer.setIsPlaying(true, callback: nil)
-//                }
+                }
             })
         }
         completionHandler(true)
@@ -261,6 +265,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     */
     internal func audioStreaming(audioStreaming: SPTAudioStreamingController!, didChangeToTrack trackMetadata: [NSObject : AnyObject]!) {
         if trackMetadata == nil {
+            print("spotify ended and was caught")
             songEnded()
 
         }

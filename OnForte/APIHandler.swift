@@ -52,8 +52,25 @@ class APIHandler {
         return dateFormatter.dateFromString(dateStr)
     }
 
-    // use the PUT path of songs/:id
-    // to update the song's active status
+    internal static func updateSongActiveStatus(songId: String, activeStatus: ActiveStatus, completion: Bool -> ()) {
+        let urlStr = String(APIRequest.Songs.getAPIURL()) + "/" + songId
+        let request = NSMutableURLRequest(URL: NSURL(string: urlStr)!)
+        request.HTTPMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject([activeStatusKey:activeStatus.rawValue], options: [])
+
+        Alamofire.request(request).validate()
+            .responseJSON(completionHandler: {
+                response in
+                guard response.result.isSuccess else {
+                    print("Error while changing song active status: \(response.result.error)")
+                    completion(false)
+                    return
+                }
+                completion(true)
+            })
+
+    }
 
 
 
@@ -97,7 +114,6 @@ class APIHandler {
                 }
                 completion(true)
             })
-        // flesh this out
     }
 
     internal static func downvoteSong(id: String, completion: Bool -> ()) {
@@ -137,9 +153,10 @@ class APIHandler {
             (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
             // reload the playlist data table
             NSNotificationCenter.defaultCenter().postNotificationName(reloadTableKey, object: nil)
-
             // reload the player
+            NSNotificationCenter.defaultCenter().postNotificationName(updateSmallMusicPlayerKey, object: nil)
             // reload the history table
+            NSNotificationCenter.defaultCenter().postNotificationName(updateHistoryTableKey, object: nil)
         }
     }
 
@@ -162,9 +179,6 @@ class APIHandler {
                     return
                 }
                 if let obj = response.result.value {
-                    // comes back as a full Song
-
-                    // insert the song to CoreData
                     completion(Song(jsonData: obj))
                 } else {
                     completion(nil)

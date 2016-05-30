@@ -97,6 +97,7 @@ class PlaylistViewController: DefaultViewController {
         #endif
         PlaylistHandler.togglePlayingStatus({ (result) in
             self.smallMusicPlayer.setIsPlaying(result)
+            APIHandler.updateSongs()
         })
     }
 

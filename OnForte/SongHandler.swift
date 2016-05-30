@@ -52,6 +52,8 @@ class SongHandler: NSObject {
             return fetchResults!
         }
         return []
+
+        // maybe we want to sort this?
     }
 
     internal static func getActiveSong() -> QueuedSong? {
@@ -74,6 +76,9 @@ class SongHandler: NSObject {
 
         if let fetchResults = try? managedObjectContext.executeFetchRequest(fetchRequest) as? [QueuedSong] {
             return fetchResults!
+
+            // maybe we should sort this by CreateDate
+
         }
         return []
     }
@@ -144,38 +149,15 @@ class SongHandler: NSObject {
     */
     internal static func clearForNewPlaylist() {
         print("Have to re-implement clear.")
-        /*playedSongCollection.clear()
-        queuedSongs.clear()*/
-    }
 
-    /**
-     Get a sorted array of the songs in the queue
-    */
-/*    internal static func getSongsInQueue() -> [SongDocument] {
-        return self.queuedSongs.sortedByScore()
-    }*/
-    /**
-     Given an index into the Playlist Queue, return a tuple of that song's ID and the song.
-     */
-/*    internal static func getQueuedSongByIndex(index: Int) -> (String, SongDocument) {
-        let songId = queuedSongs.keys[index]
-        return (songId, queuedSongs.findOne(songId)!)
-    }*/
+        // delete all stuff in mem
+    }
 
     /**
      Get the top song according to the platform constraints
     */
-    internal static func getTopSongWithPlatformConstraints(platforms: [Service]) -> InternalSong? {
-        print("have to re-implement top song")
-/*        let filteredSongs = getSongsInQueue().filter({
-            platforms.contains(Service(platform: $0.platform))
-        })
-        if filteredSongs.count > 0 {
-            return InternalSong(songDoc: filteredSongs[0])
-        } else {
-            return nil
-        }*/
-        return nil
+    internal static func getTopSongWithPlatformConstraints(musicPlatforms: Set<MusicPlatform>) -> QueuedSong? {
+        return getQueuedSongs().filter({musicPlatforms.contains(MusicPlatform(str: $0.musicPlatform!))}).first
     }
 
     internal static func isFavorite(song: SearchSong) -> Bool {
