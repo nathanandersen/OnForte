@@ -28,9 +28,9 @@ class PlaylistTableViewCell: UITableViewCell {
         descriptionLabel.text = song.annotation
         platformImageView.image = song.musicPlatform.getImage()
         scoreLabel.text = String(song.score)
-        if PlaylistHandler.getVotingStatus(songId) == .Upvote {
-            votingSwitch.on = true
-        }
+
+        votingSwitch.on = PlaylistHandler.hasBeenUpvoted(songId)
+
         votingSwitch.tintColor = song.musicPlatform.tintColor()
         if let url = song.artworkURL {
             ArtworkHandler.lookupArtworkAsync(url, completionHandler: { (image: UIImage) in
@@ -53,9 +53,8 @@ class PlaylistTableViewCell: UITableViewCell {
         platformImageView.image = service.getImage()
         scoreLabel.text = String(song.score)
 
-        if PlaylistHandler.getVotingStatus(songId) == .Upvote {
-            votingSwitch.on = true
-        }
+        votingSwitch.on = PlaylistHandler.hasBeenUpvoted(songId)
+
         votingSwitch.tintColor = service.tintColor()
 
         if let url = song.artworkURL {

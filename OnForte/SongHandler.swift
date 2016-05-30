@@ -52,7 +52,7 @@ class SongHandler: NSObject {
     }
 
     internal static func insertIntoQueue(song: Song) {
-        PlaylistHandler.addVotingStatusForId(song._id)
+//        PlaylistHandler.addVotingStatusForId(song._id)
         let item = QueuedSong.createInManagedObjectContext(managedObjectContext, song: song)
         (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
         idDictionary[song._id] = item.objectID

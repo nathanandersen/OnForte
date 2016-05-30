@@ -127,7 +127,7 @@ class SongCollection: MeteorCollection<SongDocument> {
 
         keys.append(id)
 
-        PlaylistHandler.addVotingStatusForId(id)
+//        PlaylistHandler.addVotingStatusForId(id)
         NSNotificationCenter.defaultCenter().postNotificationName(reloadTableKey, object: nil)
     }
 

@@ -7,45 +7,6 @@
 //
 
 import Foundation
-import SwiftDDP
-
-
-
-enum VotingStatus {
-    case Upvote
-    case Downvote
-    case None
-
-    func intValue() -> Int {
-        if self == .Upvote {
-            return 1
-        } else if self == .None {
-            return 0
-        } else if self == .Downvote {
-            return -1
-        } else {
-            fatalError()
-        }
-    }
-
-    func upvote() -> VotingStatus {
-        switch(self) {
-        case .Downvote:
-            return .None
-        case _:
-            return .Upvote
-        }
-    }
-
-    func downvote() -> VotingStatus {
-        switch(self) {
-        case .Upvote:
-            return .None
-        case _:
-            return .Downvote
-        }
-    }
-}
 
 class PlaylistHandler: NSObject {
     private static var _playlistId: String = ""
@@ -109,13 +70,11 @@ class PlaylistHandler: NSObject {
 
     internal static var isHost: Bool = false
     internal static var playlistName: String = ""
-    private static var votes = [String:VotingStatus]()
 
-    /**
-     Fetch the voting status for a song
-    */
-    internal static func getVotingStatus(id: String) -> VotingStatus {
-        return votes[id]!
+    private static var votes = Set<String>()
+
+    internal static func hasBeenUpvoted(id: String) -> Bool {
+        return votes.contains(id)
     }
 
     /**
@@ -126,8 +85,7 @@ class PlaylistHandler: NSObject {
         MeteorHandler.downvoteSong(id, completionHandler: {
             (result: Bool) in
             if result {
-                let newStatus = votes[id]!.downvote()
-                votes.updateValue(newStatus, forKey: id)
+                votes.remove(id)
             }
         })
     }
@@ -140,17 +98,9 @@ class PlaylistHandler: NSObject {
         MeteorHandler.upvoteSong(id, completionHandler: {
             (result: Bool) in
             if result {
-                let newStatus = votes[id]!.upvote()
-                votes.updateValue(newStatus, forKey: id)
+                votes.insert(id)
             }
         })
-    }
-
-    /**
-     Insert a new voting status for an inserted song.
-    */
-    internal static func addVotingStatusForId(id: String) {
-        votes.updateValue(VotingStatus.None, forKey: id)
     }
 
     /**
