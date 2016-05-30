@@ -52,6 +52,12 @@ class APIHandler {
         return dateFormatter.dateFromString(dateStr)
     }
 
+    // use the PUT path of songs/:id
+    // to update the song's active status
+
+
+
+
     internal static func createPlaylist(playlist: PlaylistToInsert, completion: Playlist? -> ()) {
         let request = NSMutableURLRequest(URL: APIRequest.Playlists.getAPIURL())
         request.HTTPMethod = "POST"
@@ -74,15 +80,6 @@ class APIHandler {
                 }
             })
     }
-
-
-
-
-    // when doing upvote/downvote
-    // pass in entire object, I think?
-
-    // could be done with update -> $set
-    // but I think this could be cleaner
 
     internal static func upvoteSong(id: String, completion: Bool -> ()) {
         let request = NSMutableURLRequest(URL: APIRequest.Upvote.getAPIURL())

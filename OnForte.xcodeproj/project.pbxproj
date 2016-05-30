@@ -323,8 +323,8 @@
 				247D27E71CFA433400A5E8AF /* MeteorHandler.swift */,
 				240AB0151CC093700061EB54 /* ArtworkHandler.swift */,
 				245789FD1CC28A5500394C17 /* IntegratedMusicPlayer.swift */,
-				240AB0231CC094150061EB54 /* Search */,
 				247D27EB1CFB5D0E00A5E8AF /* APIHandler.swift */,
+				240AB0231CC094150061EB54 /* Search */,
 			);
 			name = Handlers;
 			sourceTree = "<group>";
