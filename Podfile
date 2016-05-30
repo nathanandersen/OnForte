@@ -4,12 +4,10 @@
  use_frameworks!
 
 target 'OnForte' do
-  pod "SwiftDDP", "~> 0.2.1"
   pod 'Soundcloud'
   pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
   pod 'Alamofire', '~> 3.0'
   pod 'AlamofireImage', '~> 2.0'
-  pod 'NVActivityIndicatorView', '~> 2.3'
 end
 
 target 'OnForteTests' do

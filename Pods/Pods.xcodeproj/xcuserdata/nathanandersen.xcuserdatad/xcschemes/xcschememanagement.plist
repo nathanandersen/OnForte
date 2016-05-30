@@ -24,32 +24,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>CryptoSwift.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>NVActivityIndicatorView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-OnForte.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Soundcloud.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SwiftDDP.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SwiftWebSocket.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -64,11 +44,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>XCGLogger.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -77,27 +52,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>15CF08D013A0F32C94394D15E788C7E2</key>
+		<key>22ED3BC7783ECAAC953D2B4DD4DB7FF7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>211FF54725C3FF4858D96298321E235A</key>
+		<key>34D984BFD78B8DE3C6CD4896C300C415</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>365685F17D4FC7A0B06D214C4EC27233</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>50DF0865C3FAB18FB18DD091D508BB59</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>626D49AD18621B0A3059EE726B27AE89</key>
+		<key>3C1BEDA29BBD5D6D9545C6F76E324B26</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,32 +72,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>80BF94A2229EBD53C6ADFB0A5E610D78</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>A317980ED77B7A6EAE72AA70DD7D168A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B1D65BA19178C5FFB7236F90EF89F21A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CBD638E129CF8EF97F1ED10D4183FF09</key>
+		<key>DC9EAEF08484DA9B91E81317FECBACAE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>E0DDE27ED43A087CB3CBFA5C2860125A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E53A0EDE10B8ECF7496B295E2673EF86</key>
 		<dict>
 			<key>primary</key>
 			<true/>
