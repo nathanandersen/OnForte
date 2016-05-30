@@ -11,6 +11,7 @@ import Alamofire
 
 let apiServer = "https://onforte-server.herokuapp.com"
 let playlistsPath = "/playlists"
+let playlistIdPath = "/playlistid"
 let songsPath = "/songs"
 let songsByPlaylistIdPath = "/playlistsongs"
 let upvotePath = "/upvote"
@@ -19,6 +20,7 @@ let upvoteIdKey = "id"
 
 enum APIRequest {
     case Playlists
+    case PlaylistId
     case Songs
     case SongsInPlaylist
     case Upvote
@@ -35,6 +37,8 @@ enum APIRequest {
             return NSURL(string: apiServer + upvotePath)!
         } else if self == .Downvote {
             return NSURL(string: apiServer + downvotePath)!
+        } else if self == .PlaylistId {
+            return NSURL(string: apiServer + playlistIdPath)!
         } else {
             fatalError()
         }
@@ -69,10 +73,30 @@ class APIHandler {
                 }
                 completion(true)
             })
-
     }
 
 
+    internal static func joinPlaylist(playlistId: String, completion: Playlist? -> ()) {
+        Alamofire.request(
+            .GET,
+            String(APIRequest.PlaylistId.getAPIURL()) + "/" + playlistId,
+            parameters: nil,
+            encoding: .URL,
+            headers: nil).validate().responseJSON(completionHandler: {
+                response -> () in
+                guard response.result.isSuccess else {
+                    print("Error while joining playlist: \(response.result.error)")
+                    completion(nil)
+                    return
+                }
+                if let value = response.result.value {
+                    completion(Playlist(jsonData: value))
+                    return
+                }
+                print("Malformed data received from join playlist service")
+                completion(nil)
+        })
+    }
 
 
     internal static func createPlaylist(playlist: PlaylistToInsert, completion: Playlist? -> ()) {

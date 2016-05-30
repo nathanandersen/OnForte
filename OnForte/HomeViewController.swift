@@ -149,39 +149,26 @@ extension HomeViewController: UITextFieldDelegate {
     func handleJoinFieldSubmit() {
         if let targetText = joinTextField.text {
             if targetText != "" {
-                print("Joining playlists not yet implemented.")
-/*                PlaylistHandler.joinPlaylist(targetText, completionHandler: {
-                    (success: Bool, result: AnyObject?) in
-                    if success {
-                        if let data = result {
-                            self.parseSongAndSendToPlaylist(data)
-                        } else {
-                            // invalid ID
-                        }
-                    } else {
-                        // a Meteor error occurred
-                    }
-                })*/
+                joinPlaylist(targetText)
             }
         }
+    }
+
+    func joinPlaylist(targetPlaylistId: String) {
+        PlaylistHandler.joinPlaylist(targetPlaylistId, completionHandler: {
+            (result: Bool) in
+            if result {
+                (self.navigationController as! NavigationController).pushPlaylist()
+            } else {
+                // display some sort of error
+            }
+
+        })
     }
 
     func handleCreateFieldSubmit() {
         if let targetText = createTextField.text {
             if targetText != "" {
-/*                APIHandler.createPlaylist(PlaylistToInsert(name: targetText), completion: {
-                    (result: Playlist?) in
-                    if let playlist = result {
-//                        print(playlist.playlistId)
-                        PlaylistHandler.playlist = playlist
-                        (self.navigationController as! NavigationController).pushPlaylist()
-
-                    } else {
-                        // display some sort of error,
-                        // playlist creation failed
-                    }
-                })*/
-
                 PlaylistHandler.createPlaylist(targetText, completionHandler: {
                     (result: Bool) in
                         if result {
@@ -190,18 +177,6 @@ extension HomeViewController: UITextFieldDelegate {
                             // display some sort of error
                         }
                 })
-
-
-
-/*                PlaylistHandler.createPlaylist(targetText) {
-                    (success: Bool) in
-                    if success {
-                        self.parseSongAndSendToPlaylist(nil)
-                    } else {
-                        print("it failed")
-                        // handle the error
-                    }
-                }*/
             }
         }
     }
@@ -225,60 +200,11 @@ extension HomeViewController: UITextFieldDelegate {
         return false
     }
 
-
-    /**
-     Parse the now-playing song if joining
-     */
-/*    internal func parseSongAndSendToPlaylist(playlistInfo: AnyObject?) {
-        if playlistInfo != nil {
-
-            // improve this.
-
-            let jsonPlaylistInfo = JSON(playlistInfo!)
-            PlaylistHandler.playlistName = jsonPlaylistInfo[nameKey].string!
-            let songPlaying = jsonPlaylistInfo[nowPlayingKey]
-            if songPlaying != "" {
-                let arr: [String] = songPlaying.arrayObject as! [String]
-                // THIS IS NOT GOOD PRACTICE
-                let title: String? = arr[1]
-                let description: String? = arr[2]
-                let service: Service? = Service(platform: arr[3])
-                let trackId: String? = arr[4]
-                let artworkURL: NSURL? = NSURL(string: arr[5])
-
-
-                let song = InternalSong(
-                    title: (title != nil) ? title! : "",
-                    description: (description != nil) ? description! : "",
-                    service: (service != nil) ? service! : Service.Soundcloud ,
-                    trackId: (trackId != nil) ? trackId! : "" ,
-                    artworkURL: (artworkURL != nil) ? artworkURL : NSURL(string: "")
-                )
-                PlaylistHandler.nowPlaying = song
-            }
-        }
-        (navigationController as! NavigationController).pushPlaylist()
-    }*/
-
     /**
      Join a playlist from deep-linking.
-     
-     Idk?
      */
     internal func joinPlaylistFromURL(targetPlaylistId: String) {
-        print("Joining playlist from URL not yet reimplemented.")
-/*        PlaylistHandler.joinPlaylist(targetPlaylistId, completionHandler: {
-            (success: Bool, result: AnyObject?) in
-            if success {
-                if let data = result {
-                    self.parseSongAndSendToPlaylist(data)
-                } else {
-                    // invalid ID
-                }
-            } else {
-                // a Meteor error occurred
-            }
-        })*/
+        joinPlaylist(targetPlaylistId)
     }
 
 }

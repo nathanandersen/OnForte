@@ -113,18 +113,16 @@ class PlaylistHandler: NSObject {
         })
     }
 
-    internal static func joinPlaylist(targetPlaylistId: String, completionHandler: (Bool,AnyObject?) -> ()) {
-        print("implement join playlist non-meteor.")
-        // this should be a call to APIHandler, an HTTP Get
-
-
-        /*        MeteorHandler.joinPlaylist(targetPlaylistId, completionHandler: {
-            (result: Bool, data: AnyObject?) in
-            if data != nil {
-                self.playlistId = targetPlaylistId
+    internal static func joinPlaylist(targetPlaylistId: String, completionHandler: (Bool) -> ()) {
+        APIHandler.joinPlaylist(targetPlaylistId, completion: {
+            (result: Playlist?) in
+            if let playlist = result {
+                self.playlist = playlist
+                completionHandler(true)
+            } else {
+                completionHandler(false)
             }
-            completionHandler(result,data)
-        })*/
+        })
     }
 
 }

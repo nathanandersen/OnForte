@@ -37,14 +37,13 @@ class NavigationController: UINavigationController {
 
     internal func pushPlaylist() {
         dispatch_async(dispatch_get_main_queue(), {
-
             CATransaction.begin()
             self.pushViewController(self.playlistController, animated: true)
             CATransaction.setCompletionBlock({
                 self.playlistController.presentNewPlaylist()
+                APIHandler.updateSongs()
             })
             CATransaction.commit()
-
         })
     }
 
