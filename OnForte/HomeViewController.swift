@@ -97,11 +97,11 @@ class HomeViewController: DefaultViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
         // register for keyboard notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.keyboardWasShown(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+
 
     }
 

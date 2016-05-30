@@ -29,7 +29,7 @@ class PlaylistTabBarController: UITabBarController {
     }
     @IBAction func leaveButtonDidPress(sender: UIBarButtonItem) {
         if alertController == nil {
-            alertController = UIAlertController(title: leaveAlertTitle, message: guestLeaveMessage, preferredStyle: .Alert)
+            alertController = UIAlertController(title: leaveAlertTitle, message: leaveMessage, preferredStyle: .Alert)
             alertController?.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
 
             alertController?.addAction(UIAlertAction(title: "Leave", style: .Destructive, handler: {
@@ -37,12 +37,6 @@ class PlaylistTabBarController: UITabBarController {
                 PlaylistHandler.leavePlaylist()
                 (self.navigationController as? NavigationController)?.popPlaylist()
             }))
-        }
-
-        if PlaylistHandler.isHost() {
-            alertController?.message = hostLeaveMessage
-        } else {
-            alertController?.message = guestLeaveMessage
         }
         selectedViewController?.presentViewController(alertController!, animated: true, completion: nil)
     }
@@ -67,8 +61,6 @@ class PlaylistTabBarController: UITabBarController {
     internal func presentNewPlaylist() {
         self.title = PlaylistHandler.playlist!.playlistId
 
-//        self.title = PlaylistHandler.playlistId
-
         self.viewControllers?.forEach({
             // if loaded, reset both the PVC and HVC
             if let pvc = $0 as? PlaylistViewController {
@@ -86,8 +78,7 @@ class PlaylistTabBarController: UITabBarController {
 }
 
 let leaveAlertTitle = "Leave Playlist"
-let guestLeaveMessage = "Are you sure you want to leave this playlist?"
-let hostLeaveMessage = "You're the host, so leaving this playlist will end it for everyone."
+let leaveMessage = "Are you sure you want to leave this playlist?"
 
 extension PlaylistTabBarController: MFMessageComposeViewControllerDelegate {
     internal func sendInvitations() {
@@ -95,7 +86,7 @@ extension PlaylistTabBarController: MFMessageComposeViewControllerDelegate {
             if iMessageController == nil {
                 iMessageController = MFMessageComposeViewController()
                 iMessageController!.messageComposeDelegate = self
-                iMessageController!.body = "You've been invited to join a playlist on Forte at Forte://" + PlaylistHandler.playlist!.playlistId + ". Don't have the app? Join the fun at www.onforte.com/" + PlaylistHandler.playlist!.playlistId + " ."
+                iMessageController!.body = "You've been invited to join a playlist on OnForte at OnForte://" + PlaylistHandler.playlist!.playlistId + ". Don't have the app? Join the fun at www.onforte.com/" + PlaylistHandler.playlist!.playlistId + " ."
 
 
 //                iMessageController!.body = "You've been invited to join a playlist on Forte at Forte://" + PlaylistHandler.playlist!.playlistId + ". Don't have the app? Join the fun at www.onforte.com/" + PlaylistHandler.playlist!.playlistId + " ."

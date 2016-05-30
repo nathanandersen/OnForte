@@ -9,7 +9,11 @@
 import Foundation
 
 
-//var activityIndicator: ActivityIndicator!
+// use startBlinkingLabel()
+// use stopBlinkingLabel()
+
+// as activity indicators
+
 /**
  This is a UIViewController that never displays a back button. Simple extension,
  written to pair with the custom NavigationController.
@@ -26,6 +30,8 @@ class NavigationController: UINavigationController {
     private let playlistController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistTabBarController") as! PlaylistTabBarController
     private let settingsController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsViewController
 
+    private var blinkingTimer: NSTimer!
+
     internal func pushSettings() {
         CATransaction.begin()
         self.pushViewController(settingsController, animated: true)
@@ -33,6 +39,25 @@ class NavigationController: UINavigationController {
             (PlaylistHandler.isHost()) ? self.settingsController.showSettings(.Host) : self.settingsController.showSettings(.Guest)
         })
         CATransaction.commit()
+    }
+
+    internal func startBlinkingLabel() {
+        if blinkingTimer == nil {
+            blinkingTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(NavigationController.blinkLabel), userInfo: nil, repeats: true)
+        }
+    }
+
+    internal func blinkLabel() {
+        let view = self.navigationBar
+        view.alpha = 0
+        UIView.animateWithDuration(0.5, delay: 0, options: [.AllowUserInteraction, .Autoreverse], animations: {
+            view.alpha = 1
+            }, completion: nil)
+    }
+
+    internal func stopBlinkingLabel() {
+        blinkingTimer.invalidate()
+        blinkingTimer = nil
     }
 
     internal func pushPlaylist() {
