@@ -21,6 +21,14 @@ enum Storyboard: String {
 let onboardingKey = "onboardingShown"
 var keys: NSDictionary?
 
+let spotifyClientIdKey = "SpotifyClientId"
+let spotifyRedirectURIKey = "SpotifyRedirectURI"
+let spotifySessionKey = "SpotifySession"
+let spotifyTokenSwapURLKey = "SpotifyTokenSwapURL"
+let spotifyTokenRefreshURLKey = "SpotifyTokenRefreshURL"
+let soundcloudClientIdKey = "SoundcloudClientId"
+let soundcloudClientSecretKey = "SoundcloudClientSecret"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -32,14 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      Register API keys with services
     */
     func registerAPIKeys() {
-        SPTAuth.defaultInstance().clientID = keys!["SpotifyClientId"] as! String
-        SPTAuth.defaultInstance().redirectURL = NSURL(string: keys!["SpotifyRedirectURI"] as! String)
+        SPTAuth.defaultInstance().clientID = keys![spotifyClientIdKey] as! String
+        SPTAuth.defaultInstance().redirectURL = NSURL(string: keys![spotifyRedirectURIKey] as! String)
         SPTAuth.defaultInstance().requestedScopes = [SPTAuthStreamingScope]
-        SPTAuth.defaultInstance().sessionUserDefaultsKey = "SpotifySession"
-        SPTAuth.defaultInstance().tokenSwapURL = NSURL(string: keys!["SpotifyTokenSwapURL"] as! String)
-        SPTAuth.defaultInstance().tokenRefreshURL = NSURL(string: keys!["SpotifyTokenRefreshURL"] as! String)
-        Soundcloud.clientIdentifier = keys!["SoundcloudClientId"] as? String
-        Soundcloud.clientSecret = keys!["SoundcloudClientSecret"] as? String
+        SPTAuth.defaultInstance().sessionUserDefaultsKey = spotifySessionKey
+        SPTAuth.defaultInstance().tokenSwapURL = NSURL(string: keys![spotifyTokenSwapURLKey] as! String)
+        SPTAuth.defaultInstance().tokenRefreshURL = NSURL(string: keys![spotifyTokenRefreshURLKey] as! String)
+        Soundcloud.clientIdentifier = keys![soundcloudClientIdKey] as? String
+        Soundcloud.clientSecret = keys![soundcloudClientSecretKey] as? String
     }
 
 

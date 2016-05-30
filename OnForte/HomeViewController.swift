@@ -9,6 +9,8 @@
 import Foundation
 import SwiftyJSON
 
+let nowPlayingKey = "nowPlaying"
+
 class HomePageButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -204,9 +206,12 @@ extension HomeViewController: UITextFieldDelegate {
      */
     internal func parseSongAndSendToPlaylist(playlistInfo: AnyObject?) {
         if playlistInfo != nil {
+
+            // improve this.
+
             let jsonPlaylistInfo = JSON(playlistInfo!)
-            PlaylistHandler.playlistName = jsonPlaylistInfo["name"].string!
-            let songPlaying = jsonPlaylistInfo["nowPlaying"]
+            PlaylistHandler.playlistName = jsonPlaylistInfo[nameKey].string!
+            let songPlaying = jsonPlaylistInfo[nowPlayingKey]
             if songPlaying != "" {
                 let arr: [String] = songPlaying.arrayObject as! [String]
                 // THIS IS NOT GOOD PRACTICE

@@ -14,6 +14,7 @@ let apiServer = "https://onforte-server.herokuapp.com"
 
 class APIHandler {
 
+
     internal static func convertJSONDateToNSDate(dateStr: String) -> NSDate? {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
@@ -39,16 +40,13 @@ class APIHandler {
 //                    completion(nil)
                     return
                 }
-
-                let queue = SongHandler.getQueuedSongsAsSet()
-//                var songs = [Song]()
                 results.forEach({
                     let song = Song(jsonData: $0)
-                    if queue.contains(song) {
-                        // update score value
+                    if let coreDataId = SongHandler.managedObjectIDForMongoID(song._id) {
+                        SongHandler.updateScoreValue(coreDataId, score: song.score)
+                        // update the score value
                     } else {
                         SongHandler.insertIntoQueue(song)
-                        // this takes care of Core Data and Voting Status
                     }
                 })
 

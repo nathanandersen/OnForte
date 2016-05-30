@@ -17,7 +17,7 @@ class QueuedSong: NSManagedObject {
     class func createInManagedObjectContext(moc: NSManagedObjectContext, song: Song) -> QueuedSong {
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("QueuedSong", inManagedObjectContext: moc) as! QueuedSong
         newItem.title = song.title
-        newItem.annotation = song.description
+        newItem.annotation = song.annotation
         newItem.artworkURL = String(song.artworkURL!)
         newItem.trackId = song.trackId
         newItem.musicPlatform = song.musicPlatform.asLowercaseString()

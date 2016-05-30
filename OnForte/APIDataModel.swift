@@ -8,6 +8,18 @@
 
 import Foundation
 
+
+let nameKey = "name"
+let titleKey = "title"
+let annotationKey = "annotation"
+let playlistIdKey = "playlistId"
+let musicPlatformKey = "musicPlatform"
+let artworkURLKey = "artworkURL"
+let trackIdKey = "trackId"
+let scoreKey = "score"
+let mongoIdKey = "_id"
+let createDateKey = "createDate"
+
 class Playlist: Hashable {
     var name: String
     var playlistId: String
@@ -19,10 +31,10 @@ class Playlist: Hashable {
 
     init(jsonData: AnyObject) {
         print(jsonData)
-        self._id = jsonData["_id"] as! String
-        self.name = jsonData["name"] as! String
-        self.playlistId = jsonData["playlistId"] as! String
-        self.createDate = APIHandler.convertJSONDateToNSDate(jsonData["createDate"] as! String)!
+        self._id = jsonData[mongoIdKey] as! String
+        self.name = jsonData[nameKey] as! String
+        self.playlistId = jsonData[playlistIdKey] as! String
+        self.createDate = APIHandler.convertJSONDateToNSDate(jsonData[createDateKey] as! String)!
     }
 
     var hashValue: Int {
@@ -38,15 +50,15 @@ func ==(lhs: Playlist, rhs: Playlist) -> Bool {
 
 class SearchSong {
     var title: String?
-    var description: String?
+    var annotation: String?
     var playlistId: String
     var musicPlatform: MusicPlatform
     var artworkURL: NSURL?
     var trackId: String
 
-    init(title: String?, description: String?, playlistId: String, musicPlatform: MusicPlatform, artworkURL: NSURL?, trackId: String) {
+    init(title: String?, annotation: String?, playlistId: String, musicPlatform: MusicPlatform, artworkURL: NSURL?, trackId: String) {
         self.title = title
-        self.description = description
+        self.annotation = annotation
         self.playlistId = playlistId
         self.musicPlatform = musicPlatform
         self.artworkURL = artworkURL
@@ -55,35 +67,38 @@ class SearchSong {
 
     func toDictionary() -> NSDictionary {
         return [
-            "title": (self.title != nil) ? self.title! : "",
-            "description": (self.description != nil) ? self.description! : "",
-            "playlistId": self.playlistId,
-            "musicPlatform": self.musicPlatform.asLowercaseString(),
-            "artworkURL": (self.artworkURL != nil) ? self.artworkURL!.URLString : "",
-            "trackId": self.trackId
+            titleKey: (self.title != nil) ? self.title! : "",
+            annotationKey: (self.annotation != nil) ? self.annotation! : "",
+            playlistIdKey: self.playlistId,
+            musicPlatformKey: self.musicPlatform.asLowercaseString(),
+            artworkURLKey: (self.artworkURL != nil) ? self.artworkURL!.URLString : "",
+            trackIdKey: self.trackId,
+            scoreKey: 0
         ]
     }
 }
 
 class Song: Hashable {
     var title: String?
-    var description: String?
+    var annotation: String?
     var _id: String
     var playlistId: String
     var createDate: NSDate
     var musicPlatform: MusicPlatform
     var artworkURL: NSURL?
     var trackId: String
+    var score: Int
 
     init(jsonData: AnyObject) {
-        self._id = jsonData["_id"] as! String
-        self.title = jsonData["title"] as? String
-        self.description = jsonData["description"] as? String
-        self.playlistId = jsonData["playlistId"] as! String
-        self.musicPlatform = MusicPlatform(str: jsonData["musicPlatform"] as! String)
-        self.createDate = APIHandler.convertJSONDateToNSDate(jsonData["createDate"] as! String)!
-        self.artworkURL = NSURL(string: jsonData["artworkURL"] as! String) // how are we going to catch this optional?
-        self.trackId = jsonData["trackId"] as! String
+        self._id = jsonData[mongoIdKey] as! String
+        self.title = jsonData[titleKey] as? String
+        self.annotation = jsonData[annotationKey] as? String
+        self.playlistId = jsonData[playlistIdKey] as! String
+        self.musicPlatform = MusicPlatform(str: jsonData[musicPlatformKey] as! String)
+        self.createDate = APIHandler.convertJSONDateToNSDate(jsonData[createDateKey] as! String)!
+        self.artworkURL = NSURL(string: jsonData[artworkURLKey] as! String) // how are we going to catch this optional?
+        self.trackId = jsonData[trackIdKey] as! String
+        self.score = jsonData[scoreKey] as! Int
     }
 
     var hashValue: Int {

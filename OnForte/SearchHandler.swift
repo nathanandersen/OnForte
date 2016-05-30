@@ -42,7 +42,7 @@ class SearchHandler: NSObject/*, UITableViewDelegate, UITableViewDataSource*/ {
         } else {
             fatalError()
         }
-        let searchSong = SearchSong(title: song.title, description: song.description, playlistId: PlaylistHandler.playlistId, musicPlatform: platform, artworkURL: song.artworkURL, trackId: song.trackId!)
+        let searchSong = SearchSong(title: song.title, annotation: song.description, playlistId: PlaylistHandler.playlistId, musicPlatform: platform, artworkURL: song.artworkURL, trackId: song.trackId!)
 
         APIHandler.addSongToDatabase(searchSong, completion: {
             (result: Song?) in

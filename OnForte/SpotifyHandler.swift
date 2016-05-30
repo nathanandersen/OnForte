@@ -11,18 +11,26 @@ import Alamofire
 import SwiftyJSON
 import SwiftDDP
 
+let tracksKey = "tracks"
+let itemsKey = "items"
+let artistsKey = "artists"
+let albumKey = "album"
+let imagesKey = "images"
+let urlKey = "url"
+let spotifyIdKey = "id"
+
 class SpotifyHandler: SearchHandler {
 
     func parseSpotifyTracks(json: JSON) -> [InternalSong] {
         var songs: [InternalSong] = []
-        let tracks = json["tracks"]["items"]
+        let tracks = json[tracksKey][itemsKey]
         for (_,subJson):(String, JSON) in tracks {
             let song = InternalSong(
-                title: subJson["name"].string,
-                description: subJson["artists"][0]["name"].string,
+                title: subJson[nameKey].string,
+                description: subJson[artistsKey][0][nameKey].string,
                 service: Service.Spotify,
-                trackId: subJson["id"].string!,
-                artworkURL: NSURL(string: subJson["album"]["images"][1]["url"].string!))
+                trackId: subJson[spotifyIdKey].string!,
+                artworkURL: NSURL(string: subJson[albumKey][imagesKey][1][urlKey].string!))
 
             songs += [song]
         }

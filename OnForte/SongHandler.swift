@@ -11,7 +11,6 @@ import CoreData
 import MediaPlayer
 
 
-
 /**
  The SongHandler controls all of the songs in the application, whether in
  History, Playlist, Favorites, or Suggestions.
@@ -38,6 +37,11 @@ class SongHandler: NSObject {
     }()
 
 
+    private static var idDictionary = [String:NSManagedObjectID]()
+
+    internal static func managedObjectIDForMongoID(songId: String) -> NSManagedObjectID? {
+        return idDictionary[songId]
+    }
 
     internal static func getQueuedSongs() -> [Song] {
         let fetchRequest = NSFetchRequest(entityName: "QueuedSong")
@@ -53,11 +57,16 @@ class SongHandler: NSObject {
 
     internal static func insertIntoQueue(song: Song) {
         PlaylistHandler.addVotingStatusForId(song._id)
-        QueuedSong.createInManagedObjectContext(managedObjectContext, song: song)
+        idDictionary[song._id] = QueuedSong.createInManagedObjectContext(managedObjectContext, song: song).objectID
+        // create the item in Core Data
+        // add its association in the idDictionary
+
         (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
     }
 
-    internal static func updateScoreValue(songId: String, score: Int) {
+    internal static func updateScoreValue(songId: NSManagedObjectID, score: Int) {
+        var item = managedObjectContext.objectWithID(songId)
+        item.setValue(score, forKey: scoreKey)
         // hmmm...
         //        managedObjectContext.objectWithID() 
         //this looks interesting
