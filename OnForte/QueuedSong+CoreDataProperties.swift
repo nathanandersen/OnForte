@@ -15,14 +15,15 @@ import CoreData
 extension QueuedSong {
 
     @NSManaged var annotation: String?
-    @NSManaged var title: String?
-    @NSManaged var musicPlatform: String?
     @NSManaged var artworkURL: String?
-    @NSManaged var trackId: String?
-    @NSManaged var score: NSNumber?
-    @NSManaged var id: String?
-    @NSManaged var playlistId: String?
     @NSManaged var createDate: NSDate?
+    @NSManaged var id: String?
+    @NSManaged var musicPlatform: String?
+    @NSManaged var playlistId: String?
+    @NSManaged var score: NSNumber?
+    @NSManaged var title: String?
+    @NSManaged var trackId: String?
     @NSManaged var userId: String?
+    @NSManaged var activeStatus: NSNumber?
 
 }

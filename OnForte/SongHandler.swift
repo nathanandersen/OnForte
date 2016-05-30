@@ -11,6 +11,7 @@ import CoreData
 import MediaPlayer
 
 
+let equalFormat = "%K == %@"
 /**
  The SongHandler controls all of the songs in the application, whether in
  History, Playlist, Favorites, or Suggestions.
@@ -44,7 +45,33 @@ class SongHandler: NSObject {
 
     internal static func getQueuedSongs() -> [QueuedSong] {
         let fetchRequest = NSFetchRequest(entityName: "QueuedSong")
-        fetchRequest.predicate = NSPredicate(format: "%K == %@", "playlistId", PlaylistHandler.playlist!.playlistId)
+        let playlistIdPredicate = NSPredicate(format: equalFormat, playlistIdKey, PlaylistHandler.playlist!.playlistId)
+        let queuePredicate = NSPredicate(format: equalFormat, activeStatusKey, NSNumber(integer: ActiveStatus.Queue.rawValue))
+        fetchRequest.predicate = NSCompoundPredicate(type: .AndPredicateType, subpredicates: [playlistIdPredicate,queuePredicate])
+        if let fetchResults = try? managedObjectContext.executeFetchRequest(fetchRequest) as? [QueuedSong] {
+            return fetchResults!
+        }
+        return []
+    }
+
+    internal static func getActiveSong() -> QueuedSong? {
+        let fetchRequest = NSFetchRequest(entityName: "QueuedSong")
+        let playlistIdPredicate = NSPredicate(format: equalFormat, playlistIdKey, PlaylistHandler.playlist!.playlistId)
+        let nowPlayingPredicate = NSPredicate(format: equalFormat, activeStatusKey, NSNumber(integer: ActiveStatus.NowPlaying.rawValue))
+        fetchRequest.predicate = NSCompoundPredicate(type: .AndPredicateType, subpredicates: [playlistIdPredicate,nowPlayingPredicate])
+
+        if let fetchResults = try? managedObjectContext.executeFetchRequest(fetchRequest) as? [QueuedSong] {
+            return fetchResults?[0]
+        }
+        return nil
+    }
+
+    internal static func getHistorySongs() -> [QueuedSong] {
+        let fetchRequest = NSFetchRequest(entityName: "QueuedSong")
+        let playlistIdPredicate = NSPredicate(format: equalFormat, playlistIdKey, PlaylistHandler.playlist!.playlistId)
+        let historyPredicate = NSPredicate(format: equalFormat, activeStatusKey, NSNumber(integer: ActiveStatus.History.rawValue))
+        fetchRequest.predicate = NSCompoundPredicate(type: .AndPredicateType, subpredicates: [playlistIdPredicate,historyPredicate])
+
         if let fetchResults = try? managedObjectContext.executeFetchRequest(fetchRequest) as? [QueuedSong] {
             return fetchResults!
         }
@@ -60,11 +87,11 @@ class SongHandler: NSObject {
 
     }
 
-    internal static func updateScoreValue(songId: NSManagedObjectID, score: Int) {
+    internal static func updateItem(songId: NSManagedObjectID, song: Song) {
         let item = managedObjectContext.objectWithID(songId)
-        item.setValue(score, forKey: scoreKey)
+        item.setValue(song.score, forKey: scoreKey)
+        item.setValue(song.activeStatus.rawValue, forKey: activeStatusKey)
     }
-
 
     internal static func getSongByArrayIndex(index: Int) -> MPMediaItem? {
         if appleMusicSongs == nil {

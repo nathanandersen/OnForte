@@ -10,16 +10,7 @@ import Foundation
 
 class PlaylistHandler: NSObject {
 
-    private static var _playlist: Playlist?
-
-    internal static var playlist: Playlist? {
-        get {
-            return self._playlist
-        }
-        set {
-            self._playlist = newValue
-        }
-    }
+    internal static var playlist: Playlist?
 
     internal static func isHost() -> Bool {
         if let p = playlist {
@@ -27,25 +18,6 @@ class PlaylistHandler: NSObject {
         }
         return false
     }
-
-
-
-/*    private static var _playlistId: String = ""
-    internal static var playlistId: String {
-        get {
-            return self._playlistId
-        }
-
-        set {
-            self._playlistId = newValue
-
-            if newValue == "" {
-                MeteorHandler.unsubscribeFromPublications()
-            } else {
-                MeteorHandler.subscribeToPublications(newValue)
-            }
-        }
-    }*/
 
     private static var musicPlayer = IntegratedMusicPlayer()
 
@@ -89,9 +61,6 @@ class PlaylistHandler: NSObject {
         return (spotifySession != nil && spotifySession!.isValid())
     }
 
-//    internal static var isHost: Bool = false
-//    internal static var playlistName: String = ""
-
     private static var votes = Set<String>()
 
     internal static func hasBeenUpvoted(id: String) -> Bool {
@@ -103,10 +72,11 @@ class PlaylistHandler: NSObject {
      updating the local display of voting status.
     */
     internal static func downvote(id: String) {
-        MeteorHandler.downvoteSong(id, completionHandler: {
+        APIHandler.downvoteSong(id, completion: {
             (result: Bool) in
             if result {
                 votes.remove(id)
+                APIHandler.updateSongs()
             }
         })
     }
@@ -116,10 +86,11 @@ class PlaylistHandler: NSObject {
      updating the local display of voting status.
      */
     internal static func upvote(id: String) {
-        MeteorHandler.upvoteSong(id, completionHandler: {
+        APIHandler.upvoteSong(id, completion: {
             (result: Bool) in
             if result {
                 votes.insert(id)
+                APIHandler.updateSongs()
             }
         })
     }
@@ -131,21 +102,15 @@ class PlaylistHandler: NSObject {
         if isHost() {
             self.musicPlayer.stopCurrentSong()
         }
-/*        if self.isHost {
-            self.musicPlayer.stopCurrentSong()
-        }*/
         self.playlist = nil
-        //        playlistId = ""
-//        playlistName = ""
         nowPlaying = nil
-//        isHost = false
         SongHandler.clearForNewPlaylist()
     }
 
     /**
      Generate a random playlist Id
      */
-    private static func generateRandomId() -> String {
+/*    private static func generateRandomId() -> String {
         let _base36chars_string = "0123456789abcdefghijklmnopqrstuvwxyz"
         let _base36chars = Array(_base36chars_string.characters)
         var uniqueId = "";
@@ -154,7 +119,7 @@ class PlaylistHandler: NSObject {
             uniqueId = uniqueId + String(_base36chars[random])
         }
         return uniqueId;
-    }
+    }*/
 
     /**
      Try to create a playlist. CompletionHandler is called with the result
@@ -170,18 +135,6 @@ class PlaylistHandler: NSObject {
                 completionHandler(false)
             }
         })
-
-
-/*        MeteorHandler.createPlaylist(name, completionHandler: {
-            (result: Bool, playlistId: String) in
-            if result {
-                self.playlistId = playlistId
-                print(playlistId)
-                self.playlistName = name
-                self.isHost = true
-            }
-            completionHandler(result)
-        })*/
     }
 
     internal static func joinPlaylist(targetPlaylistId: String, completionHandler: (Bool,AnyObject?) -> ()) {

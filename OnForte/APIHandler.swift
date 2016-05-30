@@ -13,15 +13,47 @@ let apiServer = "https://onforte-server.herokuapp.com"
 let playlistsPath = "/playlists"
 let songsPath = "/songs"
 let songsByPlaylistIdPath = "/playlistsongs"
+let upvotePath = "/upvote"
+let downvotePath = "/downvote"
+let upvoteIdKey = "id"
+
+enum APIRequest {
+    case Playlists
+    case Songs
+    case SongsInPlaylist
+    case Upvote
+    case Downvote
+
+    internal func getAPIURL() -> NSURL {
+        if self == .Playlists {
+            return NSURL(string: apiServer + playlistsPath)!
+        } else if self == .Songs {
+            return NSURL(string: apiServer + songsPath)!
+        } else if self == .SongsInPlaylist {
+            return NSURL(string: apiServer + songsByPlaylistIdPath)!
+        } else if self == .Upvote {
+            return NSURL(string: apiServer + upvotePath)!
+        } else if self == .Downvote {
+            return NSURL(string: apiServer + downvotePath)!
+        } else {
+            fatalError()
+        }
+    }
+}
 
 
 // use NSJSONSerialization class
 
 class APIHandler {
 
-    internal static func createPlaylist(playlist: PlaylistToInsert, completion: Playlist? -> ()) {
+    internal static func convertJSONDateToNSDate(dateStr: String) -> NSDate? {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        return dateFormatter.dateFromString(dateStr)
+    }
 
-        let request = NSMutableURLRequest(URL: NSURL(string: apiServer + playlistsPath)!)
+    internal static func createPlaylist(playlist: PlaylistToInsert, completion: Playlist? -> ()) {
+        let request = NSMutableURLRequest(URL: APIRequest.Playlists.getAPIURL())
         request.HTTPMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.HTTPBody = playlist.toJSON()
@@ -52,21 +84,52 @@ class APIHandler {
     // could be done with update -> $set
     // but I think this could be cleaner
 
+    internal static func upvoteSong(id: String, completion: Bool -> ()) {
+        let request = NSMutableURLRequest(URL: APIRequest.Upvote.getAPIURL())
+        request.HTTPMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject([upvoteIdKey:id], options: [])
 
-    internal static func convertJSONDateToNSDate(dateStr: String) -> NSDate? {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        return dateFormatter.dateFromString(dateStr)
+        Alamofire.request(request).validate()
+            .responseJSON(completionHandler: {
+                response in
+                guard response.result.isSuccess else {
+                    print("Error while upvoting song: \(response.result.error)")
+                    completion(false)
+                    return
+                }
+                completion(true)
+            })
+        // flesh this out
     }
 
+    internal static func downvoteSong(id: String, completion: Bool -> ()) {
+        let request = NSMutableURLRequest(URL: APIRequest.Downvote.getAPIURL())
+        request.HTTPMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject([upvoteIdKey:id], options: [])
+
+        Alamofire.request(request).validate()
+            .responseJSON(completionHandler: {
+                response in
+                guard response.result.isSuccess else {
+                    print("Error while downvoting song: \(response.result.error)")
+                    completion(false)
+                    return
+                }
+                completion(true)
+            })
+    }
+
+
+
     internal static func updateSongs() {
-        print("Update songs was called.")
         fetchAllSongsInPlaylist() {
             (result: [Song]?) in
             if let results = result {
                 results.forEach({
                     if let coreDataId = SongHandler.managedObjectIDForMongoID($0._id) {
-                        SongHandler.updateScoreValue(coreDataId, score: $0.score)
+                        SongHandler.updateItem(coreDataId, song: $0)
                     } else {
                         SongHandler.insertIntoQueue($0)
                     }
@@ -77,13 +140,16 @@ class APIHandler {
             (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
             // reload the playlist data table
             NSNotificationCenter.defaultCenter().postNotificationName(reloadTableKey, object: nil)
+
+            // reload the player
+            // reload the history table
         }
     }
 
     internal static func addSongToDatabase(song: SearchSong, completion: Song? -> ()) {
         // it goes in as a SearchSong
 
-        let request = NSMutableURLRequest(URL: NSURL(string: apiServer + songsPath)!)
+        let request = NSMutableURLRequest(URL: APIRequest.Songs.getAPIURL())
         request.HTTPMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
@@ -113,7 +179,7 @@ class APIHandler {
     internal static func fetchAllPlaylists(completion: [Playlist]? -> ()) {
         Alamofire.request(
             .GET,
-            apiServer + playlistsPath,
+            String(APIRequest.Playlists.getAPIURL()),
             parameters: nil,
             encoding: .URL,
             headers: nil).validate().responseJSON(completionHandler: {
@@ -137,7 +203,7 @@ class APIHandler {
     private static func fetchAllSongsInPlaylist(completion: [Song]? -> ()) {
         Alamofire.request(
             .GET,
-            apiServer + songsByPlaylistIdPath + "/" + PlaylistHandler.playlist!.playlistId,
+            String(APIRequest.SongsInPlaylist.getAPIURL()) + "/" + PlaylistHandler.playlist!.playlistId,
             parameters: nil,
             encoding: .URL,
             headers: nil).validate().responseJSON(completionHandler: {

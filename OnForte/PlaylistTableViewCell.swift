@@ -42,38 +42,18 @@ class PlaylistTableViewCell: UITableViewCell {
             songArtworkView.image = musicPlatform.getImage()
         }
 
-        // still have to do favorites // suggestions
-    }
+        let songValue = SearchSong(title: song.title,
+                                 annotation: song.annotation,
+                                 musicPlatform: MusicPlatform(str: song.musicPlatform!),
+                                 artworkURL: NSURL(string: song.artworkURL!),
+                                 trackId: song.trackId!)
 
-/*    internal func loadItem(songId: String, song: MeteorSong) {
-        self.songId = songId
-
-        titleLabel.text = song.title
-        descriptionLabel.text = song.annotation
-        let service = Service(platform: song.platform)
-        platformImageView.image = service.getImage()
-        scoreLabel.text = String(song.score)
-
-        votingSwitch.on = PlaylistHandler.hasBeenUpvoted(songId)
-
-        votingSwitch.tintColor = service.tintColor()
-
-        if let url = song.artworkURL {
-            ArtworkHandler.lookupArtworkAsync(NSURL(string: url)!, completionHandler: { (image: UIImage) in
-                self.songArtworkView.image = image
-                self.setNeedsLayout()
-            })
-        } else {
-            songArtworkView.image = service.getImage()
-        }
-
-        let songValue = InternalSong(songDoc: song)
         if SongHandler.isSuggestion(songValue) || SongHandler.isFavorite(songValue) {
             favoritesStar.hidden = false
         } else {
             favoritesStar.hidden = true
         }
-    }*/
+    }
 
     @IBAction func switchValueChanged(sender: UISwitch) {
         (sender.on) ? PlaylistHandler.upvote(songId) : PlaylistHandler.downvote(songId)

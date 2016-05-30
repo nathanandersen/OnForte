@@ -31,18 +31,16 @@ class HistoryViewController: DefaultViewController, UITableViewDataSource, UITab
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Have to completely re-handle playlist history.")
-        return 0
-//        return SongHandler.getPlaylistHistoryCount()
+        return SongHandler.getHistorySongs().count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SongViewCell")! as! SongViewCell
         cell.selectionStyle = .None
 
-//        let (_, song) = SongHandler.getPlayedSongByIndex(indexPath.row)
-//        cell.loadItem(InternalSong(songDoc: song))
-//        cell.loadItem(songId, song: song)
+        let historySong = SongHandler.getHistorySongs()[indexPath.row]
+
+        cell.loadItem(SearchSong(title: historySong.title, annotation: historySong.annotation, musicPlatform: MusicPlatform(str: historySong.musicPlatform!), artworkURL: NSURL(string: historySong.artworkURL!), trackId: historySong.trackId!))
         return cell
     }
 
@@ -52,9 +50,14 @@ class HistoryViewController: DefaultViewController, UITableViewDataSource, UITab
     }
 
     func addToFavorites(action: UITableViewRowAction, indexPath: NSIndexPath) {
-        print("re-implement add to favorites")
-        /*        let (_, songDoc) = SongHandler.getQueuedSongByIndex(indexPath.row)
-        SongHandler.insertIntoFavorites(InternalSong(songDoc: songDoc))
-        tableView.reloadData()*/
+        let item = SongHandler.getHistorySongs()[indexPath.row]
+        SongHandler.insertIntoFavorites(
+            SearchSong(title: item.title,
+                annotation: item.annotation,
+                musicPlatform: MusicPlatform(str: item.musicPlatform!),
+                artworkURL: NSURL(string: item.artworkURL!),
+                trackId: item.trackId!)
+        )
+        tableView.reloadData()
     }
 }

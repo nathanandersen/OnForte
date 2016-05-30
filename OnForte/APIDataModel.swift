@@ -21,67 +21,17 @@ let trackIdKey = "trackId"
 let scoreKey = "score"
 let mongoIdKey = "_id"
 let createDateKey = "createDate"
+let activeStatusKey = "activeStatus"
 
-class PlaylistToInsert {
-    var name: String
-
-    internal static func generateRandomId() -> String {
-        let _base36chars_string = "0123456789abcdefghijklmnopqrstuvwxyz"
-        let _base36chars = Array(_base36chars_string.characters)
-        var uniqueId = "";
-        for _ in 1...6 {
-            let random = Int(arc4random_uniform(36))
-            uniqueId = uniqueId + String(_base36chars[random])
-        }
-        return uniqueId;
-    }
-
-    init(name: String) {
-        self.name = name
-    }
-
-    private func toDictionary() -> NSDictionary {
-        return [
-            nameKey: self.name,
-            playlistIdKey: PlaylistToInsert.generateRandomId(),
-            userIdKey: NSUserDefaults.standardUserDefaults().stringForKey(userIdKey)!
-        ]
-    }
-
-    internal func toJSON() -> NSData {
-        return try! NSJSONSerialization.dataWithJSONObject(self.toDictionary(), options: [])
-    }
+/**
+ This enum encapsulates the 3 stages of the life cycle of a Song.
+ */
+enum ActiveStatus: Int {
+    case Queue = 0
+    case NowPlaying = 1
+    case History = 2
 }
 
-class Playlist: Hashable {
-    var name: String
-    var playlistId: String
-    var _id: String
-    var hostId: String
-    //    var isLoggedInToSpotify: Bool
-    //    var isLoggedInToSoundcloud: Bool
-    //    var isLoggedInToAppleMusic: Bool
-    var createDate: NSDate
-
-    init(jsonData: AnyObject) {
-        print(jsonData)
-        self._id = jsonData[mongoIdKey] as! String
-        self.name = jsonData[nameKey] as! String
-        self.playlistId = jsonData[playlistIdKey] as! String
-        self.createDate = APIHandler.convertJSONDateToNSDate(jsonData[createDateKey] as! String)!
-        self.hostId = jsonData[userIdKey] as! String
-    }
-
-    var hashValue: Int {
-        get {
-            return self._id.hashValue
-        }
-    }
-}
-
-func ==(lhs: Playlist, rhs: Playlist) -> Bool {
-    return lhs.hashValue == rhs.hashValue
-}
 
 class SearchSong: Hashable {
     var title: String?
@@ -113,7 +63,8 @@ class SearchSong: Hashable {
             artworkURLKey: (self.artworkURL != nil) ? self.artworkURL!.URLString : "",
             trackIdKey: self.trackId,
             scoreKey: 0,
-            userIdKey: NSUserDefaults.standardUserDefaults().stringForKey(userIdKey)!
+            userIdKey: NSUserDefaults.standardUserDefaults().stringForKey(userIdKey)!,
+            activeStatusKey: ActiveStatus.Queue.rawValue
         ]
     }
 
@@ -126,32 +77,33 @@ func ==(lhs: SearchSong, rhs: SearchSong) -> Bool {
     return lhs.hashValue == rhs.hashValue
 }
 
-class Song: Hashable {
-    var title: String?
-    var annotation: String?
+class Song: SearchSong {
     var _id: String
     var playlistId: String
     var createDate: NSDate
-    var musicPlatform: MusicPlatform
-    var artworkURL: NSURL?
-    var trackId: String
     var score: Int
     var userId: String
+    var activeStatus: ActiveStatus
 
     init(jsonData: AnyObject) {
+
+
         self._id = jsonData[mongoIdKey] as! String
-        self.title = jsonData[titleKey] as? String
-        self.annotation = jsonData[annotationKey] as? String
         self.playlistId = jsonData[playlistIdKey] as! String
-        self.musicPlatform = MusicPlatform(str: jsonData[musicPlatformKey] as! String)
         self.createDate = APIHandler.convertJSONDateToNSDate(jsonData[createDateKey] as! String)!
-        self.artworkURL = NSURL(string: jsonData[artworkURLKey] as! String) // how are we going to catch this optional?
-        self.trackId = jsonData[trackIdKey] as! String
         self.score = jsonData[scoreKey] as! Int
         self.userId = jsonData[userIdKey] as! String
+        self.activeStatus = ActiveStatus(rawValue: jsonData[activeStatusKey] as! Int)!
+
+        super.init(title: jsonData[titleKey] as? String,
+                   annotation: jsonData[annotationKey] as? String,
+                   musicPlatform: MusicPlatform(str: jsonData[musicPlatformKey] as! String),
+                   artworkURL: NSURL(string: jsonData[artworkURLKey] as! String),
+                   trackId: jsonData[trackIdKey] as! String)
     }
 
-    var hashValue: Int {
+
+    override var hashValue: Int {
         get {
             return self._id.hashValue
         }

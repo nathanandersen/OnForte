@@ -26,6 +26,7 @@ class QueuedSong: NSManagedObject {
         newItem.trackId = song.trackId
         newItem.score = song.score
         newItem.userId = song.userId
+        newItem.activeStatus = song.activeStatus.rawValue
         return newItem
      }
 }

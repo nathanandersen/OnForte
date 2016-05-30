@@ -50,12 +50,25 @@ class PlaylistViewController: DefaultViewController {
     @IBOutlet var smallMusicPlayer: SmallMusicPlayerController!
 
     private var alertController: UIAlertController?
-    private var iMessageController: MFMessageComposeViewController?
 
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(PlaylistViewController.refresh), forControlEvents: .ValueChanged)
+        return refreshControl
+    }()
+
+    func refresh() {
+        APIHandler.updateSongs()
+        refreshControl.endRefreshing()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistViewController.presentNewPlaylist), name: updatePlaylistInfoKey, object: nil)
+        tableView.addSubview(self.refreshControl)
+
+        // if isHost()
+        // implement an auto-refreshing timer
     }
 
     internal func updatePlayerDisplay(newDisplayType: PlayerDisplayType) {
@@ -74,9 +87,7 @@ class PlaylistViewController: DefaultViewController {
     }
     internal func presentNewPlaylist() {
         tableView.reloadData()
-
         self.title = PlaylistHandler.playlist!.name
-//        self.title = PlaylistHandler.playlistName
     }
 
 
@@ -127,29 +138,29 @@ extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return SongHandler.getQueuedSongs().count
-
-//        return SongHandler.getSongsInQueue().count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PlaylistTableViewCell") as! PlaylistTableViewCell
         cell.selectionStyle = .None
-
         cell.loadItem(SongHandler.getQueuedSongs()[indexPath.row])
-
-//        let (songId, song) = SongHandler.getQueuedSongByIndex(indexPath.row)
-//        cell.loadItem(songId,song: song)
         return cell
     }
 
-/*    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let favoriteAction = UITableViewRowAction(style: .Normal, title: "Save", handler: self.addToFavorites)
         return [favoriteAction]
     }
 
     func addToFavorites(action: UITableViewRowAction, indexPath: NSIndexPath) {
-        let (_, songDoc) = SongHandler.getQueuedSongByIndex(indexPath.row)
-        SongHandler.insertIntoFavorites(InternalSong(songDoc: songDoc))
+        let item = SongHandler.getQueuedSongs()[indexPath.row]
+        SongHandler.insertIntoFavorites(
+            SearchSong(title: item.title,
+                annotation: item.annotation,
+                musicPlatform: MusicPlatform(str: item.musicPlatform!),
+                artworkURL: NSURL(string: item.artworkURL!),
+                trackId: item.trackId!)
+        )
         tableView.reloadData()
-    }*/
+    }
 }

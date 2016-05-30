@@ -75,12 +75,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         registerAPIKeys()
 
-        defaults.registerDefaults(
-            [
-                userIdKey: generateUniqueUserId()
-//                onboardingKey: false
-            ]
-        )
+
+        if defaults.stringForKey(userIdKey) == nil {
+            defaults.setObject(generateUniqueUserId(), forKey: userIdKey)
+        }
+        print(NSUserDefaults.standardUserDefaults().stringForKey(userIdKey)!)
 
 //        if ( !defaults.boolForKey(onboardingKey)) {
 //            launchStoryboard(Storyboard.Onboarding)

@@ -38,7 +38,12 @@ class SongViewCell: UITableViewCell {
             }
         }
         platformImageView.image = song.musicPlatform.getImage()
-        favoritesStar.hidden = true
+
+        if SongHandler.isSuggestion(song) || SongHandler.isFavorite(song) {
+            favoritesStar.hidden = false
+        } else {
+            favoritesStar.hidden = true
+        }
     }
 
 /*    internal func loadItem(song: Song) {
@@ -63,32 +68,6 @@ class SongViewCell: UITableViewCell {
         } else {
             favoritesStar.hidden = true
         }*/
-
-    }*/
-
-    /**
-    Load a song into the cell.
-     */
-/*    internal func loadItem(song: InternalSong) {
-        self.songTitleLabel.text = song.title
-        self.songDescriptionLabel.text = song.description
-        if let url = song.artworkURL {
-            if url == "" {
-                artworkView.image = song.service!.getImage()
-            } else {
-                ArtworkHandler.lookupArtworkAsync(url, completionHandler: { (image: UIImage) in
-                    self.artworkView.image = image
-                    self.setNeedsLayout()
-                })
-            }
-        }
-        platformImageView.image = song.service!.getImage()
-
-        if SongHandler.isSuggestion(song) || SongHandler.isFavorite(song) {
-            favoritesStar.hidden = false
-        } else {
-            favoritesStar.hidden = true
-        }
 
     }*/
     

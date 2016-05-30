@@ -8,6 +8,7 @@
         <attribute name="trackId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="QueuedSong" representedClassName=".QueuedSong" syncable="YES">
+        <attribute name="activeStatus" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="annotation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="artworkURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -28,7 +29,7 @@
     </entity>
     <elements>
         <element name="FavoritedSong" positionX="-63" positionY="18" width="128" height="120"/>
+        <element name="QueuedSong" positionX="-63" positionY="36" width="128" height="210"/>
         <element name="SuggestedSong" positionX="-63" positionY="-18" width="128" height="120"/>
-        <element name="QueuedSong" positionX="-63" positionY="36" width="128" height="195"/>
     </elements>
 </model>

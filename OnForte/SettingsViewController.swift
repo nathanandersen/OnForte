@@ -75,11 +75,6 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             (self.navigationController as! NavigationController).popSettings()
             APIHandler.updateSongs() // a full data pull
         })
-
-/*        MeteorHandler.addSongToDatabase(song, completionHandler: {
-//            activityIndicator.showComplete("")
-            (self.navigationController as! NavigationController).popSettings()
-        })*/
     }
 
     func deleteSong(action: UITableViewRowAction, indexPath: NSIndexPath) {

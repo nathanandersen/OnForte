@@ -45,6 +45,7 @@
 		246232F81CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246232F61CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift */; };
 		246232F91CE28406004C63E8 /* FavoritedSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246232F71CE28406004C63E8 /* FavoritedSong.swift */; };
 		246232FB1CE2CCE0004C63E8 /* SongHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246232FA1CE2CCE0004C63E8 /* SongHandler.swift */; };
+		24757F351CFCC43300752CB1 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24757F341CFCC43300752CB1 /* Playlist.swift */; };
 		247D27E81CFA433400A5E8AF /* MeteorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247D27E71CFA433400A5E8AF /* MeteorHandler.swift */; };
 		247D27EC1CFB5D0E00A5E8AF /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247D27EB1CFB5D0E00A5E8AF /* APIHandler.swift */; };
 		247D27EE1CFB789800A5E8AF /* APIDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247D27ED1CFB789800A5E8AF /* APIDataModel.swift */; };
@@ -128,6 +129,7 @@
 		246232F61CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FavoritedSong+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		246232F71CE28406004C63E8 /* FavoritedSong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritedSong.swift; sourceTree = "<group>"; };
 		246232FA1CE2CCE0004C63E8 /* SongHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongHandler.swift; sourceTree = "<group>"; };
+		24757F341CFCC43300752CB1 /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		247D27E71CFA433400A5E8AF /* MeteorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorHandler.swift; sourceTree = "<group>"; };
 		247D27EB1CFB5D0E00A5E8AF /* APIHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
 		247D27ED1CFB789800A5E8AF /* APIDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIDataModel.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				247D27ED1CFB789800A5E8AF /* APIDataModel.swift */,
+				24757F341CFCC43300752CB1 /* Playlist.swift */,
 				240AB0061CC092360061EB54 /* Song.swift */,
 				2434816A1CE239F900402A4A /* DataModel.xcdatamodeld */,
 				2434816D1CE23ACC00402A4A /* SuggestedSong+CoreDataProperties.swift */,
@@ -555,6 +558,7 @@
 				248653471CF767D700F0F78B /* PlaylistTableViewCell.swift in Sources */,
 				2486534B1CF76C2500F0F78B /* NavigationController.swift in Sources */,
 				240AB04F1CC095180061EB54 /* ActivityIndicator.swift in Sources */,
+				24757F351CFCC43300752CB1 /* Playlist.swift in Sources */,
 				24BCF48E1CE3AC96001054B7 /* PlaylistHandler.swift in Sources */,
 				243481701CE23ACC00402A4A /* SuggestedSong.swift in Sources */,
 				2434816F1CE23ACC00402A4A /* SuggestedSong+CoreDataProperties.swift in Sources */,
