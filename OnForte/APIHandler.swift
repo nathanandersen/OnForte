@@ -22,6 +22,7 @@ class APIHandler {
     }
 
     internal static func updateSongs() {
+        print("Update songs was called.")
         Alamofire.request(
             .GET,
             apiServer + "/songs",
@@ -31,41 +32,27 @@ class APIHandler {
                 (response) -> () in
                 guard response.result.isSuccess else {
                     print("Error while fetching songs: \(response.result.error)")
-//                    completion(nil)
                     return
                 }
 
                 guard let results = response.result.value as? [AnyObject] else {
                     print("Malformed data received from fetchAllSongs service")
-//                    completion(nil)
                     return
                 }
                 results.forEach({
                     let song = Song(jsonData: $0)
                     if let coreDataId = SongHandler.managedObjectIDForMongoID(song._id) {
                         SongHandler.updateScoreValue(coreDataId, score: song.score)
-                        // update the score value
                     } else {
                         SongHandler.insertIntoQueue(song)
                     }
                 })
-                
+
                 // save all core data
                 (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
                 // reload the playlist data table
                 NSNotificationCenter.defaultCenter().postNotificationName(reloadTableKey, object: nil)
             })
-
-
-        // where updateSongs() performs a new HTTP GET on /playlistsongs
-        //, then compares each one to see...
-        // if exists {
-        //  check score for update
-        // } else {
-        // insert anew
-        // }
-
-        // post the notification to update the Playlist table
     }
 
     internal static func addSongToDatabase(song: SearchSong, completion: Song? -> ()) {

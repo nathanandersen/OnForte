@@ -51,21 +51,18 @@ class SongHandler: NSObject {
         return []
     }
 
-    internal static func getQueuedSongsAsSet() -> Set<Song> {
-        return Set(getQueuedSongs())
-    }
-
     internal static func insertIntoQueue(song: Song) {
         PlaylistHandler.addVotingStatusForId(song._id)
-        idDictionary[song._id] = QueuedSong.createInManagedObjectContext(managedObjectContext, song: song).objectID
+        let item = QueuedSong.createInManagedObjectContext(managedObjectContext, song: song)
+        (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
+        idDictionary[song._id] = item.objectID
         // create the item in Core Data
         // add its association in the idDictionary
 
-        (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
     }
 
     internal static func updateScoreValue(songId: NSManagedObjectID, score: Int) {
-        var item = managedObjectContext.objectWithID(songId)
+        let item = managedObjectContext.objectWithID(songId)
         item.setValue(score, forKey: scoreKey)
     }
 

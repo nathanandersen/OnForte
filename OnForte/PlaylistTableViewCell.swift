@@ -14,12 +14,35 @@ class PlaylistTableViewCell: UITableViewCell {
     @IBOutlet var songArtworkView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
+    // rename this
     @IBOutlet var platformImageView: UIImageView!
     @IBOutlet var scoreLabel: UILabel!
     @IBOutlet var votingSwitch: UISwitch!
 
     @IBOutlet var favoritesStar: UIImageView!
     // want: a favorites star
+
+    internal func loadItem(song: Song) {
+        self.songId = song._id
+        titleLabel.text = song.title
+        descriptionLabel.text = song.annotation
+        platformImageView.image = song.musicPlatform.getImage()
+        scoreLabel.text = String(song.score)
+        if PlaylistHandler.getVotingStatus(songId) == .Upvote {
+            votingSwitch.on = true
+        }
+        votingSwitch.tintColor = song.musicPlatform.tintColor()
+        if let url = song.artworkURL {
+            ArtworkHandler.lookupArtworkAsync(url, completionHandler: { (image: UIImage) in
+                self.songArtworkView.image = image
+                self.setNeedsLayout()
+            })
+        } else {
+            songArtworkView.image = song.musicPlatform.getImage()
+        }
+
+        // still have to do favorites // suggestions
+    }
 
     internal func loadItem(songId: String, song: MeteorSong) {
         self.songId = songId
@@ -33,7 +56,7 @@ class PlaylistTableViewCell: UITableViewCell {
         if PlaylistHandler.getVotingStatus(songId) == .Upvote {
             votingSwitch.on = true
         }
-        votingSwitch.tintColor = Service(platform: song.platform).tintColor()
+        votingSwitch.tintColor = service.tintColor()
 
         if let url = song.artworkURL {
             ArtworkHandler.lookupArtworkAsync(NSURL(string: url)!, completionHandler: { (image: UIImage) in

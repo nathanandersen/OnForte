@@ -124,12 +124,16 @@ extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return SongHandler.getQueuedSongs().count
+
         return SongHandler.getSongsInQueue().count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PlaylistTableViewCell") as! PlaylistTableViewCell
         cell.selectionStyle = .None
+
+//        cell.loadItem(SongHandler.getQueuedSongs()[indexPath.row])
 
         let (songId, song) = SongHandler.getQueuedSongByIndex(indexPath.row)
         cell.loadItem(songId,song: song)
