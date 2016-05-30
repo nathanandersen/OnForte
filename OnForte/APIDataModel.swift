@@ -36,6 +36,35 @@ func ==(lhs: Playlist, rhs: Playlist) -> Bool {
     return lhs.hashValue == rhs.hashValue
 }
 
+class SearchSong {
+    var title: String?
+    var description: String?
+    var playlistId: String
+    var musicPlatform: MusicPlatform
+    var artworkURL: NSURL?
+    var trackId: String
+
+    init(title: String?, description: String?, playlistId: String, musicPlatform: MusicPlatform, artworkURL: NSURL?, trackId: String) {
+        self.title = title
+        self.description = description
+        self.playlistId = playlistId
+        self.musicPlatform = musicPlatform
+        self.artworkURL = artworkURL
+        self.trackId = trackId
+    }
+
+    func toDictionary() -> NSDictionary {
+        return [
+            "title": (self.title != nil) ? self.title! : "",
+            "description": (self.description != nil) ? self.description! : "",
+            "playlistId": self.playlistId,
+            "musicPlatform": self.musicPlatform.asLowercaseString(),
+            "artworkURL": (self.artworkURL != nil) ? self.artworkURL!.URLString : "",
+            "trackId": self.trackId
+        ]
+    }
+}
+
 class Song: Hashable {
     var title: String?
     var description: String?
@@ -47,7 +76,6 @@ class Song: Hashable {
     var trackId: String
 
     init(jsonData: AnyObject) {
-        print(jsonData)
         self._id = jsonData["_id"] as! String
         self.title = jsonData["title"] as? String
         self.description = jsonData["description"] as? String

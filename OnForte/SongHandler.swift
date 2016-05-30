@@ -38,6 +38,32 @@ class SongHandler: NSObject {
     }()
 
 
+
+    internal static func getQueuedSongs() -> [Song] {
+        let fetchRequest = NSFetchRequest(entityName: "QueuedSong")
+        if let fetchResults = try? managedObjectContext.executeFetchRequest(fetchRequest) as? [Song] {
+            return fetchResults!
+        }
+        return []
+    }
+
+    internal static func getQueuedSongsAsSet() -> Set<Song> {
+        return Set(getQueuedSongs())
+    }
+
+    internal static func insertIntoQueue(song: Song) {
+        PlaylistHandler.addVotingStatusForId(song._id)
+        QueuedSong.createInManagedObjectContext(managedObjectContext, song: song)
+        (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
+    }
+
+    internal static func updateScoreValue(songId: String, score: Int) {
+        // hmmm...
+        //        managedObjectContext.objectWithID() 
+        //this looks interesting
+    }
+
+
     internal static func getSongByArrayIndex(index: Int) -> MPMediaItem? {
         if appleMusicSongs == nil {
             return nil
@@ -121,6 +147,8 @@ class SongHandler: NSObject {
     }
 
     internal static func isFavorite(song: InternalSong) -> Bool {
+//        return Set(fetchFavorites()).contains(song)
+
         for favorite in fetchFavorites() {
             if song == favorite {
                 return true
@@ -130,6 +158,7 @@ class SongHandler: NSObject {
     }
 
     internal static func isSuggestion(song: InternalSong) -> Bool {
+//        return Set(fetchSuggestions()).contains(song)
         for suggestion in fetchSuggestions() {
             if song == suggestion {
                 return true

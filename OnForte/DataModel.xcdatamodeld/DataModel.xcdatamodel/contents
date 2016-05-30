@@ -7,6 +7,13 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="trackId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="QueuedSong" representedClassName=".QueuedSong" syncable="YES">
+        <attribute name="annotation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="artworkURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="musicPlatform" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trackId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="SuggestedSong" representedClassName=".SuggestedSong" syncable="YES">
         <attribute name="annotation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="artworkURL" optional="YES" attributeType="String" syncable="YES"/>
@@ -17,5 +24,6 @@
     <elements>
         <element name="FavoritedSong" positionX="-63" positionY="18" width="128" height="120"/>
         <element name="SuggestedSong" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="QueuedSong" positionX="-63" positionY="36" width="128" height="120"/>
     </elements>
 </model>

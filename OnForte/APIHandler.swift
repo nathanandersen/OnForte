@@ -20,8 +20,82 @@ class APIHandler {
         return dateFormatter.dateFromString(dateStr)
     }
 
-    internal static func addSongToDatabase(song: Song) {
-        // add the song
+    internal static func updateSongs() {
+        Alamofire.request(
+            .GET,
+            apiServer + "/songs",
+            parameters: nil,
+            encoding: .URL,
+            headers: nil).validate().responseJSON(completionHandler: {
+                (response) -> () in
+                guard response.result.isSuccess else {
+                    print("Error while fetching songs: \(response.result.error)")
+//                    completion(nil)
+                    return
+                }
+
+                guard let results = response.result.value as? [AnyObject] else {
+                    print("Malformed data received from fetchAllSongs service")
+//                    completion(nil)
+                    return
+                }
+
+                let queue = SongHandler.getQueuedSongsAsSet()
+//                var songs = [Song]()
+                results.forEach({
+                    let song = Song(jsonData: $0)
+                    if queue.contains(song) {
+                        // update score value
+                    } else {
+                        SongHandler.insertIntoQueue(song)
+                        // this takes care of Core Data and Voting Status
+                    }
+                })
+
+                // reload the playlist data table
+                NSNotificationCenter.defaultCenter().postNotificationName(reloadTableKey, object: nil)
+            })
+
+
+        // where updateSongs() performs a new HTTP GET on /playlistsongs
+        //, then compares each one to see...
+        // if exists {
+        //  check score for update
+        // } else {
+        // insert anew
+        // }
+
+        // post the notification to update the Playlist table
+    }
+
+    internal static func addSongToDatabase(song: SearchSong, completion: Song? -> ()) {
+        // it goes in as a SearchSong
+
+        let request = NSMutableURLRequest(URL: NSURL(string: apiServer + "/songs")!)
+        request.HTTPMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(song.toDictionary(), options: [])
+
+        Alamofire.request(request).validate()
+            .responseJSON(completionHandler: {
+                response in
+                guard response.result.isSuccess else {
+                    print("Error while adding song: \(response.result.error)")
+                    completion(nil)
+                    return
+                }
+                if let obj = response.result.value {
+                    // comes back as a full Song
+
+                    // insert the song to CoreData
+                    // give it a new VotingStatus object, intialized to None
+
+                    completion(Song(jsonData: obj))
+                }
+                completion(nil)
+
+        })
     }
 
     internal static func fetchAllPlaylists(completion: [Playlist]? -> ()) {
