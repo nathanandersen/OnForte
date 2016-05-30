@@ -18,7 +18,7 @@ enum Storyboard: String {
     case Onboarding = "Onboarding"
 }
 
-let onboardingKey = "onboardingShown"
+let onboardingKey = "userHasBeenOnboarded"
 var keys: NSDictionary?
 
 let spotifyClientIdKey = "SpotifyClientId"
@@ -29,12 +29,25 @@ let spotifyTokenRefreshURLKey = "SpotifyTokenRefreshURL"
 let soundcloudClientIdKey = "SoundcloudClientId"
 let soundcloudClientSecretKey = "SoundcloudClientSecret"
 
+let userIdKey = "userId"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var launchURL: String? = nil
     var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+
+    func generateUniqueUserId() -> String {
+        let _hexchars_string = "0123456789abcdef"
+        let _hexchars = Array(_hexchars_string.characters)
+        var uniqueId = "";
+        for _ in 0..<24 {
+            let random = Int(arc4random_uniform(UInt32(_hexchars.count)))
+            uniqueId = uniqueId + String(_hexchars[random])
+        }
+        return uniqueId;
+    }
 
     /**
      Register API keys with services
@@ -62,9 +75,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         registerAPIKeys()
 
-//        defaults.registerDefaults(
-//            [onboardingKey: false]
-//        )
+        defaults.registerDefaults(
+            [
+                userIdKey: generateUniqueUserId()
+//                onboardingKey: false
+            ]
+        )
 
 //        if ( !defaults.boolForKey(onboardingKey)) {
 //            launchStoryboard(Storyboard.Onboarding)

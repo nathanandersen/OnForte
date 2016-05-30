@@ -20,10 +20,33 @@ let scoreKey = "score"
 let mongoIdKey = "_id"
 let createDateKey = "createDate"
 
+class PlaylistToInsert {
+    var name: String
+    var playlistId: String
+
+    init(name: String, playlistId: String) {
+        self.name = name
+        self.playlistId = playlistId
+    }
+
+    func toDictionary() -> NSDictionary {
+        return [
+            nameKey: self.name,
+            playlistIdKey: self.playlistId,
+            userIdKey: NSUserDefaults.standardUserDefaults().stringForKey(userIdKey)!
+        ]
+    }
+
+    func toJSON() -> NSData {
+        return try! NSJSONSerialization.dataWithJSONObject(self.toDictionary(), options: [])
+    }
+}
+
 class Playlist: Hashable {
     var name: String
     var playlistId: String
     var _id: String
+    var hostId: String
     //    var isLoggedInToSpotify: Bool
     //    var isLoggedInToSoundcloud: Bool
     //    var isLoggedInToAppleMusic: Bool
@@ -35,6 +58,7 @@ class Playlist: Hashable {
         self.name = jsonData[nameKey] as! String
         self.playlistId = jsonData[playlistIdKey] as! String
         self.createDate = APIHandler.convertJSONDateToNSDate(jsonData[createDateKey] as! String)!
+        self.hostId = jsonData[userIdKey] as! String
     }
 
     var hashValue: Int {
@@ -73,8 +97,13 @@ class SearchSong {
             musicPlatformKey: self.musicPlatform.asLowercaseString(),
             artworkURLKey: (self.artworkURL != nil) ? self.artworkURL!.URLString : "",
             trackIdKey: self.trackId,
-            scoreKey: 0
+            scoreKey: 0,
+            userIdKey: NSUserDefaults.standardUserDefaults().stringForKey(userIdKey)!
         ]
+    }
+
+    func toJSON() -> NSData {
+        return try! NSJSONSerialization.dataWithJSONObject(self.toDictionary(), options: [])
     }
 }
 

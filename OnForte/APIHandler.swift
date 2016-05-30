@@ -10,9 +10,30 @@ import Foundation
 import Alamofire
 
 let apiServer = "https://onforte-server.herokuapp.com"
+let playlistsPath = "/playlists"
+let songsPath = "/songs"
+let songsByPlaylistIdPath = "/playlistsongs"
+
+
 // use NSJSONSerialization class
 
 class APIHandler {
+
+    internal static func createPlaylist(playlist: PlaylistToInsert, completion: Bool -> ()) {
+
+        let request = NSMutableURLRequest(URL: NSURL(string: apiServer + songsPath)!)
+        request.HTTPMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    }
+
+
+
+
+    // when doing upvote/downvote
+    // pass in entire object, I think?
+
+    // could be done with update -> $set
+    // but I think this could be cleaner
 
 
     internal static func convertJSONDateToNSDate(dateStr: String) -> NSDate? {
@@ -23,9 +44,30 @@ class APIHandler {
 
     internal static func updateSongs() {
         print("Update songs was called.")
+        fetchAllSongs() {
+            (result: [Song]?) in
+            if let results = result {
+                results.forEach({
+                    let song = Song(jsonData: $0)
+                    if let coreDataId = SongHandler.managedObjectIDForMongoID(song._id) {
+                        SongHandler.updateScoreValue(coreDataId, score: song.score)
+                    } else {
+                        SongHandler.insertIntoQueue(song)
+                    }
+                })
+            }
+
+            // save all core data
+            (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
+            // reload the playlist data table
+            NSNotificationCenter.defaultCenter().postNotificationName(reloadTableKey, object: nil)
+        }
+
+
+/*
         Alamofire.request(
             .GET,
-            apiServer + "/songs",
+            apiServer + songsPath,
             parameters: nil,
             encoding: .URL,
             headers: nil).validate().responseJSON(completionHandler: {
@@ -52,17 +94,18 @@ class APIHandler {
                 (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
                 // reload the playlist data table
                 NSNotificationCenter.defaultCenter().postNotificationName(reloadTableKey, object: nil)
-            })
+            })*/
     }
 
     internal static func addSongToDatabase(song: SearchSong, completion: Song? -> ()) {
         // it goes in as a SearchSong
 
-        let request = NSMutableURLRequest(URL: NSURL(string: apiServer + "/songs")!)
+        let request = NSMutableURLRequest(URL: NSURL(string: apiServer + songsPath)!)
         request.HTTPMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(song.toDictionary(), options: [])
+        request.HTTPBody = song.toJSON()
+
 
         Alamofire.request(request).validate()
             .responseJSON(completionHandler: {
@@ -88,7 +131,7 @@ class APIHandler {
     internal static func fetchAllPlaylists(completion: [Playlist]? -> ()) {
         Alamofire.request(
             .GET,
-            apiServer + "/playlists",
+            apiServer + playlistsPath,
             parameters: nil,
             encoding: .URL,
             headers: nil).validate().responseJSON(completionHandler: {
@@ -110,10 +153,10 @@ class APIHandler {
     }
 
 
-    internal static func fetchAllSongs(completion: [Song]? -> ()) {
+    private static func fetchAllSongs(completion: [Song]? -> ()) {
         Alamofire.request(
             .GET,
-            apiServer + "/songs",
+            apiServer + songsPath,
             parameters: nil,
             encoding: .URL,
             headers: nil).validate().responseJSON(completionHandler: {
