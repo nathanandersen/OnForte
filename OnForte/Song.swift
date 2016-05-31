@@ -2,159 +2,114 @@
 //  Song.swift
 //  OnForte
 //
-//  Created by Nathan Andersen on 4/14/16.
-//  Copyright © 2016 Nathan Andersen. All rights reserved.
+//  Created by Nathan Andersen on 5/30/16.
+//  Copyright © 2016 Forte Labs. All rights reserved.
 //
-/*
+
 import Foundation
-import UIKit
 
-enum Service {
-    case Spotify
-    case Soundcloud
-    case iTunes
 
-    init(platform: String) {
-        if platform.lowercaseString == "soundcloud" {
-            self = .Soundcloud
-        } else if platform.lowercaseString == "itunes" {
-            self = .iTunes
-        } else if platform.lowercaseString == "spotify" {
-            self = .Spotify
-        } else {
-            fatalError()
-        }
-    }
+let nameKey = "name"
+let titleKey = "title"
+let annotationKey = "annotation"
+let playlistIdKey = "playlistId"
+let musicPlatformKey = "musicPlatform"
+let artworkURLKey = "artworkURL"
+let trackIdKey = "trackId"
+let scoreKey = "score"
+let mongoIdKey = "_id"
+let createDateKey = "createDate"
+let activeStatusKey = "activeStatus"
 
-    init(intValue: Int) {
-        switch(intValue) {
-        case 0:
-            self = .Spotify
-        case 1:
-            self = .Soundcloud
-        case 2:
-            self = .iTunes
-        case _:
-            fatalError()
-        }
-    }
-
-    func tintColor() -> UIColor {
-        if self == .Spotify {
-            return Style.spotifyGreen
-        } else if self == .Soundcloud {
-            return Style.soundcloudOrange
-        } else if self == .iTunes {
-            return Style.itunesRed
-        } else {
-            fatalError()
-        }
-    }
-
-    func intValue() -> Int {
-        if self == .Spotify {
-            return 0
-        } else if self == .Soundcloud {
-            return 1
-        } else if self == .iTunes {
-            return 2
-        } else {
-            fatalError()
-        }
-    }
-
-    func getImage() -> UIImage {
-        if self == .Spotify {
-            return UIImage(named: "spotify")!
-        } else if self == .Soundcloud {
-            return UIImage(named: "soundcloud")!
-        } else if self == .iTunes {
-            return UIImage(named: "itunes")!
-        } else {
-            fatalError()
-        }
-    }
-
-    func asLowerCaseString() -> String {
-        if self == .Spotify {
-            return "spotify"
-        } else if self == .Soundcloud {
-            return "soundcloud"
-        } else if self == .iTunes {
-            return "itunes"
-        } else {
-            fatalError()
-        }
-    }
-}*/
 
 /**
- A basic class to encapsulate a song
+ This enum encapsulates the 3 stages of the life cycle of a Song.
  */
-/*
-class InternalSong: Hashable {
+enum ActiveStatus: Int {
+    case Queue = 0
+    case NowPlaying = 1
+    case History = 2
+}
+
+
+class SearchSong: Hashable {
     var title: String?
-    var description: String?
+    var annotation: String?
+    var musicPlatform: MusicPlatform
     var artworkURL: NSURL?
-    var service: Service?
-    var trackId: String?
-    var id: String?
+    var trackId: String
 
     var hashValue: Int {
         get {
-            return "\(self.title)+\(self.description)+\(self.artworkURL)+\(self.service?.asLowerCaseString())+\(self.trackId))".hashValue
+            return "\(self.title)+\(self.annotation)+\(self.artworkURL)+\(self.musicPlatform.asLowercaseString())+\(self.trackId))".hashValue
         }
     }
 
-
-    init(title: String?, description: String?, service: Service?, trackId: String?, artworkURL: NSURL?) {
+    init(title: String?, annotation: String?, musicPlatform: MusicPlatform, artworkURL: NSURL?, trackId: String) {
         self.title = title
-        self.description = description
-        self.service = service
-        self.trackId = trackId
+        self.annotation = annotation
+        self.musicPlatform = musicPlatform
         self.artworkURL = artworkURL
+        self.trackId = trackId
     }
 
-    init(songDoc: MeteorSong) {
-        self.title = songDoc.title
-        self.trackId = String(songDoc.trackId)
-        self.description = songDoc.annotation
-        self.artworkURL = (songDoc.artworkURL != nil) ? NSURL(string: songDoc.artworkURL!) : nil
-        self.service = Service(platform: songDoc.platform)
-        self.id = songDoc._id
-    }
-
-    init(suggestedSong: SuggestedSong) {
-        self.title = suggestedSong.title
-        self.trackId = suggestedSong.trackId
-        self.description = suggestedSong.annotation
-        self.artworkURL = NSURL(string: suggestedSong.artworkURL!)
-        self.service = Service(platform: suggestedSong.service!)
-    }
-
-    init(favoritedSong: FavoritedSong) {
-        self.title = favoritedSong.title
-        self.trackId = favoritedSong.trackId
-        self.description = favoritedSong.annotation
-        self.artworkURL = NSURL(string: favoritedSong.artworkURL!)
-        self.service = Service(platform: favoritedSong.service!)
-    }
-
-/*    func getSongDocFields() -> [String] {
-        let fields = [
-            PlaylistHandler.playlistId,
-            (self.title != nil) ? self.title! : "",
-            (self.description != nil) ? self.description! : "",
-            String(self.service!),
-            (self.trackId != nil) ? self.trackId! : "",
-            (self.artworkURL != nil) ? self.artworkURL!.URLString : ""
+    private func toDictionary() -> NSDictionary {
+        return [
+            titleKey: (self.title != nil) ? self.title! : "",
+            annotationKey: (self.annotation != nil) ? self.annotation! : "",
+            playlistIdKey: PlaylistHandler.playlist!.playlistId,
+            musicPlatformKey: self.musicPlatform.asLowercaseString(),
+            artworkURLKey: (self.artworkURL != nil) ? self.artworkURL!.URLString : "",
+            trackIdKey: self.trackId,
+            scoreKey: 0,
+            userIdKey: NSUserDefaults.standardUserDefaults().stringForKey(userIdKey)!,
+            activeStatusKey: ActiveStatus.Queue.rawValue
         ]
-        return fields
-    }*/
+    }
 
-
+    internal func toJSON() -> NSData {
+        return try! NSJSONSerialization.dataWithJSONObject(self.toDictionary(), options: [])
+    }
 }
 
-func ==(lhs: InternalSong, rhs: InternalSong) -> Bool {
+func ==(lhs: SearchSong, rhs: SearchSong) -> Bool {
     return lhs.hashValue == rhs.hashValue
-}*/
+}
+
+// This is used for JSON -> CoreData
+class Song: SearchSong {
+    var _id: String
+    var playlistId: String
+    var createDate: NSDate
+    var score: Int
+    var userId: String
+    var activeStatus: ActiveStatus
+
+    init(jsonData: AnyObject) {
+
+
+        self._id = jsonData[mongoIdKey] as! String
+        self.playlistId = jsonData[playlistIdKey] as! String
+        self.createDate = APIHandler.convertJSONDateToNSDate(jsonData[createDateKey] as! String)!
+        self.score = jsonData[scoreKey] as! Int
+        self.userId = jsonData[userIdKey] as! String
+        self.activeStatus = ActiveStatus(rawValue: jsonData[activeStatusKey] as! Int)!
+
+        super.init(title: jsonData[titleKey] as? String,
+                   annotation: jsonData[annotationKey] as? String,
+                   musicPlatform: MusicPlatform(str: jsonData[musicPlatformKey] as! String),
+                   artworkURL: NSURL(string: jsonData[artworkURLKey] as! String),
+                   trackId: jsonData[trackIdKey] as! String)
+    }
+
+
+    override var hashValue: Int {
+        get {
+            return self._id.hashValue
+        }
+    }
+}
+
+func ==(lhs: Song, rhs: Song) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+}

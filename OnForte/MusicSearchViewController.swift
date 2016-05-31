@@ -112,7 +112,6 @@ extension MusicSearchViewController: UITableViewDataSource, UITableViewDelegate 
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        activityIndicator.showActivity("Adding Song")
         SearchHandler.addSongToPlaylist(orderedSearchHandlers[segmentedControl.selectedSegmentIndex].results[indexPath.row])
     }
 }

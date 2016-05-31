@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MessageUI
 
 enum PlayerDisplayType {
     case None
@@ -31,7 +30,7 @@ enum PlayerDisplayType {
 }
 
 
-let updatePlaylistInfoKey = "updatePlaylistInformation"
+//let updatePlaylistInfoKey = "updatePlaylistInformation"
 
 class PlaylistViewController: DefaultViewController {
     @IBOutlet var tableView: UITableView!
@@ -42,7 +41,7 @@ class PlaylistViewController: DefaultViewController {
      It can contain nothing, a start button, or a small/large player.
     */
     private var playerDisplayType: PlayerDisplayType = .None
-    @IBOutlet var playerContainer: UIView!
+    @IBOutlet var playerContainer: UIView! // unnecessary
     @IBOutlet var playerContainerHeightConstraint: NSLayoutConstraint!
 
     @IBOutlet var startButton: UIButton!
@@ -64,7 +63,7 @@ class PlaylistViewController: DefaultViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistViewController.presentNewPlaylist), name: updatePlaylistInfoKey, object: nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistViewController.presentNewPlaylist), name: updatePlaylistInfoKey, object: nil)
         tableView.addSubview(self.refreshControl)
 
         // if isHost()
