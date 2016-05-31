@@ -26,11 +26,13 @@ class DefaultViewController: UIViewController {
     }
 }
 
+
 class NavigationController: UINavigationController {
     private let playlistController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistTabBarController") as! PlaylistTabBarController
     private let settingsController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsViewController
 
     private var blinkingTimer: NSTimer!
+    private var numOperationsRemaining = 0
 
     internal func pushSettings() {
         CATransaction.begin()
@@ -41,9 +43,19 @@ class NavigationController: UINavigationController {
         CATransaction.commit()
     }
 
-    internal func startBlinkingLabel() {
+    internal func startAsyncOperation() {
         if blinkingTimer == nil {
             blinkingTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(NavigationController.blinkLabel), userInfo: nil, repeats: true)
+        }
+        numOperationsRemaining += 1
+
+    }
+
+    internal func asyncOperationComplete() {
+        numOperationsRemaining -= 1
+        if numOperationsRemaining == 0 {
+            blinkingTimer.invalidate()
+            blinkingTimer = nil
         }
     }
 
@@ -53,11 +65,6 @@ class NavigationController: UINavigationController {
         UIView.animateWithDuration(0.5, delay: 0, options: [.AllowUserInteraction, .Autoreverse], animations: {
             view.alpha = 1
             }, completion: nil)
-    }
-
-    internal func stopBlinkingLabel() {
-        blinkingTimer.invalidate()
-        blinkingTimer = nil
     }
 
     internal func pushPlaylist() {
