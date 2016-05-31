@@ -9,10 +9,14 @@
 import Foundation
 import MessageUI
 
+let hostTimerInterval: NSTimeInterval = 10
+
 class PlaylistTabBarController: UITabBarController {
 
     private var alertController: UIAlertController?
     private var iMessageController: MFMessageComposeViewController?
+
+    private var hostTimer: NSTimer!
 
 
     @IBOutlet var bottomTabBar: UITabBar!
@@ -34,11 +38,19 @@ class PlaylistTabBarController: UITabBarController {
 
             alertController?.addAction(UIAlertAction(title: "Leave", style: .Destructive, handler: {
                 _ in
+                if PlaylistHandler.isHost() {
+                    self.hostTimer.invalidate()
+                }
                 PlaylistHandler.leavePlaylist()
                 (self.navigationController as? NavigationController)?.popPlaylist()
             }))
         }
         selectedViewController?.presentViewController(alertController!, animated: true, completion: nil)
+    }
+
+    internal func updatePlaylist() {
+        print("host updating")
+        APIHandler.updateSongs()
     }
 
     /**
@@ -59,6 +71,12 @@ class PlaylistTabBarController: UITabBarController {
     }
 
     internal func presentNewPlaylist() {
+        if PlaylistHandler.isHost() {
+            hostTimer = NSTimer.scheduledTimerWithTimeInterval(hostTimerInterval, target: self, selector: #selector(PlaylistTabBarController.updatePlaylist), userInfo: nil, repeats: true)
+        }
+
+        // here, initialize the timer
+
         self.title = PlaylistHandler.playlist!.playlistId
 
         self.viewControllers?.forEach({
