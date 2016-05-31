@@ -61,7 +61,7 @@ class SmallMusicPlayerView: UIView {
 
     @IBOutlet var songImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var descriptionLabel: UILabel!
+    @IBOutlet var annotationLabel: UILabel!
     @IBOutlet var platformImageView: UIImageView!
     @IBOutlet var fastForwardButton: FastForwardButton!
     @IBOutlet var playButton: BlurredPlayButton!
@@ -90,7 +90,7 @@ class SmallMusicPlayerView: UIView {
                 self.setNeedsLayout()
             })
             titleLabel.text = song.title
-            descriptionLabel.text = song.annotation
+            annotationLabel.text = song.annotation
             platformImageView.image = MusicPlatform(str: song.musicPlatform!).getImage()
         }
     }

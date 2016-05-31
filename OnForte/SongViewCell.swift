@@ -18,7 +18,7 @@ class SongViewCell: UITableViewCell {
 
     @IBOutlet var artworkView: UIImageView!
     @IBOutlet var songTitleLabel: UILabel!
-    @IBOutlet var songDescriptionLabel: UILabel!
+    @IBOutlet var songAnnotationLabel: UILabel!
     // rename this label
     @IBOutlet var platformImageView: UIImageView!
 
@@ -26,7 +26,7 @@ class SongViewCell: UITableViewCell {
 
     internal func loadItem(song: SearchSong) {
         self.songTitleLabel.text = song.title
-        self.songDescriptionLabel.text = song.annotation
+        self.songAnnotationLabel.text = song.annotation
         if let url = song.artworkURL {
             if url == "" {
                 artworkView.image = song.musicPlatform.getImage()

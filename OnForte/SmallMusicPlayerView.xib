@@ -31,8 +31,8 @@
                         <constraint firstAttribute="width" secondItem="aDQ-2D-wNC" secondAttribute="height" multiplier="1:1" id="gtN-5A-UeU"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaM-av-q1Z">
-                    <rect key="frame" x="90" y="40" width="132" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Annotation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaM-av-q1Z">
+                    <rect key="frame" x="90" y="40" width="128" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -80,7 +80,7 @@
                 </mask>
             </variation>
             <connections>
-                <outlet property="descriptionLabel" destination="yaM-av-q1Z" id="RKa-b5-KJf"/>
+                <outlet property="annotationLabel" destination="yaM-av-q1Z" id="Nf1-Az-VIj"/>
                 <outlet property="fastForwardButton" destination="Aj3-d7-b6m" id="VGC-iv-x0y"/>
                 <outlet property="platformImageView" destination="aDQ-2D-wNC" id="Udb-YV-nVr"/>
                 <outlet property="playButton" destination="3b5-y7-qF9" id="KLC-qq-cuK"/>

@@ -13,7 +13,7 @@ class PlaylistTableViewCell: UITableViewCell {
     private var songId: String!
     @IBOutlet var songArtworkView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var descriptionLabel: UILabel!
+    @IBOutlet var annotationLabel: UILabel!
     // rename this
     @IBOutlet var platformImageView: UIImageView!
     @IBOutlet var scoreLabel: UILabel!
@@ -25,7 +25,7 @@ class PlaylistTableViewCell: UITableViewCell {
     internal func loadItem(song: QueuedSong) {
         self.songId = song.id
         titleLabel.text = song.title
-        descriptionLabel.text = song.annotation
+        annotationLabel.text = song.annotation
         let musicPlatform = MusicPlatform(str: song.musicPlatform!)
         platformImageView.image = musicPlatform.getImage()
         scoreLabel.text = String(song.score!)

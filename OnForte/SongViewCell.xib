@@ -28,7 +28,7 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fos-V9-q2z">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Annotation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fos-V9-q2z">
                         <rect key="frame" x="73" y="53" width="135" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -74,7 +74,7 @@
                 <outlet property="artworkView" destination="Qcv-xv-qmc" id="aul-y7-LXS"/>
                 <outlet property="favoritesStar" destination="kdq-uX-NbE" id="R9r-k1-dLo"/>
                 <outlet property="platformImageView" destination="uDC-eg-31C" id="FUp-r1-nPO"/>
-                <outlet property="songDescriptionLabel" destination="fos-V9-q2z" id="Dvn-O8-YSa"/>
+                <outlet property="songAnnotationLabel" destination="fos-V9-q2z" id="uOV-1L-f82"/>
                 <outlet property="songTitleLabel" destination="vPP-9A-dLW" id="b40-vT-FaS"/>
             </connections>
             <point key="canvasLocation" x="471" y="220"/>

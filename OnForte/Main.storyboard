@@ -340,7 +340,7 @@
                                         <rect key="frame" x="0.0" y="28" width="288" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Ym-O8-F8u" id="UfS-uJ-VoF">
-                                            <rect key="frame" x="0.0" y="0.0" width="288" height="85"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="288" height="84.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spotify" translatesAutoresizingMaskIntoConstraints="NO" id="b3g-Og-jOa">
@@ -349,8 +349,8 @@
                                                         <constraint firstAttribute="width" secondItem="b3g-Og-jOa" secondAttribute="height" multiplier="1:1" id="Ehh-xv-1GW"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEU-0p-eZi">
-                                                    <rect key="frame" x="97" y="32" width="88" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Annotation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEU-0p-eZi">
+                                                    <rect key="frame" x="97" y="32" width="84" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="01y-eQ-gVV"/>
                                                     </constraints>
@@ -365,7 +365,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1JE-Ua-Jii">
-                                                    <rect key="frame" x="97" y="9" width="88" height="21"/>
+                                                    <rect key="frame" x="97" y="9" width="84" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -418,7 +418,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="descriptionLabel" destination="mEU-0p-eZi" id="sFG-1w-POK"/>
+                                            <outlet property="annotationLabel" destination="mEU-0p-eZi" id="1Ko-Nf-HhE"/>
                                             <outlet property="favoritesStar" destination="KbY-tz-bm7" id="tv2-ld-AgU"/>
                                             <outlet property="platformImageView" destination="Nxd-uP-b4o" id="RSu-hg-paT"/>
                                             <outlet property="scoreLabel" destination="2dy-gw-u25" id="u8T-LO-rHC"/>
