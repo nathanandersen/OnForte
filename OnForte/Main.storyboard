@@ -90,7 +90,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Vgg-1I-rCu" secondAttribute="trailing" id="sdn-HE-iGf"/>
                         </constraints>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="qJt-a8-0BH" appends="YES" id="ihg-Hu-nN5"/>
+                            <outletCollection property="gestureRecognizers" destination="9lo-82-N4W" appends="YES" id="G7f-2B-i5H"/>
                         </connections>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="history" id="kOM-dV-emG"/>
@@ -101,11 +101,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cye-wT-9Yy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="qJt-a8-0BH">
+                <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="9lo-82-N4W">
+                    <rectEdge key="edges" right="YES"/>
                     <connections>
-                        <action selector="handlePanGestureRecognizer:" destination="inE-hA-7gj" id="Tp6-Sv-OLN"/>
+                        <action selector="handleScreenEdgePanGestureFromRight:" destination="inE-hA-7gj" id="z65-hQ-FeO"/>
                     </connections>
-                </panGestureRecognizer>
+                </screenEdgePanGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1271" y="456"/>
         </scene>
@@ -461,6 +462,10 @@
                             <constraint firstItem="OHM-oB-4og" firstAttribute="trailing" secondItem="Hpy-IR-3Wg" secondAttribute="trailing" id="rbc-ZE-ssg"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Hpy-IR-3Wg" secondAttribute="trailing" constant="-20" id="w6e-wb-xF8"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="dio-sr-mk7" appends="YES" id="0ab-QT-ARh"/>
+                            <outletCollection property="gestureRecognizers" destination="EVS-gk-OwR" appends="YES" id="EJr-Hm-exb"/>
+                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Playlist Name" image="forte_tabbar" id="m5H-9P-CFC"/>
                     <navigationItem key="navigationItem" id="A4n-xM-RdL"/>
@@ -475,6 +480,18 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uxl-XB-F66" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="dio-sr-mk7">
+                    <rectEdge key="edges" left="YES"/>
+                    <connections>
+                        <action selector="handleScreenEdgePanGestureFromLeft:" destination="8NC-aR-KKV" id="aOX-AF-8H7"/>
+                    </connections>
+                </screenEdgePanGestureRecognizer>
+                <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="EVS-gk-OwR">
+                    <rectEdge key="edges" right="YES"/>
+                    <connections>
+                        <action selector="handleScreenEdgePanGestureFromRight:" destination="8NC-aR-KKV" id="dax-ZK-EE8"/>
+                    </connections>
+                </screenEdgePanGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1328" y="1090"/>
         </scene>
@@ -543,7 +560,7 @@
                             <constraint firstItem="c4m-SY-0O4" firstAttribute="height" secondItem="z0t-Zr-Jtj" secondAttribute="height" id="rZg-Vd-Hmz"/>
                         </constraints>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="Axb-2Y-K0l" appends="YES" id="S4U-1u-9da"/>
+                            <outletCollection property="gestureRecognizers" destination="bE7-zf-Zeb" appends="YES" id="mO6-RX-VA8"/>
                         </connections>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="search" id="NtP-9r-giT"/>
@@ -557,11 +574,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T1x-hz-zeK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="Axb-2Y-K0l">
+                <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="bE7-zf-Zeb">
+                    <rectEdge key="edges" left="YES"/>
                     <connections>
-                        <action selector="handlePanGestureRecognizer:" destination="M9i-VU-GwZ" id="wkt-La-NJZ"/>
+                        <action selector="handleScreenEdgePanGestureFromLeft:" destination="M9i-VU-GwZ" id="q1M-ek-68J"/>
                     </connections>
-                </panGestureRecognizer>
+                </screenEdgePanGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1291" y="1751"/>
         </scene>

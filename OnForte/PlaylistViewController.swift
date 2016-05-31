@@ -29,6 +29,13 @@ enum PlayerDisplayType {
     }
 }
 
+enum ScreenEdge {
+    case Top
+    case Left
+    case Right
+    case Bottom
+}
+
 
 class PlaylistViewController: DefaultViewController {
     @IBOutlet var tableView: UITableView!
@@ -57,6 +64,29 @@ class PlaylistViewController: DefaultViewController {
     func refresh() {
         APIHandler.updateSongs()
         refreshControl.endRefreshing()
+    }
+
+    @IBAction func handleScreenEdgePanGestureFromLeft(sender: UIScreenEdgePanGestureRecognizer) {
+        handleScreenEdgePanGesture(.Left)
+    }
+
+    @IBAction func handleScreenEdgePanGestureFromRight(sender: UIScreenEdgePanGestureRecognizer) {
+        handleScreenEdgePanGesture(.Right)
+    }
+
+
+    func handleScreenEdgePanGesture( edge: ScreenEdge) {
+        if edge == .Top {
+            // ignore
+        } else if edge == .Left {
+            (tabBarController as! PlaylistTabBarController).displayViewController(HistoryViewController)
+        } else if edge == .Right {
+            (tabBarController as! PlaylistTabBarController).displayViewController(MusicSearchViewController)
+        } else if edge == .Bottom {
+            // ignore
+        } else {
+            fatalError()
+        }
     }
 
     override func viewDidLoad() {

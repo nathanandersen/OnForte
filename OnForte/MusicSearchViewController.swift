@@ -21,12 +21,6 @@ class MusicSearchViewController: DefaultViewController {
 
     var timer = NSTimer()
 
-    @IBAction func handlePanGestureRecognizer(gesture: UIPanGestureRecognizer) {
-        if gesture.velocityInView(self.view).x > 0 {
-            self.closeSearch()
-        }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,6 +28,10 @@ class MusicSearchViewController: DefaultViewController {
         tableView.registerNib(nib,forCellReuseIdentifier: "SongViewCell")
 
         customizeSegmentedControl()
+    }
+
+    @IBAction func handleScreenEdgePanGestureFromLeft(sender: UIScreenEdgePanGestureRecognizer) {
+        (tabBarController as! PlaylistTabBarController).displayViewController(PlaylistViewController)
     }
 
     override func viewWillAppear(animated: Bool) {

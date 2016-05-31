@@ -20,11 +20,10 @@ class HistoryViewController: DefaultViewController, UITableViewDataSource, UITab
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HistoryViewController.updateTable), name: updateHistoryTableKey, object: nil)
     }
 
-    @IBAction func handlePanGestureRecognizer(gesture: UIPanGestureRecognizer) {
-        if gesture.velocityInView(self.view).x < 0 {
-            (tabBarController as! PlaylistTabBarController).displayViewController(PlaylistViewController)
-        }
+    @IBAction func handleScreenEdgePanGestureFromRight(sender: UIScreenEdgePanGestureRecognizer) {
+        (tabBarController as! PlaylistTabBarController).displayViewController(PlaylistViewController)
     }
+
 
     func presentNewPlaylist() {
         updateTable()
