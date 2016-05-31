@@ -30,8 +30,6 @@ enum PlayerDisplayType {
 }
 
 
-//let updatePlaylistInfoKey = "updatePlaylistInformation"
-
 class PlaylistViewController: DefaultViewController {
     @IBOutlet var tableView: UITableView!
 
@@ -63,7 +61,6 @@ class PlaylistViewController: DefaultViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistViewController.presentNewPlaylist), name: updatePlaylistInfoKey, object: nil)
         tableView.addSubview(self.refreshControl)
 
         // if isHost()

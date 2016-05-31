@@ -123,6 +123,7 @@ class APIHandler {
     }
 
     internal static func upvoteSong(id: String, completion: Bool -> ()) {
+        NSNotificationCenter.defaultCenter().postNotificationName(operationStartedKey, object: nil)
         let request = NSMutableURLRequest(URL: APIRequest.Upvote.getAPIURL())
         request.HTTPMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -131,6 +132,7 @@ class APIHandler {
         Alamofire.request(request).validate()
             .responseJSON(completionHandler: {
                 response in
+                NSNotificationCenter.defaultCenter().postNotificationName(operationFinishedKey, object: nil)
                 guard response.result.isSuccess else {
                     print("Error while upvoting song: \(response.result.error)")
                     completion(false)
@@ -141,6 +143,7 @@ class APIHandler {
     }
 
     internal static func downvoteSong(id: String, completion: Bool -> ()) {
+        NSNotificationCenter.defaultCenter().postNotificationName(operationStartedKey, object: nil)
         let request = NSMutableURLRequest(URL: APIRequest.Downvote.getAPIURL())
         request.HTTPMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -149,6 +152,7 @@ class APIHandler {
         Alamofire.request(request).validate()
             .responseJSON(completionHandler: {
                 response in
+                NSNotificationCenter.defaultCenter().postNotificationName(operationFinishedKey, object: nil)
                 guard response.result.isSuccess else {
                     print("Error while downvoting song: \(response.result.error)")
                     completion(false)
@@ -161,6 +165,7 @@ class APIHandler {
 
 
     internal static func updateSongs() {
+        NSNotificationCenter.defaultCenter().postNotificationName(operationStartedKey, object: nil)
         fetchAllSongsInPlaylist() {
             (result: [Song]?) in
             if let results = result {
@@ -181,10 +186,13 @@ class APIHandler {
             NSNotificationCenter.defaultCenter().postNotificationName(updateSmallMusicPlayerKey, object: nil)
             // reload the history table
             NSNotificationCenter.defaultCenter().postNotificationName(updateHistoryTableKey, object: nil)
+
+            NSNotificationCenter.defaultCenter().postNotificationName(operationFinishedKey, object: nil)
         }
     }
 
     internal static func addSongToDatabase(song: SearchSong, completion: Song? -> ()) {
+        NSNotificationCenter.defaultCenter().postNotificationName(operationStartedKey, object: nil)
         // it goes in as a SearchSong
 
         let request = NSMutableURLRequest(URL: APIRequest.Songs.getAPIURL())
@@ -197,6 +205,7 @@ class APIHandler {
         Alamofire.request(request).validate()
             .responseJSON(completionHandler: {
                 response in
+                NSNotificationCenter.defaultCenter().postNotificationName(operationFinishedKey, object: nil)
                 guard response.result.isSuccess else {
                     print("Error while adding song: \(response.result.error)")
                     completion(nil)
@@ -211,7 +220,7 @@ class APIHandler {
         })
     }
 
-    internal static func fetchAllPlaylists(completion: [Playlist]? -> ()) {
+/*    internal static func fetchAllPlaylists(completion: [Playlist]? -> ()) {
         Alamofire.request(
             .GET,
             String(APIRequest.Playlists.getAPIURL()),
@@ -233,7 +242,7 @@ class APIHandler {
                 results.forEach({playlists.append(Playlist(jsonData: $0))})
                 completion(playlists)
             })
-    }
+    }*/
 
     private static func fetchAllSongsInPlaylist(completion: [Song]? -> ()) {
         Alamofire.request(

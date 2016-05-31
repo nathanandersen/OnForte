@@ -26,6 +26,8 @@ class DefaultViewController: UIViewController {
     }
 }
 
+let operationStartedKey = "operationStarted"
+let operationFinishedKey = "operationFinished"
 
 class NavigationController: UINavigationController {
     private let playlistController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PlaylistTabBarController") as! PlaylistTabBarController
@@ -33,6 +35,11 @@ class NavigationController: UINavigationController {
 
     private var blinkingTimer: NSTimer!
     private var numOperationsRemaining = 0
+
+    override func viewDidLoad() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NavigationController.startAsyncOperation), name: operationStartedKey, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NavigationController.asyncOperationComplete), name: operationFinishedKey, object: nil)
+    }
 
     internal func pushSettings() {
         CATransaction.begin()

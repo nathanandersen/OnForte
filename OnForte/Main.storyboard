@@ -80,6 +80,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="EY4-Mc-2k0" firstAttribute="top" secondItem="CHf-xg-O99" secondAttribute="bottom" constant="10" id="B3X-IR-RUo"/>
                             <constraint firstItem="EY4-Mc-2k0" firstAttribute="centerX" secondItem="d9c-8w-amO" secondAttribute="centerX" id="Hkw-u2-oHa"/>
@@ -88,6 +89,9 @@
                             <constraint firstItem="Vgg-1I-rCu" firstAttribute="leading" secondItem="d9c-8w-amO" secondAttribute="leadingMargin" id="qOT-lf-4El"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Vgg-1I-rCu" secondAttribute="trailing" id="sdn-HE-iGf"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="qJt-a8-0BH" appends="YES" id="ihg-Hu-nN5"/>
+                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="history" id="kOM-dV-emG"/>
                     <navigationItem key="navigationItem" id="nLd-eo-OP5"/>
@@ -97,6 +101,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cye-wT-9Yy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="qJt-a8-0BH">
+                    <connections>
+                        <action selector="handlePanGestureRecognizer:" destination="inE-hA-7gj" id="Tp6-Sv-OLN"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1271" y="456"/>
         </scene>
@@ -340,7 +349,7 @@
                                         <rect key="frame" x="0.0" y="28" width="288" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Ym-O8-F8u" id="UfS-uJ-VoF">
-                                            <rect key="frame" x="0.0" y="0.0" width="288" height="84.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="288" height="85"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spotify" translatesAutoresizingMaskIntoConstraints="NO" id="b3g-Og-jOa">
@@ -435,6 +444,8 @@
                                 </connections>
                             </tableView>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="OHM-oB-4og" firstAttribute="top" secondItem="Hpy-IR-3Wg" secondAttribute="top" id="244-kV-xC2"/>
                             <constraint firstItem="Ubu-oI-aUo" firstAttribute="centerY" secondItem="Hpy-IR-3Wg" secondAttribute="centerY" id="4AO-In-fOp"/>
