@@ -128,8 +128,18 @@ class SongHandler: NSObject {
     */
     internal static func clearForNewPlaylist() {
         print("Have to re-implement clear.")
-
-        // delete all stuff in mem
+        let fetchRequest = NSFetchRequest(entityName: "QueuedSong")
+        fetchRequest.includesPropertyValues = false
+        if let fetchResults = try? managedObjectContext.executeFetchRequest(fetchRequest) as? [QueuedSong] {
+            for item in fetchResults! {
+                managedObjectContext.deleteObject(item)
+            }
+        }
+        do {
+            try managedObjectContext.save()
+        } catch {
+            print("save failed")
+        }
     }
 
     /**
