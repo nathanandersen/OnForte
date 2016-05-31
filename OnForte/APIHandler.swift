@@ -112,7 +112,6 @@ class APIHandler {
     }
 
     internal static func retrieveSinglePlaylistInfo(playlistId: String, completion: Playlist? -> ()) {
-        print("retrieve single playlist info called")
         Alamofire.request(
             .GET,
             String(APIRequest.PlaylistId.getAPIURL()) + "/" + playlistId,

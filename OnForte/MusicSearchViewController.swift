@@ -12,7 +12,12 @@ let closeSearchKey = "closeSearch"
 
 class MusicSearchViewController: DefaultViewController {
 
-    let orderedSearchHandlers: [SearchHandler] = [SpotifyHandler(),SoundcloudHandler(),AppleMusicHandler()]
+//    let orderedSearchHandlers: [SearchHandler] = [SpotifyHandler(),SoundcloudHandler(),AppleMusicHandler()]
+
+    var orderedSearchHandlers: [SearchHandler] = []
+    let spotifyHandler = SpotifyHandler()
+    let soundcloudHandler = SoundcloudHandler()
+    let appleMusicHandler = AppleMusicHandler()
 
     @IBOutlet var searchActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var segmentedControl: UISegmentedControl!
@@ -50,20 +55,27 @@ class MusicSearchViewController: DefaultViewController {
 
     internal func updateSegmentedControlAccordingToPlaylist() {
         if let p = PlaylistHandler.playlist {
+            orderedSearchHandlers = []
             segmentedControl.removeAllSegments()
             if PlaylistHandler.isHost() /*|| p.hostIsLoggedInToAppleMusic*/ {
                 segmentedControl.insertSegmentWithImage(UIImage(named: "itunes_gray")!, atIndex: 0, animated: true)
                 segmentedControl.subviews[0].tintColor = MusicPlatform.AppleMusic.tintColor()
+                orderedSearchHandlers.insert(appleMusicHandler, atIndex: 0)
             }
             if p.hostIsLoggedInToSoundcloud {
                 segmentedControl.insertSegmentWithImage(UIImage(named: "soundcloud_gray")!, atIndex: 0, animated: true)
                 segmentedControl.subviews[1].tintColor = MusicPlatform.Soundcloud.tintColor()
+                orderedSearchHandlers.insert(soundcloudHandler, atIndex: 0)
             }
             if p.hostIsLoggedInToSpotify {
                 segmentedControl.insertSegmentWithImage(UIImage(named: "spotify_gray")!, atIndex: 0, animated: true)
                 segmentedControl.subviews[2].tintColor = MusicPlatform.Spotify.tintColor()
+                orderedSearchHandlers.insert(spotifyHandler, atIndex: 0)
             }
             segmentedControl.selectedSegmentIndex = 0
+
+
+
         }
     }
     @IBAction func segmentedControlChangedValue(sender: UISegmentedControl) {

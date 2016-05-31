@@ -49,9 +49,11 @@ class SongHandler: NSObject {
         let queuePredicate = NSPredicate(format: equalFormat, activeStatusKey, NSNumber(integer: ActiveStatus.Queue.rawValue))
         fetchRequest.predicate = NSCompoundPredicate(type: .AndPredicateType, subpredicates: [playlistIdPredicate,queuePredicate])
 
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: scoreKey, ascending: false)]
         // fetch request sort?
 
         if let fetchResults = try? managedObjectContext.executeFetchRequest(fetchRequest) as? [QueuedSong] {
+//            return fetchResults!.sort({$0.score!.intValue >= $1.score!.intValue})
             return fetchResults!
 
             // sort this by score
@@ -81,6 +83,8 @@ class SongHandler: NSObject {
             return fetchResults!
 
             // maybe we should sort this by CreateDate
+            // but that has to do with regards to when it was updated
+            // not when it was played
 
         }
         return []
