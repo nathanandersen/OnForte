@@ -80,7 +80,7 @@ class NavigationController: UINavigationController {
             self.pushViewController(self.playlistController, animated: true)
             CATransaction.setCompletionBlock({
                 self.playlistController.presentNewPlaylist()
-                APIHandler.updateSongs()
+                APIHandler.updateAPIInformation()
             })
             CATransaction.commit()
         })

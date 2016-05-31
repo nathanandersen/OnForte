@@ -50,7 +50,7 @@ class PlaylistTabBarController: UITabBarController {
 
     internal func updatePlaylist() {
         print("host updating")
-        APIHandler.updateSongs()
+        APIHandler.updateAPIInformation()
     }
 
     /**

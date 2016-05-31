@@ -73,7 +73,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         APIHandler.addSongToDatabase(song, completion: {
             (result: Song?) in
             (self.navigationController as! NavigationController).popSettings()
-            APIHandler.updateSongs() // a full data pull
+            APIHandler.updateAPIInformation() // a full data pull
         })
     }
 

@@ -62,7 +62,7 @@ class PlaylistViewController: DefaultViewController {
     }()
 
     func refresh() {
-        APIHandler.updateSongs()
+        APIHandler.updateAPIInformation()
         refreshControl.endRefreshing()
     }
 
@@ -123,7 +123,7 @@ class PlaylistViewController: DefaultViewController {
         #endif
         PlaylistHandler.togglePlayingStatus({ (result) in
             self.smallMusicPlayer.setIsPlaying(result)
-            APIHandler.updateSongs()
+            APIHandler.updateAPIInformation()
         })
     }
 

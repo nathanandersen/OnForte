@@ -8,6 +8,10 @@
 
 import Foundation
 
+let hostIsLoggedInToSpotifyKey = "hostIsLoggedInToSpotify"
+let hostIsLoggedInToSoundcloudKey = "hostIsLoggedInToSoundcloud"
+let hostIsLoggedInToAppleMusicKey = "hostIsLoggedInToAppleMusic"
+
 class PlaylistToInsert {
     var name: String
 
@@ -30,7 +34,10 @@ class PlaylistToInsert {
         return [
             nameKey: self.name,
             playlistIdKey: PlaylistToInsert.generateRandomId(),
-            userIdKey: NSUserDefaults.standardUserDefaults().stringForKey(userIdKey)!
+            userIdKey: NSUserDefaults.standardUserDefaults().stringForKey(userIdKey)!,
+            hostIsLoggedInToSpotifyKey: PlaylistHandler.spotifySessionIsValid(),
+            hostIsLoggedInToSoundcloudKey: true,
+            hostIsLoggedInToAppleMusicKey: false
         ]
     }
 
@@ -43,10 +50,10 @@ class Playlist: Hashable {
     var name: String
     var playlistId: String
     var _id: String
-    var hostId: String
-    //    var isLoggedInToSpotify: Bool
-    //    var isLoggedInToSoundcloud: Bool
-    //    var isLoggedInToAppleMusic: Bool
+    var userId: String
+    var hostIsLoggedInToSpotify: Bool
+    var hostIsLoggedInToSoundcloud: Bool
+    var hostIsLoggedInToAppleMusic: Bool
     var createDate: NSDate
 
     init(jsonData: AnyObject) {
@@ -55,7 +62,10 @@ class Playlist: Hashable {
         self.name = jsonData[nameKey] as! String
         self.playlistId = jsonData[playlistIdKey] as! String
         self.createDate = APIHandler.convertJSONDateToNSDate(jsonData[createDateKey] as! String)!
-        self.hostId = jsonData[userIdKey] as! String
+        self.userId = jsonData[userIdKey] as! String
+        self.hostIsLoggedInToSpotify = jsonData[hostIsLoggedInToSpotifyKey] as! Bool
+        self.hostIsLoggedInToSoundcloud = jsonData[hostIsLoggedInToSoundcloudKey] as! Bool
+        self.hostIsLoggedInToAppleMusic = jsonData[hostIsLoggedInToAppleMusicKey] as! Bool
     }
 
     var hashValue: Int {

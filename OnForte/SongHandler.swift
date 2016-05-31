@@ -127,7 +127,6 @@ class SongHandler: NSObject {
      Wipe the songs for the next playlist
     */
     internal static func clearForNewPlaylist() {
-        print("Have to re-implement clear.")
         let fetchRequest = NSFetchRequest(entityName: "QueuedSong")
         fetchRequest.includesPropertyValues = false
         if let fetchResults = try? managedObjectContext.executeFetchRequest(fetchRequest) as? [QueuedSong] {

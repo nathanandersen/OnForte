@@ -128,7 +128,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             completionHandler(false)
             PlaylistHandler.stop()
         }
-        APIHandler.updateSongs()
+        APIHandler.updateAPIInformation()
     }
 
     internal func songEnded() {

@@ -27,7 +27,10 @@ class MusicSearchViewController: DefaultViewController {
         let nib = UINib(nibName: "SongViewCell", bundle: nil)
         tableView.registerNib(nib,forCellReuseIdentifier: "SongViewCell")
 
-        customizeSegmentedControl()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MusicSearchViewController.updateSegmentedControlAccordingToPlaylist), name: updateSearchSegmentedControlKey, object: nil)
+
+        //        customizeSegmentedControl()
+        updateSegmentedControlAccordingToPlaylist()
     }
 
     @IBAction func handleScreenEdgePanGestureFromLeft(sender: UIScreenEdgePanGestureRecognizer) {
@@ -45,16 +48,23 @@ class MusicSearchViewController: DefaultViewController {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: closeSearchKey, object: nil)
     }
 
-    private func customizeSegmentedControl() {
-        segmentedControl.setImage(UIImage(named: "spotify_gray")!, forSegmentAtIndex: 0)
-        segmentedControl.setImage(UIImage(named: "soundcloud_gray")!, forSegmentAtIndex: 1)
-        segmentedControl.setImage(UIImage(named: "itunes_gray")!, forSegmentAtIndex: 2)
-        // not sure why this is inverted, but.. ok
-        segmentedControl.subviews[2].tintColor = MusicPlatform.Spotify.tintColor()
-        segmentedControl.subviews[1].tintColor = MusicPlatform.Soundcloud.tintColor()
-        segmentedControl.subviews[0].tintColor = MusicPlatform.AppleMusic.tintColor()
-
-
+    internal func updateSegmentedControlAccordingToPlaylist() {
+        if let p = PlaylistHandler.playlist {
+            segmentedControl.removeAllSegments()
+            if PlaylistHandler.isHost() /*|| p.hostIsLoggedInToAppleMusic*/ {
+                segmentedControl.insertSegmentWithImage(UIImage(named: "itunes_gray")!, atIndex: 0, animated: true)
+                segmentedControl.subviews[0].tintColor = MusicPlatform.AppleMusic.tintColor()
+            }
+            if p.hostIsLoggedInToSoundcloud {
+                segmentedControl.insertSegmentWithImage(UIImage(named: "soundcloud_gray")!, atIndex: 0, animated: true)
+                segmentedControl.subviews[1].tintColor = MusicPlatform.Soundcloud.tintColor()
+            }
+            if p.hostIsLoggedInToSpotify {
+                segmentedControl.insertSegmentWithImage(UIImage(named: "spotify_gray")!, atIndex: 0, animated: true)
+                segmentedControl.subviews[2].tintColor = MusicPlatform.Spotify.tintColor()
+            }
+            segmentedControl.selectedSegmentIndex = 0
+        }
     }
     @IBAction func segmentedControlChangedValue(sender: UISegmentedControl) {
         tableView.reloadData()

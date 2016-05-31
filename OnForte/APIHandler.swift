@@ -56,6 +56,28 @@ class APIHandler {
         return dateFormatter.dateFromString(dateStr)
     }
 
+    internal static func updateSpotifyLoginStatus(completion: Bool -> ()) {
+        updateLoginStatuses([hostIsLoggedInToSpotifyKey:PlaylistHandler.spotifySessionIsValid()], completion: completion)
+    }
+
+    internal static func updateLoginStatuses(dict: [String:Bool], completion: Bool -> ()) {
+        let urlStr = String(APIRequest.Playlists.getAPIURL()) + "/" + PlaylistHandler.playlist!._id
+        let request = NSMutableURLRequest(URL: NSURL(string: urlStr)!)
+        request.HTTPMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
+        Alamofire.request(request).validate()
+            .responseJSON(completionHandler: {
+                response in
+                guard response.result.isSuccess else {
+                    print("Error while updating host login statuses: \(response.result.error)")
+                    completion(false)
+                    return
+                }
+                completion(true)
+            })
+    }
+
     internal static func updateSongActiveStatus(songId: String, activeStatus: ActiveStatus, completion: Bool -> ()) {
         let urlStr = String(APIRequest.Songs.getAPIURL()) + "/" + songId
         let request = NSMutableURLRequest(URL: NSURL(string: urlStr)!)
@@ -75,8 +97,22 @@ class APIHandler {
             })
     }
 
+    internal static func updateAPIInformation() {
+        updateSongs()
+        updatePlaylistInfo()
+    }
 
-    internal static func joinPlaylist(playlistId: String, completion: Playlist? -> ()) {
+    internal static func updatePlaylistInfo() {
+        retrieveSinglePlaylistInfo(PlaylistHandler.playlist!.playlistId, completion: {
+            (result: Playlist?) in
+            PlaylistHandler.playlist = result
+            // conceivably, either here or in there, we have to update service info.
+            PlaylistHandler.updatePlaylistSettings()
+        })
+    }
+
+    internal static func retrieveSinglePlaylistInfo(playlistId: String, completion: Playlist? -> ()) {
+        print("retrieve single playlist info called")
         Alamofire.request(
             .GET,
             String(APIRequest.PlaylistId.getAPIURL()) + "/" + playlistId,
@@ -93,8 +129,18 @@ class APIHandler {
                     completion(Playlist(jsonData: value))
                     return
                 }
-                print("Malformed data received from join playlist service")
+                print("Malformed data received from retrieve playlist service")
                 completion(nil)
+            })
+    }
+
+
+    internal static func joinPlaylist(playlistId: String, completion: Playlist? -> ()) {
+        retrieveSinglePlaylistInfo(playlistId, completion: {
+            (result: Playlist?) in
+
+            // can do extra handling here if necessary
+            completion(result)
         })
     }
 
@@ -219,30 +265,6 @@ class APIHandler {
 
         })
     }
-
-/*    internal static func fetchAllPlaylists(completion: [Playlist]? -> ()) {
-        Alamofire.request(
-            .GET,
-            String(APIRequest.Playlists.getAPIURL()),
-            parameters: nil,
-            encoding: .URL,
-            headers: nil).validate().responseJSON(completionHandler: {
-                response -> () in
-                guard response.result.isSuccess else {
-                    print("Error while fetching songs: \(response.result.error)")
-                    completion(nil)
-                    return
-                }
-                guard let results = response.result.value as? [AnyObject] else {
-                    print("Malformed data received from fetchAllPlaylists service")
-                    completion(nil)
-                    return
-                }
-                var playlists = [Playlist]()
-                results.forEach({playlists.append(Playlist(jsonData: $0))})
-                completion(playlists)
-            })
-    }*/
 
     private static func fetchAllSongsInPlaylist(completion: [Song]? -> ()) {
         Alamofire.request(

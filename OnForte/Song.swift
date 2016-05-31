@@ -86,8 +86,6 @@ class Song: SearchSong {
     var activeStatus: ActiveStatus
 
     init(jsonData: AnyObject) {
-
-
         self._id = jsonData[mongoIdKey] as! String
         self.playlistId = jsonData[playlistIdKey] as! String
         self.createDate = APIHandler.convertJSONDateToNSDate(jsonData[createDateKey] as! String)!

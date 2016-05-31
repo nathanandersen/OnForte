@@ -8,6 +8,8 @@
 
 import Foundation
 
+let updateSearchSegmentedControlKey = "updateSearchSegmentedControl"
+
 class PlaylistHandler: NSObject {
 
     internal static var playlist: Playlist?
@@ -19,9 +21,15 @@ class PlaylistHandler: NSObject {
 
     internal static func isHost() -> Bool {
         if let p = playlist {
-            return p.hostId == NSUserDefaults.standardUserDefaults().stringForKey(userIdKey)
+            return p.userId == NSUserDefaults.standardUserDefaults().stringForKey(userIdKey)
         }
         return false
+    }
+
+    internal static func updatePlaylistSettings() {
+//        if let p = playlist {
+        NSNotificationCenter.defaultCenter().postNotificationName(updateSearchSegmentedControlKey, object: nil)
+//        }
     }
 
 
@@ -66,7 +74,7 @@ class PlaylistHandler: NSObject {
             (result: Bool) in
             if result {
                 votes.remove(id)
-                APIHandler.updateSongs()
+                APIHandler.updateAPIInformation()
             }
         })
     }
@@ -80,7 +88,7 @@ class PlaylistHandler: NSObject {
             (result: Bool) in
             if result {
                 votes.insert(id)
-                APIHandler.updateSongs()
+                APIHandler.updateAPIInformation()
             }
         })
     }

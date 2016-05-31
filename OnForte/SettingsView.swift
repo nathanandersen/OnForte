@@ -94,6 +94,14 @@ extension HostSettingsView: SPTAuthViewDelegate {
         print("Logged In")
         PlaylistHandler.spotifySession = session
         self.didLogInToSpotify()
+        APIHandler.updateSpotifyLoginStatus({
+            (result: Bool) in
+            if result {
+                // did work
+            } else {
+                // did not work
+            }
+        })
     }
 
     func authenticationViewController(authenticationViewController: SPTAuthViewController!, didFailToLogin error: NSError!) {
