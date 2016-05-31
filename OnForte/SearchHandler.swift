@@ -31,28 +31,10 @@ class SearchHandler: NSObject {
     internal static func addSongToPlaylist(song: SearchSong) {
         NSNotificationCenter.defaultCenter().postNotificationName(closeSearchKey, object: nil)
 
-
-/*        var platform: MusicPlatform
-        if song.service == .Spotify {
-            platform = .Spotify
-        } else if song.service == .iTunes {
-            platform = .AppleMusic
-        } else if song.service == .Soundcloud {
-            platform = .Soundcloud
-        } else {
-            fatalError()
-        }
-        let searchSong = SearchSong(title: song.title, annotation: song.description, musicPlatform: platform, artworkURL: song.artworkURL, trackId: song.trackId!)*/
-
         APIHandler.addSongToDatabase(song, completion: {
             (result: Song?) in
             APIHandler.updateSongs() // a full data pull
         })
-
-/*        MeteorHandler.addSongToDatabase(song, completionHandler: {
-            NSNotificationCenter.defaultCenter().postNotificationName(reloadTableKey, object: nil)
-            // hide the activity indicator -> or some sort of visual confirmation
-        })*/
         SongHandler.insertIntoSuggestions(song)
     }
 

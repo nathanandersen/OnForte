@@ -9,7 +9,6 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
-import SwiftDDP
 
 let tracksKey = "tracks"
 let itemsKey = "items"

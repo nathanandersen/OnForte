@@ -11,7 +11,7 @@ import Foundation
 class PlaylistToInsert {
     var name: String
 
-    internal static func generateRandomId() -> String {
+    private static func generateRandomId() -> String {
         let _base36chars_string = "0123456789abcdefghijklmnopqrstuvwxyz"
         let _base36chars = Array(_base36chars_string.characters)
         var uniqueId = "";

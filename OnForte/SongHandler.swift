@@ -48,12 +48,15 @@ class SongHandler: NSObject {
         let playlistIdPredicate = NSPredicate(format: equalFormat, playlistIdKey, PlaylistHandler.playlist!.playlistId)
         let queuePredicate = NSPredicate(format: equalFormat, activeStatusKey, NSNumber(integer: ActiveStatus.Queue.rawValue))
         fetchRequest.predicate = NSCompoundPredicate(type: .AndPredicateType, subpredicates: [playlistIdPredicate,queuePredicate])
+
+        // fetch request sort?
+
         if let fetchResults = try? managedObjectContext.executeFetchRequest(fetchRequest) as? [QueuedSong] {
             return fetchResults!
+
+            // sort this by score
         }
         return []
-
-        // maybe we want to sort this?
     }
 
     internal static func getActiveSong() -> QueuedSong? {
@@ -178,7 +181,7 @@ class SongHandler: NSObject {
     }
 
     /**
-     Conditionally insert into favorties if not already there
+     Conditionally insert into favorites if not already there
      */
     internal static func insertIntoFavorites(song: SearchSong) {
         var favoritedSong: FavoritedSong?
