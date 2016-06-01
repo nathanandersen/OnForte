@@ -9,7 +9,8 @@
 import Foundation
 import Alamofire
 
-let apiServer = "https://onforte-server.herokuapp.com"
+let apiServer = "https://onforte.herokuapp.com"
+//let apiServer = "https://www.onforte.com"
 let playlistsPath = "/playlists"
 let playlistIdPath = "/playlistid"
 let songsPath = "/songs"
