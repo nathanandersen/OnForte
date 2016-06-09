@@ -1,35 +1,19 @@
 PODS:
   - 1PasswordExtension (1.8)
-  - Alamofire (3.3.1)
-  - AlamofireImage (2.4.0):
-    - Alamofire (~> 3.3)
+  - Alamofire (3.4.0)
   - Soundcloud (0.8.0):
     - 1PasswordExtension (~> 1.5)
     - UICKeyChainStore (~> 2.0.6)
-  - SwiftyJSON (2.3.2)
   - UICKeyChainStore (2.0.7)
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
-  - AlamofireImage (~> 2.0)
   - Soundcloud
-  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
-
-EXTERNAL SOURCES:
-  SwiftyJSON:
-    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
-
-CHECKOUT OPTIONS:
-  SwiftyJSON:
-    :commit: 2a5b70f06001316d4fb54501edc70b4084705da0
-    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
   1PasswordExtension: 627d5aecf210c7636968faf5a4c3546c9531385b
-  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
-  AlamofireImage: 87408b652e0f5ae5fe364035f15aea8b9b24c77e
+  Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
   Soundcloud: c003a1c7e281eab6206d18bccf00058958250aae
-  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   UICKeyChainStore: 696cd35083f7c8fb5e201d909b7e6aea6b478575
 
 COCOAPODS: 0.39.0

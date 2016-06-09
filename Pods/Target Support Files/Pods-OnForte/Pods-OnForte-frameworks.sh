@@ -86,16 +86,12 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-OnForte/OnePasswordExtension.framework"
   install_framework "Pods-OnForte/Alamofire.framework"
-  install_framework "Pods-OnForte/AlamofireImage.framework"
   install_framework "Pods-OnForte/Soundcloud.framework"
-  install_framework "Pods-OnForte/SwiftyJSON.framework"
   install_framework "Pods-OnForte/UICKeyChainStore.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-OnForte/OnePasswordExtension.framework"
   install_framework "Pods-OnForte/Alamofire.framework"
-  install_framework "Pods-OnForte/AlamofireImage.framework"
   install_framework "Pods-OnForte/Soundcloud.framework"
-  install_framework "Pods-OnForte/SwiftyJSON.framework"
   install_framework "Pods-OnForte/UICKeyChainStore.framework"
 fi

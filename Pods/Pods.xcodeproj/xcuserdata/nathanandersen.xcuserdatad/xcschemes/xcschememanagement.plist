@@ -19,22 +19,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>AlamofireImage.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-OnForte.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Soundcloud.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -47,22 +37,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>05094CC4A047119F7ADC14EE74C4881C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>22ED3BC7783ECAAC953D2B4DD4DB7FF7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>34D984BFD78B8DE3C6CD4896C300C415</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3C1BEDA29BBD5D6D9545C6F76E324B26</key>
+		<key>2FE4F810B7B2C8EFC5EEFE000C550CED</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,12 +47,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>891C90F16E57FBAC0581C2C68886B3B3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>A317980ED77B7A6EAE72AA70DD7D168A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DC9EAEF08484DA9B91E81317FECBACAE</key>
+		<key>C080251D0AA4BE03B5D2D4B414BF8785</key>
 		<dict>
 			<key>primary</key>
 			<true/>
