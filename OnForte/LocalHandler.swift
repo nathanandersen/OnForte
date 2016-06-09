@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import Alamofire
-import SwiftDDP
-import SwiftyJSON
+//import Alamofire
+//import SwiftDDP
+//import SwiftyJSON
 
 class AppleMusicHandler: SearchHandler {
 

@@ -9,7 +9,7 @@
 import Foundation
 import MessageUI
 
-let hostTimerInterval: NSTimeInterval = 10
+let hostTimerInterval: NSTimeInterval = 30
 
 class PlaylistTabBarController: UITabBarController {
 
