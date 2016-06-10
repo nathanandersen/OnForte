@@ -12,18 +12,19 @@ import Foundation
  SongViewCell is used in the PlaylistHistoryTable and in the SearchResultsTable.
  
  A simple construction, with album artwork on the left, title and description in the middle,
- and platform on the rigth
+ and platform on the right
  */
 class SongViewCell: UITableViewCell {
 
     @IBOutlet var artworkView: UIImageView!
     @IBOutlet var songTitleLabel: UILabel!
     @IBOutlet var songAnnotationLabel: UILabel!
-    // rename this label
     @IBOutlet var platformImageView: UIImageView!
-
     @IBOutlet var favoritesStar: UIImageView!
 
+    /**
+     Load a SearchSong (or greater) into the cell.
+    */
     internal func loadItem(song: SearchSong) {
         self.songTitleLabel.text = song.title
         self.songAnnotationLabel.text = song.annotation

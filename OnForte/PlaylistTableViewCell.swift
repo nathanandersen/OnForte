@@ -14,14 +14,14 @@ class PlaylistTableViewCell: UITableViewCell {
     @IBOutlet var songArtworkView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var annotationLabel: UILabel!
-    // rename this
     @IBOutlet var platformImageView: UIImageView!
     @IBOutlet var scoreLabel: UILabel!
     @IBOutlet var votingSwitch: UISwitch!
-
     @IBOutlet var favoritesStar: UIImageView!
-    // want: a favorites star
 
+    /**
+     Load a QueuedSong into the PlaylistTableViewCell
+    */
     internal func loadItem(song: QueuedSong) {
         self.songId = song.id
         titleLabel.text = song.title
