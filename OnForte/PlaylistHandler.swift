@@ -31,7 +31,6 @@ class PlaylistHandler: NSObject {
                 } else {
                     appleMusicLoginStatus = (response != SKCloudServiceCapability.None)
                 }
-                print(appleMusicLoginStatus)
             })
         } else {
             // Fallback on earlier versions

@@ -19,18 +19,21 @@ let equalFormat = "%K == %@"
 class SongHandler: NSObject {
 
     private static let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-    private static var appleMusicSongs = MPMediaQuery.songsQuery().items
-    private static var mappedAppleMusicSongs: [SearchSong] = {
+    private static var localLibrarySongs: [MPMediaItem]? = MPMediaQuery.songsQuery().items
+
+    private static var mappedLibrarySongs: [SearchSong] = {
         var songs = [SearchSong]()
-        if appleMusicSongs!.count > 0 {
-            for i in 0...(appleMusicSongs!.count-1){
-                let track = appleMusicSongs![i]
-                songs.append(SearchSong(
-                    title: track.title,
-                    annotation: track.albumTitle,
-                    musicPlatform: .AppleMusic,
-                    artworkURL: nil,
-                    trackId: String(i)))
+        if let libSongs: [MPMediaItem] = localLibrarySongs {
+            if libSongs.count > 0 {
+                for i in 0 ..< libSongs.count {
+                    let track = libSongs[i]
+                    songs.append(SearchSong(
+                        title: track.title,
+                        annotation: track.albumTitle,
+                        musicPlatform: .LocalLibrary,
+                        artworkURL: nil,
+                        trackId: String(i)))
+                }
             }
         }
         return songs
@@ -99,6 +102,10 @@ class SongHandler: NSObject {
 
     }
 
+    internal static func hasLocalLibrarySongs() -> Bool {
+        return mappedLibrarySongs.count != 0
+    }
+
     internal static func updateItem(songId: NSManagedObjectID, song: Song) {
         let item = managedObjectContext.objectWithID(songId)
         item.setValue(song.score, forKey: scoreKey)
@@ -106,17 +113,17 @@ class SongHandler: NSObject {
     }
 
     internal static func getSongByArrayIndex(index: Int) -> MPMediaItem? {
-        if appleMusicSongs == nil {
+        if localLibrarySongs == nil {
             return nil
         }
-        return appleMusicSongs![index]
+        return localLibrarySongs![index]
     }
 
     internal static func getLocalSongsByQuery(query: String) -> [SearchSong]? {
         if query == "" {
             return nil
         }
-        return mappedAppleMusicSongs.filter({
+        return mappedLibrarySongs.filter({
             return (
                 (($0.title != nil) ?
                     ($0.title! as NSString).rangeOfString(query,options: NSStringCompareOptions.CaseInsensitiveSearch).location != NSNotFound :

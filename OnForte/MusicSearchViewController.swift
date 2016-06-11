@@ -12,11 +12,10 @@ let closeSearchKey = "closeSearch"
 
 class MusicSearchViewController: DefaultViewController {
 
-//    let orderedSearchHandlers: [SearchHandler] = [SpotifyHandler(),SoundcloudHandler(),AppleMusicHandler()]
-
     var orderedSearchHandlers: [SearchHandler] = []
     let spotifyHandler = SpotifyHandler()
     let soundcloudHandler = SoundcloudHandler()
+    let appleMusicHandler = AppleMusicHandler()
     let localMusicHandler = LocalMusicHandler()
 
     @IBOutlet var searchActivityIndicator: UIActivityIndicatorView!
@@ -28,13 +27,9 @@ class MusicSearchViewController: DefaultViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         let nib = UINib(nibName: "SongViewCell", bundle: nil)
         tableView.registerNib(nib,forCellReuseIdentifier: "SongViewCell")
-
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MusicSearchViewController.updateSegmentedControlAccordingToPlaylist), name: updateSearchSegmentedControlKey, object: nil)
-
-        //        customizeSegmentedControl()
         updateSegmentedControlAccordingToPlaylist()
     }
 
@@ -54,28 +49,38 @@ class MusicSearchViewController: DefaultViewController {
     }
 
     internal func updateSegmentedControlAccordingToPlaylist() {
+        var optionCount = 0
+
         if let p = PlaylistHandler.playlist {
             orderedSearchHandlers = []
             segmentedControl.removeAllSegments()
-            if PlaylistHandler.isHost() /*|| p.hostIsLoggedInToAppleMusic*/ {
+
+            if p.hostIsLoggedInToAppleMusic || (PlaylistHandler.isHost() && SongHandler.hasLocalLibrarySongs()) {
                 segmentedControl.insertSegmentWithImage(UIImage(named: "itunes_gray")!, atIndex: 0, animated: true)
-                segmentedControl.subviews[0].tintColor = MusicPlatform.AppleMusic.tintColor()
-                orderedSearchHandlers.insert(localMusicHandler, atIndex: 0)
+                segmentedControl.subviews[optionCount].tintColor = MusicPlatform.AppleMusic.tintColor()
+
+                optionCount += 1
+
+                if p.hostIsLoggedInToAppleMusic {
+                    orderedSearchHandlers.insert(appleMusicHandler, atIndex: 0)
+                } else {
+                    // must be host and have songs
+                    orderedSearchHandlers.insert(localMusicHandler, atIndex: 0)
+                }
             }
             if p.hostIsLoggedInToSoundcloud {
                 segmentedControl.insertSegmentWithImage(UIImage(named: "soundcloud_gray")!, atIndex: 0, animated: true)
-                segmentedControl.subviews[1].tintColor = MusicPlatform.Soundcloud.tintColor()
+                segmentedControl.subviews[optionCount].tintColor = MusicPlatform.Soundcloud.tintColor()
+                optionCount += 1
                 orderedSearchHandlers.insert(soundcloudHandler, atIndex: 0)
             }
             if p.hostIsLoggedInToSpotify {
                 segmentedControl.insertSegmentWithImage(UIImage(named: "spotify_gray")!, atIndex: 0, animated: true)
-                segmentedControl.subviews[2].tintColor = MusicPlatform.Spotify.tintColor()
+                segmentedControl.subviews[optionCount].tintColor = MusicPlatform.Spotify.tintColor()
+                optionCount += 1
                 orderedSearchHandlers.insert(spotifyHandler, atIndex: 0)
             }
             segmentedControl.selectedSegmentIndex = 0
-
-
-
         }
     }
     @IBAction func segmentedControlChangedValue(sender: UISegmentedControl) {

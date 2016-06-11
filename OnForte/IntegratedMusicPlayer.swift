@@ -48,8 +48,11 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
                 }
             case .Spotify:
                 spotifyPlayer.setIsPlaying(!playing,callback: nil)
-            case .AppleMusic:
+            case .LocalLibrary:
                 playing ? localPlayer.pause() : localPlayer.play()
+            case .AppleMusic:
+                // FILL THIS OUT
+                break
             }
             playing = !playing
             completionHandler(playing)
@@ -102,7 +105,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      - returns: whether or not the music is successfully playing -> from the callbacks
     */
     internal func playNextSong(completionHandler: Bool -> ()) {
-        var musicPlatforms: Set<MusicPlatform> = Set([.Soundcloud, .AppleMusic])
+        var musicPlatforms: Set<MusicPlatform> = Set([.Soundcloud, .LocalLibrary])
         if PlaylistHandler.spotifySessionIsValid() {
             musicPlatforms.insert(.Spotify)
         }
@@ -118,8 +121,11 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
                 playSoundCloud(completionHandler)
             case .Spotify:
                 playSpotify(completionHandler)
-            case .AppleMusic:
+            case .LocalLibrary:
                 playLocalSong(completionHandler)
+            case .AppleMusic:
+                // execute something
+                break
             }
 
         } else {
@@ -172,10 +178,13 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             switch MusicPlatform(str: (PlaylistHandler.nowPlaying?.musicPlatform!)!) {
             case .Soundcloud:
                 self.soundcloudPlayer!.pause()
-            case .AppleMusic:
+            case .LocalLibrary:
                 self.localPlayer.pause()
             case .Spotify:
                 self.spotifyPlayer.setIsPlaying(false, callback: nil)
+            case .AppleMusic:
+                // do something idk
+                break
             }
         }
     }
