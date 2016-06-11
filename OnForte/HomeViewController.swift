@@ -76,6 +76,9 @@ class HomeViewController: DefaultViewController {
     @IBOutlet var createTextField: UITextField!
     @IBOutlet var joinTextField: UITextField!
 
+    var createTextFieldRightButton: UIButton!
+    var joinTextFieldRightButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         addLabelAndTargetToTextFieldButton(.Create)
@@ -84,13 +87,13 @@ class HomeViewController: DefaultViewController {
 
     private func addLabelAndTargetToTextFieldButton(textField: HomeViewTextField) {
         if textField == .Create {
-            let button = createTextField.rightView as! UIButton
-            button.setTitle("Create",forState: .Normal)
-            button.addTarget(self, action: #selector(HomeViewController.handleCreateFieldSubmit), forControlEvents: .TouchUpInside)
+            createTextFieldRightButton = createTextField.rightView as! UIButton
+            createTextFieldRightButton.setTitle("Create",forState: .Normal)
+            createTextFieldRightButton.addTarget(self, action: #selector(HomeViewController.handleCreateFieldSubmit), forControlEvents: .TouchUpInside)
         } else if textField == .Join {
-            let button = joinTextField.rightView as! UIButton
-            button.setTitle("Join",forState: .Normal)
-            button.addTarget(self, action: #selector(HomeViewController.handleJoinFieldSubmit), forControlEvents: .TouchUpInside)
+            joinTextFieldRightButton = joinTextField.rightView as! UIButton
+            joinTextFieldRightButton.setTitle("Join",forState: .Normal)
+            joinTextFieldRightButton.addTarget(self, action: #selector(HomeViewController.handleJoinFieldSubmit), forControlEvents: .TouchUpInside)
         } /*else {
             fatalError()
         }*/
@@ -133,6 +136,12 @@ class HomeViewController: DefaultViewController {
         joinTextField.hidden = true
         createButton.hidden = false
         joinButton.hidden = false
+
+        createTextFieldRightButton.backgroundColor = UIColor.whiteColor()
+        createTextFieldRightButton.tintColor = Style.primaryBlue
+        joinTextFieldRightButton.backgroundColor = UIColor.whiteColor()
+        joinTextFieldRightButton.tintColor = Style.primaryBlue
+
     }
 
     @IBAction func buttonDidPress(sender: UIButton) {
@@ -146,17 +155,10 @@ class HomeViewController: DefaultViewController {
 
 extension HomeViewController: UITextFieldDelegate {
 
-    func handleJoinFieldSubmit() {
-        if let targetText = joinTextField.text {
-            if targetText != "" {
-                joinPlaylist(targetText)
-            }
-        }
-    }
-
     func joinPlaylist(targetPlaylistId: String) {
         PlaylistHandler.joinPlaylist(targetPlaylistId, completionHandler: {
             (result: Bool) in
+            self.joinTextField.resignFirstResponder()
             if result {
                 (self.navigationController as! NavigationController).pushPlaylist()
             } else {
@@ -166,15 +168,32 @@ extension HomeViewController: UITextFieldDelegate {
         })
     }
 
-    func handleCreateFieldSubmit() {
+    func handleJoinFieldSubmit(completionHandler: Bool -> ()) {
+        if let targetText = joinTextField.text {
+
+            joinTextFieldRightButton.backgroundColor = Style.primaryBlue
+            joinTextFieldRightButton.tintColor = UIColor.whiteColor()
+
+            if targetText != "" {
+                joinPlaylist(targetText)
+            }
+        }
+    }
+
+    func handleCreateFieldSubmit(completionHandler: Bool -> ()) {
         if let targetText = createTextField.text {
+
+            createTextFieldRightButton.backgroundColor = Style.primaryBlue
+            createTextFieldRightButton.tintColor = UIColor.whiteColor()
+
             if targetText != "" {
                 PlaylistHandler.createPlaylist(targetText, completionHandler: {
                     (result: Bool) in
+                    self.createTextField.resignFirstResponder()
                         if result {
                             (self.navigationController as! NavigationController).pushPlaylist()
                         } else {
-                            // display some sort of error
+                            // display an error
                         }
                 })
             }
@@ -183,11 +202,18 @@ extension HomeViewController: UITextFieldDelegate {
 
 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+
         textField.resignFirstResponder()
         if textField == joinTextField {
-            handleJoinFieldSubmit()
+            handleJoinFieldSubmit() {
+                result in
+                textField.resignFirstResponder()
+            }
         } else if textField == createTextField {
-            handleCreateFieldSubmit()
+            handleCreateFieldSubmit() {
+                result in
+                textField.resignFirstResponder()
+            }
         } else {
             fatalError()
         }
