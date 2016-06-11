@@ -33,7 +33,9 @@ class SearchHandler: NSObject {
 
         APIHandler.addSongToDatabase(song, completion: {
             (result: Song?) in
-            APIHandler.updateAPIInformation() // a full data pull
+
+            NSNotificationCenter.defaultCenter().postNotificationName(updatePlaylistKey, object: nil)
+//            APIHandler.updateAPIInformation() // a full data pull
         })
         SongHandler.insertIntoSuggestions(song)
     }

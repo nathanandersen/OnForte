@@ -7,8 +7,7 @@
 //
 
 import Foundation
-import Alamofire
-//import SwiftyJSON
+//import Alamofire
 
 /**
  This is a cache for artwork music

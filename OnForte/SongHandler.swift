@@ -11,12 +11,13 @@ import CoreData
 import MediaPlayer
 
 
-let equalFormat = "%K == %@"
 /**
  The SongHandler controls all of the songs in the application, whether in
  History, Playlist, Favorites, or Suggestions.
 */
 class SongHandler: NSObject {
+
+    private static let equalFormat = "%K == %@"
 
     private static let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     private static var localLibrarySongs: [MPMediaItem]? = MPMediaQuery.songsQuery().items

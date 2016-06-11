@@ -7,9 +7,8 @@
 //
 
 import Foundation
-//import SwiftyJSON
 
-let nowPlayingKey = "nowPlaying"
+//let nowPlayingKey = "nowPlaying"
 
 class HomePageButton: UIButton {
     override init(frame: CGRect) {

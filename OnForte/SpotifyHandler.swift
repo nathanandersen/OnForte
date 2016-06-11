@@ -9,18 +9,17 @@
 import Foundation
 import Alamofire
 
-let tracksKey = "tracks"
-let itemsKey = "items"
-let artistsKey = "artists"
-let albumKey = "album"
-let imagesKey = "images"
-let urlKey = "url"
-let spotifyIdKey = "id"
-
 class SpotifyHandler: SearchHandler {
-    func parseResults(value: AnyObject)/* -> [SearchSong]*/ {
+    let tracksKey = "tracks"
+    let itemsKey = "items"
+    let artistsKey = "artists"
+    let albumKey = "album"
+    let imagesKey = "images"
+    let urlKey = "url"
+    let spotifyIdKey = "id"
+
+    func parseResults(value: AnyObject) {
         results = []
-//        var songs: [SearchSong] = []
         if let dict: [String: AnyObject] = value as? [String : AnyObject] {
             if let tracks = dict[tracksKey] as? [String : AnyObject] {
                 if let items = tracks[itemsKey] as? [[String:AnyObject]] {
@@ -49,7 +48,6 @@ class SpotifyHandler: SearchHandler {
                 }
             }
         }
-//        return songs
     }
 
     override func search(query: String, completionHandler: (success: Bool) -> Void) {
@@ -58,9 +56,7 @@ class SpotifyHandler: SearchHandler {
                 "q": query,
                 "type": "track,artist,album"
             ]
-
             Alamofire.request(.GET, "https://api.spotify.com/v1/search", parameters: parameters).responseJSON { response in
-
                 guard response.result.error == nil else {
                     print("Error occurred during spotify request")
                     print(response.result.error!)
@@ -69,7 +65,6 @@ class SpotifyHandler: SearchHandler {
                 }
                 if let value: AnyObject = response.result.value {
                     self.parseResults(value)
-//                    self.results = self.parseResults(value)
                     completionHandler(success: true)
                 }
             }

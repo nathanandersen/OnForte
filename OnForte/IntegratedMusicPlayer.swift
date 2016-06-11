@@ -9,7 +9,7 @@
 import Foundation
 import MediaPlayer
 import AVFoundation
-import SwiftDDP
+//import SwiftDDP
 
 /**
  IntegratedMusicPlayer is a 3-piece integrated music player that brings together the playing
@@ -132,7 +132,8 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             completionHandler(false)
             PlaylistHandler.stop()
         }
-        APIHandler.updateAPIInformation()
+        NSNotificationCenter.defaultCenter().postNotificationName(updatePlaylistKey, object: nil)
+//        APIHandler.updateAPIInformation()
     }
 
     internal func songEnded() {

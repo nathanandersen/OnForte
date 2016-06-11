@@ -8,12 +8,6 @@
 
 import Foundation
 
-
-// use startBlinkingLabel()
-// use stopBlinkingLabel()
-
-// as activity indicators
-
 /**
  This is a UIViewController that never displays a back button. Simple extension,
  written to pair with the custom NavigationController.
@@ -80,7 +74,8 @@ class NavigationController: UINavigationController {
             self.pushViewController(self.playlistController, animated: true)
             CATransaction.setCompletionBlock({
                 self.playlistController.presentNewPlaylist()
-                APIHandler.updateAPIInformation()
+//                APIHandler.updateAPIInformation()
+                NSNotificationCenter.defaultCenter().postNotificationName(updatePlaylistKey, object: nil)
             })
             CATransaction.commit()
         })

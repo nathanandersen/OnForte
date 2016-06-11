@@ -62,7 +62,8 @@ class PlaylistViewController: DefaultViewController {
     }()
 
     func refresh() {
-        APIHandler.updateAPIInformation()
+//        APIHandler.updateAPIInformation()
+        NSNotificationCenter.defaultCenter().postNotificationName(updatePlaylistKey, object: nil)
         refreshControl.endRefreshing()
     }
 
@@ -123,7 +124,8 @@ class PlaylistViewController: DefaultViewController {
         #endif
         PlaylistHandler.togglePlayingStatus({ (result) in
             self.smallMusicPlayer.setIsPlaying(result)
-            APIHandler.updateAPIInformation()
+//            APIHandler.updateAPIInformation()
+            NSNotificationCenter.defaultCenter().postNotificationName(updatePlaylistKey, object: nil)
         })
     }
 

@@ -124,9 +124,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
 
         }
-        //        else if sourceApplication != nil && sourceApplication == "com.apple.SafariViewService" {
-//        print("Opening from deep link")
-//        activityIndicator.showActivity("Confirming login")
         if SPTAuth.defaultInstance().canHandleURL(url) {
             SPTAuth.defaultInstance().handleAuthCallbackWithTriggeredAuthURL(url, callback: {(error:NSError?,session: SPTSession?) in
                 if error != nil {
@@ -135,16 +132,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return
                 }
                 PlaylistHandler.spotifySession = session
-//                activityIndicator.showComplete("")
                 NSNotificationCenter.defaultCenter().postNotificationName("didLogInToSpotify", object: nil)
             })
             return true
         }
-//        activityIndicator.showComplete("Failed")
-        // alert.. login failed!
         return false
-        //        }
-//        return false
 
     }
 

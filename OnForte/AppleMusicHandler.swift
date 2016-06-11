@@ -22,12 +22,14 @@ class AppleMusicHandler: SearchHandler {
     let termKey = "term"
     let resultsKey = "results"
     let artistKey = "artistName"
-    let imageKey = "artistUrl100"
+    let imageKey = "artworkUrl100"
     let nameKey = "trackName"
     let trackIdKey = "trackId"
 
     override func search(query: String, completionHandler: (success: Bool) -> Void) {
+        results = []
         if query != "" {
+            print(query)
             let parameters = [
                 mediaKey:mediaValue,
                 entityKey:entityValue,
@@ -47,6 +49,7 @@ class AppleMusicHandler: SearchHandler {
                         for track in tracks {
                             var url: NSURL? = nil
                             if let imageUrl = track[self.imageKey] as? String {
+                                print(imageUrl)
                                 url = NSURL(string: imageUrl)
                             }
                             self.results.append(SearchSong(

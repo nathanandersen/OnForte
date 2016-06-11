@@ -10,13 +10,16 @@ import Foundation
 import MessageUI
 
 let hostTimerInterval: NSTimeInterval = 30
+let updatePlaylistKey = "updatePlaylist"
 
 class PlaylistTabBarController: UITabBarController {
-
+    
+    let leaveAlertTitle = "Leave Playlist"
+    let leaveMessage = "Are you sure you want to leave this playlist?"
     private var alertController: UIAlertController?
     private var iMessageController: MFMessageComposeViewController?
 
-    private var hostTimer: NSTimer!
+    private var hostTimer: NSTimer = NSTimer()
 
 
     @IBOutlet var bottomTabBar: UITabBar!
@@ -49,8 +52,11 @@ class PlaylistTabBarController: UITabBarController {
     }
 
     internal func updatePlaylist() {
-        print("host updating")
+        print("updating...")
+        //        print("host updating")
         APIHandler.updateAPIInformation()
+        hostTimer.invalidate()
+        hostTimer = NSTimer.scheduledTimerWithTimeInterval(hostTimerInterval, target: self, selector: #selector(PlaylistTabBarController.updatePlaylist), userInfo: nil, repeats: true)
     }
 
     /**
@@ -72,11 +78,9 @@ class PlaylistTabBarController: UITabBarController {
 
     internal func presentNewPlaylist() {
         if PlaylistHandler.isHost() {
-            hostTimer = NSTimer.scheduledTimerWithTimeInterval(hostTimerInterval, target: self, selector: #selector(PlaylistTabBarController.updatePlaylist), userInfo: nil, repeats: true)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PlaylistTabBarController.updatePlaylist), name: updatePlaylistKey, object: nil)
+            updatePlaylist()
         }
-
-        // here, initialize the timer
-
         self.title = PlaylistHandler.playlist!.playlistId
 
         self.viewControllers?.forEach({
@@ -95,9 +99,6 @@ class PlaylistTabBarController: UITabBarController {
 
 }
 
-let leaveAlertTitle = "Leave Playlist"
-let leaveMessage = "Are you sure you want to leave this playlist?"
-
 extension PlaylistTabBarController: MFMessageComposeViewControllerDelegate {
     internal func sendInvitations() {
         if MFMessageComposeViewController.canSendText() {
@@ -105,9 +106,6 @@ extension PlaylistTabBarController: MFMessageComposeViewControllerDelegate {
                 iMessageController = MFMessageComposeViewController()
                 iMessageController!.messageComposeDelegate = self
                 iMessageController!.body = "You've been invited to join a playlist on OnForte at OnForte://" + PlaylistHandler.playlist!.playlistId + ". Don't have the app? Join the fun at www.onforte.com/" + PlaylistHandler.playlist!.playlistId + " ."
-
-
-//                iMessageController!.body = "You've been invited to join a playlist on Forte at Forte://" + PlaylistHandler.playlist!.playlistId + ". Don't have the app? Join the fun at www.onforte.com/" + PlaylistHandler.playlist!.playlistId + " ."
             }
             iMessageController!.recipients = nil
             selectedViewController?.presentViewController(iMessageController!, animated: true, completion: nil)

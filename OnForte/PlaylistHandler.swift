@@ -31,6 +31,7 @@ class PlaylistHandler: NSObject {
                 } else {
                     appleMusicLoginStatus = (response != SKCloudServiceCapability.None)
                 }
+                print(appleMusicLoginStatus)
             })
         } else {
             // Fallback on earlier versions
@@ -93,7 +94,8 @@ class PlaylistHandler: NSObject {
             (result: Bool) in
             if result {
                 votes.remove(id)
-                APIHandler.updateAPIInformation()
+                NSNotificationCenter.defaultCenter().postNotificationName(updatePlaylistKey, object: nil)
+//                APIHandler.updateAPIInformation()
             }
         })
     }
@@ -107,7 +109,8 @@ class PlaylistHandler: NSObject {
             (result: Bool) in
             if result {
                 votes.insert(id)
-                APIHandler.updateAPIInformation()
+                NSNotificationCenter.defaultCenter().postNotificationName(updatePlaylistKey, object: nil)
+//                APIHandler.updateAPIInformation()
             }
         })
     }
