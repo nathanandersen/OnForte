@@ -17,7 +17,7 @@ class MusicSearchViewController: DefaultViewController {
     var orderedSearchHandlers: [SearchHandler] = []
     let spotifyHandler = SpotifyHandler()
     let soundcloudHandler = SoundcloudHandler()
-    let appleMusicHandler = AppleMusicHandler()
+    let localMusicHandler = LocalMusicHandler()
 
     @IBOutlet var searchActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var segmentedControl: UISegmentedControl!
@@ -60,7 +60,7 @@ class MusicSearchViewController: DefaultViewController {
             if PlaylistHandler.isHost() /*|| p.hostIsLoggedInToAppleMusic*/ {
                 segmentedControl.insertSegmentWithImage(UIImage(named: "itunes_gray")!, atIndex: 0, animated: true)
                 segmentedControl.subviews[0].tintColor = MusicPlatform.AppleMusic.tintColor()
-                orderedSearchHandlers.insert(appleMusicHandler, atIndex: 0)
+                orderedSearchHandlers.insert(localMusicHandler, atIndex: 0)
             }
             if p.hostIsLoggedInToSoundcloud {
                 segmentedControl.insertSegmentWithImage(UIImage(named: "soundcloud_gray")!, atIndex: 0, animated: true)

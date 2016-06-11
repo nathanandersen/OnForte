@@ -16,6 +16,7 @@ import Soundcloud
 class SoundcloudHandler: SearchHandler {
 
     override func search(query: String, completionHandler: (success: Bool) -> Void) {
+        results = []
         if (query != ""){
             let apiQuery: [SearchQueryOptions] = [
                 .QueryString(query)
@@ -23,7 +24,11 @@ class SoundcloudHandler: SearchHandler {
             Track.search(apiQuery) { (paginatedTracks) -> Void in
                 switch paginatedTracks.response {
                 case .Success(let tracks):
-                    self.results = self.parseSoundcloudTracks(tracks)
+                    for track in tracks {
+                        self.results.append(SearchSong(title: track.title, annotation: track.description, musicPlatform: MusicPlatform.Soundcloud, artworkURL: track.artworkImageURL.largeURL, trackId: String(track.identifier)))
+                    }
+
+//                    self.results = self.parseSoundcloudTracks(tracks)
                     completionHandler(success: true)
                 case .Failure(let error):
                     print(error)
@@ -31,16 +36,16 @@ class SoundcloudHandler: SearchHandler {
                 }
             }
         } else {
-            results = []
+//            results = []
             completionHandler(success: false)
         }
     }
 
-    func parseSoundcloudTracks(tracks: [Track]) -> [SearchSong] {
+/*    func parseSoundcloudTracks(tracks: [Track]) -> [SearchSong] {
         var songs: [SearchSong] = []
         for track in tracks {
             songs.append(SearchSong(title: track.title, annotation: track.description, musicPlatform: MusicPlatform.Soundcloud, artworkURL: track.artworkImageURL.largeURL, trackId: String(track.identifier)))
         }
         return songs
-    }
+    }*/
 }

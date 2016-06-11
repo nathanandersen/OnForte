@@ -8,7 +8,6 @@
 
 import Foundation
 import Alamofire
-//import SwiftyJSON
 
 let tracksKey = "tracks"
 let itemsKey = "items"
@@ -19,24 +18,9 @@ let urlKey = "url"
 let spotifyIdKey = "id"
 
 class SpotifyHandler: SearchHandler {
-
-
-/*    func parseSpotifyTracks(json: JSON) -> [SearchSong] {
-        var songs: [SearchSong] = []
-        let tracks = json[tracksKey][itemsKey]
-        for (_,subJson):(String, JSON) in tracks {
-            songs.append(SearchSong(
-                title: subJson[nameKey].string,
-                annotation: subJson[artistsKey][0][nameKey].string,
-                musicPlatform: .Spotify,
-                artworkURL: NSURL(string: subJson[albumKey][imagesKey][1][urlKey].string!),
-                trackId: subJson[spotifyIdKey].string!))
-        }
-        return songs
-    }*/
-
-    func parseResults(value: AnyObject) -> [SearchSong] {
-        var songs: [SearchSong] = []
+    func parseResults(value: AnyObject)/* -> [SearchSong]*/ {
+        results = []
+//        var songs: [SearchSong] = []
         if let dict: [String: AnyObject] = value as? [String : AnyObject] {
             if let tracks = dict[tracksKey] as? [String : AnyObject] {
                 if let items = tracks[itemsKey] as? [[String:AnyObject]] {
@@ -55,7 +39,7 @@ class SpotifyHandler: SearchHandler {
                             annotation = artistInfo.first?[nameKey] as? String
                         }
 
-                        songs.append(SearchSong(
+                        results.append(SearchSong(
                             title: item[nameKey] as? String,
                             annotation: annotation,
                             musicPlatform: .Spotify,
@@ -65,7 +49,7 @@ class SpotifyHandler: SearchHandler {
                 }
             }
         }
-        return songs
+//        return songs
     }
 
     override func search(query: String, completionHandler: (success: Bool) -> Void) {
@@ -84,8 +68,8 @@ class SpotifyHandler: SearchHandler {
                     return
                 }
                 if let value: AnyObject = response.result.value {
-                    self.results = self.parseResults(value)
-//                    self.results = self.parseSpotifyTracks(JSON(value))
+                    self.parseResults(value)
+//                    self.results = self.parseResults(value)
                     completionHandler(success: true)
                 }
             }

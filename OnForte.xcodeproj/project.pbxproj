@@ -25,6 +25,7 @@
 		240AB0371CC094770061EB54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240AB0361CC094770061EB54 /* Main.storyboard */; };
 		240AB03B1CC094870061EB54 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240AB03A1CC094870061EB54 /* Onboarding.storyboard */; };
 		240AB0641CC0989A0061EB54 /* SongViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240AB0631CC0989A0061EB54 /* SongViewCell.swift */; };
+		2414A09D1D0C54A700590AC1 /* AppleMusicHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2414A09C1D0C54A700590AC1 /* AppleMusicHandler.swift */; };
 		2434816C1CE239F900402A4A /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2434816A1CE239F900402A4A /* DataModel.xcdatamodeld */; };
 		2434816F1CE23ACC00402A4A /* SuggestedSong+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2434816D1CE23ACC00402A4A /* SuggestedSong+CoreDataProperties.swift */; };
 		243481701CE23ACC00402A4A /* SuggestedSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2434816E1CE23ACC00402A4A /* SuggestedSong.swift */; };
@@ -102,6 +103,7 @@
 		240AB03A1CC094870061EB54 /* Onboarding.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		240AB03C1CC094900061EB54 /* OnForte-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OnForte-Bridging-Header.h"; sourceTree = "<group>"; };
 		240AB0631CC0989A0061EB54 /* SongViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongViewCell.swift; sourceTree = "<group>"; };
+		2414A09C1D0C54A700590AC1 /* AppleMusicHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleMusicHandler.swift; sourceTree = "<group>"; };
 		2434816B1CE239F900402A4A /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		2434816D1CE23ACC00402A4A /* SuggestedSong+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SuggestedSong+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2434816E1CE23ACC00402A4A /* SuggestedSong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestedSong.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				240AB01B1CC094020061EB54 /* SpotifyHandler.swift */,
 				240AB01C1CC094020061EB54 /* LocalHandler.swift */,
 				240AB01D1CC094020061EB54 /* SearchHandler.swift */,
+				2414A09C1D0C54A700590AC1 /* AppleMusicHandler.swift */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				247D27EC1CFB5D0E00A5E8AF /* APIHandler.swift in Sources */,
 				240AB0641CC0989A0061EB54 /* SongViewCell.swift in Sources */,
 				246232FB1CE2CCE0004C63E8 /* SongHandler.swift in Sources */,
+				2414A09D1D0C54A700590AC1 /* AppleMusicHandler.swift in Sources */,
 				2486534F1CF7732100F0F78B /* HomeViewController.swift in Sources */,
 				246232F81CE28406004C63E8 /* FavoritedSong+CoreDataProperties.swift in Sources */,
 				243AD1A81CF9F0320031A763 /* PlaylistTabBarController.swift in Sources */,

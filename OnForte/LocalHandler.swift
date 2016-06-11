@@ -7,14 +7,10 @@
 //
 
 import Foundation
-//import Alamofire
-//import SwiftDDP
-//import SwiftyJSON
 
-class AppleMusicHandler: SearchHandler {
+class LocalMusicHandler: SearchHandler {
 
     override func search(query: String, completionHandler: (success: Bool) -> Void) {
-        print(query)
         let localResults = SongHandler.getLocalSongsByQuery(query)
         if localResults == nil {
             results = []
