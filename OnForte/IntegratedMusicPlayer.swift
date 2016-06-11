@@ -20,18 +20,18 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
 
     var spotifyPlayer: SPTAudioStreamingController
     var soundcloudPlayer: AVAudioPlayer?
-    var localPlayer: MPMusicPlayerController
+    var appleMusicPlayer: MPMusicPlayerController
 
     var playing: Bool
 
     override init() {
         spotifyPlayer = SPTAudioStreamingController.init(clientId: SPTAuth.defaultInstance().clientID)
-        localPlayer = MPMusicPlayerController.applicationMusicPlayer()
+        appleMusicPlayer = MPMusicPlayerController.applicationMusicPlayer()
         playing = false
         super.init()
         spotifyPlayer.playbackDelegate = self
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(IntegratedMusicPlayer.handlePlaybackStateChanged(_:)), name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: self.localPlayer)
-        localPlayer.beginGeneratingPlaybackNotifications()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(IntegratedMusicPlayer.handlePlaybackStateChanged(_:)), name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: self.appleMusicPlayer)
+        appleMusicPlayer.beginGeneratingPlaybackNotifications()
     }
 
     /**
@@ -49,10 +49,9 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             case .Spotify:
                 spotifyPlayer.setIsPlaying(!playing,callback: nil)
             case .LocalLibrary:
-                playing ? localPlayer.pause() : localPlayer.play()
+                playing ? appleMusicPlayer.pause() : appleMusicPlayer.play()
             case .AppleMusic:
-                // FILL THIS OUT
-                break
+                playing ? appleMusicPlayer.pause() : appleMusicPlayer.play()
             }
             playing = !playing
             completionHandler(playing)
@@ -124,8 +123,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             case .LocalLibrary:
                 playLocalSong(completionHandler)
             case .AppleMusic:
-                // execute something
-                break
+                playAppleMusicSong(completionHandler)
             }
 
         } else {
@@ -149,7 +147,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      When the music is stopped, we play the next song.
     */
     internal func handlePlaybackStateChanged(notification: NSNotification) {
-        if (self.localPlayer.playbackState == .Stopped) {
+        if (self.appleMusicPlayer.playbackState == .Stopped) {
             print("mp music player ended 'naturally' ")
             songEnded()
         }
@@ -179,12 +177,26 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             case .Soundcloud:
                 self.soundcloudPlayer!.pause()
             case .LocalLibrary:
-                self.localPlayer.pause()
+                self.appleMusicPlayer.pause()
             case .Spotify:
                 self.spotifyPlayer.setIsPlaying(false, callback: nil)
             case .AppleMusic:
-                // do something idk
-                break
+                self.appleMusicPlayer.pause()
+            }
+        }
+    }
+
+    private func playAppleMusicSong(completionHandler: Bool -> Void) {
+        if let song = PlaylistHandler.nowPlaying {
+            let storeIds = [song.trackId!]
+            if #available(iOS 9.3, *) {
+                appleMusicPlayer.setQueueWithStoreIDs(storeIds)
+                appleMusicPlayer.prepareToPlay()
+                appleMusicPlayer.repeatMode = .None
+                appleMusicPlayer.play()
+                completionHandler(true)
+            } else {
+                // non-accessible
             }
         }
     }
@@ -199,10 +211,10 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
     private func playLocalSong(completionHandler: Bool -> Void) {
         let song = SongHandler.getSongByArrayIndex(Int(PlaylistHandler.nowPlaying!.trackId!)!)
         let itemCollection = MPMediaItemCollection(items: [song!])
-        localPlayer.setQueueWithItemCollection(itemCollection)
-        localPlayer.prepareToPlay()
-        localPlayer.repeatMode = .None
-        localPlayer.play()
+        appleMusicPlayer.setQueueWithItemCollection(itemCollection)
+        appleMusicPlayer.prepareToPlay()
+        appleMusicPlayer.repeatMode = .None
+        appleMusicPlayer.play()
         completionHandler(true)
     }
 
