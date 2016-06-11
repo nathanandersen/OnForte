@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import StoreKit
 
 let hostIsLoggedInToSpotifyKey = "hostIsLoggedInToSpotify"
 let hostIsLoggedInToSoundcloudKey = "hostIsLoggedInToSoundcloud"
@@ -37,7 +38,7 @@ class PlaylistToInsert {
             userIdKey: NSUserDefaults.standardUserDefaults().stringForKey(userIdKey)!,
             hostIsLoggedInToSpotifyKey: PlaylistHandler.spotifySessionIsValid(),
             hostIsLoggedInToSoundcloudKey: true,
-            hostIsLoggedInToAppleMusicKey: false
+            hostIsLoggedInToAppleMusicKey: PlaylistHandler.appleMusicLoginStatus
         ]
     }
 

@@ -6,6 +6,7 @@
 //  Copyright © 2016 Nathan Andersen. All rights reserved.
 //
 
+import StoreKit
 import Foundation
 
 let updateSearchSegmentedControlKey = "updateSearchSegmentedControl"
@@ -17,6 +18,25 @@ class PlaylistHandler: NSObject {
     internal static var nowPlaying: QueuedSong?
     internal static var spotifySession: SPTSession?
     private static var votes = Set<String>()
+
+    internal static var appleMusicLoginStatus = false
+
+    internal static func updateAppleMusicLoginStatus() {
+        if #available(iOS 9.3, *) {
+            let controller = SKCloudServiceController()
+            controller.requestCapabilitiesWithCompletionHandler({
+                response,error in
+                if error != nil {
+                    print(error)
+                } else {
+                    appleMusicLoginStatus = (response != SKCloudServiceCapability.None)
+                }
+                print(appleMusicLoginStatus)
+            })
+        } else {
+            // Fallback on earlier versions
+        }
+    }
 
 
     internal static func isHost() -> Bool {

@@ -7,11 +7,12 @@
 //
 
 import UIKit
-import SwiftDDP
+//import SwiftDDP
 import MediaPlayer
 import Soundcloud
-import MMDrawerController
+//import MMDrawerController
 import CoreData
+import StoreKit
 
 enum Storyboard: String {
     case Main = "Main"
@@ -72,6 +73,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         registerAPIKeys()
+
+
+        if #available(iOS 9.3, *) {
+            requestAppleMusicAuthorization()
+        } else {
+            // Fallback on earlier versions
+        }
 
 
         if defaults.stringForKey(userIdKey) == nil {
@@ -169,6 +177,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         NSLog("application will terminate")
     }
+
+    @available(iOS 9.3, *)
+    func requestAppleMusicAuthorization() {
+        SKCloudServiceController.requestAuthorization({
+            response in
+            PlaylistHandler.updateAppleMusicLoginStatus()
+/*            if response == SKCloudServiceAuthorizationStatus.Authorized {
+                PlaylistHandler.updateAppleMusicLoginStatus()
+//                print("authorized")
+            } else {
+//                print("not authorized")
+            }*/
+        })
+    }
+
+
 
     // MARK: - Core Data stack
 
