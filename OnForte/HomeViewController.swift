@@ -78,6 +78,8 @@ class HomeViewController: DefaultViewController {
     var createTextFieldRightButton: UIButton!
     var joinTextFieldRightButton: UIButton!
 
+    var isWaitingForServerResponse = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         addLabelAndTargetToTextFieldButton(.Create)
@@ -93,9 +95,7 @@ class HomeViewController: DefaultViewController {
             joinTextFieldRightButton = joinTextField.rightView as! UIButton
             joinTextFieldRightButton.setTitle("Join",forState: .Normal)
             joinTextFieldRightButton.addTarget(self, action: #selector(HomeViewController.handleJoinFieldSubmit), forControlEvents: .TouchUpInside)
-        } /*else {
-            fatalError()
-        }*/
+        }
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -103,8 +103,6 @@ class HomeViewController: DefaultViewController {
         // register for keyboard notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.keyboardWasShown(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
-
-
     }
 
     @IBAction func userDidTap(sender: UITapGestureRecognizer) {
@@ -148,74 +146,71 @@ class HomeViewController: DefaultViewController {
         joinTextField.hidden = (sender != joinButton)
         createButton.hidden = (sender == createButton)
         joinButton.hidden = (sender == joinButton)
-        (sender == createButton) ? createTextField.becomeFirstResponder() : joinTextField.becomeFirstResponder()
+        (sender == createButton) ?
+            createTextField.becomeFirstResponder() :
+            joinTextField.becomeFirstResponder()
     }
 }
 
 extension HomeViewController: UITextFieldDelegate {
 
     func joinPlaylist(targetPlaylistId: String) {
+        isWaitingForServerResponse = true
         PlaylistHandler.joinPlaylist(targetPlaylistId, completionHandler: {
             (result: Bool) in
             self.joinTextField.resignFirstResponder()
-            if result {
-                (self.navigationController as! NavigationController).pushPlaylist()
-            } else {
-                // display some sort of error
-            }
+            self.isWaitingForServerResponse = false
+            (result) ?
+                (self.navigationController as! NavigationController).pushPlaylist() :
+                () // display an error
 
         })
     }
 
-    func handleJoinFieldSubmit(completionHandler: Bool -> ()) {
-        if let targetText = joinTextField.text {
+    func handleCreateFieldSubmit() {
+        if !isWaitingForServerResponse {
+            if let targetText = createTextField.text {
 
-            joinTextFieldRightButton.backgroundColor = Style.primaryBlue
-            joinTextFieldRightButton.tintColor = UIColor.whiteColor()
+                createTextFieldRightButton.backgroundColor = Style.primaryBlue
+                createTextFieldRightButton.tintColor = UIColor.whiteColor()
 
-            if targetText != "" {
-                joinPlaylist(targetText)
+                if targetText != "" {
+                    isWaitingForServerResponse = true
+                    PlaylistHandler.createPlaylist(targetText, completionHandler: {
+                        (result: Bool) in
+                        self.createTextField.resignFirstResponder()
+                        self.isWaitingForServerResponse = false
+
+                        (result) ?
+                            (self.navigationController as! NavigationController).pushPlaylist() :
+                            () // error function
+                    })
+                }
             }
         }
     }
 
-    func handleCreateFieldSubmit(completionHandler: Bool -> ()) {
-        if let targetText = createTextField.text {
+    func handleJoinFieldSubmit() {
+        if !isWaitingForServerResponse {
+            if let targetText = joinTextField.text {
 
-            createTextFieldRightButton.backgroundColor = Style.primaryBlue
-            createTextFieldRightButton.tintColor = UIColor.whiteColor()
+                joinTextFieldRightButton.backgroundColor = Style.primaryBlue
+                joinTextFieldRightButton.tintColor = UIColor.whiteColor()
 
-            if targetText != "" {
-                PlaylistHandler.createPlaylist(targetText, completionHandler: {
-                    (result: Bool) in
-                    self.createTextField.resignFirstResponder()
-                        if result {
-                            (self.navigationController as! NavigationController).pushPlaylist()
-                        } else {
-                            // display an error
-                        }
-                })
+                (targetText != "") ?
+                    joinPlaylist(targetText) : ()
             }
         }
     }
-
 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
 
         textField.resignFirstResponder()
-        if textField == joinTextField {
-            handleJoinFieldSubmit() {
-                result in
-                textField.resignFirstResponder()
-            }
-        } else if textField == createTextField {
-            handleCreateFieldSubmit() {
-                result in
-                textField.resignFirstResponder()
-            }
-        } else {
-            fatalError()
-        }
+
+        (textField == joinTextField) ?
+            handleJoinFieldSubmit() :
+            handleCreateFieldSubmit()
+
         return true
     }
 

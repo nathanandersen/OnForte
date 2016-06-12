@@ -33,6 +33,12 @@ class MusicSearchViewController: DefaultViewController {
         updateSegmentedControlAccordingToPlaylist()
     }
 
+    // Dismiss keyboard when scrolling
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        // this is called when you scroll on the table view
+        searchBar.resignFirstResponder()
+    }
+
     @IBAction func handleScreenEdgePanGestureFromLeft(sender: UIScreenEdgePanGestureRecognizer) {
         (tabBarController as! PlaylistTabBarController).displayViewController(PlaylistViewController)
     }
@@ -44,6 +50,7 @@ class MusicSearchViewController: DefaultViewController {
     }
 
     override func viewWillDisappear(animated: Bool) {
+        clearAllSearches()
         super.viewWillDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: closeSearchKey, object: nil)
     }
@@ -92,11 +99,15 @@ class MusicSearchViewController: DefaultViewController {
         tableView.reloadData()
     }
 
-    internal func closeSearch() {
+    internal func clearAllSearches() {
         searchBar.text = ""
         orderedSearchHandlers.forEach() { $0.clearSearch() } // clear all SearchHandlers
         tableView.reloadData() // clear the table views
         self.view.endEditing(true)
+    }
+
+    internal func closeSearch() {
+        clearAllSearches()
         (tabBarController as! PlaylistTabBarController).displayViewController(PlaylistViewController)
     }
 }
