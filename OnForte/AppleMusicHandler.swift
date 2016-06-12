@@ -49,7 +49,6 @@ class AppleMusicHandler: SearchHandler {
                         for track in tracks {
                             var url: NSURL? = nil
                             if let imageUrl = track[self.imageKey] as? String {
-                                print(imageUrl)
                                 url = NSURL(string: imageUrl)
                             }
                             self.results.append(SearchSong(

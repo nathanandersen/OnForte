@@ -57,8 +57,6 @@ class MusicSearchViewController: DefaultViewController {
 
     internal func updateSegmentedControlAccordingToPlaylist() {
         var optionCount = 0
-        print("started")
-
         if let p = PlaylistHandler.playlist {
             orderedSearchHandlers = []
             segmentedControl.removeAllSegments()
@@ -76,23 +74,19 @@ class MusicSearchViewController: DefaultViewController {
                     orderedSearchHandlers.insert(localMusicHandler, atIndex: 0)
                 }
             }
-            print("added apple music one or the other")
             if p.hostIsLoggedInToSoundcloud {
                 segmentedControl.insertSegmentWithImage(UIImage(named: "soundcloud_gray")!, atIndex: 0, animated: true)
                 segmentedControl.subviews[optionCount].tintColor = MusicPlatform.Soundcloud.tintColor()
                 optionCount += 1
                 orderedSearchHandlers.insert(soundcloudHandler, atIndex: 0)
             }
-            print("added soundcloud")
             if p.hostIsLoggedInToSpotify {
                 segmentedControl.insertSegmentWithImage(UIImage(named: "spotify_gray")!, atIndex: 0, animated: true)
                 segmentedControl.subviews[optionCount].tintColor = MusicPlatform.Spotify.tintColor()
                 optionCount += 1
                 orderedSearchHandlers.insert(spotifyHandler, atIndex: 0)
             }
-            print("added spotify")
             segmentedControl.selectedSegmentIndex = 0
-            print("all done")
         }
     }
     @IBAction func segmentedControlChangedValue(sender: UISegmentedControl) {

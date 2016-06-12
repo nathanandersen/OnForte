@@ -108,6 +108,9 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
         if PlaylistHandler.spotifySessionIsValid() {
             musicPlatforms.insert(.Spotify)
         }
+        if PlaylistHandler.appleMusicLoginStatus {
+            musicPlatforms.insert(.AppleMusic)
+        }
         if let nextSong = SongHandler.getTopSongWithPlatformConstraints(musicPlatforms) {
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             try? AVAudioSession.sharedInstance().setActive(true)
@@ -133,7 +136,6 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
             PlaylistHandler.stop()
         }
         NSNotificationCenter.defaultCenter().postNotificationName(updatePlaylistKey, object: nil)
-//        APIHandler.updateAPIInformation()
     }
 
     internal func songEnded() {
@@ -148,13 +150,15 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      When the music is stopped, we play the next song.
     */
     internal func handlePlaybackStateChanged(notification: NSNotification) {
-        if (self.appleMusicPlayer.playbackState == .Stopped) {
+//        print(self.appleMusicPlayer.playbackState.rawValue)
+        if playing && self.appleMusicPlayer.playbackState == .Stopped {
             print("mp music player ended 'naturally' ")
             songEnded()
         }
     }
 
     internal func markCurrentSongAsCompleted() {
+        print("hmm")
         APIHandler.updateSongActiveStatus(PlaylistHandler.nowPlaying!.id!, activeStatus: .History, completion: {
             (result: Bool) in
             if result {
@@ -171,6 +175,7 @@ class IntegratedMusicPlayer: NSObject, AVAudioPlayerDelegate, SPTAudioStreamingP
      - bug: SoundCloud stopping is very slow.
     */
     internal func stopCurrentSong() {
+        print("stopped was called")
         if playing {
             self.markCurrentSongAsCompleted()
             self.playing = false

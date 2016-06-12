@@ -47,9 +47,7 @@ class PlaylistHandler: NSObject {
     }
 
     internal static func updatePlaylistSettings() {
-//        if let p = playlist {
         NSNotificationCenter.defaultCenter().postNotificationName(updateSearchSegmentedControlKey, object: nil)
-//        }
     }
 
 
@@ -69,6 +67,8 @@ class PlaylistHandler: NSObject {
 
     internal static func fastForward(completionHandler: Bool -> Void) {
         musicPlayer.stopCurrentSong()
+
+        // stopping the current song can mess up apple music
 
         musicPlayer.playNextSong({(result) in
             completionHandler(result)

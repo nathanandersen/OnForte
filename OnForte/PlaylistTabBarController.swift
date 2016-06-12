@@ -52,8 +52,7 @@ class PlaylistTabBarController: UITabBarController {
     }
 
     internal func updatePlaylist() {
-        print("updating...")
-        //        print("host updating")
+        print("Update was called somewhere in the app")
         APIHandler.updateAPIInformation()
         hostTimer.invalidate()
         hostTimer = NSTimer.scheduledTimerWithTimeInterval(hostTimerInterval, target: self, selector: #selector(PlaylistTabBarController.updatePlaylist), userInfo: nil, repeats: true)

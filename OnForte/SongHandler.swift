@@ -183,10 +183,10 @@ class SongHandler: NSObject {
      Conditionally insert into suggestions if not already there
     */
     internal static func insertIntoSuggestions(song: SearchSong) {
-        if song.musicPlatform == .AppleMusic {
+        if song.musicPlatform == .LocalLibrary {
+            // don't save local library suggestions
             return
         }
-            // currently, we don't save local music suggestions.
         var suggestedSong: SuggestedSong?
         for songItem in fetchSuggestionsAsOriginalData() {
             if SearchSong(title: songItem.title, annotation: songItem.annotation, musicPlatform: MusicPlatform(str: (songItem.service?.lowercaseString)!), artworkURL: NSURL(string: songItem.artworkURL!), trackId: songItem.trackId!) == song {
