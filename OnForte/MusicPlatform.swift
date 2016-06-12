@@ -36,58 +36,62 @@ enum MusicPlatform {
     }
 
     func intValue() -> Int {
-        if self == .Spotify {
+        switch(self) {
+        case .Spotify:
             return 0
-        } else if self == .Soundcloud {
+        case .Soundcloud:
             return 1
-        } else if self == .LocalLibrary {
+        case .LocalLibrary:
             return 2
-        } else if self == .AppleMusic {
+        case .AppleMusic:
             return 3
-        } else {
+        case _:
             fatalError()
         }
     }
 
     func tintColor() -> UIColor {
-        if self == .Spotify {
+        switch(self) {
+        case .Spotify:
             return Style.spotifyGreen
-        } else if self == .Soundcloud {
+        case .Soundcloud:
             return Style.soundcloudOrange
-        } else if self == .AppleMusic {
+        case .AppleMusic:
             return Style.appleMusicRed
-        } else if self == .LocalLibrary {
+        case .LocalLibrary:
             // what do i return?
             return UIColor.blackColor()
-        } else {
+        case _:
             fatalError()
         }
     }
 
     func getImage() -> UIImage {
-        if self == .Spotify {
+        switch(self) {
+        case .Spotify:
             return UIImage(named: "spotify")!
-        } else if self == .Soundcloud {
+        case .Soundcloud:
             return UIImage(named: "soundcloud")!
-        } else if self == .AppleMusic {
+        case .AppleMusic:
             return UIImage(named: "apple_music")!
-        } else if self == .LocalLibrary {
+        case .LocalLibrary:
             return UIImage(named: "apple_music")!
-        } else {
+        case _:
             fatalError()
         }
     }
 
     func asLowercaseString() -> String {
-        if self == .Spotify {
+        switch(self) {
+        case .Spotify:
             return "spotify"
-        } else if self == .Soundcloud {
+        case .Soundcloud:
             return "soundcloud"
-        } else if self == .AppleMusic {
+        case .AppleMusic:
             return "applemusic"
-        } else if self == .LocalLibrary {
+        case .LocalLibrary:
             return "locallibrary"
-        } else {
+        case _:
             fatalError()
         }
     }

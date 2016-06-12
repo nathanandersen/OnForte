@@ -28,19 +28,20 @@ enum APIRequest {
     case Downvote
 
     internal func getAPIURL() -> NSURL {
-        if self == .Playlists {
+        switch(self) {
+        case .Playlists:
             return NSURL(string: apiServer + playlistsPath)!
-        } else if self == .Songs {
+        case .Songs:
             return NSURL(string: apiServer + songsPath)!
-        } else if self == .SongsInPlaylist {
+        case .SongsInPlaylist:
             return NSURL(string: apiServer + songsByPlaylistIdPath)!
-        } else if self == .Upvote {
+        case .Upvote:
             return NSURL(string: apiServer + upvotePath)!
-        } else if self == .Downvote {
+        case .Downvote:
             return NSURL(string: apiServer + downvotePath)!
-        } else if self == .PlaylistId {
+        case .PlaylistId:
             return NSURL(string: apiServer + playlistIdPath)!
-        } else {
+        case _:
             fatalError()
         }
     }
@@ -105,14 +106,18 @@ class APIHandler {
 
     internal static func updatePlaylistInfo() {
         retrieveSinglePlaylistInfo(PlaylistHandler.playlist!.playlistId, completion: {
-            (result: Playlist?) in
-            PlaylistHandler.playlist = result
-            // conceivably, either here or in there, we have to update service info.
-            PlaylistHandler.updatePlaylistSettings()
+            (result: Bool,playlist: Playlist?) in
+            if result {
+                PlaylistHandler.playlist = playlist
+                // conceivably, either here or in there, we have to update service info.
+                PlaylistHandler.updatePlaylistSettings()
+            } else {
+                // the server connection failed
+            }
         })
     }
 
-    internal static func retrieveSinglePlaylistInfo(playlistId: String, completion: Playlist? -> ()) {
+    internal static func retrieveSinglePlaylistInfo(playlistId: String, completion: (Bool,Playlist?) -> ()) {
         Alamofire.request(
             .GET,
             String(APIRequest.PlaylistId.getAPIURL()) + "/" + playlistId,
@@ -122,25 +127,25 @@ class APIHandler {
                 response -> () in
                 guard response.result.isSuccess else {
                     print("Error while joining playlist: \(response.result.error)")
-                    completion(nil)
+                    completion(false,nil)
                     return
                 }
-                if let value = response.result.value {
-                    completion(Playlist(jsonData: value))
+                if let value = response.result.value as? NSDictionary {
+                    completion(true,Playlist(jsonData: value))
                     return
                 }
                 print("Malformed data received from retrieve playlist service")
-                completion(nil)
+                completion(true,nil)
             })
     }
 
 
-    internal static func joinPlaylist(playlistId: String, completion: Playlist? -> ()) {
+    internal static func joinPlaylist(playlistId: String, completion: (Bool,Playlist?) -> ()) {
         retrieveSinglePlaylistInfo(playlistId, completion: {
-            (result: Playlist?) in
-
+            (result: Bool,playlist: Playlist?) in
             // can do extra handling here if necessary
-            completion(result)
+            completion(result,playlist)
+//            completion(result)
         })
     }
 

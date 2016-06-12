@@ -8,36 +8,38 @@
 
 import Foundation
 
-enum PlayerDisplayType {
-    case None
-    case StartButton
-    case Small
-    case Large
-
-    func heightValue() -> CGFloat {
-        if self == .None {
-            return 0
-        } else if self == .StartButton {
-            return 40
-        } else if self == .Small {
-            return 80
-        } else if self == .Large {
-            return 320
-        } else {
-            fatalError()
-        }
-    }
-}
-
-enum ScreenEdge {
-    case Top
-    case Left
-    case Right
-    case Bottom
-}
 
 
 class PlaylistViewController: DefaultViewController {
+
+    enum ScreenEdge {
+        case Top
+        case Left
+        case Right
+        case Bottom
+    }
+    enum PlayerDisplayType {
+        case None
+        case StartButton
+        case Small
+        case Large
+
+        func heightValue() -> CGFloat {
+            switch(self) {
+            case .None:
+                return 0
+            case .StartButton:
+                return 40
+            case .Small:
+                return 80
+            case .Large:
+                return 320
+            case _:
+                fatalError()
+            }
+        }
+    }
+
     @IBOutlet var tableView: UITableView!
 
     @IBOutlet var playlistTabBarItem: UITabBarItem!

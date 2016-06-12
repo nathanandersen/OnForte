@@ -143,15 +143,22 @@ class PlaylistHandler: NSObject {
         })
     }
 
-    internal static func joinPlaylist(targetPlaylistId: String, completionHandler: (Bool) -> ()) {
+    internal static func joinPlaylist(targetPlaylistId: String, completionHandler: (Bool?) -> ()) {
         APIHandler.joinPlaylist(targetPlaylistId, completion: {
-            (result: Playlist?) in
-            if let playlist = result {
-                self.playlist = playlist
-                completionHandler(true)
+            (result: Bool, playlist: Playlist?) in
+            if result {
+                if let p = playlist {
+                    self.playlist = p
+                    completionHandler(true)
+                } else {
+                    completionHandler(false)
+                }
             } else {
-                completionHandler(false)
+                completionHandler(nil)
+                // was server error
             }
+
+
         })
     }
 

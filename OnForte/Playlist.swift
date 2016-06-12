@@ -58,7 +58,6 @@ class Playlist: Hashable {
     var createDate: NSDate
 
     init(jsonData: AnyObject) {
-//        print(jsonData)
         self._id = jsonData[mongoIdKey] as! String
         self.name = jsonData[nameKey] as! String
         self.playlistId = jsonData[playlistIdKey] as! String

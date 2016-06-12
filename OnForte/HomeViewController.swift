@@ -8,8 +8,6 @@
 
 import Foundation
 
-//let nowPlayingKey = "nowPlaying"
-
 class HomePageButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -69,6 +67,39 @@ class HomeViewController: DefaultViewController {
         case Create
         case Join
     }
+
+    enum ServerError {
+        case Offline
+        case InvalidPlaylistId
+
+        func title() -> String {
+            switch(self) {
+            case .Offline:
+                return "Server Connection Offline"
+            case .InvalidPlaylistId:
+                return "Invalid Playlist ID"
+            case _:
+                fatalError()
+            }
+        }
+
+        func message() -> String {
+            switch(self) {
+            case .Offline:
+                return "Unable to connect to server. Try again?"
+            case .InvalidPlaylistId:
+                return "The playlist ID you have entered does not correspond to a playlist."
+            case _:
+                fatalError()
+            }
+        }
+    }
+
+    lazy private var alertController: UIAlertController = {
+        let c = UIAlertController(title: "title", message: "message", preferredStyle: .Alert)
+        c.addAction(UIAlertAction(title: "Close", style: .Cancel, handler: nil))
+        return c
+    }()
 
     @IBOutlet var createButton: UIButton!
     @IBOutlet var joinButton: UIButton!
@@ -150,6 +181,12 @@ class HomeViewController: DefaultViewController {
             createTextField.becomeFirstResponder() :
             joinTextField.becomeFirstResponder()
     }
+
+    func displayError(error: ServerError) {
+        alertController.title = error.title()
+        alertController.message = error.message()
+        self.presentViewController(alertController, animated: false, completion: nil)
+    }
 }
 
 extension HomeViewController: UITextFieldDelegate {
@@ -157,12 +194,19 @@ extension HomeViewController: UITextFieldDelegate {
     func joinPlaylist(targetPlaylistId: String) {
         isWaitingForServerResponse = true
         PlaylistHandler.joinPlaylist(targetPlaylistId, completionHandler: {
-            (result: Bool) in
+            (result: Bool?) in
+
             self.joinTextField.resignFirstResponder()
             self.isWaitingForServerResponse = false
-            (result) ?
-                (self.navigationController as! NavigationController).pushPlaylist() :
-                () // display an error
+            if let r = result {
+                (r) ?
+                    (self.navigationController as! NavigationController).pushPlaylist() :
+                    self.displayError(.InvalidPlaylistId)
+
+            } else {
+                self.displayError(.Offline)
+                // was server error
+            }
 
         })
     }
@@ -183,7 +227,7 @@ extension HomeViewController: UITextFieldDelegate {
 
                         (result) ?
                             (self.navigationController as! NavigationController).pushPlaylist() :
-                            () // error function
+                            self.displayError(.Offline)
                     })
                 }
             }
