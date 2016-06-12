@@ -586,7 +586,7 @@
         <!--Navigation Controller-->
         <scene sceneID="cwq-MO-vvi">
             <objects>
-                <navigationController storyboardIdentifier="NavigationController" automaticallyAdjustsScrollViewInsets="NO" hidesBarsWhenKeyboardAppears="YES" id="phW-ao-Zft" customClass="NavigationController" customModule="OnForte" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationController" automaticallyAdjustsScrollViewInsets="NO" id="phW-ao-Zft" customClass="NavigationController" customModule="OnForte" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4wS-W5-0ub">
