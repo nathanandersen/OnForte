@@ -45,8 +45,6 @@ enum MusicPlatform {
             return 2
         case .AppleMusic:
             return 3
-        case _:
-            fatalError()
         }
     }
 
@@ -61,8 +59,6 @@ enum MusicPlatform {
         case .LocalLibrary:
             // what do i return?
             return UIColor.blackColor()
-        case _:
-            fatalError()
         }
     }
 
@@ -76,8 +72,6 @@ enum MusicPlatform {
             return UIImage(named: "apple_music")!
         case .LocalLibrary:
             return UIImage(named: "apple_music")!
-        case _:
-            fatalError()
         }
     }
 
@@ -91,8 +85,6 @@ enum MusicPlatform {
             return "applemusic"
         case .LocalLibrary:
             return "locallibrary"
-        case _:
-            fatalError()
         }
     }
 }

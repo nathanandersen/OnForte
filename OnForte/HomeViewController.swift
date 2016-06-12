@@ -78,8 +78,6 @@ class HomeViewController: DefaultViewController {
                 return "Server Connection Offline"
             case .InvalidPlaylistId:
                 return "Invalid Playlist ID"
-            case _:
-                fatalError()
             }
         }
 
@@ -89,8 +87,6 @@ class HomeViewController: DefaultViewController {
                 return "Unable to connect to server. Try again?"
             case .InvalidPlaylistId:
                 return "The playlist ID you have entered does not correspond to a playlist."
-            case _:
-                fatalError()
             }
         }
     }

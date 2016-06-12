@@ -34,8 +34,6 @@ class PlaylistViewController: DefaultViewController {
                 return 80
             case .Large:
                 return 320
-            case _:
-                fatalError()
             }
         }
     }

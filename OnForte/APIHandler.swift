@@ -45,8 +45,6 @@ class APIHandler {
                 return NSURL(string: apiServer + downvotePath)!
             case .PlaylistId:
                 return NSURL(string: apiServer + playlistIdPath)!
-            case _:
-                fatalError()
             }
         }
     }
