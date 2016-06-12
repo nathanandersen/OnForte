@@ -92,12 +92,15 @@ class PlaylistViewController: DefaultViewController {
         }
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.title = PlaylistHandler.playlist!.name
+        self.playlistTabBarItem.title = PlaylistHandler.playlist!.name
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.addSubview(self.refreshControl)
-
-        // if isHost()
-        // implement an auto-refreshing timer
     }
 
     internal func updatePlayerDisplay(newDisplayType: PlayerDisplayType) {

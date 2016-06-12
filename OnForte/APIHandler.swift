@@ -9,48 +9,48 @@
 import Foundation
 import Alamofire
 
-let apiServer = "https://onforte.herokuapp.com"
-//let apiServer = "https://www.onforte.com"
-let playlistsPath = "/playlists"
-let playlistIdPath = "/playlistid"
-let songsPath = "/songs"
-let songsByPlaylistIdPath = "/playlistsongs"
-let upvotePath = "/upvote"
-let downvotePath = "/downvote"
-let upvoteIdKey = "id"
-
-enum APIRequest {
-    case Playlists
-    case PlaylistId
-    case Songs
-    case SongsInPlaylist
-    case Upvote
-    case Downvote
-
-    internal func getAPIURL() -> NSURL {
-        switch(self) {
-        case .Playlists:
-            return NSURL(string: apiServer + playlistsPath)!
-        case .Songs:
-            return NSURL(string: apiServer + songsPath)!
-        case .SongsInPlaylist:
-            return NSURL(string: apiServer + songsByPlaylistIdPath)!
-        case .Upvote:
-            return NSURL(string: apiServer + upvotePath)!
-        case .Downvote:
-            return NSURL(string: apiServer + downvotePath)!
-        case .PlaylistId:
-            return NSURL(string: apiServer + playlistIdPath)!
-        case _:
-            fatalError()
-        }
-    }
-}
-
-
 // use NSJSONSerialization class
 
 class APIHandler {
+
+    static let apiServer = "https://onforte.herokuapp.com"
+    //static let apiServer = "https://www.onforte.com"
+    static let playlistsPath = "/playlists"
+    static let playlistIdPath = "/playlistid"
+    static let songsPath = "/songs"
+    static let songsByPlaylistIdPath = "/playlistsongs"
+    static let upvotePath = "/upvote"
+    static let downvotePath = "/downvote"
+    static let upvoteIdKey = "id"
+
+    enum APIRequest {
+        case Playlists
+        case PlaylistId
+        case Songs
+        case SongsInPlaylist
+        case Upvote
+        case Downvote
+
+        internal func getAPIURL() -> NSURL {
+            switch(self) {
+            case .Playlists:
+                return NSURL(string: apiServer + playlistsPath)!
+            case .Songs:
+                return NSURL(string: apiServer + songsPath)!
+            case .SongsInPlaylist:
+                return NSURL(string: apiServer + songsByPlaylistIdPath)!
+            case .Upvote:
+                return NSURL(string: apiServer + upvotePath)!
+            case .Downvote:
+                return NSURL(string: apiServer + downvotePath)!
+            case .PlaylistId:
+                return NSURL(string: apiServer + playlistIdPath)!
+            case _:
+                fatalError()
+            }
+        }
+    }
+
 
     internal static func convertJSONDateToNSDate(dateStr: String) -> NSDate? {
         let dateFormatter = NSDateFormatter()
@@ -109,10 +109,9 @@ class APIHandler {
             (result: Bool,playlist: Playlist?) in
             if result {
                 PlaylistHandler.playlist = playlist
-                // conceivably, either here or in there, we have to update service info.
                 PlaylistHandler.updatePlaylistSettings()
             } else {
-                // the server connection failed
+                // playlist connection is offline
             }
         })
     }
@@ -143,9 +142,7 @@ class APIHandler {
     internal static func joinPlaylist(playlistId: String, completion: (Bool,Playlist?) -> ()) {
         retrieveSinglePlaylistInfo(playlistId, completion: {
             (result: Bool,playlist: Playlist?) in
-            // can do extra handling here if necessary
             completion(result,playlist)
-//            completion(result)
         })
     }
 
@@ -164,8 +161,6 @@ class APIHandler {
                     return
                 }
                 if let obj = response.result.value {
-                    // comes back as a full Playlist
-
                     completion(Playlist(jsonData: obj))
                 } else {
                     completion(nil)
@@ -295,30 +290,4 @@ class APIHandler {
                 completion(songs)
             })
     }
-
-
-/*    private static func fetchAllSongs(completion: [Song]? -> ()) {
-        Alamofire.request(
-            .GET,
-            apiServer + songsPath,
-            parameters: nil,
-            encoding: .URL,
-            headers: nil).validate().responseJSON(completionHandler: {
-                (response) -> () in
-                guard response.result.isSuccess else {
-                    print("Error while fetching songs: \(response.result.error)")
-                    completion(nil)
-                    return
-                }
-
-                guard let results = response.result.value as? [AnyObject] else {
-                    print("Malformed data received from fetchAllSongs service")
-                    completion(nil)
-                    return
-                }
-                var songs = [Song]()
-                results.forEach({songs.append(Song( jsonData: $0))})
-                completion(songs)
-            })
-    }*/
 }
